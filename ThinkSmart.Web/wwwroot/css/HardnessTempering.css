@@ -1,0 +1,275 @@
+﻿body {
+}
+
+
+.tblInitRegister {
+    background-color: DarkRed;
+    width: 280px;
+    text-align: center;
+    border: 1px solid gray;
+    height: 60px;
+}
+
+.tblRowOperation {
+    background-color: white;
+    width: 100%;
+    text-align: center;
+    height: 60px;
+    padding-top: 5px;
+}
+
+.tblCloseButton {
+    background-color: Navy;
+    text-align: center;
+    border: 1px solid gray;
+    width: 100px;
+    height: 60px;
+}
+
+.tdHnew {
+    border-width: 1px;
+    border-style: solid;
+    background-color: #d8dee938;
+    text-align: center;
+    height: 15px;
+    border-color: gray;
+}
+
+.tdHSEC {
+    border-width: 1px;
+    border-style: solid;
+    background-color: #cde4eb;
+    text-align: center;
+    height: 15px;
+    border-color: gray;
+}
+
+.tdHthi {
+    border-width: 1px;
+    border-style: solid;
+    background-color: #cde4eb;
+    text-align: center;
+    height: 15px;
+    border-color: gray;
+}
+
+
+.tdH2new {
+    border-width: 0px;
+    border-style: solid;
+    background-color: #d8dee938;
+    text-align: center;
+    height: 15px;
+    border-color: black;
+}
+
+
+
+
+
+.ReadOnlyTextBoxhard {
+    border-style: inset;
+    width: 100%;
+    /*height: 18px;*/
+    background-color: #EEEEEE;
+    color: Black;
+    font-family: MS Gothic;
+    font-weight: 400;
+    font-size: 13px;
+    padding: 3px;
+}
+
+.ReadOnlyDropDown {
+    border-style: inset;
+    background-color: #EEEEEE;
+    color: Black;
+    font-family: MS Gothic;
+}
+
+.ReadOnlyLabelhard {
+    border-style: none;
+    width: 95%; /* TODO : Remove this */
+    height: 19px; /* TODO : Remove this */
+    background-color: #EEEEEE;
+    padding-top: 3px;
+    padding: 3px;
+    vertical-align: middle; /* TODO : Remove this */
+    font-family: MS Gothic; /* TODO : Remove this */
+    font-weight: 400; /* TODO : Remove this */
+    font-size: 13px; /* TODO : Remove this */
+    color: black;
+}
+
+.ReadOnlyDate {
+    border-style: none;
+    width: 250px; /* TODO : Remove this */
+    height: 18px; /* TODO : Remove this */
+    background-color: #EEEEEE;
+    border-left: 2px solid Gray;
+    border-top: 2px solid Gray;
+    padding-top: 3px;
+    padding: 3px;
+    vertical-align: middle; /* TODO : Remove this */
+    font-family: MS Gothic; /* TODO : Remove this */
+    font-weight: 400; /* TODO : Remove this */
+    font-size: 13px; /* TODO : Remove this */
+    color: black;
+    text-align: center;
+}
+
+.ReadOnlyTextBoxPO {
+    border-style: inset;
+    background-color: #EEEEEE;
+    margin-left: 0px;
+    color: black;
+    color: black;
+}
+
+.MandatoryDropdown {
+    background-color: #C1FFFF;
+    border-style: inset;
+    font-family: MS Gothic;
+    height: 23px;
+    color: black;
+}
+
+.MandatoryTextBoxTopPadding {
+    font-family: MS Gothic;
+    font-weight: 400;
+    font-size: 13px;
+    background-color: #C1FFFF;
+    border-style: inset;
+    padding-top: 5px;
+    color: black;
+}
+
+.Mandatorylabelhard {
+    font-family: MS Gothic;
+    font-weight: 400;
+    font-size: 13px;
+    background-color: #C1FFFF;
+    color: black;
+}
+
+
+.MandatoryTextBoxhard {
+    font-family: MS Gothic;
+    font-weight: 400;
+    font-size: 13px;
+    background-color: #C1FFFF;
+    border-style: none;
+    height: 22px;
+    color: black;
+}
+.MandatoryText1 {
+    font-family: MS Gothic;
+    font-weight: 400;
+    font-size: 13px;
+    background-color: #C1FFFF;
+    border-style: none;
+    height: 22px;
+    color: black;
+}
+
+.MandatoryText2 {
+    font-family: MS Gothic;
+    font-weight: 400;
+    font-size: 13px;
+    background-color: #C1FFFF;
+    border-style: none;
+    height: 22px;
+    color: black;
+}
+
+.MandatoryTD {
+    font-family: MS Gothic;
+    font-weight: 400;
+    font-size: 13px;
+    background-color: #C1FFFF;
+    height: 18px;
+    color: black;
+}
+
+
+
+#DivInitRegister, #DivThabaDetails, #DivDecisionLegends, #DivCloseButton {
+    float: left;
+    height: 84px;
+}
+
+.ie #DivInitRegister, .ie #DivThabaDetails, .ie #DivDecisionLegends, .ie #DivCloseButton {
+    float: left;
+    height: 80px;
+}
+#DivCloseButton {
+    background-color: Navy;
+    text-align: center;
+    /* border: 1px inset gray; */
+    width: 93px;
+}
+
+.TextBoxhard1 {
+    font-family: MS Gothic;
+    font-weight: 400;
+    font-size: 13px;
+    
+    border-style: none;
+    height: 22px;
+    color: black;
+}
+
+.disabled {
+    background-color: #EEEEEE !important;
+    /* background-color: #f2f2f2 !important;*/
+    pointer-events: none;
+}
+
+#txtInputSearch1, #txtInputSearch2, #txtInputSearch3, #txtInputSearch4 {
+    font-family: 'MS Gothic';
+    Width: 50px;
+    Height: 23px
+}
+#ddlHardnessOperator1, #ddlTemperingOperator1, #ddlHardnessOperator2, #ddlTemperingOperator2 {
+    Height: 24px;
+    Width: 148px;
+    border-style: none;
+}
+#txtQuenchingYobina, #txtTemperingYobina {
+    Width: 50px;
+}
+#ddlQuenchingOperator, #ddlTemperingOperator {
+    Width: 158px;
+    border-style: none;
+}
+#ddlCustomer
+{
+    min-width:124px;
+    background-color:revert;
+}
+.dropdownSearch1 > * {
+    box-sizing: border-box;
+    height: 1.5em;
+}
+
+.dropdownSearch1 input {
+    position: absolute;
+    width: 116px;
+    height: 22px;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    border-left: 1px solid lightgray;
+}
+#dataTextureOut, #dataTextureIn {
+    width: 135px;
+    border:1px solid lightgray;
+}
+.bgWhite
+{
+background-color:white;
+}
+.tblTaba {
+    margin-top: -2px;
+    margin-right: -4px;
+    margin-bottom: -2px;
+    height: 26px;
+}

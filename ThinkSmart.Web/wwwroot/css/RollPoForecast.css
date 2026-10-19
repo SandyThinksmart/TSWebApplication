@@ -1,0 +1,116 @@
+﻿#txtDate {
+    width: 80px;
+    height:24px;
+}
+#pnlHeader {
+    border: 2px solid gray;
+    height: 81px;
+}
+#txtBreakTime {
+    width: 190px;
+    height: 24px;
+}
+#div1 {
+    border-right: 2px solid gray;
+    margin-top: -1px;
+    height: 97px;
+    padding-top:4px;
+}
+
+#ddlCustomerName {
+    width: 200px;
+    height: 24px;
+}
+#txtRollPoYear, #txtRollPoNumber {
+    width: 90px;
+    height: 24px;
+}
+#pnlSearch {
+    width: 850px;
+    border-right: 2px solid gray;
+    margin-top: -1px;
+    height: 80px;
+    padding-top: 4px;
+}
+#pnlProductGrid {
+    width: 1302px;
+    border: 2px solid gray;
+    margin-top: -1px;
+    height: 378px;
+    padding-top: 1px;
+    overflow:auto;
+}
+#tblSearch1{
+    margin-top:-5px;
+}
+#tblSearch1 th {
+    border-top: 2px Inset white;
+    border-bottom: 2px Inset Lightgray;
+    padding:3px;
+}
+#tblFilter {
+    width:160px;
+    /*margin-top:19px;*/
+}
+#btnExtract, #btnSort, #btnExcel, #btnCSV, #btnInitialize {
+    width: 70px;
+}
+#pnlMaterialGrid {
+    width: 1302px;
+    border: 2px solid gray;
+    margin-top: -1px;
+    height: 370px;
+    padding-top: 1px;
+    overflow: auto;
+}
+#pnlBottom {   
+    padding-top: 4px;
+    padding-left:2px;
+    
+}
+#tblExport {
+    margin-bottom: 5px;
+    
+}
+#tblInitialize {
+    min-width: 100px;
+    
+}
+#tblClose {
+    width: 100px;
+    height: 100%;
+    margin-bottom: 5px;
+}
+#lblAuxiliaryFunctionCSVExcel {
+    color: white;
+    margin-left: 8px;
+    white-space:nowrap;
+}
+.freez1 > th {
+    position: sticky !important;
+    background-color: #4e6cab;
+    top: -4px;
+    height: 19px;
+    white-space: nowrap;    
+}
+.freez2 > th {
+    position: sticky !important;
+    background-color: #7291D2;
+    top: 18px;
+    height: 20px;    
+    white-space: nowrap;    
+}
+.freez3 > th {
+    position: sticky !important;
+    background-color: #7291D2;
+    top: 40px;
+    height: 20px;
+    white-space: nowrap;    
+}
+.freez4 > th {
+    position: sticky !important;
+    background-color: #b2c3e6;
+    top: 75px;
+    height: 20px;
+    white-space: nowrap;    
+}

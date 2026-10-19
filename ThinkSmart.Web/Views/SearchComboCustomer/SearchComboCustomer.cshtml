@@ -1,0 +1,38 @@
+﻿@using TSWebApplication.Domain.Utility
+@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+
+
+@{
+    var data = (Tuple<string, string, string,string,int>)Model;
+    string txtName = data.Item1;
+    string btnName = data.Item2;
+    string ddlName = data.Item3;
+    string resrName = data.Item4;
+    int index = data.Item5;
+}
+@{
+    Layout = null;
+}
+<link href="~/css/SearchComboCustomer.css" rel="stylesheet" asp-append-version="true" />
+<div id="divSearchComboCustomer" >
+    <table class="tblMainCustomer">
+        <tr>
+            <td align="left" valign="top">
+                <input name="@txtName" type="text" class="form-control SearchText InActiveIMEMode labelClass" id="@txtName" tabindex="@index" maxlength="6" />
+
+            </td>
+            <td align="left" valign="top" class="SetLeftPadding">
+                <input type="button" name="@btnName" value="-" id="@btnName" tabindex="@index+1" class="SearchButton" onclick="GetCustomerListByYobina($(this))" />
+            </td>
+            <td align="left" valign="top" class="SetLeftPadding">
+                <select ID="@ddlName" data-type="DropDown" onload="BindCustomerList('@ddlName')" TabIndex="@index+2" class=" SearchDropDown MandatoryDropdown Mandatory DropdownListClass dropListClass form-control" errorLabel="@LocalizationServices.GetLocalizedHtmlString(@resrName)">
+                </select>
+
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+<script src="~/Static/js/SearchComboCustomer.js" asp-append-version="true"></script>

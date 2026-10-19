@@ -1,0 +1,1369 @@
+﻿.Mandatory 
+{
+    background-color: #C1FFFF;    
+}
+
+#frmProcessEntryTemplate {
+    /*height: 850px; */
+    margin-left: 8px;
+    margin-right: 8px;
+    width: 1172px;
+  
+}
+#txtCustomerT1, #txtMaterialNameMakerT1, #txtProdNameCustomerT1, #txtStampT1,  #txtProductionProcessT1,
+#txtDeliveryDateT1, #txtReceiverT1,  #txtMatlDimT1, #txtProdDimT1, #txtDimToleranceT1, #txtLengthT1, #txtQuantityT1, 
+ #txtLengthToleranceT1, #txtProductSpecNoT1, #txtUnitWtT1, #txtColorT1, #txtBendStandardT1, #txtExtTextureT1,
+#txtDisplayT1, #txtPackingT1, #txtIntDiaMinT1, #txtExtDiaMaxT1, #txtWindingDirectionT1, #txtProdOrderRemarkT1 {
+    text-align: left;
+    padding-left: 2px;
+}
+/*
+#divTopDetails
+{
+    height:113px;
+}
+
+ie #divTopDetails
+{
+     height:115px;
+}*/
+
+#DivInitRegister, #DivThabaDetails, #DivDecisionLegends, #DivCloseButton 
+{
+     float:left;
+     height: 84px;
+}
+
+.ie #DivInitRegister, .ie #DivThabaDetails, .ie #DivDecisionLegends, .ie #DivCloseButton 
+{
+     float:left;
+     height: 80px;
+}
+
+
+#DivInitRegister {
+    background-color: #C00000;
+    width: 175px;
+    text-align: center;
+}
+#DivThabaDetails, #pnlThabaDetails
+{
+    width: 900px
+}
+#DivCloseButton 
+{
+  /*  height:111px;*/
+}
+
+#lblMaru
+{
+    width: 20px;
+   /* margin-left:-6px;*/
+}
+#lblCross, #lblTraingle, #lblDiamond
+{
+    /*margin-left:-6px;*/
+}
+
+
+#divLblClose, #divBtnClose
+{
+    height: 35px;
+    line-height: 60px;
+}
+
+#lblClose
+{
+    display: block;
+    height: 100%;
+   font-size:12px;
+}
+
+#DivCloseButton
+{
+    background-color: Navy;
+    text-align: center;
+   /* border: 1px inset gray; */
+    width: 93px;
+}
+
+
+
+
+.ThabaGrid
+{
+    width:100%; 	
+    font-family:MS Gothic;
+    font-weight:400;
+    font-size:13px;
+}
+
+.ThabaGrid tr
+{
+    height:26px;
+}
+
+.ThabaGrid td
+{
+    width:20px;
+   
+}
+
+.ThabaGrid tr td 
+{
+        text-align: center;
+} 
+ 
+.ThabaGrid .Odd
+{
+background-color: Lavender;
+}
+ 
+.ThabaGrid .Even
+{
+background-color: White;
+}
+    .ThabaGrid .Row {
+        background-color: #7291D2;
+    }
+
+/* .thabaNo #span
+{
+ margin-left:-12px;
+ }
+ 
+ .thabaSymbol #span
+{
+margin-left:-6px;
+}*/
+
+
+
+#divPMSData
+{
+    width: 100%; 
+    float: left; 
+    height: 500px;
+}
+#tblPMSData
+{
+   /* width: 100%; */
+    height: 100%; 
+   /* border: 1px inset;*/
+}
+
+#tdPMSDataEntry
+{
+    width: 1170px;
+    vertical-align: top;
+}
+
+#pnlSearch, #pnlProductDetails
+{ 
+    width: 1005%;
+    border: 0.5px inset lightgrey;
+}
+
+#TabContainerPMS_header 
+{
+font-size: 12px;    
+}
+ 
+#TabContainerPMS_body 
+{
+padding: 0;    
+}
+
+#TbPrductEntry 
+{
+width: 1166px; 
+border: 1px inset lightgrey;
+}
+
+/* Style for Search Panel */
+#tblPnlSearch
+{
+    height: 66px;
+    width: 100%;
+    table-layout:fixed;
+}
+#tdLblChuuban
+{
+    width: 60px;
+}
+
+#tdTxtChuubanGyouban
+{
+    width: 165px;
+}
+
+#divTxtChuubanGyouban
+{
+    width: 114px;
+}
+
+#tdSearchButton
+{
+    width: 200px;
+}
+
+/* Style for Message tab */
+#TbMessage
+{
+    width: 875px;
+    height: 738px;
+    /*border: 1px inset lightgrey;*/
+}
+
+#TbMessage .grdvMessage .GridNormalRow td span
+{
+    font-size: 14px;
+}
+
+#TbMessage #grdvMessage .GridHeader th
+{
+    font-weight: normal;
+    text-align: center;
+}
+
+#tdtxtChuubanT1
+{
+    width: 200px;
+}
+
+
+#divProdSpecNumberT1
+{
+    /*width: 198px;*/
+    float: right;
+}
+
+#spantxtProductSpecNoT1, #spanlblProductSpecNoT1
+{
+    display: inline-block;
+}
+
+ 
+#pnlSearch, #pnlProductDetails
+{ 
+    width: 100%;
+    border: 2px inset lightgrey;
+}
+ 
+#TabContainerPMS_header 
+{
+font-size: 12px;    
+}
+ 
+#TabContainerPMS_body 
+{
+padding: 0;    
+}
+ 
+#pnlProductDetails span
+{
+    display: inline-block;
+}
+ 
+#txtProductSpecNoT1
+{
+    width: 112px;
+}
+
+#txtChuubanT4, #txtCustomerInchargeT4, #txtChargeT4, #txtProdDimOtherT4, #txtConditionT1, #txtConditionT4 {
+    width: 110px;
+    text-align: left;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+#txtCustomerInchargeT1 {
+    width: 100%;
+    text-align: left;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+#txtChuubanT1, #txtChargeT1, #txtProdDimOtherT1 {
+    width: 110px;
+    text-align: left;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+#txtStampT1, #txtNoOfUnitsT1 {
+    width: 70px;
+}
+ 
+#txtLengthToleranceT1, #txtLengthToleranceT4
+{
+    width: 80px;
+}
+ 
+#txtDeliveryDateT1, #txtReceiverT1, #txtCustomerT1, #txtMaterialNameMakerT1, #txtProdNameCustomerT1
+{
+    width: 140px;
+}
+#txtHostRefNoT1, #txtHostRefNoT4 {
+    width: 140px;
+    text-align : right;
+    padding-left:2px;
+    padding-right:2px;
+}
+#txtDimToleranceT1, #txtDimToleranceT4 {
+    width: 140px;
+}
+ 
+#tdtxtMatlShapeT1
+{
+    width: 55px;
+}
+ 
+#tdlblMatlDimT1
+{
+    width: 30px;
+}
+ 
+#txtMatlShapeT1, #txtProdShapeT1
+{
+    width: 30px;
+}
+ 
+#txtMatlDimT1, #txtProdDimT1, #txtMatlDimT4, #txtProdDimT4
+{
+    width: 49px;
+    text-align:right;
+    
+}
+
+#txtUnitWtT4 {
+    width: 92px;
+    margin-left: -47px;
+    text-align: right;
+}
+#txtUnitWtT1 {
+    width: 89px;
+    text-align: right;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+#txtLengthT1, #txtLengthT4, #txtQuantityT1, #txtQuantityT4
+{
+    width: 36px;
+    text-align:right;
+
+}
+
+#txtStdDeliveryDateT1, #txtColorT1 {
+    width: 114px;
+    text-align: left;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+ 
+ 
+#tdtxtBendStandardT1
+{
+    width: 183px;
+}
+
+#txtBendStandardT1, #txtExtTextureT1, #txtDisplayT1, #txtPackingT1
+{
+    width: 181px;
+}
+ 
+ #txtIntDiaMinT1, #txtExtDiaMaxT1
+ {
+     width: 73px;
+     background-color: lightgrey;
+ }
+  #txtWindingDirectionT1
+ {
+     width: 72px;
+     background-color: lightgrey;
+ }
+ #txtKakouiraiRemarksT1
+ {
+     width: 385px;
+ }
+ #txtProdOrderRemarkT1
+  {
+     width: 561px;
+ }
+ #txtProductionProcessT1
+ {
+     width: 783px;
+ }
+ 
+ .gridProcessHistory table span
+ {
+ 	font-size: 11.5px !important;
+ 	}
+ 	
+
+#tdlblChuubanT1
+{
+    width: 87px;
+}
+
+/*#tdtxtChuubanT1
+{
+    width: 190px;
+}*/
+
+#tdlblDeliveryDateT1
+{
+    width: 60px;
+}
+
+#tdtxtDeliveryDateT1
+{
+    width: 150px;
+}
+
+#tdlblCustomerInchargeT1
+{
+    width: 72px;
+}
+
+#tdtxtCustomerInchargeT1
+{
+    width: 125px;
+}
+
+#tdEmptyRow2Col7
+{
+    width: 50px;
+}
+
+#tdlblStdDeliveryDateT1 {
+    width: 83px;
+    text-align: center;
+}
+
+#tdtxtStdDeliveryDateT1 {
+    width: 71px;
+    
+}
+
+#spantxtKakouiraiRemarksT1
+{
+    width: 330px;
+}
+
+#tdlblUnitWtT1 {
+    width: 60px;
+    text-align: center;
+}
+
+#tdtxtUnitWtT1
+{
+    width: 65px;
+}
+
+#spanCoilDetailsT1
+{
+    background-color: lightgrey;
+    width: 100%
+}
+ #txtChamferT4
+ {
+     width: 41px;
+ }
+
+
+ /* Style for Process Details tab */
+
+#TbProcessInfo span
+{
+    display: inline-block;
+}
+
+#TbProcessInfo 
+{
+width: 1166px; 
+border: 1px inset lightgrey;
+height:764px;
+}
+
+#pnlProcessInfo
+{ 
+    width: 100%;
+    border: 1px inset lightgrey;
+}
+
+#pnlProcessStartData, #pnlProcessEndData
+{
+     border: 2px inset lightgrey !important;
+}
+
+ /* Tab 4 Div 1 : Product Info */
+
+
+#divProcessInfo
+{
+     border: 0.5px inset lightgrey;
+}
+
+#tblProcessInfo
+{
+    width: 1024px;
+}
+
+#divProdSpecNumberT4
+{
+    /*width: 198px;*/
+    float: right;
+}
+
+#spantxtProductSpecNoT4, #spanlblProductSpecNoT4
+{
+    display: inline-block;
+}
+
+#txtProductSpecNoT4
+{
+    width: 112px;
+}
+ 
+ #txtChamferT4
+ {
+     width: 41px;
+ }
+#txtChamferT1 {
+    width: 65px;
+    text-align: left;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+#txtStampT4, #txtNoOfUnitsT4
+{
+    width: 70px;
+}
+
+ 
+#txtDeliveryDateT4, #txtReceiverT4,  #txtCustomerT4, #txtMaterialNameMakerT4, #txtProdNameCustomerT4
+{
+    width: 140px;
+}
+ 
+#tdtxtMatlShapeT4
+{
+    width: 55px;
+}
+ 
+#tdlblMatlDimT4
+{
+    width: 30px;
+}
+ 
+#txtMatlShapeT4, #txtProdShapeT4 
+{
+    width: 30px;
+}
+
+#txtMatlShapeT1, #txtProdShapeT1 {
+    width: 45px;
+    text-align: left;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+ 
+
+     
+#txtStdDeliveryDateT4, #txtColorT4
+{
+    width: 78px;
+}
+ 
+#tdtxtBendStandardT4
+{
+    width: 180px;
+}
+
+#txtBendStandardT4, #txtExtTextureT4, #txtDisplayT4, #txtPackingT4
+{
+    width: 178px;
+}
+ 
+ #txtIntDiaMinT4, #txtExtDiaMaxT4
+ {
+     width: 73px;
+     background-color: lightgrey;
+ }
+  #txtWindingDirectionT4
+ {
+     width: 73px;
+     background-color: lightgrey;
+ }
+ #txtKakouiraiRemarksT4
+ {
+     width: 500px;
+ }
+ #txtProdOrderRemarkT4
+  {
+     width: 369px;
+ }
+ #txtProductionProcessT4
+ {
+     width: 811px;
+ }
+ 
+ .gridProcessHistory table span
+ {
+ 	font-size: 11.5px !important;
+ 	}
+ 	
+
+#tdlblChuubanT4
+{
+    width: 50px;
+}
+
+#tdtxtChuubanT4
+{
+    width: 250px;
+}
+
+#tdlblDeliveryDateT4
+{
+    width: 60px;
+}
+
+#tdtxtDeliveryDateT4
+{
+    width: 150px;
+}
+
+#tdlblCustomerInchargeT4
+{
+    width: 122px;
+}
+#lblBendStandardT4 {
+    width: 60px;
+}
+
+#tdtxtCustomerInchargeT4
+{
+    width: 125px;
+}
+
+#tdEmptyRow2Col7
+{
+    width: 50px;
+}
+
+#tdlblStdDeliveryDateT4
+{
+    width: 30px;
+}
+
+#tdtxtStdDeliveryDateT4
+{
+    width: 71px;
+}
+
+#spantxtKakouiraiRemarksT4
+{
+    width: 330px;
+}
+
+#tdlblUnitWtT4 {
+    width: 29px;
+    margin-left: -28px;
+}
+#lblUnitWtT4 {
+    margin-left: -16px;
+}
+
+#tdtxtUnitWtT4 {
+    width: 65px;
+}
+
+#spanCoilDetailsT4
+{
+    background-color: lightgrey;
+    width: 100%
+}
+
+/* End Tab 4 Div 1 : Product Info */
+
+/* Tab 4 Div 2 : Test Specifications */
+
+#pnlTestSpecifications
+{
+    border: 1px inset lightgrey;
+}
+
+#tblTestSpecifications
+{
+    width: 1024px;
+    table-layout: fixed;
+}
+
+#trTestSpecificationsEmtpyRow0
+{
+    height: 12px;
+}
+
+#txtJISTestSpecimen
+{
+    width: 165px;
+}
+
+#txtTensileStrength, #txtYieldPoint
+{
+    width: 149px;
+}
+
+#txtElongation, #txtReduction
+{
+    width: 165px;
+}
+
+#txtHardness
+{
+    width: 440px;
+}
+
+#txtDecarb
+{
+    width: 515px;
+}
+
+/* End Div 2 : Test Specifications */
+/* Div 3 : Process Details */
+
+#pnlProcessDetails
+{
+  /*  border: 2px inset lightgrey;*/
+    height: 361px;
+}
+
+#grdvProdPointData
+{
+    table-layout: fixed;
+    width: 1024px;
+}
+
+.ProcessDetailsNumber
+{
+    width: 40px;
+}
+
+.ProcessName
+{
+    width: 150px;
+}
+
+.ProdPointDetails
+{
+    width: 670px;
+}
+/* End Div 3 : Process Details */
+
+/* End style for Process Details tab */
+
+
+/* Style for History Search tab */
+
+#TbHistorySearch
+{
+    border: 1px inset lightgrey;
+    width: 875px;
+}
+
+#TbHistorySearch span
+{
+    display: inline-block;
+}
+
+/* Div 1 : Customer Details */
+
+#pnlCustomerDetails
+{
+    border: 0.5px inset lightgrey;
+}
+
+#tblCustomerDetails
+{
+    width: 873px;
+}
+
+#trTblCustomerDetailsEmptyRow0, #trTblCustomerDetailsEmptyRow4
+{
+    height: 18px;
+}
+
+#tdTxtChuubanGyoubanT2
+{
+    width: 185px;
+}
+
+#tdLblChuubanGyoubanT2
+{
+    width: 62px;
+}
+
+#txtChubanT2
+{
+    width: 130px;
+}
+
+#txtGyobanT2
+{
+    width: 30px;
+}
+
+#txtCustomerT2, #txtReceiverT2, #txtSalesInchargeT2
+{
+    width: 175px;
+}
+
+#tdbtnChuubanGyoubanSearchT2
+{
+    width: 93px;
+}
+
+/* End Div 1 : Customer Details */
+
+/* Div 2 : Product Dimension Details */
+
+
+#divProductDimensionDetails
+{
+    border: 1px inset lightgrey;
+}
+
+#tblProductDimensionDetails
+{
+    width: 873px;
+}
+
+#trTblProductDimensionDetailsEmptyRow0, #trTblProductDimensionDetailsEmptyRow4
+{
+    height: 18px;
+}
+
+#tdLblProdNameCustT2
+{
+    width: 62px;
+}
+
+#txtProdNameCustT2, #txtDimToleranceT2, #txtProdNameIntT2
+{
+    width: 175px;
+}
+
+#tdTxtProdNameCustT2, #tdTxtProdNameIntT2
+{
+    width: 197px;
+}
+
+#tdLblProdNameIntT2
+{
+    width: 80px;
+}
+
+#txtLengthT2
+{
+    width: 75px;
+}
+
+#tdLblShapeDimLengthT2
+{
+    width: 90px;
+}
+
+#txtShapeDimLengthT2, #txtBendStdT2
+{
+    width: 157px;
+}
+    
+#txtProductionProcessT2
+{
+    width: 745px;
+}
+/* End Div 2 : Product Dimension Details */
+
+/* Div 3 : Material Dimension Details */
+
+#divMaterialDetails
+{
+    border: 1px inset lightgrey;
+}
+
+#tblMaterialDetails
+{
+    width: 873px;
+}
+
+#trTblMaterialDetailsEmptyRow0, #trTblMaterialDetailsEmptyRow2
+{
+    height: 18px;
+}
+
+#tdLblMaterialNameMakerT2
+{
+    width: 25px;
+}
+
+#lblMaterialNameMakerT2
+{
+    width: 65px;
+}
+
+#tdTxtMaterialT2
+{
+    width: 345px;
+}
+
+#txtMaterialT2
+{
+    width: 135px;
+}
+
+#tdLblMaterialDimT2, #lblMaterialDimT2
+{
+    width: 50px;
+}
+
+#txtDimT2
+{
+    width: 135px;
+}
+
+/* End Div 3 : Material Dimension Details */
+
+/* Div 4 : Process History Details */
+
+#divProcessHistory
+{
+    height: 516px;
+    border: 1px inset lightgrey;
+}
+
+/* End Div 4 : Process History Details */
+
+/* End style for History Search tab */
+
+
+/* Style for Message tab */
+#TbMessage
+{
+    width: 875px;
+    height: 529px;
+   /* border: 1px inset lightgrey; */
+}
+
+#TbMessage .grdvMessage .GridNormalRow td span
+{
+    font-size: 14px;
+}
+
+#TbMessage #grdvMessage .GridHeader th
+{
+    font-weight: normal;
+    text-align: center;
+}
+
+.HeaderMessageDate
+{
+    width: 140px;
+}
+
+.HeaderMachineName
+{
+    width: 160px;
+}
+
+.HeaderProcessName
+{
+    width: 120px;
+}
+
+.HeaderEndOperator
+{
+    width: 130px;
+}
+
+.HeaderMessageContent
+{
+    width: 309px;
+}
+/* End style for Message tab */
+
+/*****************************************************************************/
+/****************************** Chrome Hacks **************************/
+/*.webkit #frmProcessEntryTemplate
+{
+    height: 800px; 
+    margin-top:16px;
+}
+
+.webkit #divPMSData
+{
+    height: 700px;
+}*/
+
+/* Style for Product Details tab */
+
+.webkit #pnlProcessDetails
+{
+    height: 315px;
+}
+
+/* Div 1 : Product Info */
+
+.webkit #txtProductSpecNoT1
+{
+    width: 118px;
+}
+
+.webkit #txtIntDiaMinT1, .webkit #txtExtDiaMaxT1
+{
+    width: 80px;
+}
+
+.webkit #txtWindingDirectionT1
+{
+    width: 72px;
+}
+
+.webkit #txtProdOrderRemarkT1
+{
+    width: 376px;
+}
+
+.webkit #txtProductionProcessT1
+{
+    width: 917px;
+}
+
+.webkit #txtBendStandardT1, .webkit #txtExtTextureT1, .webkit #txtDisplayT1, .webkit #txtPackingT1 {
+    width: 198px;
+    text-align: left;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+/* End Div 1 : Product Info */
+
+/* Style for Product Details tab */
+
+/* Div 1 : Product Info */
+
+.webkit #txtProductSpecNoT4
+{
+    width: 118px;
+}
+
+.webkit #txtIntDiaMinT4, .webkit #txtExtDiaMaxT4
+{
+    width: 61px;
+}
+
+.webkit #txtWindingDirectionT4
+{
+    width: 78px;
+}
+
+.webkit #txtProdOrderRemarkT4
+{
+    width: 378px;
+}
+
+.webkit #txtProductionProcessT4
+{
+    width: 815px;
+}
+
+.webkit #txtBendStandardT4, .webkit #txtExtTextureT4, .webkit #txtDisplayT4, .webkit #txtPackingT4
+{
+    width: 182px;
+}
+
+/* End Div 1 : Product Info */
+
+/* End style for Process Details tab */
+
+
+/* Style for Process History tab */
+.webkit #divProcessHistory
+{
+    height: 560px;
+}
+/* End style for Process History tab */
+
+
+/* Style for Message tab */
+.webkit #TbMessage
+{
+    height: 570px;
+}
+/* End style for Message tab */
+
+
+/**************************** End Chrome Hacks ************************/
+/*****************************************************************************/
+
+
+/*****************************************************************************/
+/******************************** IE Hacks ****************************/
+
+/********************************  < IE9 ****************************/
+
+/* Style for Product Entry tab */
+
+.ie #txtIntDiaMinT1, .ie #txtExtDiaMaxT1
+{
+    width: 80px;
+    background-color: lightgrey;
+}
+    
+.ie #txtStdDeliveryDateT1, .ie #txtColorT1
+{
+    width: 79px;
+    /*width:80px;*/
+}
+ 
+.ie #txtProductSpecNoT1
+{
+    width: 118px;
+}
+    
+.ie #txtProdOrderRemarkT1
+{
+    width: 440px;
+}
+    
+.ie #txtProductionProcessT1
+{
+  /*  width: 780px;*/
+}
+
+.ie #txtBendStandardT1, .ie #txtExtTextureT1, .ie #txtDisplayT1, .ie #txtPackingT1
+{
+    width: 180px;
+}
+
+.ie #txtWindingDirectionT1
+{
+    width: 78px;
+}
+
+/* End Style for Product Entry tab */
+
+/* Style for Process Details tab */
+
+.ie #txtIntDiaMinT4, .ie #txtExtDiaMaxT4
+{
+    width: 80px;
+    background-color: lightgrey;
+}
+    
+.ie #txtStdDeliveryDateT4, .ie #txtColorT4
+{
+    width: 79px;
+}
+ 
+.ie #txtProductSpecNoT4
+{
+    width: 118px;
+}
+    
+.ie #txtProdOrderRemarkT4
+{
+    width: 442px;
+}
+    
+.ie #txtProductionProcessT4
+{
+    width: 815px;
+}
+
+.ie #txtBendStandardT4, .ie #txtExtTextureT4, .ie #txtDisplayT4, .ie #txtPackingT4
+{
+    width: 180px;
+}
+
+.ie #txtWindingDirectionT4
+{
+    width: 78px;
+}
+
+/* End Style for Process Details tab */
+
+/********************************  End < IE9 ****************************/
+
+/********************************  = IE7 ****************************/
+
+/* Style for Product Entry tab */
+
+.ie7 #txtProductSpecNoT1
+{
+    width: 118px;
+}
+
+.ie7 #txtWindingDirectionT1
+{
+    width: 71px;
+    background-color: lightgrey;
+}
+
+.ie7  #txtDisplayT1, .ie7 #txtPackingT1
+{
+    width: 177px;
+}
+
+/* End Style for Product Entry tab */
+
+/* Style for Process Details tab */
+
+.ie7 #txtProductSpecNoT4
+{
+    width: 118px;
+}
+
+.ie7 #txtWindingDirectionT4
+{
+    width: 68px;
+    background-color: lightgrey;
+}
+
+.ie7  #txtDisplayT4, .ie7 #txtPackingT4
+{
+    width: 177px;
+}
+
+/* End Style for Process Details tab */
+
+/********************************  End = IE7 ****************************/
+
+/********************************  = IE8 ****************************/
+.ie8 #divProdSpecNumberT1, .ie8 #divProdSpecNumberT4
+{
+    /*width: 205px;*/
+}
+
+.ie8 #txtWindingDirectionT1, .ie8 #txtwindingdirectiont4,
+.ie8 #txtIntDiaMinT1, .ie8 #txtExtDiaMaxT1, 
+.ie8 #txtIntDiaMinT4, .ie8 #txtExtDiaMaxT4
+{
+    width: 70px;
+}
+
+.ie8 #txtProdOrderRemarkT1, .ie8 #txtProdOrderRemarkT4
+{
+    width: 345px;
+}
+
+.ie8 #txtProductionProcessT1, .ie8 #txtProductionProcessT4
+{
+    width: 815px;
+}
+#lblCT1, #lblCT4 {
+    vertical-align: middle;
+}
+
+/******************************** End = IE8 ****************************/
+
+/********************************  >= IE10 ****************************/
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) 
+{
+    
+    /* Style for Product Entry tab */
+
+    #txtIntDiaMinT1, #txtExtDiaMaxT1
+    {
+        width: 80px;
+        background-color: lightgrey;
+    }
+    
+    #txtStdDeliveryDateT1, #txtColorT1
+    {
+        width: 79px;
+    }
+ 
+    #txtProductSpecNoT1
+    {
+        width: 118px;
+    }
+    
+    #txtProdOrderRemarkT1
+    {
+        width: 376px;
+    }
+    
+    #txtProductionProcessT1
+    {
+        width: 783px;
+    }
+ 
+    #txtBendStandardT1, #txtExtTextureT1, #txtDisplayT1, #txtPackingT1
+    {
+        width: 180px;
+    }
+    
+    #txtWindingDirectionT1
+    {
+        width: 78px;
+    }
+     
+    /* End Style for Product Entry tab */
+     
+    /* Style for Process Details tab */
+     
+    #txtIntDiaMinT4, #txtExtDiaMaxT4
+    {
+        width: 80px;
+        background-color: lightgrey;
+    }
+    
+    #txtStdDeliveryDateT4, #txtColorT4
+    {
+        width: 79px;
+    }
+ 
+    #txtProductSpecNoT4
+    {
+        width: 118px;
+    }
+    
+    #txtProdOrderRemarkT4
+    {
+        width: 378px;
+    }
+    
+    #txtProductionProcessT4
+    {
+        width: 815px;
+    }
+ 
+    #txtBendStandardT4, #txtExtTextureT4, #txtDisplayT4, #txtPackingT4
+    {
+        width: 180px;
+    }
+    
+     #txtWindingDirectionT4
+     {
+         width: 78px;
+     }
+
+     .Paddingset
+     {
+         padding: 3px;
+     }
+     
+     #lblKakouiraiRemarksT1,#lblKakouiraiRemarksT2{
+         width:80px;
+     }
+   
+
+     /* End Style for Process Details tab */
+}
+
+/********************************  End >= IE10 ****************************/
+
+
+/************************** End of IE Hacks ***************************/
+/*****************************************************************************/
+

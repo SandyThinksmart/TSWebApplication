@@ -1,0 +1,633 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using TSWebApplication.Domain.Resources
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using TSWebApplication.Web
+@using TSWebApplication.Web.Models
+@inject LocalizationServices LocalizationServices
+@{
+    //ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_PostHTInspectionEntryEditDelete").Value.Replace("</br>", "");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/Common.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/masterStyles.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/ProcessEntryTemplate2.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/PostHTInspectionEntry.css" rel="stylesheet" asp-append-version="true" />
+
+
+<asp:ScriptManager ID="ScriptManager1">
+</asp:ScriptManager>
+@* <script>
+    $(document).ready(function () {
+   // window.resizeTo(1440, 770);
+
+     });
+    </script>*@
+
+
+
+<table>
+    <tr>
+        <td>
+
+            <table style="height: 100%;margin-top: 18px;" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td style="width: 500px">
+                        <table style="width: 480px; height: 60px; background-color: #C00000;">
+                            <tr>
+                                <td colspan="5" align="center" valign="bottom">
+                                    <label ID="lblBasicOperation" class="labelClass" style="color:white">@LocalizationServices.GetLocalizedHtmlString("lbl_BasicOperations")</label>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")" ID="btnInitialize" class="_functionButtons"
+                                           style="width: 90px;margin-left:3px" CausesValidation="false" TabIndex="40" />
+                                </td>
+                                <td>
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Register")" ID="btnSave" ValidationGroup="TrnValidation" class="_functionButtons"
+                                           style="width: 90px" CausesValidation="false" TabIndex="38" />
+                                </td>
+                                <td>
+                                    @*  <a href="/PostHTInspection/PostHTInspectionList" target="PostHTInspectionList" onClick='window.location = "@Url.Action("PostHTInspectionList", "PostHTInspection")";' />*@@*"javascript:open('/PostHTInspection/PostHTInspectionList', 'PostHTInspectionList','height=540,width=500',resizable=no')">*@
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Select")" ID="btnSelect" ValidationGroup="TrnValidation" class="_functionButtons"
+                                           style="width:90px" CausesValidation="false" TabIndex="41" />
+
+                                </td>
+                                <td>
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Edit")" ID="btnEdit" ValidationGroup="TrnValidation" class="_functionButtons"
+                                           style="width: 90px" CausesValidation="false" TabIndex="42" />
+                                </td>
+                                <td>
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Delete")" ID="btnDelete" class="_functionButtons" CausesValidation="false"
+                                           style="width:90px" TabIndex="43" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+
+                    <td style="width: 120px">
+                        <table id="tblPrint" cellpadding="0" cellspacing="0" style="width: 100px; height: 60px; background-color: forestgreen;">
+                            <tr>
+                                <td colspan="2" align="center" valign="bottom">
+                                    <label ID="lblSearchCondition" class="labelClass" style="color:White">@LocalizationServices.GetLocalizedHtmlString("lbl_ExtractByChuuban")</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Extract")" ID="btnChuubanSearch" class="_functionButtons"
+                                           style="Width:90px"
+                                           CausesValidation="false" TabIndex="11" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+
+                    <td style="width: 110px">
+                        <table id="tblPrint" cellpadding="0" cellspacing="0" style="width: 283px; height: 60px; background-color: #8064a2;margin-right: 8px">
+                            <tr>
+                                <td colspan="3" align="center" valign="bottom">
+                                    <label ID="lblSearchByFurnaceNumber" class="labelClass" style="color:White">@LocalizationServices.GetLocalizedHtmlString("lbl_SearchByFurnaceNumber")</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="padding-left: 2px;">
+                                    <label ID="button" class="labelClass lbl_FurnaceNum" style="width:44px">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</label>
+                                </td>
+                                <td>
+                                    <input type="text" TabIndex="44" ID="txtFurnaceNum" maxlength="10"
+                                           style="Width:90px;margin-left: -7px;height:22px"><span class="text-danger" />
+                                </td>
+
+
+                                <td align="left" style="witdh:124px">
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Extract")" ID="btnFurnaceSearch" class="_functionButtons"
+                                           style="Width:90px"
+                                           CausesValidation="false" TabIndex="44" />
+                                </td>
+
+                            </tr>
+                        </table>
+                    </td>
+
+                    <td style="width: 110px">
+                        <table id="lbRowlDelete" cellpadding="0" cellspacing="0" style="width: 100px; height: 60px; background-color: rgb(237,135,45);">
+                            <tr>
+                                <td colspan="2" align="center" valign="bottom">
+                                    <label ID="lblbtnDeleteRow" class="labelClass" style="color:White">@LocalizationServices.GetLocalizedHtmlString("btn_DeleteRow_L")</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_DeleteRow_L")" ID="btnDeleteRow" class="_functionButtons"
+                                           style="Width:90px;"
+                                           }"
+                                           CausesValidation="false" TabIndex="44" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+
+                    <td style="width: 611px;"></td>
+
+
+                    <td style="width: 110px">
+                        <table id="lbRowlDelete" cellpadding="0" cellspacing="0" style="width: 100px; height: 60px; background-color: navy;">
+                            <tr>
+                                <td colspan="2" align="center" valign="bottom">
+                                    <label ID="lblCloseButton" class="labelClass" style="color:White">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnClose" class="_functionButtons" OnClick="btnClose_Click" TabIndex="39"
+                                           style="width:90px" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+
+
+
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+
+            @*<input type="hidden" id="hdfGroupNo" name="hdfGroupNo" />*@
+            <table style="height: 65px;" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td style="width: 50px;">
+                        <label ID="lblInspectionDate" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_InspectionDate")</label>
+                    </td>
+
+                    <td style="width: 135px;">
+                        <input type="text" ID="txtInspectionDate" class="form-control Mandatory textboxheight MandatoryTextBox InActiveIMEMode"
+                               TabIndex="1" style="Width:121px" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_InspDateRequired")"><span class="text-danger" /></span>
+                    </td>
+                    <td align="center" style="width: 60px;">
+                        <label ID="lblInspector" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Inspector")</label>
+                    </td>
+                    <td style="width: 220px;">
+                        <table cellpadding="1" cellspacing="0">
+
+                            <tr id="trsc">
+
+                                <input type="text" ID="txtStartOperator" class="TextFieldsClass Mandatory form-control" style="text-transform:uppercase"
+                                       TabIndex="2" MaxLength="20" errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_StartOperatorRequired")">
+                                <span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_OperatorRequired")</span>
+
+
+                               @*  <td>
+                                    <input type="text" ID="txtInputSearch" runat="server" class=" form-control TextFieldsClass" style="font-family:'MS Gothic';Width:43px; Height:22px" ;
+                                           BorderStyle="Inset" MaxLength="6" TabIndex="2" />
+                                </td>
+                                <td>
+                                    <input type="button" ID="btnYobinaStartOpeartorSearch" class="form-control TextFieldsClass" runat="server" value="-"
+                                           style="Width:20px;Height:22px;text-align:center" CausesValidation="false" TabIndex="3" />
+                                </td>
+                                <td>
+                                    <select ID="ddlOperatorName" runat="server" class=" form-control Mandatory MandatoryDropdown" style="border-style:inset; padding-bottom:2px;font-family:'MS Gothic'; Height:22px; Width:127px" TabIndex="4"
+                                            errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_OprRequired")">
+                                    </select>
+
+                                </td> *@
+
+
+                            </tr>
+                        </table>
+
+                    </td>
+                    @*<td align="center" style="width: 50px;">
+                        <label ID="lblMachine" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Machine_L")</label>
+                    </td>
+                    <td style="width: 155px;">
+                        <select ID="ddlMachine" TabIndex="5" data-machineCd style="width:127px;height:22px" class="form-control Mandatory MandatoryDropdown" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_MachineRequired")">
+                        </select>
+                    </td>*@
+                    <td align="center" style="width: 50px;">
+                        <label ID="lblFurnaceNum" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</label>
+                    </td>
+
+                    <td style="width: 140px;">
+                        <input type="text" ID="txtFurnaceNo" class="textboxheight InActiveIMEMode Mandatory TextFieldsClass"
+                               TabIndex="6" MaxLength="10" style="Width:100px;height:22px" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_FurnaceNoRequired")"><span class="text-danger"></span>
+                    </td>
+                    <td style="width:60px">
+                        <label ID="lblFurnaceProc2" class="labelClass"
+                               Width="50px;margin-left:3px">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceProc")</label>
+                    </td>
+                    <td style="width:200px">
+                        <select ID="ddlMachine" class="MandatoryDropdown Mandatory DropdownListClass dropListClass" TabIndex="7" style="Width:175px;" errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_MachineRequired")"></select>
+                    </td>
+                    <td style="width: 65px;">
+                        <label ID="lblProcCondition" class="labelClass ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcCondition")</label>
+                    </td>
+                    <td style="width: 160px;">
+                        @*<input ID="txtHtMatl" type="text" Style="width: 90px; height: 22px; position: absolute" class="form-control TextFieldsClass MandatoryTextBox InActiveIMEMode" TabIndex="7" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_ProcConditionRequired")"><span class="text-danger"></span>*@
+
+                       @* <select ID="ddlProcCondition" Style="width: 115px;border-style:groove" class="form-control Mandatory MandatoryDropdown" TabIndex="7" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_ProcConditionIsRequired")">
+                        </select>*@
+                        <input list="listProcCondition" autocomplete="off" id="ddlProcCondition" MaxLength="8" class="DropdownListClass dropListClass" name="ddlHtMatl" onkeyup="ToUpper(this)" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_ProcConditionIsRequired")" tabindex="8"
+                               Style="width: 115px;border-style:groove;height: 22px;border: 1px solid #ced4da;border-style: inset;" />
+                        <datalist id="listProcCondition" class="dropListClass"></datalist>
+                        @* <input type="text" ID="txtProcCondition"  class="form-control textboxheight InActiveIMEMode MandatoryTextBox TextFieldsClass UpperCase"
+                        TabIndex="8" MaxLength="8" style="Width:60px"><span class="text-danger"></span>*@
+                    </td>
+                    <td style="width: 80px;">
+                        <label ID="lblPatternNo" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_PatternNo")</label>
+                    </td>
+                    <td>
+                        <input type="text" ID="txtPatternNo" class="form-control TextFieldsClass" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_PatternNoRequired")"
+                               TabIndex="8" MaxLength="5" style="Width:60px;height:22px"><span class="text-danger"></span>
+
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+</table>
+
+<div>
+    <div style="width:1497px;overflow:auto;" id="pnlPostHtDetailsOnGrid">
+
+        <table cellspacing="0" cellpadding="0" rules="all" class="GridLines GridLayout GridColumnLeftPadding"
+               border="1" id="tblPostHTInspection" style="border-style: None;  border-collapse: collapse; word-break: break-word; word-wrap: break-word;">
+
+            <thead>
+                <tr class="freez thHeaderClass">
+                    <th colspan="7">
+                        <asp:Label ID="lblHdrProcessPlan" runat="server" Class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_PrcoessPlan")</asp:Label>
+                    </th>
+                    <th  colspan="5">
+                        <asp:Label ID="lblHdrPosition" runat="server" Class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_PositionInFurnace")</asp:Label>
+                    </th>
+                    <th>
+                        <asp:Label ID="lblHdrActualShukka" runat="server" Class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Standard_L")</asp:Label>
+                    </th>
+                    <th  colspan="5">
+                        <asp:Label ID="lblHdrExpUsage" runat="server" Class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Measurement")</asp:Label>
+                    </th>
+                    <th colspan="5">
+                        <asp:Label ID="lblHdrHardness" runat="server" Class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Hardness")</asp:Label>
+                    </th>
+                    <th rowspan="2" style="background-color: #B2C3E6">
+                        <asp:Label ID="lblHdrDecision" runat="server" Class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Decision")</asp:Label>
+                    </th>
+                  @*   <th rowspan="2" style="background-color: #B2C3E6">
+
+                        <label ID="lblNextProcess" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_NextProcess")</label>
+                    </th> *@
+                </tr>
+                <tr class="freez2  thHeaderClass">
+                    <th class="tdH2">
+                        <label ID="lblHdrChuuban" runat="server" Class="labelClass1"></label>
+                    </th>
+                    <th class="tdH2">
+                        <label ID="lblHdrChuuban" runat="server" Class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</label>
+                    </th>
+                    <th class="tdH2">
+                        <label ID="lblHdrCustomer" runat="server" Class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</label>
+                    </th>
+                    <th class="tdH2" >
+                        <label ID="lblHdrProdNameCust" runat="server" Class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</label>
+                    </th>
+                    <th class="tdH2">
+                        <label ID="lblHdrCharge" runat="server" Class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</label>
+                    </th>
+                    <th class="tdH2">
+                        <label ID="lblHdrDim" runat="server" Class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlDim")</label>
+                    </th>
+                    <th class="tdH2">
+                        <label ID="lblHdrDimD" runat="server" Class="labelClass1"> @LocalizationServices.GetLocalizedHtmlString("lbl_ProdDim")</label>
+                    </th>
+                    <th class="tdH2" colspan="2">
+                        <label ID="lblPosition" runat="server" Class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_Position")</label>
+                    </th>
+                    <th class="tdH2">
+                        <label ID="lblStep" runat="server" Class="  labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_Step") </label>
+                    </th>
+                     <th class="tdH2">
+                        <asp:Label ID="lblDirection" runat="server" Class="labelClass" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_Direction")</asp:Label>
+                    </th>
+                    <th class="tdH2">
+                        <asp:Label ID="lblInOut" runat="server" Class="labelClass" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_InOut")</asp:Label>
+                    </th>
+                    <th class="tdH2">
+                        <label ID="lblDMFDMT" runat="server" Text="DMF・DMT" Class="labelClass" ForeColor="Black">DMF・DMT</label>
+                    </th>
+                    <th class="tdH2">
+                        <lLabel ID="lblDMF" runat="server" Text="DM-F" Class="  labelClass  " ForeColor="Black">DM-F</lLabel>
+                    </th>
+                    <th class="tdH2" colspan="2">
+                        <label ID="lblDMT" runat="server" Text="DM-T" Class="  labelClass  " ForeColor="Black">DM-T</label>
+                    </th>
+                    <th class="tdH2">
+                        <label ID="lblDMFAvg" runat="server" Class="  labelClass  " ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_DMFAvg")</label>
+                    </th>
+                    <th class="tdH2">
+                        <label ID="Label15" runat="server" Class="  labelClass  " ForeColor="Black"> @LocalizationServices.GetLocalizedHtmlString("lbl_Structure")</label>
+                    </th>
+                    <th class="tdH2" style="white-space: initial;">
+                        <label ID="lblCenterRef" runat="server" style="width:56px;white_space:normal" Class="labelClass" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_CenterHrd")</label>
+                    </th>
+                    <th class="tdH2">
+                        <label ID="Label17" runat="server" Class="  labelClass  " ForeColor="Black">D/4</label>
+                    </th>
+                    <th class="tdH2">
+                        <label ID="Label18" runat="server" Class="  labelClass  " ForeColor="Black">D/4</label>
+                    </th>
+                    <th class="tdH2">
+                        <label ID="Label19" runat="server" Class="  labelClass  " ForeColor="Black">D/4</label>
+                    </th>
+                    <th class="tdH2">
+                        <label ID="lblHdrAvg" runat="server" Class="labelClass" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_Average")</label>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @for (Int32 i = 1; i <= 20; i++)
+                {
+                        <tr id="@("trId"+i)" style="background-color:#E2E2E2">
+                            <td class="GridMandatoryTextBox" style="height: 20px">
+                                <input type="checkbox" ID="@("chkPostGrid"+i)" TabIndex="10" data-title="chkPostGrid" data-rowid="@i" />
+                            </td>
+
+                            <td class="GridMandatoryTextBox" style="height: 20px">
+                                <input ID="@("txtChuuban"+i)" data-id="@i" data-orderno="yes" runat="server" TabIndex="11" Class="labelClass MandatoryTextBoxForGrid GridLeft" data-title="txtChuuban"
+                                       data-rowid="@i" Style="Width:95px" MaxLength="12" Text='<%# Eval("CHUUBAN") %>'
+                                        />
+                            @* <ajaxToolkit:FilteredTextBoxExtender ID="ftetxtChuuban" runat="server" TargetControlID="txtChuuban" ValidChars="0123456789"></ajaxToolkit:FilteredTextBoxExtender>
+                        <asp:HiddenField runat="server" ID="hdfProcessPlanCD" Value='<%# Eval("PROCESS_PLAN_CD") %>' />*@
+                            </td>
+                            <td class="IsText">
+                                <label ID="@("txtCustomer"+i)" runat="server" Class="labelClass GridLeft" ForeColor="Black" Text='<%# Eval("CUSTOMER_NAME") %>'></label>
+                                <input type="hidden" id="@("hdfProcessPlanCD"+i)" value="" /> <input type="hidden" id="@("hdfSerialNo"+i)" value="" />
+                                <input type="hidden" id="@("hdfInternal_Q_CD"+i)" value="" />
+                            </td>
+                            <td class="IsText">
+                                <label ID="@("txtProdName"+i)" runat="server" Class="labelClass GridLeft" ForeColor="Black" Text='<%# Eval("PROD_NAME") %>'></label>
+                            </td>
+                            <td class="IsText">
+                                <label ID="@("txtCharge"+i)" runat="server" Text='<%# Eval("CHARGE") %>' Class="labelClass GridLeft" ForeColor="Black"></label>
+                            </td>
+                            <td class="GridAlignmentNumeric">
+                                <label ID="@("txtMatlDim"+i)" runat="server" Text='<%# Eval("MATL_DIM_D") %>' Class="labelClass GridRight" ForeColor="Black" Width="80px"></label>
+                            </td>
+                            <td class="GridAlignmentNumeric">
+                                <label ID="@("txtProdDim"+i)" runat="server" Text='<%# Eval("PROD_DIM_D") %>' Class="labelClass GridRight" ForeColor="Black" Width="80px"></label>
+                            </td>
+                            <td class="GridTextBoxtd">
+                                <input ID="@("txtPosition1"+i)" runat="server" TabIndex="12" Class="labelClass GridTextBox InActiveIMEMode GridRight" style="width:35px;Height:18px" MaxLength="2" Text='<%# Eval("LOCATION_IN_FURNACE1") %>'
+                                       onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                                <ajaxToolkit:FilteredTextBoxExtender ID="ftePosition1" runat="server" TargetControlID="txtPosition1" ValidChars="0123456789"></ajaxToolkit:FilteredTextBoxExtender>
+                            </td>
+                            <td class="GridTextBoxtd">
+                                <input ID="@("txtPosition2"+i)" runat="server" TabIndex="12" Class="labelClass GridTextBox InActiveIMEMode GridRight" style="width:36px;Height: 18px" MaxLength="2" Text='<%# Eval("LOCATION_IN_FURNACE2") %>'
+                                       onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                                <ajaxToolkit:FilteredTextBoxExtender ID="ftePosition2" runat="server" TargetControlID="txtPosition2" ValidChars="0123456789"></ajaxToolkit:FilteredTextBoxExtender>
+                            </td>
+                            <td class="GridTextBoxtd">
+                                <select ID="@("txtStackPos"+i)" runat="server" style="width:45px;border-style: none;" TabIndex="12" Class="labelClass " MaxLength="2">
+                                </select>
+                            </td>
+                             <td class="GridTextBoxtd">
+                                <select ID="@("txtOrientation"+i)" runat="server" style="width:68px;border-style: none;" TabIndex="12" Class="labelClass " MaxLength="2">
+                                </select>
+                            </td>
+                            <td class="GridTextBoxtd">
+                            <select ID="@("txtInOut"+i)" runat="server" style="width:47px;border-style: none;" TabIndex="12" Class="labelClass " MaxLength="2">
+                                </select>
+                            </td>
+
+                            <td>
+                                <label ID="@("txtDMFDMT"+i)" runat="server" Class="labelClass" ForeColor="Black" Text='<%# Eval("DMF_DMT") %>'></label>
+                            </td>
+                            <td class="GridTextBoxtd">
+                                <input ID="@("txtDMF"+i)" runat="server" Class="labelClass GridTextBox  GridRight" style="Height:18px" TabIndex="12" data-title="txtDMF" data-rowid="@i"
+                                       styele="Width:36px;Height:18px" MaxLength="2" Text='<%# Eval("ACT_DM_F") %>'
+                                       onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                                <ajaxToolkit:FilteredTextBoxExtender ID="fteDMF" runat="server" TargetControlID="txtDMF" ValidChars="0123456789"></ajaxToolkit:FilteredTextBoxExtender>
+                            </td>
+                            <td class="GridTextBoxtd ">
+                            <input ID="@("txtDMTMin"+i)" runat="server" data-title="txtDMTMin" data-rowid="@i" TabIndex="12" Class="labelClass GridTextBox txtDMTMin GridRight InActiveIMEMode" style="Width:32px;Height:18px" MaxLength="10" />
+                                     @*   onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" /> *@
+                                <ajaxToolkit:FilteredTextBoxExtender ID="fteDMTMin" runat="server" TargetControlID="txtDMTMin" ValidChars="0123456789."></ajaxToolkit:FilteredTextBoxExtender>
+                            </td>
+                            <td class="GridTextBoxtd">
+                            <input ID="@("txtDMTMax"+i)" runat="server" data-title="txtDMTMax" data-rowid="@i" TabIndex="12" Class="labelClass GridTextBox txtDMTMax GridRight InActiveIMEMode" style="Width:33px;Height:18px" MaxLength="10" Text='<%# Eval("ACT_DM_T_MAX") %>' AutoPostBack="True" />
+                                      @*  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" *@
+                                <ajaxToolkit:FilteredTextBoxExtender ID="fteDMTMax" runat="server" TargetControlID="txtDMTMax" ValidChars="0123456789."></ajaxToolkit:FilteredTextBoxExtender>
+                            </td>
+                            <td class="GridAlignmentNumeric">
+                                <Label ID="@("txtActDmtAvg"+i)" runat="server" data-title="txtActDmtAvg" data-rowid="@i" Class="labelClass ActDmtAvg  GridRight" ForeColor="Black" Text='<%# Eval("ACT_DM_T_AVG") %>' style="Width:50px" MaxLength="10"></Label>
+                            </td>
+                            <td class="GridTextBoxtd">
+                                <input ID="@("txtStructure"+i)" runat="server" TabIndex="12" Class="labelClass GridTextBox GridRight structure" style="Height:18px" MaxLength="4" Text='<%# Eval("ACT_STRUCTURE") %>'
+                                       onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                                <ajaxToolkit:FilteredTextBoxExtender ID="fteStructure" runat="server" TargetControlID="txtStructure" ValidChars="0123456789."></ajaxToolkit:FilteredTextBoxExtender>
+                            </td>
+                            <td class="GridTextBoxtd">
+                            <input ID="@("txtCenter"+i)" runat="server" data-title="txtCenter" data-rowid="@i" TabIndex="12" Class="labelClass GridTextBox  GridRight Center" style="Height:18px" MaxLength="5" Text='<%# Eval("HRD_CENTER") %>'
+                                       onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                                <ajaxToolkit:FilteredTextBoxExtender ID="fteCenter" runat="server" TargetControlID="txtCenter" ValidChars="0123456789."></ajaxToolkit:FilteredTextBoxExtender>
+                            </td>
+                            <td class="GridMandatoryTextBox">
+                                <input ID="@("txtD1"+i)" runat="server" data-title="txtD1" data-rowid="@i" TabIndex="12" Class="labelClass MandatoryTextBoxForGrid  GridRight HrdD" style="Width:40px;Height:18px" MaxLength="5"
+                                       onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                                <ajaxToolkit:FilteredTextBoxExtender ID="fteD1" runat="server" TargetControlID="txtD1" ValidChars="0123456789."></ajaxToolkit:FilteredTextBoxExtender>
+                            </td>
+                            <td class="GridMandatoryTextBox">
+                                <input ID="@("txtD2"+i)" runat="server" data-title="txtD2" data-rowid="@i" TabIndex="12" Class="labelClass MandatoryTextBoxForGrid  GridRight HrdD" style="Width:40px;Height:18px" MaxLength="5"
+                                       onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                                <ajaxToolkit:FilteredTextBoxExtender ID="fteD2" runat="server" TargetControlID="txtD2" ValidChars="0123456789."></ajaxToolkit:FilteredTextBoxExtender>
+                            </td>
+                            <td class="GridMandatoryTextBox">
+                                <input ID="@("txtD3"+i)" runat="server" data-title="txtD3" data-rowid="@i" TabIndex="12" Class="labelClass MandatoryTextBoxForGrid  GridRight HrdD" style="Width:40px;Height:18px" MaxLength="5"
+                                       onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                                <ajaxToolkit:FilteredTextBoxExtender ID="fteD3" runat="server" TargetControlID="txtD3" ValidChars="0123456789."></ajaxToolkit:FilteredTextBoxExtender>
+                                <input type="text" id="@("txtD4"+i)" style="display:none" errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_RowDecrabRequired")" />
+                            </td>
+                            <td class="GridAlignmentNumeric">
+                                <label ID="@("txtAvg"+i)" runat="server" Class="labelClass tdNoWrap GridRight" ForeColor="Black" Text='<%# Eval("HRD_D4_AVG") %>'></label>
+                            </td>
+                            <td class="GridMandatoryTextBox">
+                                <select ID="@("ddlDecision"+i)" runat="server" TabIndex="12" style="Width:140px" Class="labelClass  GridMandatoryDropdown"
+                                        errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_RowResultRequired").ToString().Replace("NNN", @i.ToString())">
+                                </select>
+
+                            </td>
+                           @*  <td class="GridMandatoryTextBox">
+                                <select ID="@("ddlNextProcess"+i)" data-id="@i" runat="server" TabIndex="24" style="Width:170px" Class="labelClass  GridMandatoryDropdown">
+                                </select>
+
+                            </td> *@
+                        </tr>
+                }
+            </tbody>
+
+
+        </table>
+
+    </div>
+</div>
+
+<input type="hidden" id="hdfGroupNo" />
+
+<input type="hidden" id="hdfDBOperation" name="hdfDBOperation" />
+<input type="hidden" id="hdfStartOperatorCD" name="hdfStartOperatorCD" />
+<input type="hidden" id="hdfInternalQCD" name="hdfinternalQCD" value="" />
+<input type="hidden" id="hdfInternal_Q_CD" value="" />
+@*Message*@
+
+<div id="divSuccessMessages" class="Hidden">
+    <label id="lblSuccessMessageS_PostHT_001" class="Hidden">
+        <span ID="LiteralDataSavedSuccessfully">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataSaved")</span>
+    </label>
+    <label id="lblSuccessMessageS_WIPTensou_DataUpdated" class="Hidden">
+        <span ID="LiteralDataUpdatedSuccessfully">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataUpdated")</span>
+    </label>
+    <label id="lblSuccessMessageS_PostHT_DataDeleted" class="Hidden">
+        <span ID="LiteralCOM_DataDeletedSuccessfully">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataDeleted")</span>
+    </label>
+</div>
+
+<div id="divErrorMessages" class="Hidden">
+    <label id="lblErrorMessageE_PostHTInspection" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+    </label>
+
+    <label id="lblErrorMessageE_PostHT_OrNoRequired" class="Hidden">
+        <span ID="LiteralChubanRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_MultipleChuubansSearch_OrNoRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_01" class="Hidden">
+        <span ID="LiteralSr.NoRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_InspDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_02" class="Hidden">
+        <span ID="LiteralTransferDateRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_OprRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_03" class="Hidden">
+        <span ID="LiteralChuubanNotFound">@LocalizationServices.GetLocalizedHtmlString("valMsg_ProcConditionRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_04" class="Hidden">
+        <span ID="LiteralChuubanMarkedAsCompleted">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_PatternNoRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_05" class="Hidden">
+        <span ID="LiteralTransferDateInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_RowDecrabRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_06" class="Hidden">
+        <span ID="LiteralvalMsg_ForwardingDestinationRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_RowResultRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_07" class="Hidden">
+        <span ID="LiteralInRowTabaNORequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_CanNotUseInactiveMaster")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_08" class="Hidden">
+        <span ID="LiteralInRowWeightRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_MultipleChuubansSearch_OrNoRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_09" class="Hidden">
+        <span ID="LiteralInRowNoOfUnitsRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_MultipleChuubansSearch_OrNoNotFound")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_10" class="Hidden">
+        <span ID="LiteralAtLeastOneTabaRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_MultipleChuubansSearch_OrNoCompleted")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_11" class="Hidden">
+        <span ID="FurnaceNoRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_FurnaceNoIsRequiredForSearch")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_12" class="Hidden">
+        <span ID="LiteralAtLeastOneTabaRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_FurnaceNoNotregisteredForHT")</span>
+    </label>
+    @*  List page*@
+    <label id="lblErrorMessageE_PostHT_011" class="Hidden">
+        <span class="LiteralEnterAtLeastOneSearchCondition" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_EnterAtLeastOneSearchCondition")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_012" class="Hidden">
+        <span class="LiteralTransferDateInvalid" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_InspStartDate_Invalid")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_013" class="Hidden">
+        <span class="LiteralTransferDateStartRequired" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_InspStartDate_Required")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_014" class="Hidden">
+        <span class="LiteralDimDStartRequired" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_InspEndDate_Invalid")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_015" class="Hidden">
+        <span ID="LiteralDivisionNoAlradyOK">@LocalizationServices.GetLocalizedHtmlString("valMsg_FurnaceNoAlreadyExist")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_016" class="Hidden">
+        <span ID="FurnaceNoNotregistered">@LocalizationServices.GetLocalizedHtmlString("valMsg_FurnaceNoNotregistered")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_17" class="Hidden">
+        <span ID="LiteralAtLeastOneTabaRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_RowResultRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_18" class="Hidden">
+        <span ID="LiteralAtLeastOneTabaRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_InRowNextProcessIsRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_19" class="Hidden">
+        <span ID="LiteralAtLeastOneTabaRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_RowDecrabRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_020" class="Hidden">
+        <span ID="LiteralDivisionNoAlradyOK">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_MultipleChuubansSearch_OrNoRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_021" class="Hidden">
+        <span ID="LiteralNotHT_FurOutDateTime_IsGreaterThanToday">@LocalizationServices.GetLocalizedHtmlString("valMsg_InspecDateIsGreaterThanToday")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_022" class="Hidden">
+        <span ID="LiteralNotHT_FurOutDateTime_IsGreaterThanToday">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SelectAtLeastOne")</span>
+    </label>     
+    <label id="lblErrorMessageE_PostHT_025" class="Hidden">
+        <span ID="LiteralNotHT_FurOutDateTime_IsGreaterThanToday">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_OrNoNotStartedFromHandOver")</span>
+    </label>
+     <label id="lblErrorMessageE_PostHT_026" class="Hidden">
+        <span ID="LiteralNotHT_NoHeatTreatmentForPostHT">@LocalizationServices.GetLocalizedHtmlString("valMsg_NoHeatTreatmentForPostHT")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_027" class="Hidden">
+        <span ID="LiteralFurnaceAlradyOK">@LocalizationServices.GetLocalizedHtmlString("valMsg_FurnaceNoAlreadyExist")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_028" class="Hidden">
+        <span ID="LiteralFurnaceNo">@LocalizationServices.GetLocalizedHtmlString("valMsg_FurnaceNoIsRequiredForSearch")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_29" class="Hidden">
+        <span ID="LiteralChuubanDuplicate">@LocalizationServices.GetLocalizedHtmlString("valMsg_InRowChuubanDuplicate")</span>
+    </label>
+
+    <label id="lblErrorMessageE_PostHT_030" class="Hidden">
+        <span ID="Literal2">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ScanOperatorBarcode")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_031" class="Hidden">
+        <span ID="LiteralOperatorNotFound">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_PMSOperatorNotFound")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_032" class="Hidden">
+        <span ID="LiteralThabaNoDuplicateWithDecisionOK">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_EmployeeInactive")</span>
+    </label>
+    <label id="lblErrorMessageE_PostHT_033" class="Hidden">
+        <span ID="LiteralPlusMinus">@LocalizationServices.GetLocalizedHtmlString("valMsg_BarcodeIncorrect")</span>
+    </label>
+
+
+</div>
+
+<div id="divConfirmationMessages" class="Hidden">
+
+   
+    <label id="valMsgDeleteNotAllowedUsedInMillSheet" class="Hidden">
+        <span ID="valMsgDeleteNotAllowedUsedInMillSheet">@LocalizationServices.GetLocalizedHtmlString("valMsg_DeleteNotAllowedUsedInMillSheet")</span>
+    </label>
+    <label id="valMsgEditNotAllowedUsedInMillSheet" class="Hidden">
+        <span ID="valMsgEditNotAllowedUsedInMillSheet">@LocalizationServices.GetLocalizedHtmlString("valMsg_EditNotAllowedUsedInMillSheet")</span>
+    </label>
+</div>
+@section Scripts{
+    <script src="/Static/js/PostHTInspection.js" asp-append-version="true"></script>
+}

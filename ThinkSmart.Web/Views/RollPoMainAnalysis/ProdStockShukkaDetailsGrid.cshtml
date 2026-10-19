@@ -1,0 +1,173 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model ProdSpecificationDetails
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+
+}
+
+<table bgcolor="#7291D2" border="0" cellpadding="0" cellspacing="0" id="tblProdSpecification" width="100%" class="GridLines">
+
+    <tr>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter" rowspan="2">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductSpecNo")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter" rowspan="2">
+            <label id="" class="labelClass grdLabel">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter" rowspan="2">
+            <label id="" class="labelClass grdLabel">@LocalizationServices.GetLocalizedHtmlString("lbl_InternalName")</label>
+
+        </th>
+
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter" rowspan="2">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter" rowspan="2">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</label>
+
+        </th>
+
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter" rowspan="2">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter" rowspan="2">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Condition")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter" rowspan="2">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter" colspan="3">
+            <label id="" class="labelClassearch ">@LocalizationServices.GetLocalizedHtmlString("lbl_KhakoiraiStockStatus_L")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+            <label id="" class="labelClassearch">@LocalizationServices.GetLocalizedHtmlString("lbl_RemainingStock_L")</label>
+
+        </th>
+
+
+
+    </tr>
+    <tr>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_31to60D")</label>
+
+        </th>
+
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_61to90D")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_91toD")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_BeforeActAlloc")</label>
+
+        </th>
+
+    </tr>
+    <tr>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductKubun_L")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" colspan="2">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DimTolerance")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" colspan="3">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_LengthTolerance")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" colspan="2">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Bend")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_RemainingStock_L")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_FinishedProductStock")</label>
+
+        </th>
+
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Sum_L")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocWIP")</label>
+
+        </th>
+    </tr>
+   @if (Model != null)
+            {
+                
+    <tr class="GridNormalRow">
+            <td class="labelClass CharactFieldsClass padddingLeft" style="white-space:nowrap">@Model.PROD_SPEC_STRING </td>
+            <td class="labelClass CharactFieldsClass padddingLeft" style="white-space:nowrap"> @Model.PRODUCT_NAME</td>
+        <td class="labelClass CharactFieldsClass padddingLeft" style="white-space:nowrap"> @Model.INTERNAL_NAME</td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap">@Model.SHAPE </td>
+            <td class="labelClass NumericFieldsClass padddingRight" style="white-space:nowrap"> @Model.DIM_D</td>
+            <td class="labelClass NumericFieldsClass padddingRight" style="white-space:nowrap"> @Model.LENGTH</td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"> @Model.CONDITION</td>
+            <td class="labelClass CharactFieldsClass padddingLeft" style="white-space:nowrap"> @Model.CUSTOMER_NAME_STRING</td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap">@Model.PENDSTOCK_ABOVE30 </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap">@Model.PENDSTOCK_ABOVE60 </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap">@Model.PENDSTOCK_ABOVE90 </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap">@Model.BEFORE_ALLOC_PLANNED_QTY </td>
+
+    </tr>
+    <tr class="GridNormalRow">
+            <td class="labelClass CharactFieldsClass padddingLeft" style="white-space:nowrap"> @Model.PRODUCT_KUBUN_STRING</td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap" colspan="2">@Model.DIM_TOL_STRING </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap" colspan="3">@Model.LEN_TOL_STRING </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap" colspan="2"> @Model.BEND_TOLERANCE_STRING</td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap">@Model.KAKOIRAI_REM_QTY </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap">@Model.PROD_STOCK_QTY </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap">@Model.TOTAL_KAKO_PROD </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap">@Model.IN_PROGRESS_QTY </td>
+        </tr>
+
+    }else
+    {
+        <tr class="GridNormalRow">
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"> </td>
+
+        </tr>
+        <tr class="GridNormalRow">
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap" colspan="2"> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap" colspan="3"> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap" colspan="2"> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"> </td>
+        </tr>
+    }
+
+
+</table>

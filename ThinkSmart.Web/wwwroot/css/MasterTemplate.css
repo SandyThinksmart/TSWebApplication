@@ -1,0 +1,26 @@
+﻿#tblMainMenu{
+    width:100%;
+    margin-top:15px;
+    
+}
+#lblMasterName {
+    color: white;
+    padding-top: 8px;
+    padding-bottom: 4px;
+}
+
+#btnInitialize, #btnCopy, #btnRegister, #btnSelect, #btnUpdate {
+    margin-right: 20px;
+}
+#mainRow1, #mainRow3 {
+    background-color: #336699;
+   
+}
+#tblButtons, #btnMasterClose {
+    margin-top: 3px;
+    margin-bottom: 3px;
+}
+#tdMasterBottom
+{
+    height:8px;
+}

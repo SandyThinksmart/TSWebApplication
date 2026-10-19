@@ -1,0 +1,183 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<ColdDrawingWireDrawingDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblHikinuki_DataTransferOracleToHost").Value.Replace("<br>", "");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<style type="text/css">
+   
+    #LoadingImage {
+        position: fixed;
+        display: block;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        text-align: center;
+        opacity: 0.7;
+        background-color: #fff;
+        z-index: 99;
+        padding-top: 10%;
+    }
+
+    #loadimage {
+        position: absolute;
+        padding-top: 40%;
+        top: 100px;
+        left: 280px;
+        z-index: 100;
+    }
+</style>
+<link href="~/css/HikinukiOracleToHostDataTransfer.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+
+<body style="margin-bottom:0px">
+
+    <table id="tblmain">
+
+        <tr>
+            <td colspan="4">
+                <table cellpadding="6" cellspacing="0">
+                    <tr>
+                        <td align="left">
+
+                            <label ID="lblHikinukiDailyReport" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_HikinukiDailyReport")</label>
+                        </td>
+
+                        <td align="left">
+                            <input type="text" ID="txtStartDate" TabIndex="3" class="Mandatory labelClass form-control TextFieldsClass" style="width:120px;height:24px">
+
+                        </td>
+                        <td style="vertical-align:bottom">
+                            <span style="vertical-align:-webkit-baseline-middle;font-size:larger">~</span>
+                        </td>
+                        <td>
+                            <input type="text" ID="txtEndDate" style="width:80px;height:24px;border-right:none;" class="labelClass disabled form-control TextFieldsClass " disabled="disabled">
+                            <input type="text" ID="txtEndTime" TabIndex="4" style="width:50px;height:24px;margin-left:-7px;border-left:grey" class="labelClass form-control TextFieldsClass ">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left">
+                            <label ID="lblLocation" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Location")</label>
+                        </td>
+                        <td align="left" colspan="3">
+                            <input type="text" ID="txtLocation" style="width:120px;height:24px;" class="labelClass disabled form-control TextFieldsClass " disabled="disabled">
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <table id="tblButtonList">
+                    <tr>
+                        <td>
+                            <div id="divTransfer">
+                                <table id="tblTransfer">
+                                    <tr>
+                                        <td align="center" valign="bottom">
+                                            <label ID="lblHostTransfer" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_HostTransfer")</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center">
+                                            <input type="button" id="btnTransfer" class="_functionButtons labelClass" tabindex="12"
+                                                   value='@LocalizationServices.GetLocalizedHtmlString("btn_transfer")' />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td>
+                            <div id="divReprint">
+                                <table id="tblReprint">
+                                    <tr>
+                                        <td align="center" valign="bottom">
+                                            <label ID="lblReprint_L" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("btn_Reprint_L")</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center">
+                                            <input type="button" id="btnReprint" class="_functionButtons labelClass" tabindex="12"
+                                                   value='@LocalizationServices.GetLocalizedHtmlString("btn_Reprint_L")' />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td>
+                            <div id="divClose">
+                                <table id="tblClose">
+                                    <tr>
+                                        <td align="center" valign="bottom">
+                                            <label ID="lblCloseWindow" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center">
+                                            <input type="button" id="btnClose" class="_functionButtons labelClass" tabindex="12"
+                                                   value='@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")' />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+    <div id="divErrorMessages" class="Hidden">
+        <label id="lblErrorMessageE_Hikinuki" class="Hidden">
+            <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+        </label>
+
+        <label id="lblErrorMessageE_Hikinuki_001" class="Hidden">
+            <span ID="LiteralStartDateRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_StartDateTimeRequired_HikinukiToHost")</span>
+        </label>
+       
+        <label id="lblErrorMessageE_Hikinuki_002" class="Hidden">
+            <span ID="LiteralStartDateInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_InvalidStartDateTime_HikinukiToHost")</span>
+        </label>
+
+        <label id="lblErrorMessageE_Hikinuki_003" class="Hidden">
+            <span ID="LiteralNoDataFound_HikinukiToHost">@LocalizationServices.GetLocalizedHtmlString("valMsg_NoDataFound_HikinukiToHost")</span>
+        </label>
+
+        <label id="lblErrorMessageE_Hikinuki_004" class="Hidden">
+            <span ID="Literalexception_HikinukiToHost">@LocalizationServices.GetLocalizedHtmlString("valMsg_exception_HikinukiToHost")</span>
+        </label>
+
+         <label id="lblErrorMessageE_Hikinuki_005" class="Hidden">
+            <span ID="Literalexception_EndTimeRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_EndTimeRequired")</span>
+        </label>
+
+         <label id="lblErrorMessageE_Hikinuki_006" class="Hidden">
+            <span ID="Literalexception_EndDateTimeInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_EndDateTimeInvalid")</span>
+        </label>
+
+        <label id="lblErrorMessageE_Hikinuki_007" class="Hidden">
+            <span ID="Literalexception_NoDataToPrint_HikinukiToHost">@LocalizationServices.GetLocalizedHtmlString("valMsg_NoDataToPrint_HikinukiToHost")</span>
+        </label>
+        
+    </div>
+    <div id="divSuccessMessages" class="Hidden">
+        <label id="lblSuccessMessageE_Hikinuki" class="Hidden">
+            <span ID="LiteralDataTransfered_HikinukiToHost">@LocalizationServices.GetLocalizedHtmlString("valMsg_DataTransfered_HikinukiToHost")</span>
+        </label>
+        </div>
+    <div id="LoadingImage">
+        <img id="loadImage" src="~/images/loading.gif" height="60px" width="60px" />
+    </div>
+</body>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+<script src="~/Static/js/HikinukiOracleToHostDataTransfer.js" asp-append-version="true"></script>

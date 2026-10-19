@@ -1,0 +1,1774 @@
+﻿@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/Common.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/Configuration.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/ProcessEntryTemplate.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/masterStyles.css" rel="stylesheet" asp-append-version="true" />
+<style type="text/css">
+    .freez > th {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 0.2px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+</style>
+
+<form id="frmProcessEntryTemplate" clientidmode="Static" autocomplete="off">
+    <asp:ScriptManager ID="ScriptManager1"></asp:ScriptManager>
+    <div>
+        @* *@ <table cellpadding="0" cellspacing="0" style="visibility: hidden; height: 0px;">
+            <tr>
+                <td>
+                    <input type="hidden" id="HiddenField1" name="HiddenField1" EnableViewState="true" Visible="true" />
+                </td>
+                <td>
+                    <input type="hidden" id="hdfPageWidth" name="hdfPageWidth" />
+                </td>
+                <td>
+                    <input type="hidden" id="hdfPageHeight" name="hdfPageHeight" />
+                </td>
+                <td>
+                    <label ID="_EventFlag" ForeColor="ButtonFace" />
+                </td>
+            </tr>
+        </table>
+        <div id="DivThabaFunctionButtons">
+            <table>
+                <tr>
+                    <td>
+                        <div id="DivInitRegister">
+                            <div style="height: 43px;">
+                                <label ID="lbl_BasicOperations" class="labelClass" style="color:White;display: block; vertical-align: middle; height: 100%; font-size: 12px;padding-top:18px">@LocalizationServices.GetLocalizedHtmlString("lbl_BasicOperations")</label>
+                            </div>
+                            <div style="height: 43px;">
+                                <span>
+                                    <input type="button" id="btnInitialize" class="_functionButtons" style="width:85px; font-size:13px;" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")" title="@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")" />
+                                </span>
+                                <span>
+                                    <input type="button" id="btnSave" class="_functionButtons" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Register")" title="@LocalizationServices.GetLocalizedHtmlString("lbl_Register")" />
+                                </span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div id="DivThabaDetails" style="padding-top:3px">
+                            <div id="pnlThabaDetails">
+                                <table cellspacing="0" cellpadding="0" class="ThabaGrid" border="1">
+                                    <tr class="Odd" align="center">
+                                        <td align="center">
+                                            <label ID="lblThabaNo1" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td align="center">
+                                            <label ID="lblDecisionNo1" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td align="center">
+                                            <label ID="lblThabaNo2" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td align="center">
+                                            <label ID="lblDecisionNo2" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td align="center">
+                                            <label ID="lblThabaNo3" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td align="center">
+                                            <label ID="lblDecisionNo3" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo4" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td align="center">
+                                            <label ID="lblDecisionNo4" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo5" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo5" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo6" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo6" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo7" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo7" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo8" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo8" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo9" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo9" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo10" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo10" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo11" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo11" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo12" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo12" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo13" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo13" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo14" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo14" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo15" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo15" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo16" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo16" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo17" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo17" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo18" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo18" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo19" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo19" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo20" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo20" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                    </tr>
+                                    <tr class="Even" align="center">
+                                        <td>
+                                            <label ID="lblThabaNo21" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo21" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo22" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo22" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo23" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo23" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo24" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo24" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo25" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo25" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo26" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo26" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo27" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo27" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo28" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo28" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo29" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo29" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo30" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo30" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo31" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo31" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo32" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo32" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo33" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo33" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo34" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo34" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo35" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo35" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo36" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo36" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo37" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo37" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo38" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo38" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo39" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo39" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo40" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo40" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                    </tr>
+                                    <tr class="Odd" align="center">
+                                        <td>
+                                            <label ID="lblThabaNo41" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo41" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo42" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo42" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo43" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo43" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo44" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo44" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo45" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo45" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo46" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo46" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo47" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo47" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo48" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo48" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo49" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo49" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo50" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo50" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo51" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo51" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo52" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo52" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo53" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo53" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo54" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo54" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo55" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo55" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo56" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo56" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo57" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo57" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo58" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo58" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo59" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo59" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblThabaNo60" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                        <td>
+                                            <label ID="lblDecisionNo60" Font-Size="Small" Width="1px"></label>
+                                        </td>
+                                    </tr>
+                                </table> @* </ItemTemplate>
+                                </asp:TemplateField>
+                                </columns>
+                                <selectedrowstyle cssclass="GridSelectedRow" />
+                                <editrowstyle cssclass="GridEditableRow" />
+                                <rowstyle cssclass="GridNormalRow" />
+                                <alternatingrowstyle cssclass="GridAlternateRow" />
+                                </thinksmart:SearchGridView>*@
+                            </div>
+                        </div>
+
+                    </td>
+                    <td>
+                        <div id="DivDecisionLegends">
+                            <div id="SubDivDecisionLegends">
+                                <div id="DivLegendOK">
+                                    <label ID="lblMaru" style="color:blue;" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("●")</label>
+                                    <label ID="lblOk" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("OK")</label>
+                                </div>
+                                <div id="DivLegendNG">
+                                    <label ID="lblCross" style="color:Red;" Font-Bold="true" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("×")</label>
+                                    <label ID="lblNotGood" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("NG")</label>
+                                </div>
+                                <div id="DivLegendHold">
+                                    <label ID="lblTraingle" style="color:Orange;" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("▲")</label>
+                                    <label ID="lblOnHold" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("保留")</label>
+                                </div>
+                                <div id="DivLegendReprocess">
+                                    <label ID="lblDiamond" style="color:Green;" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("◆")</label>
+                                    <label ID="lblInProcess" style="Width:65px" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("工程追加")</label>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div id="DivCloseButton">
+                            <div id="divLblClose">
+                                <label ID="lblClose" class="labelClass" style="color:White;padding-top:18px">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+                            </div>
+                            <div id="divBtnClose">
+                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnClose" class="_functionButtons" OnClientClick="return Confirmation()" Width="85" CausesValidation="false" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+
+
+
+        </div>
+        <div style="width: 100%; border: 0px solid Black; float: left;">
+            <ThinkSmart:MessageArea ID="MessageArea"></ThinkSmart:MessageArea>
+            <asp:ValidationSummary ID="vsT1P1" ValidationGroup="T1P1Validation" HeaderText="Validation Errors:" ForeColor="Red" Width="818px" class="ErrorMessage" />
+            <asp:ValidationSummary ID="vsProcessStartData" ValidationGroup="ProcessStartDataValidation" HeaderText="Validation Errors:" ForeColor="Red" Width="818px" class="ErrorMessage" />
+            <asp:ValidationSummary ID="vsProcessEndData" ValidationGroup="ProcessEndDataValidation" HeaderText="Validation Errors:" ForeColor="Red" Width="818px" class="ErrorMessage" />
+        </div>
+        <div id="divPMSData">
+            <table id="tblPMSData" class="labelPadding">
+                <tr>
+                    <td id="tdPMSDataEntry">
+                        <ul class="nav nav-pills" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="TbPrductEntry-tab" data-toggle="pill" href="#TbPrductEntry">@LocalizationServices.GetLocalizedHtmlString("tp_DailyReportEntry")</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="TbHistorySearch-tab" data-toggle="pill" href="#TbHistorySearchData">@LocalizationServices.GetLocalizedHtmlString("tp_HistorySearch")</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="TbMessage-tab" data-toggle="pill" href="#TbMessageData">@LocalizationServices.GetLocalizedHtmlString("lbl_MessageContent")</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="TbProcessInfo-tab" data-toggle="pill" href="#TbProcessInfoData">@LocalizationServices.GetLocalizedHtmlString("lbl_PrcoessPlan")</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="pills-tabContent">
+
+                            <div class="tab-pane active" id="TbPrductEntry" style="width:872px;">
+                                <div style="height: auto;">
+                                    <div id="pnlSearch">
+                                        <table id="tblPnlSearch" cellpadding="2" cellspacing="1">
+                                            <tr>
+                                                <td id="tdLblMachineType" align="left" style="width:48px;" >
+                                                    <label ID="lblMachineType" class="labelClass" style="margin-left:-1px;">@LocalizationServices.GetLocalizedHtmlString("lbl_Machine_L")</label>
+                                                </td>
+                                                <td id="tdTxtMachineType" style="width:240px;">
+                                                    <input type="text" ID="txtMachineType" class="TextFieldsClass form-control Mandatory FocusDefault PMSEntryMachine InActiveIMEMode" style="text-transform:uppercase;width:239px;" TabIndex="1" MaxLength="7" Style="width: 95%;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_MachineRequired")">
+                                                    <span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_MachineRequired")</span>
+                                                    <input type="hidden" id="hdfMachineCD" name="hdfMachineCD" Value="0" ClientIDMode="Static" />
+                                                </td>
+                                                @* <td width="118px"></td> *@
+                                                <td id="tdLblChuuban" style=" width:65px;" align="right">
+                                                    <label ID="lblNifudaNo" class="labelClass"> @LocalizationServices.GetLocalizedHtmlString("lbl_NifudaNumber")</label>
+                                                </td>
+                                                <td id="tdtxtNifudaNo1" width="110px">
+
+                                                    <input type="text" ID="txtNifudaNo1" class="TextFieldsClass form-control" ClientIDMode="Static" TabIndex="2" MaxLength="10" Style="width: 100%;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TagRequired")">
+
+                                                    <label ID="lblNifudaNo1" class="labelClass" style="display:none;">@LocalizationServices.GetLocalizedHtmlString("lbl_NifudaNumber")</label>
+
+                                                </td>
+                                                <td id="tdLblNifudaNo" align="right" width="33px">
+                                                    <div id="divlblNifudaNo">
+                                                        <label ID="lblChuuban" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</label>
+                                                    </div>
+                                                    </td>
+
+                                                <td id="tdTxtChuubanGyouban" style="width:100px;">
+                                                    <div id="divTxtChuubanGyouban" style="display:none;">
+                                                        <div id="divTxtChuuban">
+                                                            <input type="text" ID="txtChuuban1" class="ProcessEntryReadOnlyTextBox1 TextFieldsClass TextFieldsClassN  PMSEntryChuuban InActiveIMEMode" TabIndex="3" Style="width: 100%; display:none;" ClientIDMode="Static" ForeColor="Black" MaxLength="11">
+
+                                                        </div>
+                                                        <div style="width: 29px; float: right;">
+                                                            <input type="text" ID="txtGyouban1" class="ProcessEntryReadOnlyTextBox1 TextFieldsClass TextFieldsClassN  PMSEntryGyouban InActiveIMEMode" TabIndex="4" Style="width: 89%;display:none;" ForeColor="Black" MaxLength="2">
+                                                            <span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_GyoubanRequired")</span>
+                                                        </div>
+
+                                                        <span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_TagRequired")</span>
+                                                    </div>
+                                                    <div id="divTxtChuuban1" style="width:108px">
+                                                        <input type="text" ID="TextBox1" class="GridAlignmentNumeric" TabIndex="2" ClientIDMode="Static" MaxLength="9" Style="width: 80%; display:none;">
+                                                        <span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("lbl_NifudaNumber")</span>
+                                                        <input type="text" ID="txtChuuban2" class="Mandatory form-control TextFieldsClass" TabIndex="3" Style="width:80px;" ClientIDMode="Static" ForeColor="Black" MaxLength="11" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ChubanRequired")">
+                                                        <span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ChubanRequired")</span>
+                                                        <input type="text" ID="txtGyouban2" class="Mandatory form-control TextFieldsClass" TabIndex="4" Style="width: 28px; float: right;" ForeColor="Black" MaxLength="2" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_GyoubanRequired")">
+                                                        <span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_GyoubanRequired")</span>
+                                                    </div>
+                                                </td>
+                                                <td id="divlblChuuban1">
+                                                    <label ID="lblChuuban1" class="labelClass" style="display:none;">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</label>
+                                                </td>
+                                                <td id="tdTxtNifudaNo" style="width:10px;">
+                                                    <div id="divTxtChuubanGyouban1">
+                                                        <input type="text" ID="txtNifudaNo" class="GridAlignmentNumeric" TabIndex="2" ClientIDMode="Static" MaxLength="9" Style="width: 80%; display:none;">
+                                                        <span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("lbl_NifudaNumber")</span>
+                                                        <input type="hidden" id="hdfNifudaCD" name="hdfNifudaCD" />
+
+                                                    </div>
+                                                </td>
+                                                <td valign="middle" id="tdSearchButton" style="width: 198px;">
+                                                    <div style="height: 35px; line-height: 31px; background-color: indigo;">
+                                                        <div style="display: inline-block;">
+                                                            <label ID="lblChuubanSearch" class="labelClass" style="margin-left:6px; color:white;">@LocalizationServices.GetLocalizedHtmlString("lbl_PlanSearch")</label>
+                                                        </div>
+                                                        <div style="display: inline-block;width: 81px;margin-top: 2px;font-family:MS Gothic;">
+                                                            <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Extract")" ID="btnChuubanSearch" class="_functionButtons" TabIndex="5" ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" />
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td style="width:60px; padding-right:3px;">
+                                                    <div id="dvMessage" style="height: 35px; width: 55px;  line-height: 31px; text-align: center; background-color: maroon;">
+                                                        <label ID="lblThereIsMsg" class="labelClass" style="color:white;">@LocalizationServices.GetLocalizedHtmlString("lbl_ThereIsMsg")</label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div style="height: auto; border: 0.5px inset lightgrey;">
+                                    <div id="pnlProductDetails">
+                                        <div class="labelPadding">
+                                            <table cellpadding="1" cellspacing="1" style="width: 861px;" class="GridColumnLeftPadding labelPadding">
+                                                <!-- Row 0 : Empty -->
+                                                <!-- Row 1 : Prod Spec Number -->
+                                                <tr>
+                                                    <td colspan="13" style="height:15px">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="9"></td>
+                                                    <td colspan="4">
+                                                        <div id="divProdSpecNumberT1">
+                                                            <span id="spanlblProductSpecNoT1">
+                                                                <label ID="lblProductSpecNoT1" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductSpecNo")</label>
+                                                            </span>&nbsp; <span id="spantxtProductSpecNoT1">
+                                                                @*<label ID="txtProductSpecNoT1" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                                <input type="text" ID="txtProductSpecNoT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <!-- Row 2 : Chuuban, Delivery Date, Incharge, Std. Delivery Days -->
+                                                <tr>
+                                                    <td id="tdlblChuubanT1">
+                                                        <label ID="lblChuubanT1" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</label>
+                                                    </td>
+                                                    <td id="tdtxtChuubanT1">
+                                                        @*<label ID="txtChuubanT1" class="ProcessEntryReadOnlyTextBox1 labelPadding"></label>*@
+                                                        <input type="text" ID="txtChuubanT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                    <td id="tdlblDeliveryDateT1">
+                                                        <label ID="lblDeliveryDateT1" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_DeliveryDate")</label>
+                                                    </td>
+                                                    <td id="tdtxtDeliveryDateT1" colspan="4">
+                                                       @* <label ID="txtDeliveryDateT1" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtDeliveryDateT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                    <td id="tdlblCustomerInchargeT1">
+                                                        <label ID="lblCustomerInchargeT1" align="center" class="labelClass" Width="72px">@LocalizationServices.GetLocalizedHtmlString("lbl_SalesIncharge_L")</label>
+                                                    </td>
+                                                    <td id="tdtxtCustomerInchargeT1" colspan="2">
+                                                       @* <label ID="txtCustomerInchargeT1" class="ProcessEntryReadOnlyTextBox1" style="Width:150px"></label>*@
+                                                        <input type="text" ID="txtCustomerInchargeT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" style="width:181px" disabled="disabled" />
+                                                    </td> 
+                                                    <td id="tdlblStdDeliveryDateT1" align="center">
+                                                        <label ID="lblStdDeliveryDateT1" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_StdDeliveryDate")</label>
+                                                    </td>
+                                                    <td id="tdtxtStdDeliveryDateT1" colspan="2" align="left">
+                                                        @*<label ID="txtStdDeliveryDateT1" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtStdDeliveryDateT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                </tr>
+                                                <!-- Row 3 : Customer, Receiver, Chamfering, Quantity, Color -->
+                                                <tr>
+                                                    <td>
+                                                        <label ID="lblCustomerT1" align="center" class="labelClass ">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</label>
+                                                    </td>
+                                                    <td>
+                                                       @* <label ID="txtCustomerT1" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtCustomerT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblReceiverT1" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Receiver")</label>
+                                                    </td>
+                                                    <td colspan="4">
+                                                       @* <label ID="txtReceiverT1" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtReceiverT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblChamferT1" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ChamferShort")</label>
+                                                    </td>
+                                                    <td colspan="2">
+                                                        <table>
+                                                            <tr>
+                                                                <td>
+                                                                    <label ID="lblCT1" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ChamferC")</label>
+                                                                    @*<label ID="txtChamferT1" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                                    <input type="text" ID="txtChamferT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                                </td>
+                                                                <td id="tdlblUnitWtT1" style="text-align:right">
+                                                                    <label ID="lblUnitWtT1" align="right" class="labelClass1" EnableTheming="True" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitWt")</label>
+                                                                </td>
+                                                                <td id="tdtxtUnitWtT1">
+                                                                    @*<label ID="txtUnitWtT1" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                                    <input type="text" ID="txtUnitWtT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                   
+                                                    <td style="min-width:67px" align="center">
+                                                        <label ID="lblColorT1"  class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Color_L")</label>
+                                                    </td>
+                                                    <td align="left" colspan="2">
+                                                        @*<label ID="txtColorT1" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtColorT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                </tr>
+                                                <!-- Row 4 : MaterialNameMaker, MaterialShape, MaterialDim, Charge, Magari-Bend-Tol -->
+                                                <tr>
+                                                    <td>
+                                                        <label ID="lblMaterialNameMakerT1" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialNameMaker2")</label>
+                                                    </td>
+                                                    <td>
+                                                        @*<label ID="txtMaterialNameMakerT1" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtMaterialNameMakerT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblMatlShapeT1" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</label>
+                                                    </td>
+                                                    <td id="tdtxtMatlShapeT1">
+                                                        @*<label ID="txtMatlShapeT1" class="ProcessEntryReadOnlyTextBox1" style="text-align: left;"></label>*@
+                                                        <input type="text" ID="txtMatlShapeT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled"/>
+                                                    </td>
+                                                    <td id="tdlblMatlDimT1">
+                                                        <label ID="lblMatlDimT1" align="right" class="labelClass" Width="30px">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</label>
+                                                    </td>
+                                                    <td colspan="2">
+                                                        @*<label ID="txtMatlDimT1" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtMatlDimT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled"/>
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblChargeT1" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</label>
+                                                    </td>
+                                                    <td>
+                                                        @*<label ID="txtChargeT1" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtChargeT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblBendStandardT1" align="left" class="labelClass1" style="max-width:60px;min-width:60px" Width="60px">@LocalizationServices.GetLocalizedHtmlString("lbl_BendStandard")</label>
+                                                    </td>
+                                                    <td colspan="3" id="tdtxtBendStandardT1" align="right">
+                                                        @*<label ID="txtBendStandardT1" class="ProcessEntryReadOnlyTextBox1" Width="168px"></label>*@
+                                                        <input type="text" ID="txtBendStandardT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" style="width:179px" disabled="disabled" />
+                                                    </td>
+                                                </tr>
+                                                <!-- Row 5 : ProdNameCust, ProdShape, ProdDim, ProdDimOther, ExtTexture -->
+                                                <tr>
+                                                    <td>
+                                                        <label ID="lblProdNameCustomerT1" align="center" class="labelClass" width="45px">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCustRpt")</label>
+                                                    </td>
+                                                    <td>
+                                                        @*<label ID="txtProdNameCustomerT1" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtProdNameCustomerT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblProdShapeT1" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</label>
+                                                    </td>
+                                                    <td>
+                                                        @*<label ID="txtProdShapeT1" class="ProcessEntryReadOnlyTextBox1" style="text-align: left;"></label>*@
+                                                        <input type="text" ID="txtProdShapeT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblProdDimT1" align="right" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</label>
+                                                    </td>
+                                                    <td colspan="2">
+                                                        @*<label ID="txtProdDimT1" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtProdDimT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblProdDimOtherT1" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DimOther")</label>
+                                                    </td>
+                                                    <td>
+                                                        @*<label ID="txtProdDimOtherT1" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtProdDimOtherT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled"/>
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblExtTextureT1" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_ExternalTexture")</label>
+                                                    </td>
+                                                    <td colspan="3" align="right">
+                                                        @*<label ID="txtExtTextureT1" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtExtTextureT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                </tr>
+                                                <!-- Row 6 : ProdDimTol, Display -->
+                                                <tr>
+                                                    <td>
+                                                        <label ID="lblHostRefNoT1" align="left" class="labelClass" style="min-width:60px;max-width:60px">@LocalizationServices.GetLocalizedHtmlString("lbl_HostRefNo")</label>
+                                                    </td>
+                                                    <td>
+                                                        @*<label ID="txtHostRefNoT1" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtHostRefNoT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblDimToleranceT1" align="left" class="labelClass1" style="min-width:60px;max-width:60px" Width="60px">@LocalizationServices.GetLocalizedHtmlString("lbl_DimTolerance")</label>
+                                                    </td>
+                                                    <td colspan="4">
+                                                        @*<label ID="txtDimToleranceT1" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtDimToleranceT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+
+                                                        <label ID="lblDimToleranceMsgT1" ForeColor="Red" class="Hidden">@LocalizationServices.GetLocalizedHtmlString("valMsg_NoNumericalInfo")</label>
+                                                    </td>
+                                                    <td><label ID="lblConditionT1" align="left" class="labelClass1" style="min-width:60px;max-width:60px" Width="60px">@LocalizationServices.GetLocalizedHtmlString("lbl_Condition")</label></td>
+                                                    <td><input type="text" ID="txtConditionT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" /></td>
+                                                    <td>
+                                                        <label ID="lblDisplayT1" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Display_L")</label>
+                                                    </td>
+                                                    <td colspan="3" align="right">
+                                                        @*<label ID="txtDisplayT1" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtDisplayT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                </tr>
+                                                <!-- Row 7 : Stamp, Length, LenTol, Packing -->
+                                                <tr>
+                                                    <td>
+                                                        <label ID="lblStampT1" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_StampShort")</label>
+                                                    </td>
+                                                    <td>
+                                                        @*<label ID="txtStampT1" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtStampT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblLengthT1" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</label>
+                                                    </td>
+                                                    <td colspan="3">
+                                                        @*<label ID="txtLengthT1" class="ProcessEntryReadOnlyTextBox1" Style="width:95px"></label>*@
+                                                        <input type="text" ID="txtLengthT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" Style="width:95px" disabled="disabled" />
+                                                        <label ID="lblLengthMsgT1" style="display:none;color:red;">@LocalizationServices.GetLocalizedHtmlString("valMsg_NoNumericalInfo")</label>
+                                                    </td>
+                                                    <td colspan="3">
+                                                        <label ID="lblLengthToleranceT1" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_LengthTolerance")</label>
+                                                        @*<label ID="txtLengthToleranceT1" style="width:159px" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtLengthToleranceT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" style="min-width:156px;max-width:156px" disabled="disabled" />
+                                                        <label ID="lblLengthToleranceMsgT1" class="Hidden" style="color:red;">@LocalizationServices.GetLocalizedHtmlString("valMsg_NoNumericalInfo")</label>
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblPackingT1" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Packing")</label>
+                                                    </td>
+                                                    <td colspan="3" align="right">
+                                                        @*<label ID="txtPackingT1" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtPackingT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                </tr>
+                                                <!-- Row 8 : Inzu, Quantity, IntCoilDim, ExtCoilDim, WindDirection -->
+                                                <tr>
+                                                    <td>
+                                                        <label ID="lblNoOfUnitsT1" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_NoOfUnits")</label>
+                                                    </td>
+                                                    <td>
+                                                        @*<label ID="txtNoOfUnitsT1" class="ProcessEntryReadOnlyTextBox1" Style="text-align:right"></label>*@
+                                                        <input type="text" ID="txtNoOfUnitsT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" Style="text-align:right" disabled="disabled" />
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblQuantityT1" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_WeightWithoutKG")</label>
+                                                    </td>
+                                                    <td>
+                                                        @*<label ID="txtQuantityT1" class="ProcessEntryReadOnlyTextBox1" Style="width:50px"></label>*@
+                                                        <input type="text" ID="txtQuantityT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" Style="width:50px" disabled="disabled" />
+                                                    </td>
+                                                    <td colspan="9">
+
+                                                        <div style="background-color:lightgray;">
+
+                                                            <label ID="lblHeaderT1" style="vertical-align:middle;" align="Left" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_HeaderLine")</label>
+
+
+                                                            <label ID="lblIntDiaMinT1" style="vertical-align:middle;" align="Left" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_IntDiaMin")</label>
+
+                                                            @*<label ID="txtIntDiaMinT1" style="vertical-align:middle;" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                            <input type="text" ID="txtIntDiaMinT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" style="vertical-align:middle;" disabled="disabled" />
+
+                                                            <label ID="lblExtDiaMaxT1" style="vertical-align:middle;" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ExtDiaMax")</label>
+                                                            @*<label ID="txtExtDiaMaxT1" style="vertical-align:middle;" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                            <input type="text" ID="txtExtDiaMaxT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" style="vertical-align:middle;" disabled="disabled" />
+
+                                                            <label ID="lblWindingDirectionT1" style="vertical-align:middle;" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_CoilWindingDir_L")</label>
+
+                                                            @*<label ID="txtWindingDirectionT1" style="vertical-align:middle;" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                            <input type="text" ID="txtWindingDirectionT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" style="vertical-align:middle;" disabled="disabled" />
+                                                        </div>
+
+                                                    </td>
+                                                </tr>
+                                                <!-- Row 9 : Khakouirai Remarks, Process Plan Remarks -->
+                                                <tr>
+                                                    <td align="left">
+                                                        <span>
+                                                            <label ID="lblKakouiraiRemarksT1" style="text-align:left;" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_KakouiraiRemarks")</label>
+                                                        </span>
+                                                    </td>
+                                                    <td align="left" colspan="5">
+                                                        <span id="spantxtKakouiraiRemarksT1">
+                                                            @*<label ID="txtKakouiraiRemarksT1" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                            <input type="text" ID="txtKakouiraiRemarksT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                        </span>
+                                                    </td>
+                                                    <td align="right" colspan="7">
+                                                        <span>
+                                                            <label ID="lblProdOrderRemarkT1" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdOrderRemark")</label>
+                                                        </span>
+
+                                                        <span>
+                                                            @*<label ID="txtProdOrderRemarkT1" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                            <input type="text" ID="txtProdOrderRemarkT1" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <!-- Row 10 : Process Plan Processes -->
+                                                <tr>
+                                                    <td colspan="13">
+                                                        <span">
+                                                            <label ID="lblProductionProcessT1" align="left" class="LabelProductionProcess labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessesSequence")</label>
+
+                                                        </span>
+                                                        <span>
+
+                                                            @*<label ID="txtProductionProcessT1" class="ProcessEntryReadOnlyTextBox1" Width="780px" style="overflow-y: scroll;"></label>*@
+                                                                <input type="text" ID="txtProductionProcessT1" class="TextProductionProcess ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <!-- Row 11 : HIdden row to store MachineType and ProcessPlanCD -->
+                                                <tr>
+                                                    <td colspan="13">
+                                                        <input type="hidden" id="hfldMachineType" name="hfldMachineType" />
+                                                        <input type="hidden" id="hdfldProcessPlanCd" name="hdfldProcessPlanCd" />
+                                                        <input type="hidden" id="hdfNifidaCD" name="hdfNifidaCD" />
+                                                        <input type="hidden" id="hdfCultureEN" name="hdfCultureEN" />
+                                                        <input type="hidden" id="hdfCultureJP" name="hdfCultureJP" />
+                                                        <input type="hidden" id="hdfCultureLoaded" name="hdfCultureLoaded" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="13" style="height:15px">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="divPanelCphStartEndData">
+
+                                    @RenderSection("cphStartEndData", required: false)
+
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="TbHistorySearchData">
+                                <div id="TbHistorySearch" class="ajax__tab_panel" style="visibility: visible;">
+                                    <div>
+                                        <div id="pnlCustomerDetails" class="labelPadding">
+                                            <table id="tblCustomerDetails" cellpadding="1" cellspacing="1" class="GridColumnLeftPadding">
+                                                <!-- Row 0 : Empty -->
+                                                <tr id="trProcessSearchDetails">
+                                                    <td colspan="4"></td>
+                                                </tr>
+                                                <!-- Row 1 : Chuuban Search -->
+                                                <tr>
+                                                    <td id="tdLblChuubanGyoubanT2">
+                                                        <label ID="lblChuubanGyoubanT2" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</label>
+                                                    </td>
+                                                    <td id="tdTxtChuubanGyoubanT2">
+                                                        <input type="text" ID="txtChubanT2" class="form-control TextFieldsClass InActiveIMEMode Mandatory1" ForeColor="Black" MaxLength="10" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_ChubanRequired")">
+                                                        <span class="text-danger" style="display:none"></span>
+                                                        <input type="text" ID="txtGyobanT2" class="form-control TextFieldsClass InActiveIMEMode Mandatory1" ForeColor="Black" MaxLength="2" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_GyoubanRequired")">
+                                                        <span class="text-danger" style="display:none"></span>
+                                                    </td>
+                                                    <td id="tdbtnChuubanGyoubanSearchT2">
+                                                        @* <input type="button" value="@LocalizationServices.GetLocalizedHtmlString(" btn_HistorySearch_L")" ID="btnSearchT2" class="_functionButtons" TabIndex="3" ValidationGroup="pnlFirstMasterValidation" />*@
+                                                        <input id="btnSearchT2" class="_functionButtons" type="button" title="@LocalizationServices.GetLocalizedHtmlString("btn_HistorySearch_L")" value="@LocalizationServices.GetLocalizedHtmlString("btn_HistorySearch_L")" />
+                                                    </td>
+                                                    <td></td>
+                                                </tr>
+                                              
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div id="divProcessPlanDetails" class="labelPadding">
+                                        <table id="tblProcessPlanDetails" cellpadding="1" cellspacing="1" class="GridColumnLeftPadding">
+                                            <tr>
+                                                <td colspan="9"></td>
+                                                <td colspan="4">
+                                                    <div id="divProdSpecNumberT2">
+                                                        <span id="spanlblProductSpecNoT2">
+                                                            <label ID="lblProductSpecNoT2" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductSpecNo")</label>
+                                                        </span>&nbsp; <span id="spantxtProductSpecNoT2">
+                                                            <input type="text" ID="txtProductSpecNoT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- Row 2 : Chuuban, Delivery Date, Incharge, Std. Delivery Days -->
+                                            <tr>
+                                                <td id="tdlblChuubanT2">
+                                                    <label ID="lblChuubanT2" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</label>
+                                                </td>
+                                                <td id="tdtxtChuubanT2">
+                                                    <input type="text" ID="txtChuubanT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                </td>
+                                                <td id="tdlblDeliveryDateT2">
+                                                    <label ID="lblDeliveryDateT2" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_DeliveryDate")</label>
+                                                </td>
+                                                <td id="tdtxtDeliveryDateT2" colspan="4">
+                                                    <input type="text" ID="txtDeliveryDateT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                </td>
+                                                <td id="tdlblCustomerInchargeT2">
+                                                    <label ID="lblCustomerInchargeT2"  align="center" class="labelClass" Width="72px">@LocalizationServices.GetLocalizedHtmlString("lbl_SalesIncharge_L")</label>
+                                                </td>
+                                                <td id="tdtxtCustomerInchargeT2" colspan="2">
+                                                    <input type="text" ID="txtCustomerInchargeT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" style="width:181px" disabled="disabled" />
+                                                </td>
+                                                <td id="tdlblStdDeliveryDateT2" align="center">
+                                                    <label ID="lblStdDeliveryDateT2" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_StdDeliveryDate")</label>
+                                                </td>
+                                                <td id="tdtxtStdDeliveryDateT2" colspan="2" align="left">
+                                                    <input type="text" ID="txtStdDeliveryDateT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                </td>
+                                            </tr>
+                                            <!-- Row 3 : Customer, Receiver, Chamfering, Quantity, Color -->
+                                            <tr>
+                                                <td>
+                                                    <label ID="lblCustomerT2" align="center" class="labelClass ">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</label>
+                                                </td>
+                                                <td>
+                                                    <input type="text" ID="txtCustomerT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                </td>
+                                                <td>
+                                                    <label ID="lblReceiverT2" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Receiver")</label>
+                                                </td>
+                                                <td colspan="4">
+                                                    <input type="text" ID="txtReceiverT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                </td>
+                                                <td>
+                                                    <label ID="lblChamferT2" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ChamferShort")</label>
+                                                </td>
+                                                <td colspan="2">
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+                                                                <label ID="lblCT2" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ChamferC")</label>
+                                                                <input type="text" ID="txtChamferT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                            </td>
+                                                            <td id="tdlblUnitWtT2" style="text-align:right">
+                                                                <label ID="lblUnitWtT2" align="right" class="labelClass1" EnableTheming="True" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitWt")</label>
+                                                            </td>
+                                                            <td id="tdtxtUnitWtT2">
+                                                                <input type="text" ID="txtUnitWtT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+
+                                                <td style="min-width:67px" align="center">
+                                                    <label ID="lblColorT2" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Color_L")</label>
+                                                </td>
+                                                <td align="left" colspan="2">
+                                                    <input type="text" ID="txtColorT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                </td>
+                                            </tr>
+                                            <!-- Row 4 : MaterialNameMaker, MaterialShape, MaterialDim, Charge, Magari-Bend-Tol -->
+                                            <tr>
+                                                <td>
+                                                    <label ID="lblMaterialNameMakerT2" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialNameMaker2")</label>
+                                                </td>
+                                                <td>
+                                                    <input type="text" ID="txtMaterialNameMakerT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                </td>
+                                                <td>
+                                                    <label ID="lblMatlShapeT2" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</label>
+                                                </td>
+                                                <td id="tdtxtMatlShapeT2">
+                                                    <input type="text" ID="txtMatlShapeT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                </td>
+                                                <td id="tdlblMatlDimT2">
+                                                    <label ID="lblMatlDimT2" align="right" class="labelClass" Width="30px">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</label>
+                                                </td>
+                                                <td colspan="2">
+                                                    <input type="text" ID="txtMatlDimT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                </td>
+                                                <td>
+                                                    <label ID="lblChargeT2" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</label>
+                                                </td>
+                                                <td>
+                                                    <input type="text" ID="txtChargeT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                </td>
+                                                <td>
+                                                    <label ID="lblBendStandardT2" align="left" class="labelClass1" style="max-width:60px;min-width:60px" Width="60px">@LocalizationServices.GetLocalizedHtmlString("lbl_BendStandard")</label>
+                                                </td>
+                                                <td colspan="3" id="tdtxtBendStandardT2" align="right">
+                                                    <input type="text" ID="txtBendStandardT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" style="width:179px" disabled="disabled" />
+                                                </td>
+                                            </tr>
+                                            <!-- Row 5 : ProdNameCust, ProdShape, ProdDim, ProdDimOther, ExtTexture -->
+                                            <tr>
+                                                <td>
+                                                    <label ID="lblProdNameCustomerT2" align="center" class="labelClass" width="45px">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCustRpt")</label>
+                                                </td>
+                                                <td>                                                   
+                                                    <input type="text" ID="txtProdNameCustomerT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                </td>
+                                                <td>
+                                                    <label ID="lblProdShapeT2" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</label>
+                                                </td>
+                                                <td>
+                                                    <input type="text" ID="txtProdShapeT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                </td>
+                                                <td>
+                                                    <label ID="lblProdDimT2" align="right" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</label>
+                                                </td>
+                                                <td colspan="2">                                                   
+                                                    <input type="text" ID="txtProdDimT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                </td>
+                                                <td>
+                                                    <label ID="lblProdDimOtherT2" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DimOther")</label>
+                                                </td>
+                                                <td>
+                                                    <input type="text" ID="txtProdDimOtherT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                </td>
+                                                <td>
+                                                    <label ID="lblExtTextureT2" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_ExternalTexture")</label>
+                                                </td>
+                                                <td colspan="3" align="right">
+                                                    <input type="text" ID="txtExtTextureT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                </td>
+                                            </tr>
+                                            <!-- Row 6 : ProdDimTol, Display -->
+                                            <tr>
+                                                <td>
+                                                    <label ID="lblHostRefNoT2" align="left" class="labelClass" style="min-width:60px;max-width:60px">@LocalizationServices.GetLocalizedHtmlString("lbl_HostRefNo")</label>
+                                                </td>
+                                                <td>
+                                                    <input type="text" ID="txtHostRefNoT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                </td>
+                                                <td>
+                                                    <label ID="lblDimToleranceT2" align="left" class="labelClass1" style="min-width:60px;max-width:60px" Width="60px">@LocalizationServices.GetLocalizedHtmlString("lbl_DimTolerance")</label>
+                                                </td>
+                                                <td colspan="4">
+                                                    <input type="text" ID="txtDimToleranceT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+
+                                                    <label ID="lblDimToleranceMsgT2" ForeColor="Red" class="Hidden">@LocalizationServices.GetLocalizedHtmlString("valMsg_NoNumericalInfo")</label>
+                                                </td>
+                                                <td><label ID="lblConditionT2" align="left" class="labelClass1" style="min-width:60px;max-width:60px" Width="60px">@LocalizationServices.GetLocalizedHtmlString("lbl_Condition")</label></td>
+                                                <td><input type="text" ID="txtConditionT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" /></td>
+                                                <td>
+                                                    <label ID="lblDisplayT2" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Display_L")</label>
+                                                </td>
+                                                <td colspan="3" align="right">
+                                                    <input type="text" ID="txtDisplayT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                </td>
+                                            </tr>
+                                            <!-- Row 7 : Stamp, Length, LenTol, Packing -->
+                                            <tr>
+                                                <td>
+                                                    <label ID="lblStampT2" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_StampShort")</label>
+                                                </td>
+                                                <td>
+                                                    <input type="text" ID="txtStampT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                </td>
+                                                <td>
+                                                    <label ID="lblLengthT2" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</label>
+                                                </td>
+                                                <td colspan="3">
+                                                    <input type="text" ID="txtLengthT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" Style="width:95px" disabled="disabled" />
+                                                    <label ID="lblLengthMsgT2" style="display:none;color:red;">@LocalizationServices.GetLocalizedHtmlString("valMsg_NoNumericalInfo")</label>
+                                                </td>
+                                                <td colspan="3">
+                                                    <table>
+                                                        <tr>
+                                                            <td align="left" valign="middle">
+                                                                <label ID="lblLengthToleranceT2" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_LengthTolerance")</label>
+                                                            </td>
+                                                            <td align="left" valign="top">
+                                                                <input type="text" ID="txtLengthToleranceT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" style="min-width:156px;max-width:156px" disabled="disabled" />
+                                                                <label ID="lblLengthToleranceMsgT2" class="Hidden" style="color:red;">@LocalizationServices.GetLocalizedHtmlString("valMsg_NoNumericalInfo")</label>
+                                                            </td>
+                                                        </tr>
+                                                        </table>
+                                                    
+                                                   
+                                                </td>
+                                                <td>
+                                                    <label ID="lblPackingT2" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Packing")</label>
+                                                </td>
+                                                <td colspan="3" align="right">
+                                                    <input type="text" ID="txtPackingT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                </td>
+                                            </tr>
+                                            <!-- Row 8 : Inzu, Quantity, IntCoilDim, ExtCoilDim, WindDirection -->
+                                            <tr>
+                                                <td>
+                                                    <label ID="lblNoOfUnitsT2" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_NoOfUnits")</label>
+                                                </td>
+                                                <td>
+                                                    <input type="text" ID="txtNoOfUnitsT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" Style="text-align:right" disabled="disabled" />
+                                                </td>
+                                                <td>
+                                                    <label ID="lblQuantityT2" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_WeightWithoutKG")</label>
+                                                </td>
+                                                <td>
+                                                    <input type="text" ID="txtQuantityT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" Style="width:50px" disabled="disabled" />
+                                                </td>
+                                                <td colspan="9">
+
+                                                    <div style="background-color:lightgray;">
+
+                                                        <label ID="lblHeaderT2" style="vertical-align:middle;" align="Left" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_HeaderLine")</label>
+
+                                                        <label ID="lblIntDiaMinT2" style="vertical-align:middle;" align="Left" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_IntDiaMin")</label>
+
+                                                        <input type="text" ID="txtIntDiaMinT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" style="vertical-align:middle;" disabled="disabled" />
+
+                                                        <label ID="lblExtDiaMaxT2" style="vertical-align:middle;" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ExtDiaMax")</label>
+                                                        <input type="text" ID="txtExtDiaMaxT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" style="vertical-align:middle;" disabled="disabled" />
+
+                                                        <label ID="lblWindingDirectionT2" style="vertical-align:middle;" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_CoilWindingDir_L")</label>
+                                                        <input type="text" ID="txtWindingDirectionT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" style="vertical-align:middle;" disabled="disabled" />
+                                                    </div>
+
+                                                </td>
+                                            </tr>
+                                            <!-- Row 9 : Khakouirai Remarks, Process Plan Remarks -->
+                                            <tr>
+                                                <td align="left">
+                                                    <span>
+                                                        <label ID="lblKakouiraiRemarksT2" style="text-align:left;" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_KakouiraiRemarks")</label>
+                                                    </span>
+                                                </td>
+                                                <td align="left" colspan="5">
+                                                    <span id="spantxtKakouiraiRemarksT2">
+                                                        <input type="text" ID="txtKakouiraiRemarksT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </span>
+                                                </td>
+                                                <td align="right" colspan="7">
+                                                    <span>
+                                                        <label ID="lblProdOrderRemarkT2" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdOrderRemark")</label>
+                                                    </span>
+
+                                                    <span>
+                                                        <input type="text" ID="txtProdOrderRemarkT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <!-- Row 10 : Process Plan Processes -->
+                                            <tr>
+                                                <td colspan="13">
+                                                    <span">
+                                                        <label ID="lblProductionProcessT2" align="left" class="LabelProductionProcess labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessesSequence")</label>
+
+                                                        </span>
+                                                        <span>
+
+                                                            <input type="text" ID="txtProductionProcessT2" class="TextProductionProcess ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                        </span>
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                    <div id="divMaterialDetails">
+                                        <table id="tblMaterialDetails" cellpadding="1" cellspacing="1" class="GridColumnLeftPadding">
+                                            <!-- Row 0 : Empty -->
+                                            <tr id="trTblMaterialDetailsEmptyRow0">
+                                                <td colspan="4"></td>
+                                            </tr>
+                                            <!-- Row 1 : Material Name Maker, Material Dimension -->
+                                            <tr id="trTblMaterialDetailsEmptyRow1">
+                                                <td id="tdLblMaterialNameMakerT2">
+                                                    <label ID="lblMaterialNameMakerT2" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialNameMaker2")</label>
+                                                </td>
+                                                <td id="tdTxtMaterialT2">
+                                                    @*<label ID="txtMaterialT2" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                    <input type="text" ID="txtMaterialT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                </td>
+                                                <td id="tdLblMaterialDimT2">
+                                                    <label ID="lblMaterialDimT2" align="right" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</label>
+                                                </td>
+                                                <td>
+                                                    @*<label ID="txtDimT2" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                    <input type="text" ID="txtDimT2" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                </td>
+                                            </tr>
+                                            <!-- Row 2 : Empty -->
+                                            <tr id="trTblMaterialDetailsEmptyRow2">
+                                                <td colspan="4"></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+
+                                    <div id="divProcessHistory">
+
+
+                                        @RenderSection("cphHistory", required: false)
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="TbMessageData">
+                                <div id="TbMessage" class="ajax__tab_panel">
+                                    <div style="max-width:880px;overflow: scroll;height: 812px;">
+                                        <div>
+                                            <table class="GridLines GridColumnLeftPadding" cellpadding="1" cellspacing="1" border="1" align="left" id="grdvMessage">
+                                                <thead>
+                                                    <tr class="GridHeader freez GridHeaderPadding">
+                                                        <th class="headerPadding labelClass tdH2 HeaderMessageDate" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_MessageDateT3")</th>
+                                                        <th class="headerPadding labelClass tdH2 HeaderProcessName" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNameT3")</th>
+                                                        <th class="headerPadding labelClass tdH2 HeaderMachineName" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_MachineName_L")</th>
+                                                        <th class="headerPadding labelClass tdH2 HeaderEndOperator" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Operator")</th>
+                                                        <th class="headerPadding labelClass tdH2 HeaderMessageContent" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_MessageContent")</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="GridNormalRow">
+                                                        <td align="center" valign="top">
+                                                            <span id="lblMessageDate"></span>
+                                                        </td>
+                                                        <td align="center" valign="top">
+                                                            <span id="lblMachineName"></span>
+                                                        </td>
+                                                        <td align="center" valign="top"><span id="lblProcessName"></span></td>
+                                                        <td align="center" valign="top"><span id="lblEndOperatorName"></span></td>
+                                                        <td align="center" valign="top"><span id="lblMessageContent"></span></td>
+                                                    </tr> @*@foreach (var item in Model) { <tr>
+                                                    <td class="labelClass">@item.MESSAGE_DATE", "{0:yyyy/MM/dd}</td>
+                                                    <td class="labelClass">@item.MACHINE_NAME</td>
+                                                    <td class="labelClass">@item.PROCESS_NAME</td>
+                                                    <td class="labelClass">@item.END_OPERATOR_NAME</td>
+                                                    <td class="labelClass">@item.MESSAGE_CONTENT</td>
+                                                    </tr> }*@
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade labelPadding" id="TbProcessInfoData" >
+                                <div id="TbProcessInfo">
+                                    <div id="divProcessInfo">
+                                        <div id="pnlProcessInfo" class="labelPadding">
+                                            <table id="tblProcessInfo" cellpadding="1" cellspacing="1" class="GridColumnLeftPadding">
+                                                <!-- Row 0 : Empty -->
+                                                <!-- Row 1 : Prod Spec Number -->
+                                                <tr>
+                                                    <td colspan="13" style="height:15px">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="9"></td>
+                                                    <td colspan="4">
+                                                        <div id="divProdSpecNumberT4">
+                                                            <span id="spanlblProductSpecNoT4">
+                                                                <label ID="lblProductSpecNoT4" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductSpecNo")</label>@*@LocalizationServices.GetLocalizedHtmlString("No records found.")*@
+                                                            </span>
+                                                            <span id="spantxtProductSpecNoT4">
+                                                                <label ID="txtProductSpecNoT4" class="ProcessEntryReadOnlyTextBox1"></label>
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <!-- Row 2 : Chuuban, Delivery Date, Incharge, Std. Delivery Days -->
+                                                <tr>
+                                                    <td id="tdlblChuubanT4">
+                                                        <label ID="lblChuubanT4" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</label>
+                                                    </td>
+                                                    <td id="tdtxtChuubanT4">
+                                                        @*<label ID="txtChuubanT4" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtChuubanT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+
+                                                    </td>
+                                                    <td id="tdlblDeliveryDateT4">
+                                                        <label ID="lblDeliveryDateT4" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_DeliveryDate")</label>
+                                                    </td>
+                                                    <td id="tdtxtDeliveryDateT4" colspan="4">
+                                                        @*<label ID="txtDeliveryDateT4" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtDeliveryDateT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                    <td id="tdlblCustomerInchargeT4">
+                                                        <label ID="lblCustomerInchargeT4" align="center" class="labelClass" Width="73px">@LocalizationServices.GetLocalizedHtmlString("lbl_SalesIncharge_L")</label>
+                                                    </td>
+                                                    <td id="tdtxtCustomerInchargeT4" colspan="2">
+                                                       
+                                                        <input type="text" ID="txtCustomerInchargeT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" style="width:181px" disabled="disabled" />
+                                                    </td> @* <td id="tdProcessInfoEmptyRow2Col7"></td>*@
+                                                    <td id="tdlblStdDeliveryDateT4" align="right">
+                                                        <label ID="lblStdDeliveryDateT4" style="width:58px" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_StdDeliveryDate")</label>
+                                                    </td>
+                                                    <td id="tdtxtStdDeliveryDateT4" colspan="2" align="right">
+                                                        @*<label ID="txtStdDeliveryDateT4" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtStdDeliveryDateT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                </tr>
+                                                <!-- Row 3 : Customer, Receiver, Chamfering, Quantity, Color -->
+                                                <tr>
+                                                    <td>
+                                                        <label ID="lblCustomerT4" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</label>
+                                                    </td>
+                                                    <td>
+                                                        @*<label ID="txtCustomerT4" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtCustomerT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblReceiverT4" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Receiver")</label>
+                                                    </td>
+                                                    <td colspan="4">
+                                                        @*<label ID="txtReceiverT4" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtReceiverT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblChamferT4" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ChamferShort")</label>
+                                                    </td>
+                                                    <td colspan="2">
+                                                        <table>
+                                                            <tr>
+                                                                <td>
+                                                                    <label ID="lblCT4" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ChamferC")</label>
+                                                                    @*<label ID="txtChamferT4" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                                    <input type="text" ID="txtChamferT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                                </td>
+                                                                <td id="tdlblUnitWtT1" style="text-align:right">
+                                                                    <label ID="lblUnitWtT4" align="center" class="labelClass1" EnableTheming="True" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitWt")</label>
+                                                                </td>
+                                                                <td id="tdtxtUnitWtT1">
+                                                                    @*<label ID="txtUnitWtT1" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                                    <input type="text" ID="txtUnitWtT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+
+
+                                                   
+                                                    <td style="width:30px">
+                                                        <label ID="lblColorT4" align="right" style="width:58px" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Color_L")</label>
+                                                    </td>
+
+
+                                                    <td align="right">
+                                                        @*<label ID="txtColorT4" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtColorT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                </tr>
+                                                <!-- Row 4 : MaterialNameMaker, MaterialShape, MaterialDim, Charge, Magari-Bend-Tol -->
+                                                <tr>
+                                                    <td>
+                                                        <label ID="lblMaterialNameMakerT4" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialNameMaker2")</label>
+                                                    </td>
+                                                    <td>
+                                                        @*<label ID="txtMaterialNameMakerT4" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtMaterialNameMakerT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblMatlShapeT4" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</label>
+                                                    </td>
+                                                    <td id="tdtxtMatlShapeT4">
+                                                        @*<label ID="txtMatlShapeT4" class="ProcessEntryReadOnlyTextBox1" style="text-align: left;"></label>*@
+                                                        <input type="text" ID="txtMatlShapeT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                    <td id="tdlblMatlDimT4">
+                                                        <label ID="lblMatlDimT4" align="right" class="labelClass" style="Width:29px; margin-left:-28px">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</label>
+                                                    </td>
+                                                    <td colspan="2">
+                                                        @*<label ID="txtMatlDimT4" style="margin-left:-24px" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtMatlDimT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" style="margin-left:-24px" />
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblChargeT4" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</label>
+                                                    </td>
+                                                    <td>
+                                                        @*<label ID="txtChargeT4" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtChargeT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblBendStandardT4" align="center" class="labelClass1" style="width:60px">@LocalizationServices.GetLocalizedHtmlString("lbl_BendStandard")</label>
+                                                    </td>
+                                                    <td colspan="3" id="tdtxtBendStandardT4" align="right">
+                                                        @*<label ID="txtBendStandardT4" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtBendStandardT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                </tr>
+                                                <!-- Row 5 : ProdNameCust, ProdShape, ProdDim, ProdDimOther, ExtTexture -->
+                                                <tr>
+                                                    <td>
+                                                        <label ID="lblProdNameCustomerT4" align="center" class="labelClass" Width="45px">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCustRpt")</label>
+                                                    </td>
+                                                    <td>
+                                                        @*<label ID="txtProdNameCustomerT4" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtProdNameCustomerT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblProdShapeT4" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</label>
+                                                    <td>
+                                                        @*<label ID="txtProdShapeT4" class="ProcessEntryReadOnlyTextBox1" style="text-align: left;"></label>*@
+                                                        <input type="text" ID="txtProdShapeT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblProdDimT4" align="right" style="margin-left:-29px;" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</label>
+                                                    </td>
+                                                    <td colspan="2">
+                                                        @*<label ID="txtProdDimT4" style="margin-left:-24px;" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtProdDimT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" style="margin-left:-24px;" />
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblProdDimOtherT4" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DimOther")</label>
+                                                    </td>
+                                                    <td>
+                                                        @*<label ID="txtProdDimOtherT4" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtProdDimOtherT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblExtTextureT4" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_ExternalTexture")</label>
+                                                    </td>
+                                                    <td colspan="3" align="right">
+                                                        @*<label ID="txtExtTextureT4" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtExtTextureT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                </tr>
+                                                <!-- Row 6 : ProdDimTol, Display -->
+                                                <tr>
+
+                                                    <td>
+                                                        <label ID="lblHostRefNoT4" align="center" class="labelClass" style="width:60px">@LocalizationServices.GetLocalizedHtmlString("lbl_HostRefNo")</label>
+                                                    </td>
+                                                    <td>
+                                                        @*<label ID="txtHostRefNoT4" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtHostRefNoT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+
+                                                    <td>
+                                                        <label ID="lblDimToleranceT4" align="center" class="labelClass1" Width="60px">@LocalizationServices.GetLocalizedHtmlString("lbl_DimTolerance")</label>
+                                                    </td>
+                                                    <td colspan="4">
+                                                        @*<label ID="txtDimToleranceT4" style="text-align:left" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtDimToleranceT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                        <label ID="lblDimToleranceMsgT4" ForeColor="Red" class="Hidden">@LocalizationServices.GetLocalizedHtmlString("valMsg_NoNumericalInfo")</label>
+                                                    </td>
+                                                    <td><label ID="lblConditionT4" align="left" class="labelClass1" style="min-width:60px;max-width:60px" Width="60px">@LocalizationServices.GetLocalizedHtmlString("lbl_Condition")</label></td>
+                                                    <td><input type="text" ID="txtConditionT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" /></td>
+                                                    <td>
+                                                        <label ID="lblDisplayT4" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Display_L")</label>
+                                                    </td>
+                                                    <td colspan="3" align="right">
+                                                        @*<label ID="txtDisplayT4" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtDisplayT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                </tr>
+                                                <!-- Row 7 : Stamp, Length, LenTol, Packing -->
+                                                <tr>
+                                                    <td>
+                                                        <label ID="lblStampT4" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_StampShort")</label>
+                                                    </td>
+                                                    <td>
+                                                        @*<label ID="txtStampT4" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtStampT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblLengthT4" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</label>
+                                                    </td>
+                                                    <td colspan="2">
+                                                        @*<label ID="txtLengthT4" class="ProcessEntryReadOnlyTextBox1" Style="width:69px"></label>*@
+                                                        <input type="text" ID="txtLengthT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" Style="width:69px" />
+                                                        <label ID="lblLengthMsgT4" ForeColor="Red" class="Hidden">@LocalizationServices.GetLocalizedHtmlString("valMsg_NoNumericalInfo")</label>
+                                                    </td>
+                                                    <td colspan="4">
+                                                        <label ID="lblLengthToleranceT4" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_LengthTolerance")</label>
+                                                        @*<label ID="txtLengthToleranceT4" style="text-align:left; width:159px" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtLengthToleranceT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" style="width:159px" />
+                                                        <label ID="lblLengthToleranceMsgT4" ForeColor="Red" class="Hidden">@LocalizationServices.GetLocalizedHtmlString("valMsg_NoNumericalInfo")</label>
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblPackingT4" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Packing")</label>
+                                                    </td>
+                                                    <td colspan="3" align="right">
+                                                        @*<label ID="txtPackingT4" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtPackingT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                    </td>
+                                                </tr>
+                                                <!-- Row 8 : Inzu, Quantity, IntCoilDim, ExtCoilDim, WindDirection -->
+                                                <tr>
+                                                    <td>
+                                                        <label ID="lblNoOfUnitsT4" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_NoOfUnits")</label>
+                                                    </td>
+                                                    <td>
+                                                        @*<label ID="txtNoOfUnitsT4" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtNoOfUnitsT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" style="text-align:right"/>
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblQuantityT4" align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_WeightWithoutKG")</label>
+                                                    </td>
+                                                    <td colspan="1" style="width:79px">
+                                                        @*<label ID="txtQuantityT4" class="ProcessEntryReadOnlyTextBox1" Style="width:50px"></label>*@
+                                                        <input type="text" ID="txtQuantityT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" Style="width:50px" />
+                                                    </td>
+                                                    <td colspan="9">
+                                                        <span id="spanCoilDetailsT4">
+                                                            <span>
+                                                                <label ID="lblHeaderT4" align="Left" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_HeaderLine")</label>
+                                                            </span>
+                                                            <span>
+                                                                <label ID="lblIntDiaMinT4" style="margin-right:-6px" align="Left" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_IntDiaMin")</label>
+                                                            </span>
+                                                            <span>
+                                                                @*<label ID="txtIntDiaMinT4" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                                <input type="text" ID="txtIntDiaMinT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                            </span>
+                                                            <span>
+                                                                <label ID="lblExtDiaMaxT4" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ExtDiaMax")</label>
+                                                            </span>
+                                                            <span>
+                                                                @*<label ID="txtExtDiaMaxT4" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                                <input type="text" ID="txtExtDiaMaxT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                            </span>
+                                                            <span>
+                                                                <label ID="lblWindingDirectionT4" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_CoilWindingDir_L")</label>
+                                                            </span>
+                                                            <span>
+                                                                @*<label ID="txtWindingDirectionT4" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                                <input type="text" ID="txtWindingDirectionT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                            </span>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <!-- Row 9 : Khakouirai Remarks, Process Plan Remarks -->
+                                                <tr>
+                                                    <td colspan="13">
+                                                        <span>
+                                                            <label ID="lblKakouiraiRemarksT4" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_KakouiraiRemarks")</label>
+                                                        </span>
+                                                        <span>
+                                                            @*<label ID="txtKakouiraiRemarksT4" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                            <input type="text" ID="txtKakouiraiRemarksT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                        </span>
+                                                        <span>
+                                                            <label ID="lblProdOrderRemarkT4" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdOrderRemark")</label>
+                                                        </span>
+                                                        <span>
+                                                            @*<label ID="txtProdOrderRemarkT4" class="ProcessEntryReadOnlyTextBox1" Width="364"></label>*@
+                                                            <input type="text" ID="txtProdOrderRemarkT4" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" style="width:350px"/>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="13" style="height:15px">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div id="divTestSpecifications">
+                                        <div id="pnlTestSpecifications" class="labelpadding">
+                                            <table id="tblTestSpecifications" class="GridColumnLeftPadding">
+                                                <!-- Row 0 : Empty -->
+                                                <tr>
+                                                    <td colspan="5" style="height:15px">
+                                                    </td>
+                                                </tr>
+                                                <tr id="trTestSpecificationsEmtpyRow0">
+                                                    <td colspan="5"></td>
+                                                </tr>
+                                                <!-- Row 1 : Labels JIS, Tensile, Yield, Elongation, Reduction -->
+                                                <tr>
+                                                    <td id="tdLblJISTestSpecimenT4">
+                                                        <label ID="lblJISTestSpecimen" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_JISTestSpec")</label>
+                                                    </td>
+                                                    <td id="tdLblTensileStrengthT4">
+                                                        <label ID="lblTensileStrength" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_TensileStrength")</label>
+                                                    </td>
+                                                    <td id="tdLblYieldPointT4">
+                                                        <label ID="lblYieldPoint" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_YieldPoint")</label>
+                                                    </td>
+                                                    <td id="tdLblElongationT4">
+                                                        <label ID="lblElongation" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Elongation")</label>
+                                                    </td>
+                                                    <td id="tdLblReductionT4">
+                                                        <label ID="lblReduction" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Reduction")</label>
+                                                    </td>
+                                                </tr>
+                                                <!-- Row 2 : Values JIS, Tensile, Yield, Elongation, Reduction -->
+                                                <tr>
+                                                    <td>
+                                                        <label ID="txtJISTestSpecimen" class="ProcessEntryReadOnlyTextBox1"></label>
+                                                    </td>
+                                                    <td>
+                                                        @*<label ID="txtTensileStrength" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtTensileStrength" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                        <label ID="lbl_UnitNPerMMSquare">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitNPerMMSquare")</label>
+                                                        <label ID="lblUnitKgfPerSquare" style="display:none">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitKgfPerMMSquare")</label>
+                                                    </td>
+                                                    <td>
+                                                        @*<label ID="txtYieldPoint" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtYieldPoint" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                        <label ID="lblYieldPointUnit">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitNPerMMSquare")</label>
+                                                        <label ID="lblYieldPointUnit2" style="display:none">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitKgfPerMMSquare")</label>
+                                                    </td>
+                                                    <td>
+                                                        @*<label ID="txtElongation" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtElongation" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" />
+                                                        <label ID="lblElongationUnit">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label>
+                                                    </td>
+                                                    <td>
+                                                        @*<label ID="txtReduction" style="width:110px;" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtReduction" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" style="width:110px;" />
+                                                        <label ID="lblReductionUnit0">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label>
+                                                    </td>
+                                                </tr>
+                                                <!-- Row 3 : Labels Hardness, Decarb -->
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <label ID="lblHardness" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Hardness")</label>
+                                                    </td>
+                                                    <td colspan="3">
+                                                        <label ID="lblDecarb" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Decarb")</label>
+                                                    </td>
+                                                </tr>
+                                                <!-- Row 4 : Values Hardness, Decarb -->
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <label ID="txtHardness" class="ProcessEntryReadOnlyTextBox1"></label>
+                                                    </td>
+                                                    <td colspan="3">
+                                                        @*<label ID="txtDecarb" style="width:462px" class="ProcessEntryReadOnlyTextBox1"></label>*@
+                                                        <input type="text" ID="txtDecarb" class="ProcessEntryReadOnlyTextBox1 labelPadding" disabled="disabled" style="width:462px;" />
+                                                        <label ID="lbl_mm" class="labelClass" style="display:none;">@LocalizationServices.GetLocalizedHtmlString("mm")</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="5" style="height:15px">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div id="divProcessDetails">
+                                        <div id="pnlProcessDetails">
+                                            <table class="GridLines GridColumnLeftPadding" rules="all" id="grdvProdPointData" style="text-align: center" border="1" cellspacing="1" cellpadding="1" align="Left">
+                                                <tr class="GridHeader">
+                                                    <th class="ProcessDetailsNumber tdH2" scope="col" style="font-weight: normal;" align="center">
+                                                        <label ID="lblSrNo" ClientIDMode="Static">@LocalizationServices.GetLocalizedHtmlString("lbl_SrNo_L")</label>
+                                                    </th>
+                                                    <th class="ProcessName tdH2" scope="col" style="font-weight: normal;" align="center">
+                                                        <label ID="lblProcess" ClientIDMode="Static">@LocalizationServices.GetLocalizedHtmlString("lbl_Process_L")</label>
+                                                    </th>
+                                                    <th class="ProdPointDetails tdH2" scope="col" style="font-weight: normal;" align="center">
+                                                        <label ID="lblProdPoint" ClientIDMode="Static">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdPointDetailsT4")</label>
+                                                    </th>
+                                                </tr>
+                                                <tr class="GridNormalRow">
+
+                                                    <td align="center" valign="top"><span id="lblSrNo"></span></td>
+                                                    <td align="center" valign="top"><span id="lblProcessName"></span></td>
+                                                    <td align="center" valign="top"><span id="lblProdPoint"></span></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </td>
+                    <td id="tdPMSMachineDetails">
+                        <div id="24HrsMachineData" style="overflow:auto;max-width:1000px;height:850px">
+                            @RenderSection("cphMachineDetails", required: false)
+                        </div>
+                    </td>
+                    <td id="tdPMSMachineDetailsForChamfer">
+                        <div id="24HrsMachineData" style="overflow:auto;max-width:1000px;height:850px">
+                            @RenderSection("cphMachineDetailsForChamfer", required: false)
+                        </div>
+                    </td>
+                    <td id="tdPMSHistoryDetails">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="dialog" title="Dialog" class="Hidden">
+            <table>
+                <tr>
+                    <td id="dialogMessageIcon">
+                        <img id="imgWarning" src="~/images/warning.png" style="height: 25px; width: 25px;" alt="" />
+                        <img id="imgError" src="~/images/error.png" style="height: 25px; width: 25px;" alt="" />
+                        <img id="imgSuccess" src="~/images/sucess.png" style="height: 25px; width: 25px;" alt="" />
+                    </td>
+                    <td id="dialogMessageText"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</form>
+@RenderBody()
+@section Scripts{
+    <script src="~/Scripts/CommonScript.js" asp-append-version="true"></script>
+    <script src="~/Scripts/common.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+}

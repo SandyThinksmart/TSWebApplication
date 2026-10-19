@@ -1,0 +1,3371 @@
+﻿.GridCode {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+    white-space: nowrap;
+}
+.makerHardnessJISpopup {
+    text-align: center;
+    background-color: white;
+}
+.GridChkbx {
+    width: 30px;
+    min-width: 30px;
+    max-width: 30px;
+}
+
+.GridChkbxM {
+    width: 25px;
+    min-width: 25px;
+    max-width: 25px;
+}
+
+.GridProcessProdPoint {
+    width: 300px;
+    min-width: 300px;
+    max-width: 300px;
+}
+
+.GridProcessProdPointL {
+    width: 330px;
+    min-width: 330px;
+    max-width: 330px;
+}
+
+.GridCodeL {
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+    white-space: nowrap;
+}
+
+.GridCodeMedium {
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+    white-space: nowrap;
+}
+
+.GridCodeSmall {
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+    white-space: nowrap;
+}
+
+.GridMaru {
+    width: 45px;
+    min-width: 45px;
+    max-width: 45px;
+}
+
+.GridCustomerType {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+}
+
+.GridCustomerTypeCode {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+}
+
+.GridInactive {
+    width: 62px;
+    min-width: 60px;
+    max-width: 70px
+}
+
+.GridDate {
+    width: 80px;
+    min-width: 80px;
+    max-width: 85px;
+}
+
+.GridDateM {
+    width: 120px;
+}
+
+.GridDateLarge {
+    width: 180px;
+    min-width: 180px;
+    max-width: 180px;
+}
+
+.GridDateShort {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+}
+
+.GridDateS {
+    width: 65px;
+    min-width: 65px;
+    max-width: 65px;
+}
+
+
+.WordWrap {
+    word-break: break-all;
+}
+
+
+.GridDateTime {
+    width: 115px;
+    min-width: 115px;
+    max-width: 115px;
+}
+
+.GridFax, .GridTelephone {
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
+}
+
+.GridPinCode {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+
+.GridAddress {
+    width: 250px;
+    min-width: 250px;
+    max-width: 250px;
+}
+
+.GridAddressSmall {
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+}
+
+.GridYobigana {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+}
+
+.GridYobiganaL {
+    width: 165px;
+    min-width: 165px;
+    max-width: 165px;
+}
+
+.GridSteeltypeL {
+    width: 165px;
+    min-width: 165px;
+    max-width: 165px;
+}
+
+.GridProductTypeL {
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
+}
+
+.GridYobiganaMeduim {
+    width: 92px;
+    min-width: 92px;
+    max-width: 92px;
+}
+
+.GridYobina {
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+}
+
+.KhakoiraiHeaderGrid {
+    padding-left: 0px;
+}
+
+.HeaderGrid {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
+.ShukkaHeaderGrid {
+    padding-left: 4px;
+}
+
+.ShukkaHeaderGrid2 {
+    padding-left: 7px;
+}
+
+.GridBankName {
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+}
+
+
+
+.GridNameL {
+    width: 160px;
+    min-width: 160px;
+    max-width: 160px;
+}
+
+.GridName {
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+}
+
+.GridNameShort {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.GridSupplyType {
+    width: 107px;
+    min-width: 107px;
+    max-width: 107px;
+}
+
+.GridShortName {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.GridShortNameL {
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
+}
+
+GridShortNameM {
+    width: 100px;
+}
+
+.ddlCountry {
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
+}
+
+.GridEditDeleteButton {
+    width: 82px;
+    min-width: 82px;
+    max-width: 82px;
+}
+
+.GridCountryCode {
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+}
+
+.GridCountryName {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.GridKouban {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+}
+
+.GridKoubanLarge {
+    width: 145px;
+    min-width: 145px;
+    max-width: 145px;
+}
+
+.GridKoubanLargeM {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+}
+
+.GridThabaNo {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+}
+
+.GridKoubanMeduimX {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.GridKoubanMeduim {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+}
+
+.gridWeight {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.gridWeightsmall {
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+}
+
+.GridKoubanShort {
+    width: 55px;
+    min-width: 55px;
+    max-width: 55px;
+}
+
+.GridMatlNameMaker {
+    width: 130px; /* Width chenge 120px to 130px => PO Pop_up's*/
+    min-width: 130px;
+    max-width: 130px;
+}
+
+.GridMatlNameMakerTooLarge {
+    width: 100px; /* Width chenge 120px to 130px => PO Pop_up's*/
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.GridMatlNameMakerLarge {
+    width: 134px;
+    min-width: 134px;
+    max-width: 134px;
+}
+
+.GridMatlNameMakerMeduim {
+    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
+}
+
+.GridMatlNameMakerlMiddle {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+}
+
+.GridMatlNameMakerInterMiddle {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+
+
+
+.GridMatlNameMakerlSmall {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+}
+
+.GridMatlNameMakerVerySmall {
+    width: 53px;
+    min-width: 53px;
+    max-width: 53px;
+}
+
+.GridInternalName {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+}
+
+.GridInternalNameLarge {
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
+}
+
+.GridMksakiName {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.GridMatlNameInternal {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.GridMatlNameInternalMeduim {
+    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
+}
+
+.GridMatlNameInternalSmall {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+}
+
+.GridSupplierName {
+    width: 80px;
+    min-width: 70px;
+    max-width: 80px;
+}
+
+.GridSupplierNameM {
+    width: 95px;
+    min-width: 95px;
+    max-width: 95px;
+}
+
+.GridSupplierNameL {
+    width: 140px;
+    min-width: 140px;
+    max-width: 140px;
+}
+
+
+.GridSupplierNameForPO {
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+}
+
+.GridMakerM {
+    width: 110px;
+}
+
+.GridMakerName {
+    width: 102px;
+    min-width: 102px;
+    max-width: 103px;
+}
+
+.GridMakerNameLarge {
+    width: 107px;
+    min-width: 107px;
+    max-width: 107px;
+}
+
+.GridMakerNameLargeX {
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
+}
+
+.GridMakerNameLargeXX {
+    width: 140px;
+    min-width: 140px;
+    max-width: 140px;
+}
+
+.GridMakerNameMeduim {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+}
+
+.GridMakerNameMiddle {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+}
+
+.GridMakerNameShort {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+}
+
+.GridMakerNameForPO {
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+}
+
+.GridFutouNameLarge {
+    width: 140px;
+    min-width: 140px;
+    max-width: 140px;
+}
+
+.GridFutouName {
+    width: 120px;
+    min-width: 120px;
+    max-width: 150px;
+}
+
+.GridFutouNameMeduim {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.GridFutouNameM {
+    width: 95px;
+    min-width: 95px;
+    max-width: 95px;
+}
+
+.GridFutouNameShort {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+}
+
+.GridMochikomisakiName {
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
+}
+
+.GridMochikomisakiNameMeduim {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+}
+
+.GridMochikomisakiNameShort {
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+}
+
+
+.GridMochikomisakiNameLarge /*For GridView  SearchCombo */ {
+    width: 210px;
+    min-width: 210px;
+    max-width: 210px;
+}
+
+.GridMukesakiName {
+    width: 100px;
+    min-width: 100px;
+    max-width: 104px;
+}
+
+.GridMukesakiNameMM {
+    width: 95px;
+    min-width: 95px;
+    max-width: 95px;
+}
+
+.GridMukesakiNameM {
+    width: 150px;
+}
+
+.GridMukesakiNameL {
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+}
+
+.GridMukesakiNameML {
+    width: 140px;
+    min-width: 140px;
+    max-width: 140px;
+}
+
+.GridMochikomisakiNameL {
+    width: 140px;
+    min-width: 140px;
+    max-width: 140px;
+}
+
+.GridHTsakiNameL {
+    width: 140px;
+    min-width: 140px;
+    max-width: 140px;
+}
+
+.GridMukesakiNameShort {
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+}
+
+.GridShape {
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+}
+
+.GridShapeM {
+    width: 20px;
+    min-width: 20px;
+    max-width: 20px;
+}
+
+.GridShapeShort {
+    width: 30px;
+    min-width: 30px;
+    max-width: 30px;
+}
+
+.GridShapeTooShort {
+    width: 25px;
+    min-width: 25px;
+    max-width: 25px;
+}
+
+.GridDimD {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+}
+
+.GridDimDLarge /*ProdDimen.*/ {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.GridDimDXXLarge {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.GridDimDShort {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+}
+
+.GridDimW {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+}
+
+.GridDimDShapeXL {
+    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
+}
+
+.GridDimDShape {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+}
+
+.GridDimDShapeLarge {
+    width: 95px;
+    min-width: 95px;
+    max-width: 95px;
+}
+
+.GridDimDShapeXLarge {
+    width: 140px;
+}
+
+.GridDimDShapeMeduim {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+}
+
+.GridDimDShapeMiddle {
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+}
+
+.GridDimDShapeMidd {
+    width: 52px;
+    min-width: 52px;
+    max-width: 52px;
+}
+
+.GridDimDShapeinterMidd {
+    width: 53px;
+    min-width: 53px;
+    max-width: 53px;
+}
+
+.GridDimDShapeSmall {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+}
+
+
+
+.GridLength {
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+}
+
+.GridLengthS {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+}
+
+.GridLengthLarge {
+    width: 65px;
+    min-width: 65px;
+    max-width: 65px;
+}
+
+.GridLengthxxLarge {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+}
+
+.GridLengthLL {
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+}
+
+.GridLengthSmall {
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+}
+
+.GridLengthMedium {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+}
+
+.GridCondition {
+    width: 60px;
+}
+
+.GridConditionL {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+}
+
+.GridConditionLarge {
+    width: 64px;
+    min-width: 64px;
+    max-width: 64px;
+}
+
+.GridConditionXL {
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
+}
+
+.GridConditionSmall {
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+}
+
+.GridConditionmedium {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+}
+
+.GridCharge {
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+}
+
+.GridChargeLarge {
+    width: 65px;
+    min-width: 65px;
+    max-width: 65px;
+}
+
+.GridChargeXL {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+}
+
+.GridCombinedDecision {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+}
+
+.GridChargeMiddle {
+    width: 52px;
+    min-width: 52px;
+    max-width: 52px;
+}
+
+
+.GridChargeSmall {
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+}
+
+.GridConditionDesc {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+
+.GridRoll {
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+}
+
+.GridChance {
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+}
+
+.GridChanceLarge {
+    width: 90px;
+}
+
+.GridChanceSmall {
+    width: 35px;
+    min-width: 35px;
+    max-width: 35px;
+}
+
+.GridYear {
+    width: 53px;
+    min-width: 53px;
+    max-width: 53px;
+}
+
+.GridCoilBar {
+    width: 44px;
+    min-width: 44px;
+    max-width: 44px;
+}
+
+.GridCoilBarSmall {
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+}
+
+.GridCoilBarVerySmall {
+    width: 38px;
+    min-width: 38px;
+    max-width: 38px;
+}
+
+.GridCoilBarVeryMedium {
+    width: 56px;
+    min-width: 56px;
+    max-width: 56px;
+}
+
+.GridCoilBarMeduim {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+}
+
+.GridGenSpecVerySmall {
+    width: 38px;
+    min-width: 38px;
+    max-width: 38px;
+}
+
+.GridGenSpecSmall {
+    width: 45px;
+    min-width: 45px;
+    max-width: 45px;
+}
+
+.GridGenSpec {
+    width: 65px;
+    min-width: 65px;
+    max-width: 65px;
+}
+
+.GridGenSpecExtraLong {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.GridGenSpecMeduim {
+    width: 64px;
+    min-width: 64px;
+    max-width: 64px;
+}
+
+.GridGenSpecLong {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+}
+
+.GridGenSpecSmall {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+}
+
+.GridPONumber {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.GridPONumberMeduim {
+    width: 78px;
+    min-width: 78px;
+    max-width: 78px;
+}
+
+.GridPONumberSmall {
+    width: 55px;
+    min-width: 55px;
+    max-width: 55px;
+}
+
+.GridKGQuantity {
+    width: 75px;
+    min-width: 75px;
+    max-width: 75px;
+}
+
+.GridKGQuantityMeduim {
+    width: 76px;
+    min-width: 76px;
+    max-width: 76px;
+}
+
+.GridKGQuantityLarge {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.GridTNQuantity {
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+}
+
+.GridTotQuantity {
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
+}
+
+.GridRadioButton {
+    width: 20px;
+    min-width: 20px;
+    max-width: 20px;
+}
+
+.GridRadioButtonMiddle {
+    width: 25px;
+    min-width: 25px;
+    max-width: 25px;
+}
+
+.GridMaterialShukkoLocation {
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
+}
+
+.GridLocation {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.GridLocationMedium {
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
+}
+
+.GridLocationL {
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+}
+
+.GridLocationLarge {
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
+}
+
+.GridNoOfUnits {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+}
+
+.GridNoOfUnitsMeduim {
+    width: 55px;
+    min-width: 55px;
+    max-width: 55px;
+}
+
+
+.GridUnit {
+    width: 30px;
+    min-width: 30px;
+    max-width: 30px;
+}
+
+.GridUnitLarge {
+    width: 45px;
+    min-width: 45px;
+    max-width: 45px;
+}
+
+.GridUnitExtraLarge {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.GridMachineName {
+    width: 55px;
+    min-width: 55px;
+    max-width: 55px;
+}
+
+.GridMachineNameLarge {
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+}
+
+.GridProcessName {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.GridProcessNameLarge {
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
+}
+
+.GridMachineNameMedium {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.GridProdPointColorKubun {
+    width: 75px;
+    min-width: 75px;
+    max-width: 75px;
+}
+
+
+.GridMaterialShukkoRemarks {
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
+}
+
+.GridMaterialDimOther {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+}
+
+.GridRemarks200PX {
+    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
+}
+
+.GridRemarks600PX {
+    width: 600px;
+    min-width: 600px;
+    max-width: 600px;
+}
+
+.GridRemarksMeduim {
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+}
+
+.GridContractNo {
+    width: 75px;
+    min-width: 75px;
+    max-width: 75px;
+}
+
+.GridContractNoMeduim {
+    width: 95px;
+    min-width: 95px;
+    max-width: 95px;
+}
+
+.GridVoucherNo {
+    width: 75px;
+    min-width: 75px;
+    max-width: 75px;
+}
+
+.GridContractGyouban {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+}
+
+.GridContractGyoubanMeduim {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.GridDimOther {
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+}
+
+.GridDimOtherL {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.GridDimOtherLarge {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.GridDimOtherLargeX {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+}
+
+.GridDimOtherLargeXL {
+    width: 140px;
+    min-width: 140px;
+    max-width: 140px;
+}
+
+.GridChuubanGyouban {
+    width: 105px;
+    min-width: 105px;
+    max-width: 105px;
+}
+
+.GridChuubanLarge {
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
+}
+
+.GridChuuban {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+}
+
+.GridChuubanMeduim {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.GridChuubanShort {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+}
+
+.GridCustomer {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.GridCustL {
+    width: 115px;
+    min-width: 115px;
+    max-width: 115px;
+}
+
+.GridCustomerShort {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.GridCustomerLarge {
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
+}
+
+.GridCustomerM {
+    width: 160px;
+    min-width: 160px;
+    max-width: 160px;
+}
+
+.GridProcesses {
+    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
+}
+
+.GridProcessesM {
+    width: 162px;
+}
+
+.GridDimTol {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.GridDimTolMeduim {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.GridMagariStd {
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
+}
+
+.gridActualDim1 {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.gridActualDim2 {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.gridActualDim {
+    width: 91px;
+    min-width: 91px;
+    max-width: 91px;
+}
+
+.gridIrregular {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.gridNifuda {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.gridProduct {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.gridVarriant {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.gridHeatTreament {
+    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
+}
+
+.gridHeatTreamentMeduim {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.gridWeight {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.gridWeightM {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+}
+
+.gridLenTol {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.gridLenTolMeduim {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.gridMagariBendTol {
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
+}
+
+.gridMagariBendTolMeduim {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.GridLinesBorder > tbody > tr > td /* Apply border to headers */ {
+    border: 1px solid #FF9900;
+}
+
+.gridProdPoint {
+    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
+}
+
+.gridProdPointM {
+    width: 300px;
+}
+
+.GridProdSpecNo {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.GridProdSpecNoLong {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+}
+
+.GridProdSpecNoShort {
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+}
+
+.GridTabaNo {
+    width: 30px;
+    min-width: 30px;
+    max-width: 30px;
+}
+
+.GridTabaNoM {
+    width: 90px;
+}
+
+
+.GridShukkoKubun {
+    width: 30px;
+    min-width: 30px;
+    max-width: 30px;
+}
+
+.GridMultipleTabaNo {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.gridInvoiceNo {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.gridNyukoShukkoKubun {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+}
+
+.gridNyukaKubun {
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+}
+
+.gridNoOfUnitWithUnit {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+}
+
+.gridProccess {
+    width: 300px;
+    min-width: 300px;
+    max-width: 300px;
+}
+
+.gridDimDWithOther {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+}
+
+.gridDimDWithOtherLarge {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+}
+
+.gridDimDWithOtherLargeX {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.gridDimDWithOtherMeduimLarge {
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
+}
+
+
+.GridDimDDimWOtherLargeXX {
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
+}
+
+.GridDimDDimWOtherLargeXXX {
+    width: 145px;
+    min-width: 145px;
+    max-width: 145px;
+}
+
+.gridEmployeeName {
+    width: 180px;
+    min-width: 180px;
+    max-width: 180px;
+}
+
+.GridEmployeeShortName {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.gridProductStockT1Table {
+    width: 100%;
+    height: 73px;
+    border: 0px solid gray;
+}
+
+.GridProdNameCust {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.GridProdNameCustL {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+}
+
+.GridProdNameCustLarge {
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
+}
+
+.GridProdNameXXCustLarge {
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
+}
+
+.GridMetallicPlateNo {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.GridMetallicLabNo {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.GridFurnaceNo {
+    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
+}
+
+.GridCarbonPercentage {
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+}
+
+.GridManganesePercentage {
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+}
+
+.GridDieDim {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+}
+
+.GridAlignmentDieDim {
+    text-align: right;
+}
+
+.GridDieNo {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+}
+
+.GridDrawDim {
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+}
+
+.GridFinishedBarCount {
+    width: 63px;
+    min-width: 63px;
+    max-width: 63px;
+}
+
+.GridFinishedBarCountM {
+    width: 90px;
+}
+
+.GridFinishedQuantity {
+    width: 63px;
+    min-width: 63px;
+    max-width: 63px;
+}
+
+.GridActualDim12 {
+    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
+}
+
+.GridActualDim123 {
+    width: 170px;
+    min-width: 170px;
+    max-width: 170px;
+}
+
+.GridActualLength12 {
+    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
+}
+
+.GridActualLength123 {
+    width: 170px;
+    min-width: 170px;
+    max-width: 170px;
+}
+
+.GridBendStatus {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.GridBendStatusShort {
+    width: 62px;
+    min-width: 62px;
+    max-width: 62px;
+}
+
+.GridEcTime {
+    width: 30px;
+}
+
+.GridBendStatusShort {
+    width: 62px;
+}
+
+.GridAlignmentExternalSurfaceCondition {
+    text-align: center;
+}
+
+.GridAlignmentBendStatus {
+    text-align: center;
+}
+
+.GridAlignmentActualDim123 {
+    text-align: right;
+}
+
+.GridAlignmentActualLength123 {
+    text-align: right;
+}
+
+.GridAlignmentActualLength {
+    text-align: right;
+}
+
+.GridAlignmentFinishedQuantity {
+    text-align: right;
+}
+
+.GridAlignmentActualDim {
+    text-align: right;
+}
+
+.GridAlignmentFinishedBarCount {
+    text-align: right;
+}
+
+.GridAlignmentDrawDim {
+    text-align: right;
+}
+
+.GridAlignmentDieNo {
+    text-align: right;
+}
+
+.GridAlignmentManganesePercentage {
+    text-align: center;
+}
+
+.GridAlignmentCarbonPercentage {
+    text-align: center;
+}
+
+.GridAlignmentFurnaceNo {
+    text-align: left;
+}
+
+.GridAlignmentMetallicPlateNo {
+    text-align: left;
+}
+
+.GridAlignmentEmployeeName {
+    text-align: left;
+}
+
+.GridAlignmentEmployeeShortName {
+    text-align: left;
+}
+
+.GridAlignmentDimDWithOther {
+    text-align: Center;
+}
+
+.GridAlignmentDimOther {
+    text-align: left;
+}
+
+.GridAlignmentKubun {
+    text-align: Center;
+}
+
+.GridAlignmentInvoiceNo {
+    text-align: Center;
+}
+
+.GridAlignmentProdPoint {
+    text-align: Left;
+}
+
+.GridAlignmentDimW {
+    text-align: Right;
+}
+
+.GridAlignmentProductNameCust {
+    text-align: Left;
+}
+
+.GridAlignmentNifudaNo {
+    text-align: Center;
+}
+
+.GridAlignmentNifudaType {
+    text-align: Center;
+}
+
+.GridAlignmentProdSpecNo {
+    text-align: Center;
+}
+
+.GridAlignmentLocation {
+    text-align: Left;
+}
+
+.GridAlignmentActDim1 {
+    text-align: right;
+}
+
+.GridAlignmentActDim2 {
+    text-align: right;
+}
+
+.GridAlignmentMagariBendTol {
+    text-align: center;
+}
+
+.GridAlignmentIncharge {
+    text-align: Left;
+}
+
+.GridAlignmentLenTol {
+    text-align: center;
+}
+
+.GridAlignmentDimTol {
+    text-align: center;
+}
+
+.GridAlignmentCustomer {
+    text-align: left;
+}
+
+.GridAlignmentReciver {
+    text-align: left;
+}
+
+.GridAlignmentChuuban {
+    text-align: center;
+}
+
+.GridAlignmentDimOther {
+    text-align: left;
+}
+
+.GridAlignmentContractGyouban {
+    text-align: right;
+}
+
+.GridAlignmentContractNo {
+    text-align: left;
+}
+
+.GridAlignmentVoucherNo {
+    text-align: left;
+}
+
+.GridAlignmentRadioButton {
+    text-align: center;
+}
+
+.GridAlignmentProcessName {
+    text-align: left;
+}
+
+.GridAlignmentMachineName {
+    text-align: left;
+}
+
+.GridAlignmentOperator {
+    text-align: left;
+}
+
+.GridAlignmentKouban {
+    text-align: left;
+}
+
+.GridAlignmentMakerName {
+    text-align: left;
+}
+
+.GridAlignmentMatlNameMaker {
+    text-align: left;
+}
+
+.GridAlignmentMatlNameInternal {
+    text-align: left;
+}
+
+.GridAlignmentMaterialDimOther {
+    text-align: left;
+}
+
+.GridAlignmentDimDShape {
+    text-align: center;
+}
+
+.GridAlignmentLength {
+    text-align: right;
+}
+
+.GridAlignmentCondition {
+    text-align: center;
+}
+
+.GridAlignmentConditionDesc {
+    text-align: left;
+}
+
+.GridAlignmentCoilBarKurokawa {
+    text-align: center;
+}
+
+.GridAlignmentGenSpec {
+    text-align: center;
+}
+
+.GridAlignmentMukesaki {
+    text-align: left;
+}
+
+.GridAlignmentFutouShukkoKubun {
+    text-align: center;
+}
+
+.GridAlignmentMochikomisaki {
+    text-align: left;
+}
+
+.GridAlignmentDate {
+    text-align: center;
+}
+
+.GridAlignmentDateTime {
+    text-align: center;
+}
+
+.GridAlignmentQuantity {
+    text-align: right;
+}
+
+.GridAlignmentCharge {
+    text-align: left;
+}
+
+.GridAlignmentRemarks {
+    text-align: left;
+}
+
+.GridAlignmentKubun {
+    text-align: center;
+}
+
+.GridAlignmentFutouName {
+    text-align: left;
+}
+
+.GridAlignmentShukkoLocation {
+    text-align: left;
+}
+
+.GridAlignmentLocation {
+    text-align: left;
+}
+
+.GridAlignmentDimD {
+    text-align: right;
+}
+
+.GridAlignmentDimW {
+    text-align: right;
+}
+
+.GridAlignmentDimDDimW {
+    text-align: right;
+}
+
+.GridAlignmentShape {
+    text-align: left;
+}
+
+.GridAlignmentShapeCenter {
+    text-align: center;
+}
+
+
+.GridAlignmentNoOfUnits {
+    text-align: right;
+}
+
+.GridAlignmentMetallicPlateCode {
+    text-align: left;
+}
+
+.GridAlignmentUnit {
+    text-align: left;
+}
+
+.GridAlignmentNoOfUnitsWithUnit {
+    text-align: right;
+}
+
+.GridAlignmentNumeric {
+    text-align: right;
+}
+
+.GridAlignmentTabaNo {
+    text-align: right;
+}
+
+
+.GridStockQty {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.GridStockQtyShort {
+    width: 67px;
+    min-width: 67px;
+    max-width: 67px;
+}
+
+.VisibleFalse {
+    display: none;
+}
+
+.divSeparator {
+    height: 3px;
+}
+
+.ProdSpecNo1 {
+    width: 80px;
+}
+
+.ProdSpecNo2 {
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+}
+
+.GridReceivingPlaceKubun {
+    width: 190px;
+    min-width: 190px;
+    max-width: 190px;
+}
+
+.GridMochikomisakiKubun {
+    width: 210px;
+    min-width: 210px;
+    max-width: 210px;
+}
+
+.GridMochikomisakiSmall {
+    width: 170px;
+    min-width: 170px;
+    max-width: 170px;
+}
+
+.ProdSpecNo {
+    text-align: center;
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+}
+
+.GridItemCountry {
+    text-align: left;
+}
+
+.GridAlignmentChamfer {
+    text-align: left;
+}
+
+.GridSubContractorKubun {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.GridNyukoKubun {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+}
+
+.GridIncharge {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.GridPaymentClassification {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.GridFutouShukkoKubun {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+
+.GridFutouShukkoKubunMeduim {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+}
+
+.grdvProductInquiryTr {
+    height: 25px;
+}
+
+.header24HoursMachineGrid td {
+    border-width: thin;
+    border-style: solid;
+    background-color: #7291D2;
+    height: 15px;
+    border-color: White;
+    text-align: center;
+}
+
+.td24HoursMachineGrid {
+    border-width: thin;
+    border-style: solid;
+    background-color: Silver;
+    height: 15px;
+    border-color: White;
+    text-align: center;
+}
+
+
+
+.transaction input:not(._functionButtons), .transaction span, .transaction select {
+    font-family: MS Gothic;
+    font-size: 13px;
+    color: black;
+}
+
+#SearchGridRow .td {
+    border-width: thin;
+    border-style: solid;
+    height: 15px;
+    border-color: #FF9900;
+    vertical-align: middle;
+}
+
+.tdSearch {
+    border-color: inherit;
+    background-color: White;
+    height: 17px;
+}
+
+.tdSearchGrid {
+    background-color: White;
+    height: 17px;
+}
+
+#SearchGridRow > TD > input {
+    border-style: none;
+}
+
+.searchTextBox > tbody > tr > td > input {
+    border-style: none;
+}
+
+.MandatoryTextBoxTopPadding1 {
+    font-family: MS Gothic;
+    font-weight: 400;
+    font-size: 13px;
+    background-color: #C1FFFF;
+    border-style: inset;
+    padding-top: 7px;
+}
+
+.IraiDateTextBox {
+    font-family: MS Gothic;
+    font-weight: 400;
+    font-size: 13px;
+    background-color: #C1FFFF;
+    border: 1px solid;
+    height: 18px;
+    color: black;
+}
+
+.IraiDateTextBox2 {
+    font-family: MS Gothic;
+    font-weight: 400;
+    font-size: 13px;
+    border: 1px solid;
+    height: 18px;
+    color: black;
+}
+
+/* css added b y vijay on 21-06-2016 edittable field set to read only */
+
+.ToggleTextBoxToLable {
+    font-family: MS Gothic;
+    background-color: #E9E9E9;
+    border-left: none;
+    vertical-align: middle;
+    height: 25px;
+}
+
+.ReadOnlyLableBorerStyle {
+    font-family: MS Gothic;
+    background-color: #E9E9E9;
+    border-left: none;
+    vertical-align: middle;
+    height: 18px;
+    border-width: 1px;
+    border-left-style: solid;
+    border-top-style: inset;
+    border-color: black;
+    padding-top: 5px;
+    padding-left: 2px;
+}
+
+.DisableLable {
+    color: Gray;
+}
+
+.chkBox {
+    border: thin solid #FF9900;
+    background-color: #E2E2E2;
+    height: 20px;
+    width: 13px;
+}
+
+.labelClassProdcutInquiry {
+    height: 15px;
+    font-family: MS Gothic;
+    font-weight: 400;
+    font-size: 13px;
+    padding-top: 3px;
+}
+
+
+.displayBlock {
+    display: block;
+}
+
+.leftAlign {
+    text-align: left;
+}
+
+.rightAlign {
+    text-align: right;
+}
+
+.centerAlign {
+    text-align: center;
+}
+
+.dropListMandatoryClass {
+    border-style: inset;
+    background-color: #C1FFFF;
+}
+
+.invoice1stNifuda {
+    background-color: #dbfdd5; /* Light Green*/
+}
+
+.invoice2ndNifuda {
+    background-color: #fbe0dd; /* Light Red*/
+}
+
+.invoice3rdNifuda {
+    background-color: #efefef; /* Light Gray*/
+}
+
+.invoice4thNifuda {
+    background-color: #ffe6e6; /* Light Brown*/
+}
+
+.transparentTextBax {
+    border-style: none;
+    background-color: transparent;
+    font-family: 'MS Gothic';
+}
+/**
+    2017/02/22 Girish Badwaik
+    Added css rule to highlight element border on focus, to easily identify current element.
+**/
+input:focus {
+    border: 1px solid black !important;
+}
+
+select:focus {
+    border: 1px solid black !important;
+}
+
+.InsetBorder {
+    font-family: MS Gothic;
+    font-weight: 400;
+    font-size: 13px;
+    border-style: inset;
+}
+
+
+/*Added ruby Sagar b content 8/8/2017*/
+.GridAlignmentStockQty {
+    text-align: right;
+}
+
+.GridAlignmentYobina {
+    text-align: left;
+}
+
+.GridAlignmentSalesIncharge {
+    text-align: left;
+}
+
+.GridSalesIncharge {
+    width: 80px;
+}
+
+.GridCompletedDays {
+    width: 70px;
+}
+
+.GridAlignmentCompletedDays {
+    text-align: center;
+}
+
+.GridFure {
+    width: 70px;
+}
+
+.GridAlignmentFure {
+    text-align: right;
+}
+
+.GridActAllocQty {
+    width: 70px;
+}
+
+.GridAlignmentActAllocQty {
+    text-align: right;
+}
+
+.GridDecision {
+    width: 70px
+}
+
+.GridAlignmentDecision {
+    text-align: left;
+}
+
+.GridaMatlDim {
+    width: 330px;
+}
+
+.GridaAlignmentMatlDim {
+    text-align: right;
+}
+
+.GridMatlLength {
+    width: 120px;
+}
+
+.GridAlignmentMatlLength {
+    text-align: right;
+}
+
+.GridMatlLengthString {
+    width: 180px;
+}
+
+.GridAlignmentMatlLengthString {
+    text-align: right;
+}
+
+.GridOperator {
+    width: 100px;
+}
+
+.GridActDim1to4 {
+    width: 230px;
+}
+
+.GridAlignmentActDim1to4 {
+    text-align: center;
+}
+
+.GridLengthTol {
+    width: 120px
+}
+
+.GridAlignmentLengthTol {
+    text-align: center;
+}
+
+.GridBendStd {
+    width: 120px
+}
+
+.GridAlignmentBendStd {
+    text-align: center;
+}
+
+.GridBendTol {
+    width: 100px
+}
+
+.GridAlignmentBendTol {
+    text-align: center;
+}
+
+.GridAEdgeDistortion {
+    width: 153px
+}
+
+.GridAlignmentAEdgeDistortion {
+    text-align: right;
+}
+
+.GridBEdgeDistortion {
+    width: 153px
+}
+
+.GridAlignmentBEdgeDistortion {
+    text-align: right;
+}
+
+.GridProductNameInternal {
+    width: 120px;
+}
+
+.GridAlignmentProductNameInternal {
+    text-align: left;
+}
+
+.GridCorrectedBars {
+    width: 70px;
+}
+
+.GridAlignmentCorrectedBars {
+    text-align: right;
+}
+
+.GridNoOfRejects {
+    width: 100px;
+}
+
+.GridAlignmentNoOfRejects {
+    text-align: left;
+}
+
+.GridDefectiveNo {
+    width: 100px;
+}
+
+.GridAlignmentDefectiveNo {
+    text-align: center;
+}
+
+.GridNgBars {
+    width: 120px;
+}
+
+.GridAlignmentNgBars {
+    text-align: center;
+}
+
+.GridEcNgBars {
+    width: 70px;
+}
+
+.GridAlignmentEcNgBars {
+    text-align: right
+}
+
+.GridUpperLowerRoller {
+    width: 120px;
+}
+
+.GridAlignmentUpperLowerRoller {
+    text-align: right;
+}
+
+.GridUpperRoller {
+    width: 120px;
+}
+
+.GridUpperRollElevation {
+    width: 90px;
+}
+
+.GridAlignmentUpperRoller {
+    text-align: right;
+}
+
+.GridCompressionTonnage {
+    width: 80px;
+}
+
+.GridAlignmentCompressionTonnage {
+    text-align: right;
+}
+
+.GridHexagonR {
+    width: 80px;
+}
+
+.GridAlignmentHexagonR {
+    text-align: right;
+}
+
+.GridECtreshold {
+    width: 80px;
+}
+
+.GridAlignmentECtreshold {
+    text-align: right;
+}
+
+.GridMagnetism {
+    width: 80px;
+}
+
+.GridAlignmentMagnetism {
+    text-align: right;
+}
+
+.GridInspectionCoilSize {
+    width: 120px;
+}
+
+.GridAlignmentInspectionCoilSize {
+    text-align: right;
+}
+
+
+.GridActualLength123456 {
+    width: 292px
+}
+
+.GridAlignmentActualLength123456 {
+    text-align: center;
+}
+
+.GridInspectionDate {
+    width: 80px;
+}
+
+.GridAlognmentInspectionDate {
+    text-align: center;
+}
+
+.GridInspector {
+    width: 80px;
+}
+
+.GridAlignmentInspector {
+    text-align: left;
+}
+
+.GridDimDec {
+    width: 80px;
+}
+
+.GridAlignmentDimDec {
+    text-align: center;
+}
+
+.GridActualLength {
+    width: 80px;
+}
+
+.GridAlignmentActualLength {
+    text-align: right;
+}
+
+.GridLengthDec {
+    width: 80px;
+}
+
+.GridAlignmentLengthDec {
+    text-align: center;
+}
+
+.GridMachinabilityTestingDate {
+    width: 80px;
+}
+
+.GridAlignmentMachinabilityTestingDate {
+    text-align: center;
+}
+
+.GridSalesInchagre {
+    width: 100px;
+}
+
+.GridAlignmentSalesInchagre {
+    text-align: left;
+}
+
+.GridMachinabilityDecision {
+    width: 100px
+}
+
+.GridAlignmentMachinabilityDecision {
+    text-align: left;
+}
+
+.GridaMatlDimdFI {
+    width: 80px;
+}
+
+.GridaMatlDimddw {
+    width: 80px;
+}
+
+.GridChuubanYear {
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+}
+
+.GridProdShape {
+    width: 50px;
+}
+
+.GridAlignmentProdShape {
+    text-align: center;
+}
+
+.GridProdLength {
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+}
+
+.GridProdLengthM {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+}
+
+.GridAlignmentProdLength {
+    text-align: right;
+}
+
+.GridAlignmentCoilOriginalCount {
+    text-align: left;
+}
+
+.GridAlignmentMultipleTabaNo {
+    text-align: left;
+}
+
+.GridAlignmentNGReason {
+    text-align: left;
+}
+
+.GridAlignmentCombinedDecision {
+    text-align: center;
+}
+
+.GridNifuda1234 {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.GridExternalSurfaceConditionStartEnd {
+    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
+}
+
+.GridExternalSurfaceConditionM {
+    width: 200px;
+}
+
+/*.GridPaddingLeft
+{
+    padding-left:3px;
+}
+
+   .GridPaddingRight
+{
+   padding-right:2px;
+}*/
+
+/*.GridColumnLeftPadding>tbody>tr>td
+{
+     padding-left:3px;
+     padding-right:2px;
+}
+   table.LeftPadding td {
+     padding-left:3px;
+     padding-right:2px;
+}*/
+.GridDepartment {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.gridSteelType {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+    white-space: nowrap;
+}
+
+.gridSteelTypeLarge {
+    width: 75px;
+    min-width: 70px;
+    max-width: 70px;
+    white-space: nowrap;
+}
+
+.GridKubun {
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+}
+
+.gridSteelTypeX {
+    width: 87px;
+    min-width: 87px;
+    max-width: 87px;
+    white-space: nowrap;
+}
+
+.gridAnotherName {
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+}
+
+.gridShipyardName {
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+}
+
+.GridMachineList {
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+}
+
+.GridAlignmentUpperRollerFactory {
+    text-align: right;
+}
+
+
+.GridReportPrintReprint /*PO List popup Print/Not_print drop down*/ {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+}
+
+.InActiveIMEMode {
+    ime-mode: disabled;
+}
+
+
+/* SEARCH GRID CSS 2019/10/07 */
+
+
+.searchGridProdName {
+    width: 100px;
+    height: 20px;
+}
+
+.searchGridInternalName {
+    width: 100px;
+    height: 20px;
+}
+
+.searchGridKouban {
+    width: 100px;
+}
+
+.searchGridDimMin {
+    width: 50px;
+    height: 20px;
+    text-align: right;
+}
+
+.searchGridDimMax {
+    width: 50px;
+    height: 20px;
+    text-align: right;
+}
+
+.searchGridLenMin {
+    width: 50px;
+    height: 20px;
+    text-align: right;
+}
+
+.searchGridLenMax {
+    width: 50px;
+    height: 20px;
+    text-align: right;
+}
+
+.searchGridDimMinMandatory {
+    width: 60px;
+    background-color: aqua;
+}
+
+.searchGridShape {
+    width: 40px;
+    height: 20px;
+    text-align: left;
+}
+
+.searchGridStartDate {
+    width: 100px;
+    height: 20px;
+}
+
+.searchGridEndDate {
+    width: 100px;
+    height: 20px;
+}
+
+.searchGridCondition {
+    width: 140px;
+    height: 25px;
+}
+
+.searchGridProdSpecNo {
+    width: 60px;
+    height: 20px;
+    text-align: right;
+}
+
+.searchGridCustomer {
+}
+
+.searchGridMaker {
+}
+
+.searchGridIncharge {
+}
+
+.searchGridIncharge {
+}
+
+.searchGridLocation {
+}
+
+.searchGridDate {
+}
+
+.searchControText > td > input {
+    border-style: none;
+    width: 95%;
+    height: 99%;
+    text-align: left;
+}
+
+
+.searchControTextEN > td > input {
+    border-style: none;
+    width: 95%;
+    height: 99%;
+    text-align: left;
+    ime-mode: disabled;
+}
+
+.searchControNumber > td > input {
+    border-style: none;
+    width: 95%;
+    height: 99%;
+    text-align: right;
+}
+
+.searchControlMandatory > td > input {
+    border-style: none;
+    width: 95%;
+    height: 99%;
+    background-color: aqua;
+}
+
+.GridCurrencyList {
+    width: 70px;
+    min-width: 100px;
+    max-width: 70px;
+}
+
+.GridCurrencyList {
+    width: 70px;
+    min-width: 100px;
+    max-width: 70px;
+}
+
+.MandatoryT {
+    background-color: #C1FFFF;
+}
+
+.GridChuubanProdStock {
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+}
+
+.grdSelect {
+    width: 40px
+}
+
+.GridProcessKubun {
+    width: 160px;
+}
+
+.GridProcess {
+    width: 615px;
+}
+
+
+.GridProcessS {
+    width: 100px;
+}
+
+.GridButton {
+    width: 50px;
+}
+
+.GridCheckbox {
+    width: 40px;
+}
+
+.GridCheckboxM {
+    width: 20px;
+}
+
+.GridNoOfUnit {
+    width: 105px;
+}
+
+.GridNoOfTags {
+    width: 105px;
+}
+
+.GridCustomerLarge {
+    width: 130px;
+}
+
+.GridSalesInchargeL {
+    width: 130px;
+}
+
+.GridMatlTypeKubun {
+    width: 30px;
+}
+
+.GridProdSpecNo {
+    width: 70px;
+}
+
+.GridProdSpecNoL {
+    width: 105px;
+}
+
+-GridConditionM {
+    width: 80px;
+}
+
+-GridPODtlNo {
+    width: 90px;
+}
+
+.GridPODtlNo {
+    width: 90px;
+}
+
+-GridKoubanCd {
+    width: 90px;
+}
+
+-GridMatlKubun {
+    width: 50px;
+}
+
+.GridGenSpc {
+    width: 60px;
+}
+
+.GridMochikomosaki {
+    width: 150px;
+}
+
+.GridMochikomosakiM {
+    width: 95px;
+    min-width: 95px;
+    max-width: 95px;
+}
+
+.GridMochikomosakiMedium {
+    width: 100px;
+}
+
+.GridConfRChan {
+    width: 90px;
+}
+
+.GridKubun {
+    width: 40px;
+}
+
+.GridMatlKubun {
+    width: 60px;
+}
+
+.GridMochkomiName {
+    width: 10px;
+}
+
+.GridRemark {
+    width: 300px;
+}
+
+.GridMatlName {
+    width: 130px;
+}
+
+.GridRemarkS {
+    width: 130px;
+}
+
+.Gridshape {
+    width: 30px;
+}
+
+.GridSalesInchagre {
+    width: 90px;
+}
+
+.GridLengthTolMin {
+    width: 100px
+}
+
+.GridReceiver {
+    width: 125px;
+    min-width: 125px;
+    max-width: 125px;
+}
+
+
+
+.GridColorDecision {
+    width: 60px;
+}
+
+.GridHikitoriiraiCD {
+    width: 80px;
+}
+
+.GridTransComp {
+    width: 150px;
+}
+
+.GridTransCompL {
+    width: 160px;
+    min-width: 150px;
+    max-width: 150px;
+}
+
+.GridMksakiNameM {
+    width: 240px;
+}
+
+.GridSalesInchagreM {
+    width: 120px;
+}
+
+.GridFormulaKubun {
+    width: 140px;
+}
+
+.GridCustomerXL {
+    width: 260px;
+}
+
+.GridReceiverM {
+    width: 260px;
+}
+
+.GridSalesInchagreXL {
+    width: 250px;
+}
+
+
+.gridInvoiceNoM {
+    width: 140px;
+}
+
+.GridChoksou {
+    width: 250px;
+}
+
+.GridMatlCD {
+    width: 80px;
+}
+
+.GridMakerCD {
+    width: 125px;
+}
+
+.gridWeightM {
+    width: 120px;
+}
+
+.gridWeightS {
+    width: 100px;
+}
+
+.gridRank {
+    width: 40px;
+}
+
+.GridQuantityAll {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+}
+
+.GridCustomerSL {
+    width: 160px;
+    min-width: 160px;
+    max-width: 160px;
+}
+
+.GridCustomerL {
+    width: 160px;
+}
+
+.GridBlank {
+    width: 100px
+}
+
+.GridProvisionalAllowanceDay {
+    width: 100px
+}
+
+.GridProdNameCustNew {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+
+.GRidHeaderP {
+    padding-left: 4px;
+}
+
+.GRidHeader1 {
+    padding-left: 2px;
+}
+
+.GRidHeader2 {
+    padding-left: 1px;
+}
+
+.GRidHeader3 {
+    padding-left: 4px;
+}
+
+
+.hide {
+    display: none;
+}
+
+.header {
+    padding-left: 3px;
+}
+
+.freez > th {
+    position: sticky !important;
+    background-color: #7291D2;
+    top: 0.2px;
+    height: 20px;
+    box-shadow: 0 0 0px 0.5px White;
+}
+
+.freez2 > th {
+    position: sticky !important;
+    background-color: #B2C3E6;
+    top: 21px;
+    height: 20px;
+    box-shadow: 0 0 0px 0.5px White;
+}
+
+.freez3 > th {
+    position: sticky !important;
+    background-color: #B2C3E6;
+    top: 41.5px;
+    height: 20px;
+    box-shadow: 0 0 0px 0.5px White;
+}
+
+.freez4 > th {
+    position: sticky !important;
+    background-color: #B2C3E6;
+    top: 62px;
+    height: 20px;
+    box-shadow: 0 0 0px 0.5px White;
+}
+
+.freez5 > th {
+    position: sticky !important;
+    background-color: #B2C3E6;
+    top: 83.5px;
+    height: 20px;
+    box-shadow: 0 0 0px 0.5px White;
+}
+
+.pnlHeading {
+    width: 950px;
+    background-color: darkblue;
+    text-align: center;
+}
+
+.pnlHeading1 {
+    width: 450px;
+    background-color: darkblue;
+    text-align: center;
+}
+
+.pnlHeading2 {
+    width: 400px;
+    background-color: darkblue;
+    text-align: center;
+}
+
+.tdHSKMill {
+    border-width: thin;
+    border-style: solid;
+    background-color: darkblue;
+    text-align: center;
+    height: 15px;
+    border-color: White;
+}
+
+.tdHSKMill1 {
+    border-width: thin;
+    border-style: solid;
+   /* background-color: blue;*/
+    text-align: center;
+    height: 15px;
+    border-color: White;
+}
+
+.tdHSKMillData {
+    border-width: thin;
+    border-style: solid;
+    background-color: #c3c0c0;
+    text-align: center;
+    height: 15px;
+    border-color: White;
+}
+
+.disabled {
+    background-color: #EEEEEE !important;
+    /* background-color: #f2f2f2 !important;*/
+    pointer-events: none;
+    padding-left: 3px !important;
+    border:none;
+}
+
+.labelClassWhite {
+    font-family: 'MS Gothic';
+    color: white;    
+}
+.textboxheight{
+    height:22px;
+}
+
+.td1 {
+    border: 1px solid black;
+    background-color: #395fab;
+    border-color: black;
+}
+
+.GridLines11 > tbody > tr >td  /* Apply border to headers */ {
+    border: 1px solid white;
+    padding-left: 3px;
+    white-space: normal;
+}
+
+
+.tblDetailsClass {
+    border:1px solid black;
+    padding-right:10px; 
+    width:882px;
+
+}
+.tblProductDetailsClass {
+     margin-left:3px; 
+     height:60px;
+     margin-bottom:10px; 
+     border:1.2px solid black;
+}
+.TrProductDetailsClass {
+    text-align:center;
+    height:50px; 
+    
+}
+.td60{
+    width:80px;
+}
+.td100 {
+    width: 80px;
+    height: 50px
+}
+.tdheightwidth {
+    height: 30px;
+    width: 100px;
+}
+.tableWidth {
+    width: 950px;
+    margin-left: 5px;
+}
+.tablerightWidth {
+    width: 905px;    
+}
+.tdtext {
+    width:100%;
+    height:27px;
+    border:none;
+}
+.tdtext1 {
+    width: 100%;
+    height: 20px;
+    border: groove;
+}
+.tdtext2 {
+    width: 100%;
+    height: 22px;
+    border:none;
+}
+.labelheight {
+    height: 30px;    
+}
+.tblmechClass {
+    border: 1px solid black;
+   
+    padding-right: 10px;
+    width: 905px;
+}
+.bordernone {
+    border: none;
+}
+
+.GridHeader22 {
+    background-color: #2d67e3;
+    color: white;
+    font-size: small;
+    font-weight: lighter;
+    height: 18px;
+    text-align: center;
+    font-family: 'MS Gothic';
+}
+.GridLines12 > td /* Apply border to headers */ {
+    border: 1px solid white;
+    
+    white-space: normal;
+}
+.GridLines13 > td /* Apply border to headers */ {
+    border: 1px solid gray;
+    
+    white-space: normal;
+}
+.whitelines{
+    border-bottom-color:white;
+    border-left-color:white;
+    border-right-color:white;
+}
+.tblsearchval {
+    border: inset;
+    width: 60px;
+    background-color: antiquewhite;
+}
+.MachineInspectionClass {
+    border: inset;
+    width: 220px;
+    background-color: #cd5c5c;
+    text-align: center;
+}
+.contentClass {
+    border: inset;
+    width: 90px;
+    background-color: #006400;
+}
+.InfilClass {
+    border: inset;
+    width: 90px;
+    background-color: #000040;
+}
+.DimensionClass {
+    border: inset;
+    width: 90px;
+    background-color: #8b0000;
+}
+.printClass {
+    border:inset;
+    width: 90px;
+    background-color: #804040;
+}
+.Close {
+    border: inset;
+    width: 130px;
+    background-color: #000080;
+}
+._functionButtons1 {
+    background-color: ButtonFace;
+    Height: 25px;
+    border: 1px inset Silver;
+    font-size: 12px;
+    width: 86px;
+}
+.ProddeailtxtHeight{
+    height:26px;
+}
+
+img {
+    vertical-align: middle;
+    border-style: none;
+    width: 50px;
+}
+
+.MakerChemicalgridCCMin {
+    margin-left: 5px;
+    margin-top: 0px;
+    padding-bottom: 10px;
+}
+
+.MakerChemicalgridsymbol {
+    display:none;
+    text-align: center;
+    font-weight: bold;
+    margin-left: 10px;
+}
+.MakerChemicalgridCCMax {
+    margin-right: 6px;
+    float: right;
+}
+.MakerChemicalgridactual {
+    float: right;
+    margin-right: 10px;
+}

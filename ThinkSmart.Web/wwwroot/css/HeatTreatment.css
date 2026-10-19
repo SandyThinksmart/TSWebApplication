@@ -1,0 +1,150 @@
+﻿.hide {
+    display: none;
+}
+
+.GridROColumn {
+    background-color: #E2E2E2;
+}
+
+
+.GridTextBoxM {
+    height: 23px;
+    border: none;
+    width: 100%;
+}
+
+
+
+.GridTextBox {
+    height: 23px;
+    border: none;
+    width: 100%;
+    background-color: white;
+}
+
+.GridThabaTextBox {
+    height: 23px;
+    border: none;
+    width: 100%;
+    background-color: white;
+}
+
+#TbMessage {
+    border: 1px inset lightgrey;
+}
+
+
+.footerRow {
+    background-color: lightgoldenrodyellow;
+    height: 21px;
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+}
+
+.freez1 > th {
+    position: sticky !important;
+    background-color: #7291D2;
+    top: 0.2px;
+    height: 20px;
+    white-space: nowrap;
+}
+
+
+
+.freez2 > th {
+    position: sticky !important;
+    background-color: #B2C3E6;
+    top: 21px;
+    height: 20px;
+    box-shadow: 0 0 0px 0.5px White;
+    white-space: nowrap;
+}
+
+.freez3 > th {
+    position: sticky !important;
+    background-color: #B2C3E6;
+    top: 41.5px;
+    height: 20px;
+    box-shadow: 0 0 0px 0.5px White;
+    white-space: nowrap;
+}
+
+.headerPadding {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
+.fixLengthDataPadding {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+.backcolorwarningMsg{
+    color:blue;
+}
+#pnlHeader {
+    border-width: 1px;
+    border-style: solid;
+    width: 1560px;
+}
+#pnlDetails {
+    Width: 1560px;
+    Height: 570px;
+    border-width: 1px;
+    border-style: solid;
+    overflow: auto;
+    /*ScrollBars:Both;*/
+}
+#pnlButtonSectionlabel {
+    text-align: center;
+    vertical-align: bottom
+}
+#pnlButtonSectionButton{
+    text-align: center;
+    
+}
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: red;
+    color: white;
+    text-align: center;
+}
+#dropdown-wrapper {
+    position: relative;
+    width: 200px;
+}
+
+#dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    background: white;
+    z-index: 10;
+    display: none;
+}
+.dropdownSearch1 select {
+    width: 100px;
+    height: 25px;
+}
+
+.dropdownSearch1 > * {
+    box-sizing: border-box;
+    height: 1.5em;
+}
+
+.dropdownSearch1 input {
+    position: absolute;
+    width: 80px;
+    height: 25px;
+}
+
+#tblFurnace {
+    width: 300px;
+}

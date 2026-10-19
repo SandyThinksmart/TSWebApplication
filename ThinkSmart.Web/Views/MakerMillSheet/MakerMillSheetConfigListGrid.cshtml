@@ -1,0 +1,46 @@
+﻿@using TSWebApplication.Domain.Resources
+@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Utility
+@inject LocalizationServices LocalizationServices
+@model List<MakerMillSheetConfiguration>
+@{
+    Layout = null;
+}
+
+<div id="dvGrid" style="height: 400px; width: 647px; border: solid 1px;overflow:auto;">
+
+    <table class="GridLines GridColumnLeftPadding freez" cellpadding="0" cellspacing="0" border="1">
+        <thead>
+            <tr class="GridHeader GridViewScrollHeader freez GridHeaderPadding">
+                <th class="headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("")</th>
+                <th class="headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap"><label ID="lblMakerName" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialMaker")</label></th>
+                <th class="headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap"> <label ID="lblM_TemplateName" class="labelClass" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_M_TemplateName")</label></th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr data-template="@item.UNIQUE_TEMPLATE_NAME">
+                        <td class="labelClass" style="padding-right:3px;">
+                            <input type="button" onclick="OnEditClick($(this))" value="●" id="btnSelectData" tabindex="13" class="_functionButtons" style="height:22px;width:30px;">
+                        </td>
+                        <td class="labelClass tdPaddingLeftandRight" style="white-space:nowrap"><label ID="lblMakerNameDetails" class="labelClass">@item.MAKER_NAME</label></td>
+                        <td class="labelClass tdPaddingLeftandRight" style="white-space:nowrap"><label ID="lblTemplateNameDetails" class="labelClass">@item.UNIQUE_TEMPLATE_NAME</label></td>
+                        
+
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr style="height:20px;">
+                    <td colspan="3" align="left" valign="middle" style="padding-left:5px;"><label ID="lblNoRecordFound" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_NoRecordFound_L")</label></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

@@ -1,0 +1,40 @@
+﻿#grdvKoubanDetails tr:not(.ItemgrdvKoubanDetails):not(#trh1grdvKobanDetails):not(#trh2grdvKobanDetails):not(#trh3grdvKobanDetails):not(#trh4grdvKobanDetails):not(#trh5grdvKobanDetails):not(#trd1grdvKobanDetails):not(#trd2grdvKobanDetails):not(#trd3grdvKobanDetails):not(#trd4grdvKobanDetails):not(#trd5grdvKobanDetails):not(#trd6grdvKobanDetails):not(#trd7grdvKobanDetails):not(#trd8grdvKobanDetails):not(#trd9grdvKobanDetails):not(#trd10grdvKobanDetails):not(#trd11grdvKobanDetails):not(#trd12grdvKobanDetails):not(#trd13grdvKobanDetails)
+ {
+     display: none;     
+ }
+.HSKCalendar tr
+{
+    display: inline-block !important;
+}
+/* Hack for IE7, 8 */
+.ie7 #grdvKoubanDetails tr, .ie8 #grdvKobanDetails tr
+{ 
+    display: none;
+}
+
+.shapeColumnWidth
+{
+    width:50px;
+    /*width:98%;*/
+}
+.innerItemWidth {
+    width: 98%;
+}
+
+.Row1txtLengthWidth
+{
+    width:54px; 
+}
+
+.HdrKoubanRoll_RWidth
+{
+    width:55px; 
+}
+.noteFontSize {
+    font-size: 12px !important;
+}
+.noteClass {
+    padding-left: 61px;
+    padding-top: 5px;
+}
+    

@@ -1,0 +1,43 @@
+﻿
+
+#MainDiv
+{
+    width:700px;
+    
+    }
+    
+    #MainTable
+    {
+        width:700px;
+    }
+    
+  
+  
+  /* List Page CSS */
+  
+      
+ .GridKeyTypeName
+  {
+      width:80px;
+      min-width:80px;
+      max-width:80px;
+  }
+  .GridKeyName
+  {
+       width:200px;
+       min-width:200px;
+       max-width:200px;
+      }
+   .GridValue
+  {
+       width:200px;
+       min-width:200px;
+       max-width:200px;
+      }
+      
+       .GridDescription
+  {
+       width:200px;
+       min-width:200px;
+       max-width:200px;
+      }

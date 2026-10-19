@@ -1,0 +1,177 @@
+﻿@using TSWebApplication.Domain.Resources
+@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Utility
+@inject LocalizationServices LocalizationServices
+@model List<HeatTreatMentDetails>
+@{
+    Layout = null;
+    //var MatlKubunList = UIUtils.GetMaterialKubun();
+    //var UnitKubunList = UIUtils.GetMaterialUnitKubun(true);
+    //var NextProcessKubunList = UIUtils.GetNextProcesKubun();
+   
+}
+
+<table class="GridLines GridColumnLeftPadding" id="tblHeatTreatMent" cellpadding="0" cellspacing="0" border="1" style="height:30px;min-width:1350px;">
+
+    <thead>
+        <tr id="tr1HdrGrdvPo" class="freez1 ">
+            <th align="center" class="tdH1 headerPadding" colspan="13" id="chkTitle"></th>
+            <th align="center" class="tdH1 headerPadding" colspan="2">
+                <Label ID="lblGridHeading" runat="server" Class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MetallicLabelNo")</Label>
+            </th>
+            <th align="center" class="tdH1 headerPadding" colspan="2" rowspan="2">
+                <Label ID="Label19" runat="server" Class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_PositionInFurnace")</Label>
+            </th>
+
+            <th align="center" class="tdH1 headerPadding" colspan="4" rowspan="2">
+                <Label ID="Label21" runat="server" Class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_TabaNo")</Label>
+            </th>
+            <th align="center" class="tdH1 headerPadding" rowspan="2" style="width: 150px">
+                <Label ID="Label22" runat="server" Class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lblNextProcess")</Label>
+            </th>
+        </tr>
+        <tr id="tr2HdrGrdvPo" class="freez2">
+            <th id="chkheader"></th>
+            <th class="tdH2 headerPadding">
+                <Label runat="server" ID="Label23" Class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</Label>
+            </th>
+            <th class="tdH2 headerPadding">
+                <Label runat="server" ID="lblProdNameCustHdr" Class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</Label>
+            </th>
+            <th class="tdH2 headerPadding">
+                <Label runat="server" ID="Label24" Class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</Label>
+            </th>
+            <th class="tdH2 headerPadding">
+                <Label runat="server" ID="lblDimOtherHdr" Class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</Label>
+            </th>
+            <th class="tdH2 headerPadding" style="min-width:50px;max-width:50px">
+                <Label runat="server" ID="lblLengthHdr" Class="labelClass"> @LocalizationServices.GetLocalizedHtmlString("lbl_MatlDim") </Label>
+            </th>
+            <th class="tdH2 headerPadding" style="min-width:50px;max-width:50px">
+                <Label runat="server" ID="lblConditionHdr" Class="labelClass"> @LocalizationServices.GetLocalizedHtmlString("lbl_ProdDim") </Label>
+            </th>
+            <th class="tdH2 headerPadding">
+                <Label runat="server" ID="lblMatlType" Class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_CoilBarRpt")</Label>
+            </th>
+            <th class="tdH2 headerPadding">
+                <Label runat="server" ID="lblLotNo" Class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_LotNo")</Label>
+            </th>
+            <th align="center" class="tdH1 headerPadding" colspan="2">
+                <Label ID="Label20" runat="server" Class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_NoOfUnits")</Label>
+            </th>
+            <th class="tdH2 headerPadding">
+                <Label runat="server" ID="lblQtyHdr" Class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_WeightWithoutKG")</Label>
+            </th>
+            <th class="tdH2 headerPadding" style="width:120px">
+                <Label runat="server" ID="lblRateHdr" Class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DeliveryRemarks")</Label>
+            </th>
+            <th class="tdH2 headerPadding">
+                <Label runat="server" ID="lblNyukaDateHdr" Class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Roll")</Label>
+            </th>
+            <th class="tdH2 headerPadding">
+                <Label runat="server" ID="Label25" Class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Coil_M")</Label>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @for (Int32 i = 1; i <= 30; i++)
+            {
+            <tr id="@("trId"+i)" class="DetailData">
+                <td style="height: 20px;text-align:center" id="@("chkRow"+i)">
+                    <input type="checkbox" ID="@("selectRow" + i)" data-id="@i" style="margin-right: 7px"/>
+                </td>
+                    <td style="background-color: gainsboro; white-space: nowrap;" class="fixLengthDataPadding">
+                    <input ID="@("txtOrderNo"+i)" data-id="@i" data-orderno="yes" Class=" GridTextBoxM Mandatory2 GridLeft" style="width:85px;border: 0" MaxLength="12" value=""  tabindex="1"/>
+                    </td>
+                    <td style="background-color: gainsboro; white-space: nowrap;min-width:180px;max-width:180px" class="fixLengthDataPadding">
+                    <label ID="@("txtCustomer"+i)" Class="labelClass GridLeft" runat="server" style="min-width:92px" ></label>
+                    <input type="hidden" id="@("hdfProcessPlanCD"+i)" value="" /> 
+                    <input type="hidden" id="@("hdfheattreatmentCD"+i)" value="" />
+                    <input type="hidden" id="@("hdfQuality_CD"+i)" value="" />
+                    <input type="hidden" id="@("hdfHTRow"+i)" value="" />
+                    <input type="hidden" id="@("hdfHTNumber"+i)" value="" />
+                    </td>
+
+                    <td style="background-color: gainsboro; white-space: nowrap" class="fixLengthDataPadding">
+                    <label ID="@("lblProdNameCust"+i)" data-rowid="@i" Class="labelClass GridLeft" runat="server" style="min-width:80px"></label>
+                    </td>
+                    <td style="background-color: gainsboro; white-space: nowrap" class="fixLengthDataPadding">
+                    <label ID="@("lblCharge"+i)" data-rowid="@i" Class="labelClass GridLeft" runat="server" style="min-width:80px"></label>
+                    </td>
+                    <td style="background-color: gainsboro; white-space: nowrap;text-align:right" class="fixLengthDataPadding">
+                    <label ID="@("lblMatlDim"+i)" data-id="@i" Class="labelClass GridRight" runat="server"></label>
+                    </td>
+                <td style="background-color: gainsboro; white-space: nowrap;text-align:right" class="fixLengthDataPadding">
+                    <label ID="@("lblProdDim"+i)" data-id="@i" Class="labelClass GridRight" runat="server"></label>
+                    </td>
+
+                    <td style="background-color:white; white-space: nowrap; width: 55px" class="fixLengthDataPadding">
+                    <select ID="@("ddlMatlType"+i)" data-id="@i" tabindex="13" runat="server" class="DropdownClass" style="border:0;width:100%;"  />
+
+                    </td>
+                    <td style="background-color:white; white-space: nowrap" class="fixLengthDataPadding">
+                    <input ID="@("txtLotNo"+i)" data-id="@i" tabindex="13" Class="labelClass GridLeft" value="" style="border:0;width:75px;height:23px;" MaxLength="6" />
+                    </td>
+                    <td style="background-color: white; white-space: nowrap" class="fixLengthDataPadding">
+                    <input ID="@("txtNoOfUnit"+i)" data-id="@i" tabindex="13" Class="labelClass GridAlignmentNumeric TextBoxClass GridTextBox" style="border:0;min-width:50px;max-width:50px" value="" MaxLength="8" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                    </td>
+                    <td style="background-color: white; white-space: nowrap" class="fixLengthDataPadding">
+                    <select ID="@("ddlUnit"+i)" data-id="@i" tabindex="13" runat="server" class="DropdownClass" style="width:40px;border: 0" />
+
+                    </td>
+                    <td style="background-color: white; white-space: nowrap;min-width:65px;max-width:65px" class="fixLengthDataPadding">
+                    <input ID="@("txtQuantity"+i)" data-id="@i" tabindex="13" Class="labelClass GridAlignmentNumeric TextBoxClass GridTextBox GridRight" style="min-width:64px;max-width:64px" value="" MaxLength="10" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                    </td>
+                <td style="background-color: white; white-space: nowrap;min-width:200px;max-width:200px" class="fixLengthDataPadding">
+                    <input ID="@("txtRemark"+i)" data-id="@i" tabindex="13" MaxLength="100" Class="labelClass TextBoxClass GridTextBox Gridleft" />
+                    <input type="hidden" id="@("hdfMsgCD"+i)" tabindex="13" value="" />
+                    </td>
+                    <td style="background-color: white; white-space: nowrap;min-width:45px" class="fixLengthDataPadding">
+                    <input ID="@("txtRoll"+i)" data-id="@i" tabindex="13" Class="labelClass TextBoxClass GridTextBox Gridleft" value="" MaxLength="5" />
+                    </td>
+                    <td style="background-color: white;  white-space: nowrap" class="fixLengthDataPadding">
+                    <input ID="@("txtCoilNo"+i)" data-id="@i" tabindex="13" Class="labelClass TextBoxClass GridTextBox Gridleft" value="" MaxLength="13" style="min-width:98px;" />
+                    </td>
+                    <td style="background-color: white; white-space: nowrap" class="fixLengthDataPadding">
+                    <input ID="@("txtFurnacePosition1"+i)" data-id="@i" tabindex="13" Class="labelClass GridAlignmentNumeric GridRight" value="" style="border:0px;width:100%;height:23px;" MaxLength="2" />
+                    </td>
+                    <td style="background-color: white; white-space: nowrap;" border="0px" class="fixLengthDataPadding">
+                    <input ID="@("txtFurnacePosition2"+i)" data-id="@i" tabindex="13" Class="labelClass GridAlignmentNumeric GridRight" value="" style="border:0px;width:100%;height:23px;" MaxLength="2" />
+                    </td>
+
+                    <td style="background-color: white; white-space: nowrap;" class="fixLengthDataPadding">
+                    <input ID="@("txtTabaNo1"+i)" data-id="@i" tabindex="13" Class="labelClass GridAlignmentNumeric TextBoxClass GridRight" value="" style="Width:30px;border: 0px" MaxLength="3" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                    </td>
+                    <td style="background-color: white; white-space: nowrap;" class="fixLengthDataPadding">
+                    <input ID="@("txtTabaNo2"+i)" data-id="@i" tabindex="13" Class="labelClass GridAlignmentNumeric TextBoxClass GridTextBox GridRight" value="" style="Width:30px;border: 0px" MaxLength="3" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                    </td>
+                    <td style="background-color: white; white-space: nowrap;" class="fixLengthDataPadding">
+                    <input ID="@("txtTabaNo3"+i)" data-id="@i" tabindex="13" Class="labelClass GridAlignmentNumeric TextBoxClass GridTextBox GridRight" value="" style="Width:30px;border: 0px" MaxLength="3" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                    </td>
+                    <td style="background-color:white; white-space: nowrap;" class="fixLengthDataPadding">
+                    <input ID="@("txtTabaNo4"+i)" data-id="@i" tabindex="13" Class="labelClass GridAlignmentNumeric TextBoxClass GridTextBox GridRight" value="" style="Width:30px;border: 0px" MaxLength="3" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                    </td>
+                    <td style="background-color: white; white-space: nowrap" class="fixLengthDataPadding">
+                    <select ID="@("ddlNextProcess"+i)" data-id="@i" tabindex="13" runat="server" class="labelClass DropdownClass " style="Width:140px;border: 0;Height:23px"
+                    @*errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_InRowNextProcessIsRequired")"*@>
+                        </select>
+
+                    </td>
+                </tr>
+              
+        }
+    </tbody>
+    <tfoot>
+        <tr class="footerRow" style="position: sticky !important;">
+            <td></td>
+            <td colspan="10" align="right">
+                <label runat="server">@LocalizationServices.GetLocalizedHtmlString("lbl_TotalWeight")</label>
+            </td>
+            <td colspan="11" align="left" style="padding-left:2px;">
+                <label ID="lblTotal">0</label>
+            </td>
+        </tr>
+    </tfoot>
+
+</table>

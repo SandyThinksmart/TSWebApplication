@@ -1,0 +1,467 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<PoAndReceiptPopupDetails>
+@inject LocalizationServices LocalizationServices
+
+<style type="text/css">
+    .freezMakerDataGrid > th {
+        position: sticky !important;
+        top: 0.0px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezMakerDataGrid {
+        border-color: white;
+    }
+
+    .freezRollDataGrid > th {
+        position: sticky !important;
+        top: 20px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezRollDataGrid {
+        border-color: white;
+    }
+
+</style>
+<table border="0" cellpadding="0" cellspacing="0" id="tblMakerWisePoOrderReciptPopUp" class="GridLines">
+    <tr class="tdHeaderOrderGrid freezMakerDataGrid" >
+        <th rowspan="2" colspan="4" class="tdHeaderOrderGrid labelClass GridCenter" width="300px">
+
+        </th>
+        <th colspan="6" class="tdHeaderOrderGrid labelClass GridCenter" width="421px">
+            <label id="lblOrderQty" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_OrderQty")</label>
+        </th>
+        <th colspan="6" class="tdHeaderOrderGrid labelClass GridCenter" width="421px">
+            <label id="lblForcastQty" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ForcastQty")</label>
+        </th>
+    </tr>
+
+    <tr class="tdHeaderOrderGrid1 freezRollDataGrid">
+
+        <th class="tdHeaderOrderGrid1 labelClass GridCenter" style="width: 55px;">
+            <label id="lblLastRoll3" class="labelClass" >@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll") </label><br />
+        </th>
+        <th class="tdHeaderOrderGrid1 labelClass GridCenter" style="width: 55px;">
+            <label id="lblLastRoll2" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll") </label><br />
+        </th>
+        <th class="tdHeaderOrderGrid1 labelClass GridCenter" style="width: 55px;">
+            <label id="lblLastRoll1" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll") </label><br />
+        </th>
+        <th class="tdHeaderOrderGrid1 labelClass GridCenter" style="width: 55px;">
+            <label id="lblCurrentRoll" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll") </label><br />
+        </th>
+        <th class="tdHeaderOrderGrid1 labelClass GridCenter" style="width: 55px;">
+            <label id="lblNextRoll" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll") </label><br />
+        </th>
+        <th class="tdHeaderOrderGrid1 labelClass GridCenter" style="width: 55px;">
+            <label id="lblForcastQty" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Sum_L")</label>
+        </th>
+        <th class="tdHeaderOrderGrid1 labelClass GridCenter" style="width: 55px;">
+            <label id="lblLastRoll13" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll") </label><br />
+        </th>
+        <th class="tdHeaderOrderGrid1 labelClass GridCenter" style="width: 55px;">
+            <label id="lblLastRoll12" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll") </label><br />
+        </th>
+        <th class="tdHeaderOrderGrid1 labelClass GridCenter" style="width: 55px;">
+            <label id="lblLastRoll11" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll") </label><br />
+        </th>
+        <th class="tdHeaderOrderGrid1 labelClass GridCenter" style="width: 55px;">
+            <label id="lblCurrentRoll1" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll") </label><br />
+        </th>
+        <th class="tdHeaderOrderGrid1 labelClass GridCenter" style="width: 55px;">
+            <label id="lblNextRoll1" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll") </label><br />
+        </th>
+        <th class="tdHeaderOrderGrid1 labelClass GridCenter" style="width: 55px;">
+            <label id="lblForcastQty" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Sum_L")</label>
+        </th>
+    </tr>
+    @if (Model != null && Model.Count > 0)
+    {
+
+        var PreviousMakerName = "";
+        foreach (var MakerDataSet in Model.GroupBy(item1 => new { item1.MAKER_NAME }).ToList())
+        {
+            bool makerName = true;
+            foreach (var item in MakerDataSet.GroupBy(item => new { item.SUPPLIER_NAME }).ToList())
+            {
+
+                var i = item.Count();
+                @foreach (var SupplierData in item)
+                {
+
+                    <tr class="GridNormalRow">
+                        @if (makerName == true)
+                        {
+                            <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass" style="background-color:cornflowerblue !important;"><label class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MakerName_M")</label>
+
+                            </td>
+                            makerName = false;
+                        }
+                        else
+                        {
+                            @if (@SupplierData.PO_KUBUN == null)
+                            {
+                                @if (@SupplierData.SUPPLIER_NAME == null && @SupplierData.PO_KUBUN == null)
+                                {
+                                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass" ></td>
+                                }
+                                else
+                                {
+                                      <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass" style="background-color:lightblue !important;"></td>
+                                }
+                            }
+                            else
+                            {
+                                <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass"></td>
+                            }
+                        }
+                        @if (i == 1)
+                        {
+                            @if (PreviousMakerName == @SupplierData.MAKER_NAME)
+                            {
+                                <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass "></td>
+                                <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass ">@SupplierData.SUPPLIER_NAME</td>
+                            }
+                            else
+                            {
+                                <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass " style="background-color:cornflowerblue !important;">@SupplierData.MAKER_NAME</td>
+                                <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass ">@SupplierData.SUPPLIER_NAME</td>
+                            }
+                            PreviousMakerName = @SupplierData.MAKER_NAME;
+                      
+
+                        }
+                        @if (i == 2)
+                        {
+                            @if (PreviousMakerName == @SupplierData.MAKER_NAME)
+                            {
+                                @if (@SupplierData.SUPPLIER_NAME == null)
+                                { 
+                                    
+                                        <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass"></td>
+                                        <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass "></td>
+                                    
+                                }
+                                else
+                                {
+                                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass "></td>
+                                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass ">@SupplierData.SUPPLIER_NAME</td>
+                                }
+                            }
+                            else
+                            {
+                                <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass " style="background-color:cornflowerblue !important;">@SupplierData.MAKER_NAME</td>
+                                <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass ">@SupplierData.SUPPLIER_NAME</td>
+                            }
+                            PreviousMakerName = @SupplierData.MAKER_NAME;
+
+                        }
+                        @if (i == 3)
+                        {
+                            @if (PreviousMakerName == @SupplierData.MAKER_NAME)
+                            {
+                                @if (@SupplierData.SUPPLIER_NAME == null)
+                                {
+                                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass "></td>
+                                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass "></td>
+                                }
+                                else
+                                {
+                                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass "></td>
+                                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass ">@SupplierData.SUPPLIER_NAME</td>
+                                }
+                            }
+                            else
+                            {
+                                <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass " style="background-color:cornflowerblue !important;">@SupplierData.MAKER_NAME</td>
+                                <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass ">@SupplierData.SUPPLIER_NAME</td>
+                            }
+                            PreviousMakerName = @SupplierData.MAKER_NAME;
+
+                        }
+                        @if (i == 4)
+                        {
+                            @if (PreviousMakerName == @SupplierData.MAKER_NAME)
+                            {
+                                @if (@SupplierData.SUPPLIER_NAME == null)
+                                {
+                                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass "></td>
+                                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass "></td>
+                                }
+                                else
+                                {
+                                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass "></td>
+                                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass ">@SupplierData.SUPPLIER_NAME</td>
+                                }
+                            }
+                            else
+                            {
+                                <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass " style="background-color:cornflowerblue !important;">@SupplierData.MAKER_NAME</td>
+                                <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass ">@SupplierData.SUPPLIER_NAME</td>
+                            }
+                            PreviousMakerName = @SupplierData.MAKER_NAME;
+
+                        }
+                        @if (i == 0)
+                        {
+                            @if (@SupplierData.PO_KUBUN == null)
+                            {
+                                @if (@SupplierData.SUPPLIER_NAME == null && @SupplierData.PO_KUBUN == null)
+                                {
+                                     <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass" ></td>
+                                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass " ></td>
+                                }
+                                else
+                                {
+                                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass" style="background-color:lightblue !important;"></td>
+                                <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass " style="background-color:lightblue !important;"></td>
+                                }
+                                
+                            }
+                            else
+                            {
+                                <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass"></td>
+                                <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass "></td>
+                            }
+                           
+                        }
+                        @if (@SupplierData.PO_KUBUN == null)
+                        {
+                            @if (@SupplierData.SUPPLIER_NAME == null && @SupplierData.PO_KUBUN == null)
+                            {
+                                 <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass" style="min-width: 139px;max-width: 123px;">
+                                <label class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_SubTotal2")</label>
+                                </td>
+                                 <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="">@SupplierData.R1</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" >@SupplierData.R2</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" >@SupplierData.R3</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" >@SupplierData.R4</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" >@SupplierData.R5</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" >@SupplierData.PO_DTL_TOTAL</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" >@SupplierData.R6</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" >@SupplierData.R7</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" >@SupplierData.R8</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" >@SupplierData.R9</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" >@SupplierData.R10</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" >@SupplierData.TOTAL</td>
+                            }
+                            else
+                            {
+                                 <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass" style="background-color:lightblue !important;min-width: 139px;max-width: 123px;">
+                                <label class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_SubTotal1")</label>
+                                </td>
+                                 <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="background-color:lightblue !important;">@SupplierData.R1</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="background-color:lightblue !important;">@SupplierData.R2</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="background-color:lightblue !important;">@SupplierData.R3</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="background-color:lightblue !important;">@SupplierData.R4</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="background-color:lightblue !important;">@SupplierData.R5</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="background-color:lightblue !important;">@SupplierData.PO_DTL_TOTAL</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="background-color:lightblue !important;">@SupplierData.R6</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="background-color:lightblue !important;">@SupplierData.R7</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="background-color:lightblue !important;">@SupplierData.R8</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="background-color:lightblue !important;">@SupplierData.R9</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="background-color:lightblue !important;">@SupplierData.R10</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="background-color:lightblue !important;">@SupplierData.TOTAL</td>
+                            }
+                           
+                           
+                        }
+                        else 
+                        {
+                            <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass " style="min-width: 139px;max-width: 123px;">@SupplierData.PO_KUBUN</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@SupplierData.R1</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@SupplierData.R2</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@SupplierData.R3</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@SupplierData.R4</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@SupplierData.R5</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@SupplierData.PO_DTL_TOTAL</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@SupplierData.R6</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@SupplierData.R7</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@SupplierData.R8</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@SupplierData.R9</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@SupplierData.R10</td>
+                            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@SupplierData.TOTAL</td>
+                        }
+                    </tr>
+                    i = 0;
+
+
+
+                }
+            }
+        }
+        //<----------------Sum of All COIL --------------- >
+        var coilData = Model.Where(i => i.PO_KUBUN == "COIL" && i.SUPPLIER_NAME!= null);
+        var coilTotalR1 = coilData.Sum(x => x.R1);
+        var coilTotalR2 = coilData.Sum(x => x.R2);
+        var coilTotalR3 = coilData.Sum(x => x.R3);
+        var coilTotalR4 = coilData.Sum(x => x.R4);
+        var coilTotalR5 = coilData.Sum(x => x.R5);
+        var coilTotal1 = coilData.Sum(x => x.R1 + x.R2 + x.R3+ x.R4+ x.R5);
+        var coilTotalR6 = coilData.Sum(x => x.R6);
+        var coilTotalR7 = coilData.Sum(x => x.R7);
+        var coilTotalR8 = coilData.Sum(x => x.R8);
+        var coilTotalR9 = coilData.Sum(x => x.R9);
+        var coilTotalR10 = coilData.Sum(x => x.R10);
+        var coilTotal2 = coilData.Sum(x => x.R6 + x.R7 + x.R8+ x.R9+ x.R10);
+        <tr class="GridNormalRow">
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass"></td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass"></td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass"></td>
+            <td class="labelClass padddingRight tdNoWrap CharactFieldsClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Coil")</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@coilTotalR1</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@coilTotalR2</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@coilTotalR3</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@coilTotalR4</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@coilTotalR5</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@coilTotal1</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@coilTotalR6</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@coilTotalR7</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@coilTotalR8</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@coilTotalR9</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@coilTotalR10</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@coilTotal2</td>
+        </tr>
+
+        //<----------Sum of All BAR---------->
+        var barData = Model.Where(i => i.PO_KUBUN == "BAR" && i.SUPPLIER_NAME!= null);
+        var barTotalR1 = barData.Sum(x => x.R1);
+        var barTotalR2 = barData.Sum(x => x.R2);
+        var barTotalR3 = barData.Sum(x => x.R3);
+        var barTotalR4 = barData.Sum(x => x.R4);
+        var barTotalR5 = barData.Sum(x => x.R5);
+        var barTotal1 = barData.Sum(x => x.R1 + x.R2 + x.R3+ x.R4+ x.R5);
+        var barTotalR6 = barData.Sum(x => x.R6);
+        var barTotalR7 = barData.Sum(x => x.R7);
+        var barTotalR8 = barData.Sum(x => x.R8);
+        var barTotalR9 = barData.Sum(x => x.R9);
+        var barTotalR10 = barData.Sum(x => x.R10);
+        var barTotal2 = barData.Sum(x => x.R6 + x.R7 + x.R8+ x.R9+ x.R10);
+        <tr class="GridNormalRow">
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass"></td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass"></td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass"></td>
+            <td class="labelClass padddingRight tdNoWrap CharactFieldsClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Bar")</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@barTotalR1</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@barTotalR2</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@barTotalR3</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@barTotalR4</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@barTotalR5</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@barTotal1</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@barTotalR6</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@barTotalR7</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@barTotalR8</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@barTotalR9</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@barTotalR10</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@barTotal2</td>
+        </tr>
+
+         //<--------------Sum of All 黒皮----------- >
+        var kwData = Model.Where(i => i.PO_KUBUN == "黒皮" && i.SUPPLIER_NAME!= null);
+        var kwTotalR1 = kwData.Sum(x => x.R1);
+        var kwTotalR2 = kwData.Sum(x => x.R2);
+        var kwTotalR3 = kwData.Sum(x => x.R3);
+        var kwTotalR4 = kwData.Sum(x => x.R4);
+        var kwTotalR5 = kwData.Sum(x => x.R5);
+        var kwTotal1 =  kwData.Sum(x => x.R1 + x.R2 + x.R3+ x.R4+ x.R5);
+        var kwTotalR6 = kwData.Sum(x => x.R6);
+        var kwTotalR7 = kwData.Sum(x => x.R7);
+        var kwTotalR8 = kwData.Sum(x => x.R8);
+        var kwTotalR9 = kwData.Sum(x => x.R9);
+        var kwTotalR10 = kwData.Sum(x => x.R10);
+        var kwTotal2 = kwData.Sum(x => x.R6 + x.R7 + x.R8+ x.R9+ x.R10);
+        <tr class="GridNormalRow">
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass"></td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass"></td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass"></td>
+            <td class="labelClass padddingRight tdNoWrap CharactFieldsClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Kurokawa")</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@kwTotalR1</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@kwTotalR2</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@kwTotalR3</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@kwTotalR4</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@kwTotalR5</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@kwTotal1</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@kwTotalR6</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@kwTotalR7</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@kwTotalR8</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@kwTotalR9</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@kwTotalR10</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@kwTotal2</td>
+        </tr>
+
+        //<-------------Final Total of Coil,Bar,KW---------------------->
+        
+        var finalTotalR1 = @coilTotalR1 + @barTotalR1 + @kwTotalR1;
+        var finalTotalR2 = @coilTotalR2 + @barTotalR2 + @kwTotalR2;
+        var finalTotalR3 = @coilTotalR3 + @barTotalR3 + @kwTotalR3;
+        var finalTotalR4 = @coilTotalR4 + @barTotalR4 + @kwTotalR4;
+        var finalTotalR5 = @coilTotalR5 + @barTotalR5 + @kwTotalR5;
+        var finalTotal1 = @finalTotalR1 + @finalTotalR2 + @finalTotalR3 + @finalTotalR4 + @finalTotalR5 ;
+        var finalTotalR6 = @coilTotalR6 + @barTotalR6 + @kwTotalR6;
+        var finalTotalR7 = @coilTotalR7 + @barTotalR7 + @kwTotalR7;
+        var finalTotalR8 = @coilTotalR8 + @barTotalR8 + @kwTotalR8;
+        var finalTotalR9 = @coilTotalR9 + @barTotalR9 + @kwTotalR9;
+        var finalTotalR10 = @coilTotalR10 + @barTotalR10 + @kwTotalR10;
+        var finalTotal2 = @finalTotalR6 + @finalTotalR7 + @finalTotalR8 + @finalTotalR9 +  @finalTotalR10;
+
+        <tr class="GridNormalRow" style="background:yellow;">
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Sum_L")</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass"></td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass"></td>
+            <td class="labelClass padddingRight tdNoWrap CharactFieldsClass"></td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@finalTotalR1</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@finalTotalR2</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@finalTotalR3</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@finalTotalR4</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@finalTotalR5</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@finalTotal1</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@finalTotalR6</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@finalTotalR7</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@finalTotalR8</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@finalTotalR9</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@finalTotalR10</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@finalTotal2</td>
+        </tr>
+     
+      
+
+    }
+    else
+    {
+        <tr class="GridNormalRow">
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+
+        </tr>
+    }
+</table>
+@section Scripts {
+
+    <link href="~/css/Common.css" rel="stylesheet" />
+
+    <link href="~/css/Common_Styles.css" rel="stylesheet" />
+    <link href="~/css/masterStyles.css" rel="stylesheet" />
+    <link href="~/css/OrderAndReceiptHistoryPopup.css" rel="stylesheet" />
+    <script src="~/static/js/PoAndReceiptHistoryPopUp.js"></script>
+
+
+
+}

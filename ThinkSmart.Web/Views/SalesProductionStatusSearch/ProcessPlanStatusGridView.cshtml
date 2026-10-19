@@ -1,0 +1,260 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<ProcessPlanForSalesProductionStatusDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+}
+
+<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/salesproductionstatussearch.css" rel="stylesheet" asp-append-version="true" />
+
+<div>
+    <table>
+        <tr>
+            <td style="vertical-align: top">
+                <ul class="nav nav-pills" role="tablist" style="padding-left: 7px;">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="TbPMSTimewiseProgressTab1-tab" data-toggle="pill" href="#TbPMSTimewiseProgressTab1">@LocalizationServices.GetLocalizedHtmlString("lbl_TimewiseProgress_L")</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="TbPMSBundlewiseProgressTab2-tab" data-toggle="pill" href="#TbPMSBundlewiseProgressTab2">@LocalizationServices.GetLocalizedHtmlString("lbl_BundlewiseProgress_L")</a>
+                    </li>
+                </ul>
+                <div id="TabContainerPMS" class="ajax__tab_xp ajax__tab_container ajax__tab_default tab-content" >
+
+
+                    <div id="TbPMSTimewiseProgressTab1" class="tab-pane active" style="visibility: visible;">
+                        <table class="GridLines GridNormalRows">
+                            <thead>
+                                <tr class="thHeaderClass freez">
+                                    <th>
+                                        <label ID="lblProcessName" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessName_L")</label>
+                                    </th>
+                                    <th>
+                                        <label ID="lblProcessEndDate" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessEndDate_L")</label>
+                                    </th>
+                                    <th>
+                                        <label ID="lblMachine" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_Machine_L")</label>
+                                    </th>
+                                    <th>
+                                        <label ID="lblTabaNo" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_TabaNo")</label>
+                                    </th>
+                                    <th>
+                                        <label ID="lblFinishedBarCount" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_FinishedBarCount")</label>
+                                    </th>
+                                    <th>
+                                        <label ID="lblFinishQty" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_FinishQty")</label>
+                                    </th>
+                                    <th>
+                                        <label ID="lblDecision" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_Decision")</label>
+                                    </th>
+                                    <th>
+                                        <label ID="lblColor" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_Color_L")</label>
+                                    </th>
+                                    <th>
+                                        <label ID="lblChamferShort" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ChamferShort")</label>
+                                    </th>
+                                    <th>
+                                        <label ID="lblSpark" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_Spark")</label>
+                                    </th>
+                                    <th>
+                                        <label ID="lblChamferCondition" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ChamferCondition_L")</label>
+                                    </th>
+                                    <th>
+                                        <label ID="lblExternalSurfaceCondition" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ExternalSurfaceCondition")</label>
+                                    </th>
+                                    <th>
+                                        <label ID="lblEC" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_EC")</label>
+                                    </th>
+                                    <th>
+                                        <label ID="lblECNGBars" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ECNGBars")</label>
+                                    </th>
+                                    <th>
+                                        <label ID="lblDeliveryRemarks" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_DeliveryRemarks")</label>
+                                    </th>
+                                    <th>
+                                        <label ID="lblEndOperator1" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_EndOperator1")</label>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Count > 0)
+                                {
+                                    @foreach (var item in Model)
+                                    {                                        
+                                        <tr class="GridNormalRow">
+                                            <td class="labelClass GridLeft">@item.PP_PROCESS_NAME</td>
+                                            <td class="labelClass GridCenter">@item.END_DATE</td>
+                                            <td class="labelClass GridLeft">@item.MACHINE_NAME</td>
+                                            <td class="labelClass GridRight">@item.TABA_NO</td>
+                                            <td class="labelClass GridRight">@item.FINISHED_BARS_DECODE</td>
+                                            <td class="labelClass GridRight">@item.FINISHED_QTYS</td>
+                                            <td class="labelClass GridCenter">@item.RESULT_DECISION_STRING</td>
+                                            <td class="labelClass GridLeft" style="background-color:@item.PP_COLOR;"></td>
+                                            <td class="labelClass GridLeft">@item.PP_CHAMFER</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="labelClass GridLeft">@item.EXTERIOR_CONDITION_DECODE</td>
+                                            <td class="labelClass GridRight">@item.EC_DONE_CHECK_DECODE</td>
+                                            <td class="labelClass GridRight">@item.TOTAL_NG_BARS</td>
+                                            <td class="labelClass GridLeft">@item.MESSAGE</td>
+                                            <td class="labelClass GridLeft">@item.END_OPERATOR_NAME</td>
+                                        </tr>
+                                    }
+
+                                }
+                                else
+                                {
+                                    <tr class="GridNormalRow">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="TbPMSBundlewiseProgressTab2" class="tab-pane fade">
+
+                        <table class="GridLines GridNormalRows">
+                            <tr class="thHeaderClass">
+                                <th>
+                                    <label ID="lblBundleNo" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_bundleno")</label>
+                                </th>
+                                <th>
+                                    <label ID="lblBarCount" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_BarCount")</label>
+                                </th>
+                                <th>
+                                    <label ID="lblWeightWithoutKG" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_WeightWithoutKG")</label>
+                                </th>
+                                <th>
+                                    <label ID="lblEC2" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_EC")</label>
+                                </th>
+                                <th>
+                                    <label ID="lblDecision" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_Decision")</label>
+                                </th>
+                                <th>
+                                    <label ID="lblFIDecision" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_FIDecisionProcessStatusSearchForSales_L")</label>
+                                </th>
+                                <th>
+                                    <label ID="lblECNGBars2" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ECNGBars")</label>
+                                </th>
+                                <th>
+                                    <label ID="lblProcessNo1" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo1")</label>
+                                </th>
+                                <th>
+                                    <label ID="lblProcessNo2" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo2")</label>
+                                </th>
+                                <th>
+                                    <label ID="lblProcessNo3" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo3")</label>
+                                </th>
+                                <th>
+                                    <label ID="lblProcessNo4" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo4")</label>
+                                </th>
+                                <th>
+                                    <label ID="lblProcessNo5" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo5")</label>
+                                </th>
+                                <th>
+                                    <label ID="lblProcessNo6" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo6")</label>
+                                </th>
+                                <th>
+                                    <label ID="lblProcessNo7" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo7")</label>
+                                </th>
+                                <th>
+                                    <label ID="lblProcessNo8" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo8")</label>
+                                </th>
+                                <th>
+                                    <label ID="lblProcessNo9" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo9")</label>
+                                </th>
+                                <th>
+                                    <label ID="lblProcessNo10" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo10")</label>
+                                </th>
+                                <th>
+                                    <label ID="lblProcessNo11" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo11")</label>
+                                </th>
+                                <th>
+                                    <label ID="lblProcessNo12" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo12")</label>
+                                </th>
+                                <th>
+                                    <label ID="lblProcessNo13" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo13")</label>
+                                </th>
+                            </tr>
+                            <tbody>
+                                @if (Model != null && Model.Count > 0)
+                                {
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr class="GridNormalRow">
+                                            <td class="labelClass GridRight">@item.TABA_NO</td>
+                                            <td class="labelClass GridRight">@item.FINISHED_BARS_DECODE</td>
+                                            <td class="labelClass GridRight">@item.FINISHED_QTYS</td>
+                                            <td></td>
+                                            <td class="labelClass GridLeft">@item.RESULT_DECISION_STRING</td>
+                                            <td></td>
+                                            <td class="labelClass GridRight">@item.TOTAL_NG_BARS</td>
+                                            <td class="labelClass GridLeft">@item.PP_PROCESS_1</td>
+                                            <td class="labelClass GridLeft">@item.PP_PROCESS_2</td>
+                                            <td class="labelClass GridLeft">@item.PP_PROCESS_3</td>
+                                            <td class="labelClass GridLeft">@item.PP_PROCESS_4</td>
+                                            <td class="labelClass GridLeft">@item.PP_PROCESS_5</td>
+                                            <td class="labelClass GridLeft">@item.PP_PROCESS_6</td>
+                                            <td class="labelClass GridLeft">@item.PP_PROCESS_7</td>
+                                            <td class="labelClass GridLeft">@item.PP_PROCESS_8</td>
+                                            <td class="labelClass GridLeft">@item.PP_PROCESS_9</td>
+                                            <td class="labelClass GridLeft">@item.PP_PROCESS_10</td>
+                                            <td class="labelClass GridLeft">@item.PP_PROCESS_11</td>
+                                            <td class="labelClass GridLeft">@item.PP_PROCESS_12</td>
+                                            <td class="labelClass GridLeft">@item.PP_PROCESS_13</td>
+                                        </tr>
+                                    }
+                                }
+                                 else
+                                {
+                                    <tr class="GridNormalRow">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                }
+
+                        </table>
+                    </div>
+
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+

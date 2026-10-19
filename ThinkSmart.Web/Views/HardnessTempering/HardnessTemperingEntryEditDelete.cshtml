@@ -1,0 +1,696 @@
+﻿@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lbl_Menu_TemperingJudgementEntryEditDelete").Value.Replace("</br>", "");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+      
+}
+
+<style>
+    .th {
+        text-align: center;
+        background-color: #f3f1f4ed;
+    }
+
+    .btnSize {
+        width: 90px;
+    }
+
+    table {
+        cellpadding: 0;
+        cellspacing: 0;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .borderStyle {
+        border: 1px solid black;
+        height: 25px;
+    }
+
+    .divColor {
+        background-color: #cde4eb !important;
+        text-align: center;
+    }
+
+    .smallBox {
+        width: 79px;
+    }
+
+       datalist {
+        position: absolute;
+     
+    }
+
+    input::-webkit-calendar-picker-indicator {
+        opacity: 100;
+    }
+
+   
+</style>
+
+<link href="~/css/HardnessTempering.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/Common.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/masterStyles.css" rel="stylesheet" asp-append-version="true" />
+
+<table style="width: 1440px;margin-top:16px;" cellpadding="0" cellspacing="0">
+    <tr>
+        <td style="width: 450px;">
+            <div id="DivInit">
+                <table style="height: 78px; border-radius: 4px; width: 100%; background-color: #C00000;">
+                    <tr>
+                        <td colspan="5" align="center" valign="bottom">
+                            <label ID="Label1" class="labelClass" style="color:white;">@LocalizationServices.GetLocalizedHtmlString("lbl_BasicOperations")</label>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="btnSize">
+                            <input type="button" class="_functionButtons" tabindex="20" id="btnInitialize" value='@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")' />
+                        </td>
+                        <td class="btnSize">
+                            <input type="button" class="_functionButtons" tabindex="21" disabled="disabled" id="btnRegister" value='@LocalizationServices.GetLocalizedHtmlString("lbl_Register")' />
+                        </td>
+                        <td class="btnSize">
+                            <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Select")" ID="btnselect" class="_functionButtons" CausesValidation="false" tabindex="22"
+                                   OnClick='window.location = "@Url.Action("HardnessTemperingListPage","HardnessTempering", new {EntryEditDelete = true})";' />
+
+                        </td>
+                        <td class="btnSize">
+                            <input type="button" id="btnEdit" class="_functionButtons" value='@LocalizationServices.GetLocalizedHtmlString("btn_Edit")' disabled="disabled" tabindex="23" />
+                        </td>
+                        <td class="btnSize" style="padding-right: 4px">
+                            <input type="button" id="btnDelete" class="_functionButtons" value='@LocalizationServices.GetLocalizedHtmlString("lbl_Delete")' disabled="disabled" tabindex="24"/>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </td>
+
+
+        <td style="width: 727px;">
+            <div id="divRowOperation" visible="True">
+                <table class="tblRowOperation">
+                    <tr>
+                        <td colspan="5">
+                            <label ID="lblDailyReportHardnessTempering" class="labelClass" ForeColor="Black"
+                                   Style="height: 100%; font-size: 28px; margin-top: 30px;@*text-decoration: underline;text-decoration-style: double;*@">@LocalizationServices.GetLocalizedHtmlString("lbl_DailyReportHardnessTempering")</label>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </td>
+
+        <td align="right">
+            <div id="DivCloseButton" style="height:80px;width:93px;float:right;">
+
+                <table style="width:100%;">
+                    <tr>
+                        <td style="height:40px;">
+
+                            <label ID="lblClose" class="labelClass" style="color:white;">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnClose" class="_functionButtons"
+                                   OnClientClick="return Confirmation()"
+                                   TabIndex="23" CausesValidation="false" />
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<div id="divData">
+<table>
+
+    <tr>
+        <td align="left" valign="top">
+            <table>
+                <tr id="headerRow" class="" style="text-align:center; background-color: #ebf1de">
+                    <td class=" borderStyle" style="width:358px" colspan="2"> <label id="lblPrcoessPlan" style="font-weight:normal">@LocalizationServices.GetLocalizedHtmlString("lbl_PrcoessPlan")</label> </td>
+                </tr>
+                <tr>
+                    <td class="borderStyle divColor" style="width:90px; text-align:left !important;"><label id="lbl_FurnaceNum" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</label></td>
+                    <td class="borderStyle" style="width:270px; text-align:left; background-color:#C1FFFF">
+
+                            <input type="text" id="txtFurnaceNumber" tabindex="1" class="MandatoryTextBoxhard labelClass UpperCase" style="width:266px;" maxlength="10" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_FurnaceNoRequired")" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="borderStyle divColor" style="width:90px; text-align:left !important;"><label id="lblChuuban" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</label></td>
+                    <td style="width:145px; background-color:#C1FFFF">
+                            <input type="hidden" id="hdfProcessPlanCD" name="hdfProcessPlanCD" />
+                            <input type="hidden" id="hdfHT_QualityCD" name="hdfHT_QualityCD" />
+
+                            <input type="text" id="txtChuuban" tabindex="2" class="MandatoryTextBoxhard labelClass" style="width:130px;" maxlength="10" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ChubanRequired")" />
+                        <label id="lbldash" style="background-color:white;vertical-align:middle;font-size:large"> - </label>
+                            <input type="text" id="txtgyubaan" tabindex="3" class="MandatoryTextBoxhard labelClass" style="width:40px;" maxlength="2" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_GyoubanRequired")" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                        <input id="btn_extract" tabindex="4" style="width: 67px; height: 25px" type="button" class="_functionButtons"
+                               title='<asp:Literal ID="LiteralExtractTitle" runat="server" Text="<%$ Resources: GlobalResources, lbl_Extract%>" />'
+                               value='@LocalizationServices.GetLocalizedHtmlString("lbl_Extract")' />
+                    </td>
+                </tr>
+                <tr style="height:28px;">
+                    <td class="borderStyle divColor" style="width:90px; text-align:left !important;"><label id="lblCustomer" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</label></td>
+                        <td class="borderStyle disabled" style="width:270px"><input type="text" id="txtcustomer" class="TextBoxhard1 disabled labelClass" style="width:266px;" disabled="disabled"/></td>
+                </tr>
+                <tr style="height:35px;">
+                    <td class="borderStyle divColor" style="width:90px; text-align:left !important;"><label id="lblProdNameCust" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</label></td>
+                        <td class="borderStyle disabled" style="width:270px"><input type="text" id="txtProdName" class="TextBoxhard1 disabled labelClass" style="width:266px;" disabled="disabled" /></td>
+
+                </tr>
+                <tr>
+                    <td class="borderStyle divColor" style="width:87px; text-align:left !important;"><label id="lblCharge" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</label></td>
+                        <td class="borderStyle disabled" style="width:270px"><input type="text" id="txtCharge" class="TextBoxhard1 disabled labelClass" style="width:266px;" disabled="disabled" /></td>
+                </tr>
+                <tr>
+                    <td align="left" valign="top" colspan="2">
+                        <table style="margin-left:-2px;margin-top:-2px;margin-right:-1px">
+                            <tr>
+                                <td class="borderStyle divColor" style="width:220px; text-align:left !important;">
+                                    <label id="lblMatlDimProdDim" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlDimProdDim")</label>
+                                </td>
+                                    <td class="borderStyle disabled" style="width:80px"><input type="text" id="txtMaterialDim" class="TextBoxhard1 disabled labelClass" style="width:75px;text-align:right;" disabled="disabled"/></td>
+                                    <td class="borderStyle disabled" style="width:80px"><input type="text" id="txtProductDim" class="TextBoxhard1 disabled labelClass" style="width:75px;text-align:right;" disabled="disabled" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" valign="top" colspan="2">
+                        <table style="margin-left:-2px;margin-top:-3px;margin-right:-1px;">
+                            <tr>
+                                <td class="borderStyle divColor" style="text-align:left !important;"><label id="lblMetallicLabelNo" class="paddingleftTempering" style="width:140px;">@LocalizationServices.GetLocalizedHtmlString("lbl_MetallicLabelNo")</label>	</td>
+                                    <td class="borderStyle disabled" style="width:218px" colspan="2"><input type="text" id="txtMetallicLabelNo" class="TextBoxhard1 disabled labelClass" style="width:210px;border-style:none" disabled="disabled" /></td>
+                            </tr>
+                            <tr>
+                                <td class="borderStyle divColor" style="width:140px; text-align:left !important;">
+                                    <label id="lblActAllocUnitsWt" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocUnitsWt")</label>
+                                </td>
+                                <td class="borderStyle disabled"  style="width:110px; text-align:right">
+                                        <input type="text" id="txtActUnits" class="TextBoxhard1 disabled labelClass" style="width:90px;text-align:right;margin-right:-7px;" disabled="disabled" />
+                                    <label id="lblUnitType3OF3_1">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitType3OF3")</label></td>
+                                    <td class="borderStyle disabled" style="width:105px"><input type="text" id="txtActWeight" class="TextBoxhard1 disabled labelClass" style="width:103px;text-align:right;" disabled="disabled" /></td>
+                            </tr>
+                            <tr>
+                                <td class="borderStyle divColor" style="width:140px; text-align:left !important;">
+                                    <label id="lblUnitsWeight" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitsWeight")</label>
+                                </td>
+                                <td class="borderStyle disabled" style="width:110px; text-align:right">
+                                        <input type="text" id="txtQuantity" class="TextBoxhard1 disabled labelClass" style="width:90px;text-align:right;margin-right:-7px;" disabled="disabled" />
+                                    <label id="lblUnitType3OF3_2">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitType3OF3")</label></td>
+                                    <td class="borderStyle disabled" style="width:105px"><input type="text" id="txtWeight" class="TextBoxhard1 disabled labelClass" style="width:104px;text-align:right;" disabled="disabled" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+               
+            </table>
+
+        </td>
+        <td align="left" valign="top">
+            <table style="margin-left:-3px;">
+                <tr id="headerRow" class="" style="text-align:center; background-color: #ebf1de">
+                    <td class=" borderStyle" style="width:275px" colspan="4">
+                        <label id="lblFurnaceSetting" style="font-weight:normal">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceSetting")</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="borderStyle disabled" style="width:69px"></td>
+                    <td class="borderStyle divColor" style="width:65px;text-align:center">
+                        <label id="lblFurnaceTemperature" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceTemperature")</label>
+                    </td>
+                        <td class="borderStyle disabled" style="width:118px; text-align:left"><input type="text" id="txtTemprature" class="TextBoxhard1 disabled labelClass" style="width:115px;text-align:right;" disabled="disabled" /></td>
+                    <td class="borderStyle disabled" align="center" style="width:30px;">
+                        <label id="Label6">@LocalizationServices.GetLocalizedHtmlString("℃")</label>
+                    </td>
+                </tr>
+                <tr style="height:28px;">
+                        <td class="borderStyle disabled"><input type="text" id="txtOilType" class="TextBoxhard1 disabled labelClass" style="width:58px;" disabled="disabled" /></td>
+                    <td class="borderStyle divColor" style="width:60px;text-align:center">
+                        <label id="lblFurnaceConcentration" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceConcentration")</label>
+                    </td>
+                        <td class="borderStyle disabled" style="text-align:left"><input type="text" id="txtConcentration" class="TextBoxhard1 disabled labelClass" style="width:115px;text-align:right;" disabled="disabled" /></td>
+                    <td class="borderStyle disabled" align="center">
+                        <label id="lblPercentageSymbol">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label>
+                    </td>
+                </tr>
+                <tr style="height:28px;">
+                        <td class="borderStyle disabled"></td>
+                    <td class="borderStyle divColor" style="width:70px;text-align:center">
+                        <label id="lblFurnaceFrequncy" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceFrequncy")</label>
+                    </td>
+                        <td class="borderStyle disabled" style="text-align:end"><input type="text" id="txtfrequency" class="TextBoxhard1 disabled labelClass" style="width:115px;text-align:right;" disabled="disabled" /></td>
+                    <td class="borderStyle disabled" align="center">
+                        <label id="Label11">@LocalizationServices.GetLocalizedHtmlString("Hz")</label>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td colspan="4" align="left" valign="top">
+                        <table style="border:hidden;text-align:right;margin-top:-2px;margin-left:-1px;height:35px;">
+                            <tr>
+                            <td style="width:29px" class="divColor"><label id="lblUnitType3OF3">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitType3OF3")</label></td>
+                                    <td style="width:40px" class="borderStyle disabled"><input type="text" class="TextBoxhard1 disabled labelClass" id="txtC_FURNACE" style="width:25px;text-align:right;" disabled="disabled" /><label id="lblPercentageSymbol1">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label></td>
+                            <td style="width:32px" class="divColor"><label id="lblManganese">@LocalizationServices.GetLocalizedHtmlString("lbl_Manganese")</label></td>
+                                    <td style="width:38px; border-left: solid 1px" class="disabled"><input type="text" class="TextBoxhard1 disabled labelClass" id="txtMN_FURNACE" style="width:25px;text-align:right;" disabled="disabled" /><label id="lblPercentageSymbol2">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label></td>
+                                <td style="width:34px" class="divColor borderStyle">Cr</td>
+                                    <td style="width:40px" class="disabled"><input type="text" class="TextBoxhard1 disabled labelClass" style="width:25px;text-align:right;" id="txtCR_FURNACE" disabled="disabled" /><label id="lblPercentageSymbol4">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label></td>
+                                    <td style="width:34px" class="divColor borderStyle"><label id="Label18">@LocalizationServices.GetLocalizedHtmlString("Mo")</label></td>
+                                    <td style="width:39px" class="disabled"><input type="text" class="TextBoxhard1 disabled labelClass" style="width:25px;text-align:right;" id="txtMO_FURNACE" disabled="disabled" /><label id="lblPercentageSymbol3">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label></td>
+                            </tr>
+                        </table>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" align="left" valign="top">
+                        <table style="margin-left:-2px;margin-top:-2px;margin-right:-1px;">
+                            <tr>
+                            <td class="borderStyle divColor" style="text-align:left !important">
+                                    <label id="lblHardnessSpecified" style="width:100px" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessSpecified")</label>
+                            </td>
+                            <td class="borderStyle disabled"  style="width:154px; text-align:left">
+                                        <input type="text" id="txtRange1" class="TextBoxhard1 disabled labelClass" style="width:57px;border-style:none;text-align:right;" disabled="disabled"/>
+                                <label id="lblSymbolRange5">@LocalizationServices.GetLocalizedHtmlString("lbl_SymbolRange")</label>
+                                        <input type="text" id="txtRange2" class="disabled TextBoxhard1 labelClass" style="width:57px;border-style:none;text-align:right;" disabled="disabled" />
+                            </td>
+                            </tr>
+                            <tr>
+                                <td class="borderStyle divColor" style="width:130px; text-align:left !important">
+                                    <label id="lblHardnessTarget" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessTarget")</label>
+                                </td>
+                                <td class="borderStyle disabled" style="width:154px; text-align:left">
+                                        <input type="text" id="txtHardnessMin" class="TextBoxhard1 disabled labelClass" style="width:57px;border-style:none;text-align:right;" disabled="disabled" />
+                                    <label id="lblSymbolRange6">@LocalizationServices.GetLocalizedHtmlString("lbl_SymbolRange")</label>
+                                        <input type="text" id="txtHardnessMax" class="TextBoxhard1 disabled labelClass" style="width:57px;border-style:none;text-align:right;" disabled="disabled" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="borderStyle divColor" style="width:300px"><label id="lblRemark">@LocalizationServices.GetLocalizedHtmlString("lbl_Remark")</label></td>
+                            </tr>
+                            <tr>
+                                <td class="borderStyle disabled" colspan="2" style="width:270px">
+                                        <textarea ID="txtRemark" runat="server" class="disabled labelClass" 
+                                                  Style="border-style:none;height:44px; width:267px;border-style:none" disabled="disabled"></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+        <td align="left" valign="top">
+            <table style="margin-left:-3px;">
+                <tr id="headerRow" class="" style="text-align:center; background-color: #ebf1de">
+                    <td colspan="2" class=" borderStyle" align="right" valign="middle">
+                        <table style="width:100%;">
+                            <tr>
+                                <td align="left">
+                                    <label id="lblQuenchingSetting" style="width:90px;padding-left:10px;">@LocalizationServices.GetLocalizedHtmlString("lbl_QuenchingSetting")</label>
+                                </td>
+                                <td align="right">
+                                    <label id="lblMachineNo" style="width:90px;">@LocalizationServices.GetLocalizedHtmlString("lbl_MachineNo")</label>
+                                </td>
+                            </tr>
+                        </table>
+
+                        
+                    </td>
+                    <td class=" borderStyle disabled" style="width:132px;background-color:white" align="right"> 
+                        <input type="text" id="txtHardnessMachineNo" class="TextBoxhard1 disabled labelClass" style="width:130px;border-style:none" disabled="disabled"/>
+                        </td>
+                </tr>
+                <tr>
+                    <td class="borderStyle divColor" style="width:140px; text-align:left !important"><label id="lblOperator" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_Operator")</label></td>
+                    <td class="borderStyle disabled" colspan="2" style="  width:220px" align="left">
+                            <input type="text" id="txtHardnessOperator" class="TextBoxhard1 disabled labelClass" style="width:197px;" disabled="disabled" />
+                    </td>
+                </tr>
+                    <tr style="height:28px;">
+                    <td class="borderStyle divColor" style="width:120px; text-align:left !important">
+                        <label id="lblFurnaceInOutDateTime" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceInOutDateTime")</label>
+                    </td>
+                    <td class="borderStyle disabled" style="text-align:center; "><input type="text" id="txtHardenessFuranceInDate" style="width:115px;border-style:none;" class="disabled labelClass" disabled="disabled"/></td>
+                        <td class="borderStyle disabled" style="text-align:center; "><input type="text" id="txtHardenessFuranceOutDate" style="width:115px;border-style:none;" class="disabled labelClass" disabled="disabled" /></td>
+                </tr>
+                <tr style="height:28px;">
+                    <td class="borderStyle divColor" style="width:120px; text-align:left !important">
+                        <label id="lblTemperatureIntoTime" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_TemperatureIntoTime")</label>
+                    </td>
+                        <td class="borderStyle disabled" style="text-align:right; "><input type="text" id="txtTemperatureHardening" class="TextBoxhard1 disabled labelClass" style="width:88px;text-align:right;" disabled="disabled" /> <label id="Label13">@LocalizationServices.GetLocalizedHtmlString("℃")</label></td>
+                    <td class="borderStyle disabled" style="text-align:right; ">
+                            <input type="text" id="txtTimeHardening" class="TextBoxhard1 disabled labelClass" style="width:88px;text-align:right;" disabled="disabled" />
+                        <label id="lblMinute">@LocalizationServices.GetLocalizedHtmlString("lbl_Minute")</label>
+                    </td>
+                </tr>
+                <tr style="height:35px;">
+                    <td class="borderStyle" colspan="3" style="background-color:#ebf1de" valign="middle" align="center"><label id="lblHRCHardness">@LocalizationServices.GetLocalizedHtmlString("lbl_HRCHardness")</label></td>
+                </tr>
+                <tr>
+                    <td align="left" colspan="3">
+                        <table style="margin-top:-2px;margin-left:-2px;margin-right:-1px;">
+                            <tr>
+                    <td class="borderStyle smallBox divColor"></td>
+                    <td class="borderStyle smallBox divColor"><label id="Label22">@LocalizationServices.GetLocalizedHtmlString("①")</label>	</td>
+                    <td class="borderStyle smallBox divColor"><label id="Label23">@LocalizationServices.GetLocalizedHtmlString("②")</label>	</td>
+                    <td class="borderStyle smallBox divColor"><label id="Label24">@LocalizationServices.GetLocalizedHtmlString("③")</label>	</td>
+                    <td class="borderStyle smallBox divColor"><label id="lblCenter" style="width:77px;">@LocalizationServices.GetLocalizedHtmlString("lbl_Center")</label></td>
+                            </tr>
+                            <tr>
+                                <td class="borderStyle smallBox divColor">
+                                    <label id="lblNorthUp">@LocalizationServices.GetLocalizedHtmlString("lbl_NorthUp")</label>
+                                </td>
+                                <td class="borderStyle smallBox disabled"><input type="text" id="txt_h_NorthSideUp1" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled"/></td>
+                                <td class="borderStyle smallBox disabled"><input type="text" id="txt_h_NorthSideUp2" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled"/></td>
+                                <td class="borderStyle smallBox disabled"><input type="text" id="txt_h_NorthSideUp3" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled"/></td>
+                                    <td class="borderStyle smallBox disabled"><input type="text" id="txt_h_NorthSideUpCent" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled" /></td>
+                            </tr>
+                            <tr>
+                                <td class="borderStyle smallBox divColor">
+                                    <label id="lblNorthDown">@LocalizationServices.GetLocalizedHtmlString("lbl_NorthDown")</label>
+                                </td>
+                                <td class="borderStyle smallBox disabled"><input type="text" id="txt_h_NorthSideDown1" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled"/></td>
+                                <td class="borderStyle smallBox disabled"><input type="text" id="txt_h_NorthSideDown2" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled"/></td>
+                                <td class="borderStyle smallBox disabled"><input type="text" id="txt_h_NorthSideDown3" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled"/></td>
+                                    <td class="borderStyle smallBox disabled"><input type="text" id="txt_h_NorthSideDownCent" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled" /></td>
+                            </tr>
+                            <tr>
+                                <td class="borderStyle smallBox divColor">
+                                    <label id="lblSouthUp">@LocalizationServices.GetLocalizedHtmlString("lbl_SouthUp")</label>
+                                </td>
+                                <td class="borderStyle smallBox disabled"><input type="text" id="txt_h_SouthSideUp1" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled"/></td>
+                                <td class="borderStyle smallBox disabled"><input type="text" id="txt_h_SouthSideUp2" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled"/></td>
+                                <td class="borderStyle smallBox disabled"><input type="text" id="txt_h_SouthSideUp3" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled"/></td>
+                                    <td class="borderStyle smallBox disabled"><input type="text" id="txt_h_SouthSideUpCent" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled" /></td>
+                            </tr>
+                            <tr>
+                                <td class="borderStyle smallBox divColor">
+                                    <label id="lblSouthDown">@LocalizationServices.GetLocalizedHtmlString("lbl_SouthDown")</label>
+                                </td>
+                                <td class="borderStyle smallBox disabled"><input type="text" id="txt_h_SouthSideDown1" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled"/></td>
+                                <td class="borderStyle smallBox disabled"><input type="text" id="txt_h_SouthSideDown2" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled"/></td>
+                                <td class="borderStyle smallBox disabled"><input type="text" id="txt_h_SouthSideDown3" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled"/></td>
+                                    <td class="borderStyle smallBox disabled"><input type="text" id="txt_h_SouthSideDownCent" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled" /></td>
+                            </tr>
+                        </table>
+        </td>
+                </tr>
+                </table>
+
+
+        </td>
+        <td align="left" valign="top">
+            <table style="margin-left:-3px;">
+                <tr id="headerRow" class="" style="text-align:center; background-color: #ebf1de">
+                    <td class=" borderStyle" style="width:206px" colspan="2">
+                        <table>
+                            <tr>
+                                <td align="left">
+                                    <label id="lblTemperingSetting" style="width:115px;padding-left:10px">@LocalizationServices.GetLocalizedHtmlString("lbl_TemperingSetting")</label>
+                                </td>
+
+                                <td align="right">
+                                    <label id="lblMachineNo2" style="width:90px;">@LocalizationServices.GetLocalizedHtmlString("lbl_MachineNo")</label>
+                                </td>
+                            </tr>
+                        </table>
+                       
+                       
+                    </td>
+                        <td class=" borderStyle disabled" style="width:132px;background-color:white" align="left"> 
+                            <input type="text" id="txtTemperingMachineNo" class="TextBoxhard1 disabled labelClass" style="width:118px;border-style:none" disabled="disabled" />
+                        </td>
+                </tr>
+                <tr>
+                    <td class="borderStyle divColor" style="width:140px; text-align:left !important">
+                        <label id="lblOperator1" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_Operator")</label>
+                    </td>
+                    <td class="borderStyle disabled" colspan="2" style=" width:220px" align="left">
+                            <input type="text" id="txtTemperingOperator" class="TextBoxhard1 disabled labelClass" style="width:197px;" disabled="disabled" />
+                    </td>
+                </tr>
+                <tr style="height:28px;">
+                    <td class="borderStyle divColor" style="width:120px; text-align:left !important">
+                        <label id="lblFurnaceInOutDateTime2" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceInOutDateTime")</label>
+                    </td>
+                        <td class="borderStyle disabled" style="text-align:center; "><input type="text" id="txtTemperingFurnaceInDate" class="disabled labelClass" style="width:115px;border-style:none;" disabled="disabled" /></td>
+                        <td class="borderStyle disabled" style="text-align:center; "><input type="text" id="txtTemperingFurnaceOutDate" class="disabled labelClass" style="width:115px;border-style:none;" disabled="disabled" /></td>
+                </tr>
+                <tr style="height:28px;">
+                    <td class="borderStyle divColor" style="width:120px; text-align:left !important">
+                        <label id="lblTemperatureIntoTime2" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_TemperatureIntoTime")</label>
+                    </td>
+                    <td class="borderStyle disabled" style="text-align:left; ">
+                            <input type="text" id="txtTemperatureTempering" class="TextBoxhard1 disabled labelClass" style="width:98px;text-align:right;" disabled="disabled" />
+                        <label id="Label16">@LocalizationServices.GetLocalizedHtmlString("℃")</label>
+                    </td>
+                    <td class="borderStyle disabled" style="text-align:right; ">
+                            <input type="text" id="txtTimeTempering" class="TextBoxhard1 disabled labelClass" style="width:88px;text-align:right;" disabled="disabled" />
+                        <label id="lblMinute2">@LocalizationServices.GetLocalizedHtmlString("lbl_Minute")</label>
+                    </td>
+                </tr>
+                <tr style="height:35px;text-align:center">
+                    <td class="borderStyle" colspan="3" style="background-color:#ebf1de"><label id="lblHRCHardness2">@LocalizationServices.GetLocalizedHtmlString("lbl_HRCHardness")</label></td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="left">
+                        <table style="margin-left:-2px;margin-top:-2px;margin-right:-1px;">
+                            <tr>
+                                <td class="borderStyle smallBox divColor"></td>
+                                <td class="borderStyle smallBox divColor"><label id="Label25">@LocalizationServices.GetLocalizedHtmlString("①")</label>	</td>
+                                <td class="borderStyle smallBox divColor"><label id="Label26">@LocalizationServices.GetLocalizedHtmlString("②")</label>	</td>
+                                <td class="borderStyle smallBox divColor"><label id="Label27">@LocalizationServices.GetLocalizedHtmlString("③")</label>		</td>
+                                <td class="borderStyle smallBox divColor"><label id="lblCenter1">@LocalizationServices.GetLocalizedHtmlString("lbl_Center")</label></td>
+                            </tr>
+                            <tr>
+                                <td class="borderStyle smallBox divColor">
+                                    <label id="lblNorthUp2">@LocalizationServices.GetLocalizedHtmlString("lbl_NorthUp")</label>
+                                </td>
+                                <td class="borderStyle smallBox disabled"><input type="text" id="txt_t_NorthSideUp1" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled"/></td>
+                                <td class="borderStyle smallBox disabled"><input type="text" id="txt_t_NorthSideUp2" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled"/></td>
+                                <td class="borderStyle smallBox disabled"><input type="text" id="txt_t_NorthSideUp3" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled"/></td>
+                                    <td class="borderStyle smallBox disabled"><input type="text" id="txt_t_NorthSideUpCent" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled" /></td>
+                            </tr>
+                            <tr>
+                                <td class="borderStyle smallBox divColor">
+                                    <label id="lblNorthDown2">@LocalizationServices.GetLocalizedHtmlString("lbl_NorthDown")</label>
+                                </td>
+                                <td class="borderStyle smallBox disabled"><input type="text" id="txt_t_NorthSideDown1" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled"/></td>
+                                <td class="borderStyle smallBox disabled"><input type="text" id="txt_t_NorthSideDown2" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled"/></td>
+                                <td class="borderStyle smallBox disabled"><input type="text" id="txt_t_NorthSideDown3" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled"/></td>
+                                    <td class="borderStyle smallBox disabled"><input type="text" id="txt_t_NorthSideDownCent" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled" /></td>
+                            </tr>
+                            <tr>
+                                <td class="borderStyle smallBox divColor">
+                                    <label id="lblSouthUp2">@LocalizationServices.GetLocalizedHtmlString("lbl_SouthUp")</label>
+                                </td>
+                                <td class="borderStyle smallBox disabled"><input type="text" id="txt_t_SouthSideUp1" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled"/></td>
+                                <td class="borderStyle smallBox disabled"><input type="text" id="txt_t_SouthSideUp2" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled"/></td>
+                                <td class="borderStyle smallBox disabled"><input type="text" id="txt_t_SouthSideUp3" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled"/></td>
+                                    <td class="borderStyle smallBox disabled"><input type="text" id="txt_t_SouthSideUpCent" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled" /></td>
+                            </tr>
+                            <tr>
+                                <td class="borderStyle smallBox divColor">
+                                    <label id="lblSouthDown2">@LocalizationServices.GetLocalizedHtmlString("lbl_SouthDown")</label>
+                                </td>
+                                <td class="borderStyle smallBox disabled"><input type="text" id="txt_t_SouthSideDown1" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled"/></td>
+                                <td class="borderStyle smallBox disabled"><input type="text" id="txt_t_SouthSideDown2" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled"/></td>
+                                <td class="borderStyle smallBox disabled"><input type="text" id="txt_t_SouthSideDown3" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled"/></td>
+                                    <td class="borderStyle smallBox disabled"><input type="text" id="txt_t_SouthSideDownCent" class="TextBoxhard1 disabled labelClass" style="width:68px;text-align:right;" disabled="disabled" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+              
+            </table>
+
+        </td>
+
+    </tr>
+</table>
+<br />
+
+
+
+    <table width="1440px" style="text-align:center">
+        <tr>
+            <td class="borderStyle divColor" style="width:120px"><label id="lblInspectionDate">@LocalizationServices.GetLocalizedHtmlString("lbl_InspectionDate")</label></td>
+            <td class="borderStyle divColor" style="width:180px"><label id="lblInspector">@LocalizationServices.GetLocalizedHtmlString("lbl_Inspector")</label></td>
+            <td class="borderStyle divColor" style="width:120px"><label id="Label40">@LocalizationServices.GetLocalizedHtmlString("DM-F")</label></td>
+            <td class="borderStyle divColor" style="width:120px"><label id="Label41">@LocalizationServices.GetLocalizedHtmlString("DM-T")</label></td>
+            <td class="borderStyle" style="width:220px; background-color:#ebf1de" colspan="2">
+                <label id="lblInternalJob">@LocalizationServices.GetLocalizedHtmlString("lbl_InternalJob")</label>
+            </td>
+            <td class="borderStyle divColor" style="width:420px"><label id="lblRemark">@LocalizationServices.GetLocalizedHtmlString("lbl_DeliveryRemarks")</label></td>
+            <td class="borderStyle divColor" style="width:200px"><label id="lblDecision">@LocalizationServices.GetLocalizedHtmlString("lbl_Decision")</label></td>
+           @*  <td class="borderStyle divColor" style="width:160px"><label id="lblNextProcess">@LocalizationServices.GetLocalizedHtmlString("lbl_NextProcess")</label></td> *@
+        </tr>
+
+        <tr>
+            <td class="borderStyle" rowspan="2" style="background-color:#C1FFFF">
+                <input type="text" ID="txtInspDate" runat="server" tabindex="5" style="font-family:'MS Gothic';Width:132px; Height:23px" class="MandatoryTextBoxhard labelClass"
+                       MaxLength="6" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_InspDateRequired")" />
+
+            </td>
+            <td class="borderStyle" rowspan="2" style="background-color:#C1FFFF" align="left">
+                <input type="text" ID="txtOperator" class="TextFieldsClass Mandatory MandatoryTextBoxhard" style="text-transform:uppercase;width:100%;height:23px;"
+                       TabIndex="6" MaxLength="20" errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_OprRequired")">
+                <input type="hidden" id="hdfOperatorCD" name="hdfOperatorCD" />
+                
+                @*   <div id="divOpertor">
+
+                    @{
+                        var tupleData = Tuple.Create("txtOperatorYobina", "btnYobinaStartOpeartorSearch", "ddlOperator", "valMsg_OprRequired", 6);
+                        @Html.Partial("~/Views/SearchComboEmployee/SearchComboEmployee.cshtml", tupleData)
+
+                    }
+                </div> *@
+            </td>
+            <td class="borderStyle divColor" align="left"></td>
+            <td class="borderStyle divColor" align="left"></td>
+            <td class="borderStyle divColor"><label id="lbl_Structure(lbl_OuterRpt)">@LocalizationServices.GetLocalizedHtmlString("lbl_Structure(lbl_OuterRpt)")</label></td>
+            <td class="borderStyle divColor"><label id="lbl_Structure(lbl_InnerRpt)">@LocalizationServices.GetLocalizedHtmlString("lbl_Structure(lbl_InnerRpt)")</label></td>
+            <td class="borderStyle" rowspan="2">
+                <input type="hidden" id="hdfHT_MsgCD" name="hdfHT_MsgCD" />
+                <textarea ID="txtAreaRemark" runat="server" CssClass="ReadOnlyLabelhard" tabindex="17" maxlength="100"
+                          Style="border-left: 0px solid gray; border-top: 0px solid gray; height:100%; width:100%;border-style:none;" Height="48px"  Width="270px"></textarea>
+            </td>
+            <td class="borderStyle" rowspan="2" style="background-color: #C1FFFF">
+                <select ID="ddlDecision" runat="server" tabindex="18" class="MandatoryTextBoxhard" style="padding-bottom:2px;font-family:'MS Gothic'; Height:22px; Width:100%;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ResultRequired")">
+                   
+                </select>
+            </td>
+           @*  <td class="borderStyle" rowspan="2" style="background-color: #C1FFFF">
+                <select id="ddlNextProcess" runat="server" tabindex="19" class="MandatoryTextBoxhard" style="padding-bottom:2px;font-family:'MS Gothic'; Height:22px; Width:160px" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_NextProcessRequired")">
+                </select>
+            </td> *@
+        </tr>
+        <tr>
+            <td class="borderStyle" style="width:110px" align="left">
+                <input type="text" id="txtDMFMin" maxlength="3" tabindex="9" class=" TextBoxhard1 labelClass" style="width:43px;border-style:none;text-align:right;" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" />
+                <label id="lblSymbolRange">@LocalizationServices.GetLocalizedHtmlString("lbl_SymbolRange")</label>
+                <input type="text" id="txtDMFMax" maxlength="3" tabindex="10" class=" TextBoxhard1 labelClass" style="width:43px;border-style:none;text-align:right;" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" />
+            </td>
+            <td class="borderStyle" style="width:110px">
+                <input type="text" id="txtDMTMin" tabindex="11" maxlength="3" class=" TextBoxhard1 labelClass" style="width:43px;border-style:none;text-align:right;" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" />
+                <label id="lblSymbolRange1">@LocalizationServices.GetLocalizedHtmlString("lbl_SymbolRange")</label>
+                <input type="text" id="txtDMTMax" tabindex="12" maxlength="3" class=" TextBoxhard1 labelClass" style="width:43px;border-style:none;text-align:right;" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" />
+            </td>
+            <td class="borderStyle dropdownSearch1" style="text-align:center; background-color:#C1FFFF">
+                @* <input list="dataTextureOut" autocomplete="off" id="txtTextureOut" maxlegnth="10" class="MandatoryTextBoxhard labelClass" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_StructureOutRequired")" tabindex="13"
+                       name="txtTextureOut" style="border-style:inset; padding-bottom:2px;font-family:'MS Gothic'; Height:25px; Width:120px; background-color:#C1FFFF;border-style:none;" />
+
+                <datalist id="dataTextureOut">
+                </datalist> *@
+                <input id="txtTextureOut" class="labelClass MandatoryTextBoxhard" maxlength="8" type="text" TabIndex="13" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_StructureOutRequired")" />
+                <select ID="dataTextureOut" runat="server" TabIndex="14" class="MandatoryDropdown DropdownListClass labelClass"
+                        onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                </select>
+               
+            </td>
+            <td class="borderStyle dropdownSearch1" style="text-align:left; background-color:#C1FFFF">
+
+                @* <input list="dataTextureIn" autocomplete="off" id="txtTextureIn" maxlegnth="10" class="MandatoryTextBoxhard labelClass" name="txtTextureIn" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_StructureInRequired")" tabindex="14"
+                    style="border-style:inset; padding-bottom:2px;font-family:'MS Gothic'; Height:25px; Width:120px; background-color:#C1FFFF;border-style:none;" />
+
+                <datalist id="dataTextureIn">
+ 
+                </datalist> *@
+
+                <input id="txtTextureIn" class="labelClass MandatoryTextBoxhard" maxlength="8" type="text" TabIndex="15" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_StructureInRequired")" />
+                <select ID="dataTextureIn" runat="server" TabIndex="16" class="MandatoryDropdown DropdownListClass labelClass"
+                        onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                </select>
+            </td>
+        </tr>
+    </table>
+  
+</div>
+<input type="hidden" id="hdfOperator" name="hdfOperator" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Operator")" />
+<div id="divErrorMessages" class="Hidden">
+    <label id="lblErrorMessageE_HARDNESS_ENTRY_EDIT_DELETE_001" class="Hidden">
+        <span ID="LiteralSystemException">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+    </label>
+
+    <label id="lblErrorMessageE_HARDNESS_ENTRY_EDIT_DELETE_002" class="Hidden">
+        <span ID="LiteralInvalidFurnaceNumber">@LocalizationServices.GetLocalizedHtmlString("valMsg_InvalidFurnaceNumber")</span>
+    </label>
+
+    <label id="lblErrorMessageE_HARDNESS_ENTRY_EDIT_DELETE_003" class="Hidden">
+        <span ID="LiteralChuubanNotFound">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ChuubanNotFound")</span>
+    </label>
+
+    <label id="lblErrorMessageE_HARDNESS_ENTRY_EDIT_DELETE_004" class="Hidden">
+        <span ID="LiteralOrNoNotStartedFromHandOver">@LocalizationServices.GetLocalizedHtmlString("valMsg_OrNoNotStartedFromHandOver")</span>
+    </label>
+
+    <label id="lblErrorMessageE_HARDNESS_ENTRY_EDIT_DELETE_005" class="Hidden">
+        <span ID="LiteralChuubanMarkedAsCompleted">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ChuubanMarkedAsCompleted")</span>
+    </label>
+
+    <label id="lblErrorMessageE_HARDNESS_ENTRY_EDIT_DELETE_006" class="Hidden">
+        <span ID="LiteralInspDateInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_InspDateInvalid")</span>
+    </label>
+
+    <label id="lblErrorMessageE_HARDNESS_ENTRY_EDIT_DELETE_007" class="Hidden">
+        <span ID="LiteralCanNotUseInactiveMaster">@LocalizationServices.GetLocalizedHtmlString("valMsg_CanNotUseInactiveMaster")</span>
+    </label>
+
+    <label id="lblErrorMessageE_HARDNESS_ENTRY_EDIT_DELETE_008" class="Hidden">
+        <span ID="LiteralInspecDateIsGreaterThanToday">@LocalizationServices.GetLocalizedHtmlString("valMsg_InspecDateIsGreaterThanToday")</span>
+    </label>
+
+    <label id="lblErrorMessageE_HARDNESS_ENTRY_EDIT_DELETE_009" class="Hidden">
+        <span ID="LiteralPlusMinus">@LocalizationServices.GetLocalizedHtmlString("lbl_PlusMinus")</span>
+    </label>
+
+    <label id="lblErrorMessageE_HARDNESS_ENTRY_EDIT_DELETE_010" class="Hidden">
+        <span ID="LiteralBarcodeIncorrect">@LocalizationServices.GetLocalizedHtmlString("valMsg_BarcodeIncorrect")</span>
+    </label>
+    <label id="lblErrorMessageE_HARDNESS_ENTRY_EDIT_DELETE_011" class="Hidden">
+        <span ID="LiteralBarcodeNotFound">@LocalizationServices.GetLocalizedHtmlString("valMsg_BarcodeNotFound")</span>
+    </label>
+    <label id="lblErrorMessageE_HARDNESS_ENTRY_EDIT_DELETE_012" class="Hidden">
+        <span ID="Literal14">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ScanOperatorBarcode")</span>
+    </label>
+    <label id="lblErrorMessageE_HARDNESS_ENTRY_EDIT_DELETE_013" class="Hidden">
+        <span ID="LiteralEmployeeInactive">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_EmployeeInactive")</span>
+    </label>
+    <label id="lblErrorMessageE_HARDNESS_ENTRY_EDIT_DELETE_014" class="Hidden">
+        <span ID="LiteralOrderNoAlreadyExist">@LocalizationServices.GetLocalizedHtmlString("valMsg_Temp_Judgement_OrderNoAlreadyExist")</span>
+    </label>
+    
+</div>
+<div id="divSuccessMessages" class="Hidden">
+
+    <label id="lblSuccessMessageE_HARDNESS_ENTRY_EDIT_DELETE_001" class="Hidden">
+        <span ID="LiteralDataSaved">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataSaved")</span>
+    </label>
+    
+
+
+    <label id="lblSuccessMessageE_HARDNESS_ENTRY_EDIT_DELETE_002" class="Hidden">
+        <span ID="LiteralDataUpdated">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataUpdated")</span>
+    </label>
+
+    <label id="lblSuccessMessageE_HARDNESS_ENTRY_EDIT_DELETE_003" class="Hidden">
+        <span ID="LiteralDataDeleted">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataDeleted")</span>
+    </label>
+
+</div>
+
+@section Scripts{
+    <script src="/Static/js/HardnessTemperingEntryEditDelete.js" asp-append-version="true"></script>
+           
+}

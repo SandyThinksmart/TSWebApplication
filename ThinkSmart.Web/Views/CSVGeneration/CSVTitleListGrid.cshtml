@@ -1,0 +1,97 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<OutputCSVDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+
+}
+
+
+<link href="~/css/CSVGeneration.css" rel="stylesheet" asp-append-version="true" />
+ 
+    <body style="background-color:#f0f0f0">
+       
+        <form id="form1">
+      
+            <div style="width:100%">
+
+                <div id="menuWrapper" style="background-color:#f0f0f0;margin: 0 auto;">
+                     <div style="padding-top:4px;text-align:left">
+
+                    <input type="button" style="color:#007bff;border-style:none;font-size:15px;margin-left:2px;" value="@LocalizationServices.GetLocalizedHtmlString("lbl_MainMenu")" ID="btnMainPage"
+                      onclick="window.location.href = '/CSVGeneration/CSVGroupTitleList'"             TabIndex="1" class="labelClass" />
+
+                </div>
+
+                   <table style="width: 100%;Margin-top:3px" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+
+                                <td valign="top" colspan="3">
+                                    <div id="pnlSubMenu" class="subMenu">
+
+                                        <div id="divMaster" class="uppercontainer divDefault" style="position: relative; display: block; width: 100%; height: 27%;">
+                                            <table id="tblTitleList" class="NoCollapse" cellpadding="1" cellspacing="1" style="position: relative; width: 100%; height:100%; top: 0px; left: 0px;">
+                                                  <thead>
+                                                      <tr class="GridHeader GridViewScrollHeader freez trTdH" id="grdvCSVListDetails">
+                                                          <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_SrNo_L")</th>
+                                                          <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_CSVOutput")</th>
+                                                         
+                                                      </tr>
+                                                  </thead>
+                                                         <tbody>
+                                                    @if (Model != null && Model.Count > 0)
+                                                    {
+                                                        int i = 0;
+                                                        foreach (var item in Model)
+                                                        {
+
+                                                            i = i + 1;
+                                                            <tr class="tdclass">
+                                                                <td align="center" valign="middle">@i</td>
+                                                                <td class="style2" style="padding-top:8px;padding-bottom:5px;text-align:center">
+                                                                    @*  <a href="@("/CSVGeneration/CSVTitleList?groupTitle=" + item.GROUP_TITLE_NAME)" onclick="window.location.href=this.href, '_blank', 'width=900,height=1100'; return false;"> *@
+                                                                         <a href="#" onclick="window.open('@("/CSVGeneration/CSVExtractCondition?outputCD=" + item.OUTPUT_SQL_CD)', '_blank', 'width=910,height=950'); return false;">
+                                                                        <label id="lblTitle" class="labelClass labelHeight linkFormat">@item.TITLE</label>
+                                                                     
+                                                                        <label id="lblTitleOther" class="labelClass pdLeftRight leftAlign linkFormat">@item.TITLE_OTHER</label>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                           
+                                                        }
+
+
+                                                    }
+
+                                                    else
+                                                    {
+                                                        <tr style="height:30px;"><td align="left" style="padding-left:5px;" colspan="2"><label ID="lbldatanotavailable" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_NoRecordFound_L")</label></td></tr>
+                                                    }
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="divErrorMessages" class="Hidden">
+
+                <label id="lblErrorMessageE_systemexception" class="Hidden">
+                    <span ID="LiteralExceptionOccured" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+                </label>
+
+            </div>
+
+        </form>
+    </body>
+ 

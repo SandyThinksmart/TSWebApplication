@@ -1,0 +1,60 @@
+﻿#pnlMatlNameWiseOrderQtyPopUp {
+    height: 590px;
+    width: 520px;
+    overflow: auto;
+    margin-top: 15px;
+  /* overflow-y: scroll;*/
+    border: 1px inset gray;
+}
+#tblBottomBtnClose {
+    margin-top: 2px;
+    margin-left:2px;
+    border: 1px inset gray;
+    height:74px;
+    width: 518px;
+}
+
+#tdBtnClose {
+    background-color: Navy;
+
+}
+#tblRefresh {
+    background-color: #254636;
+    width:137px;
+    height:67px
+}
+#tblClose {
+    width: 135px;
+    height: 67px
+}
+#tdBtnRefresh {
+    width: 156px;
+}
+#lblClose {
+    color: White;
+    padding-top: 12px
+}
+#btnClose {
+    width:123px;
+    
+}
+.tdHeader {
+    border-width: thin;
+    border-style: solid;
+    background-color: #608f34;
+    border-color: White;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+.tdHeader1 {
+    border-width: thin;
+    border-style: solid;
+    background-color: #77970e;
+    border-color: White;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+.gridTextbox {
+    background-color: white !important;
+    height: 18px;
+}

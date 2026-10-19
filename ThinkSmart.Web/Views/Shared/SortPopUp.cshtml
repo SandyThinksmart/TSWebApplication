@@ -1,0 +1,161 @@
+﻿@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+}
+
+<div class="modal fade" id="SortPopUpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="width:535px">
+            @*<div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>*@
+            <div class="modal-body" style="width:536px;font-family:'MS Gothic'">
+                <table width="100%" align="center">
+                    <tr>
+                        <td style="text-align: center">
+                            <div style="text-align: center;">
+
+
+
+                                <table width="100%" bgcolor="#EBEBD8" frame="box">
+
+                                    <tr>
+                                        <td style="text-align: center;" colspan="3">
+                                            <label ID="lblMsg" Style="font-weight: 700" Width="250px"></label>
+                                                                                       
+                                        </td>
+                                        <td style="width: 5%">
+                                            &nbsp;
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="10" valign="top">
+                                            <select ID="lstSortFields" style="Width:220px;Height:304px;font-family: MS Gothic;font-size: 13px;font-weight: 400;"
+                                                         multiple="Multiple" Font-Names="MS Gothic"></select>
+                                        </td>
+                                        <td valign="middle" align="center">
+                                            <div id="sortPanel" style="border-width:1px;border-style:Groove;height:55px;text-align:left;">
+                                            <input type="radio" ID="rdoSortAsc" value="0" name="rdSortOrder" data-text="@LocalizationServices.GetLocalizedHtmlString("rdb_Ascending")" GroupName="Add" Font-Size="Small" />@LocalizationServices.GetLocalizedHtmlString("rdb_Ascending")
+                                            <br />
+                                            <input type="radio" ID="rdoSortDsc" value="1" name="rdSortOrder" data-text="@LocalizationServices.GetLocalizedHtmlString("rdb_Descending")" GroupName="Add" Font-Size="Small" />@LocalizationServices.GetLocalizedHtmlString("rdb_Descending")
+                                            <br />
+                                            </div>
+                                        </td>
+                                        <td rowspan="7" valign="top" style="width:280px">
+                                            <select ID="lstSelectedSortFields" style="Width:213px;Height:258px;font-family: MS Gothic;font-size: 13px;font-weight: 400;"
+                                                         multiple="Multiple" Font-Names="MS Gothic"></select>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="4">
+                                            @*
+                                                <br />
+                                                <input  type="button" value="&gt;" ID="btnAdd"    class="_button"
+                                                    onclick="btnAdd_Click" style="font-weight: bold; width: 28px;"
+                                                    Enabled="False"  OnClientClick="Javascript:ValidateAdd();" />
+                                                <br />
+
+                                                    onclick="btnRemove_Click" style="font-weight: bold; width: 28px;"
+                                                    Enabled="False" />*@
+                                            @**@
+                                            <table width="100%" frame="box" style="background-color: #336699">
+                                                <tr>
+                                                    <td>
+                                                        <input type="button" value="&gt;" ID="btnAdd" class="_button no-timeout"
+                                                               OnClick="btnSortAdd_Click()" Style="font-weight: bold; width: 28px;"
+                                                               Enabled="False" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="button" value="&lt;" ID="btnRemove" class="_button no-timeout"
+                                                               OnClick="btnSortRemove_Click()" Style="font-weight: bold; width: 28px;"
+                                                               Enabled="False" />
+                                                    </td>
+                                                </tr>
+
+                                            </table>
+                                        </td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                    <tr>
+                                        <td align="center" rowspan="5" valign="middle" style="background-color:#336699">
+
+                                            <br />
+                                             <table  frame="box" style="margin-top:-16px" >
+                                                 <tr>
+                                                     <td>
+                                            <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Reset")" ID="btnReset"  style="Width:80px;margin-top:-10px;font-bold:true;"
+                                                   class="_button labelBold"  OnClick="btnSortReset_Click()" />
+                                             </td>
+                                               </tr>
+                                               </table>
+                                        </td>
+                                       
+                                        <td align="center" valign="middle">
+                                            <table frame="box" style="width:213px;background-color:#336699;height:44px" align="center" >
+                                                 <tr>
+                                                     <td>
+                                           
+                                            <input type="button" value="OK" ID="btnOk"
+                                                   style="Width:70px;float:right;" class="_button labelBold" Font-Bold="True" OnClick="btnSortOk_Click()" />
+                                           
+                                         
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                       <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnSortClose" OnClick="btnSortClose_Click()"
+                                                   class="_button labelBold" Font-Bold="True" />
+                                                </td>
+                                               </tr>
+                                               </table>
+
+                                        </td>
+                                        <td>&nbsp;</td>
+                                  
+                                   </tr>
+                                    @*<tr>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                        </tr>*@
+                                </table>
+
+
+
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,162 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<ProcessPlanForYieldSearchDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+}
+
+<link href="~/css/Common_Styles.css" rel="stylesheet" />
+<link href="~/css/YieldSearch.css" rel="stylesheet" />
+<div>
+    <table class="freez GridLines GridLayout GridColumnLeftPadding hover-row" cellpadding="0" cellspacing="0" border="1">
+
+        <thead>
+            <tr class="GridHeader GridViewScrollHeader freez1 GridHeaderPadding">
+                <td colspan="25" align="center" valign="middle" style="background-color: #4E6CAB;" class="freezListHeader">
+                    <label ID="lblYieldImfGridHeader"
+                           class="labelClass1" style="color:white;margin-top: 3px;">@LocalizationServices.GetLocalizedHtmlString("lbl_YeildInfo")</label>
+                </td>
+            </tr>
+            <tr class="GridHeader GridViewScrollHeader freez2 GridHeaderPadding">
+                @* <th class="tdHeaderClass labelClass GridCenter" rowspan="2"></th> *@
+                <th class="tdHeaderClass labelClass GridCenter" rowspan="2">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</th>
+                <th class="tdHeaderClass labelClass GridCenter" rowspan="2">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductSpecNo")</th>
+                <th class="tdHeaderClass labelClass GridCenter" rowspan="2">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</th>
+                <th class="tdHeaderClass labelClass GridCenter" rowspan="2">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</th>
+                <th class="tdHeaderClass labelClass GridCenter" rowspan="2">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</th>
+                <th class="tdHeaderClass labelClass GridCenter" rowspan="2">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</th>
+                <th class="tdHeaderClass labelClass GridCenter" rowspan="2">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</th>
+                <th class="tdHeaderClass labelClass GridCenter" rowspan="2">@LocalizationServices.GetLocalizedHtmlString("lbl_Condition")</th>
+                <th class="tdHeaderClass labelClass GridCenter" rowspan="2">@LocalizationServices.GetLocalizedHtmlString("lbl_DimTolerance")</th>
+                <th class="tdHeaderClass labelClass GridCenter" rowspan="2">@LocalizationServices.GetLocalizedHtmlString("lbl_LengthTolerance")</th>
+                <th class="tdHeaderClass labelClass GridCenter" rowspan="2">@LocalizationServices.GetLocalizedHtmlString("lbl_BendStandard")</th>
+                <th class="tdHeaderClass labelClass GridCenter" rowspan="2">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocDate1")</th>
+                <th class="tdHeaderClass labelClass GridCenter" rowspan="2">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocWeight")</th>
+                <th colspan="2" class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_Hikinuki")</th>
+                <th colspan="2" class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessStraightening")</th>
+                <th colspan="2" class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_ChamferShort")</th>
+                <th colspan="2" class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_ECInspection")</th>
+                <th colspan="2" class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_FinalInspection")</th>
+                <th class="tdHeaderClass labelClass GridCenter" rowspan="2">@LocalizationServices.GetLocalizedHtmlString("lbl_CompletionDate")</th>
+            </tr>
+
+            <tr class="GridHeader GridViewScrollHeader freez3 GridHeaderPadding">
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_WeightWithoutKG")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessWiseYeild")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_WeightWithoutKG")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessWiseYeild")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_WeightWithoutKG")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessWiseYeild")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_WeightWithoutKG")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessWiseYeild")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_WeightWithoutKG")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessWiseYeild")</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                @foreach (var item in Model)
+                {
+                    <tr class="GridNormalRow" data-lblProcessPlanCD="@item.PP_PROCESS_PLAN_CD">
+                      @*   <td>
+                            <input type="button" id="" ID="lnkEdit" onclick="OnEditClick($(this))" class="btnArrow" style="height:22px" CausesValidation="false" />
+                        </td> *@
+
+                        <td class="labelClass GridCenter">@item.PP_CHUUBAN_GYOUBAN</td>
+                        <td class="labelClass GridCenter">@item.PP_PROD_SPEC_NO</td>
+                        <td class="labelClass GridLeft">@item.PP_CUSTOMER_NAME</td>
+                        <td class="labelClass GridLeft">@item.PP_PROD_NAME</td>
+                        <td class="labelClass GridCenter">@item.PP_PROD_SHAPE</td>
+                        <td class="labelClass GridRight">@item.PP_PROD_DIM_D</td>
+                        <td class="labelClass GridRight">@item.PP_PROD_LENGTH</td>
+                        <td class="labelClass GridLeft">@item.PROD_CONDITION_DESCRIPTION</td>
+                        <td class="labelClass GridCenter">@item.PP_DIM_TOLERANCE</td>
+                        <td class="labelClass GridCenter">@item.PP_LENGTH_TOL</td>
+                        <td class="labelClass GridCenter">@item.BEND_STD</td>
+                        <td class="labelClass GridCenter">@item.PP_ACT_ALLOC_DATE_STRING</td>
+                        <td class="labelClass GridRight">@item.PP_ACT_ALLOC_QTY</td>
+
+                        <td class="labelClass GridRight">@item.HIKINUKI_QTY</td>
+                        <td class="labelClass GridRight">@item.HIKINUKI_YIELD</td>
+                        <td class="labelClass GridRight">@item.STRAIGHTENING_QTY</td>
+                        <td class="labelClass GridRight">@item.STRAIGHTENING_YIELD</td>
+                        <td class="labelClass GridRight">@item.CHAMFERING_QTY</td>
+                        <td class="labelClass GridRight">@item.CHAMFERING_YIELD</td>
+                        <td class="labelClass GridRight">@item.EC_QTY</td>
+                        <td class="labelClass GridRight">@item.EC_YIELD</td>
+                        <td class="labelClass GridRight">@item.FI_QTY</td>
+                        <td class="labelClass GridRight">@item.FI_YIELD</td>
+                        
+                        <td class="labelClass GridCenter">@item.PROCESS_PLAN_CMPL_DATE_STRING</td>
+
+                        @* <td class="labelClass GridCenter">@item.PP_DELIVERY_DATE_STRING</td> *@
+                        
+                        
+                       
+                        
+                        
+                        
+@*                         <td class="labelClass GridLeft">@item.PP_CHARGE</td>
+                       
+                        <td class="labelClass GridRight">@item.PP_FINISHED_QTY</td>
+                        
+                        <td class="labelClass GridLeft">@item.PP_MATL_NAME_MAK</td>
+                        <td class="labelClass GridRight">@item.PP_MATL_DIM_D</td>
+                        <td class="labelClass GridLeft">@item.PP_MATL_SHAPE</td> *@
+                       
+                        
+                       @*  <td class="labelClass GridCenter">@item.PP_PROD_SPEC_NO</td>
+                        <td class="labelClass GridCenter">@item.PROCESS_PLAN_CMPL_DATE_STRING</td>
+                        <td class="labelClass GridCenter">@item.PROCESS_PLAN_CMPL_DATE_STRING</td> *@
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr class="GridNormalRow">
+
+                    @*<td class="labelClass" align="left" style="padding-left:0px;">
+                <select id="select1" name="select1" tabindex="57">
+                </select>
+                </td>
+                    <td>
+                        <input type="button" id="" ID="lnkEdit"
+                               class="btnArrow" disabled="disabled" style="height:22px" CausesValidation="false" />
+                         <input id="btnLnkEdit" type="button" value='@LocalizationServices.GetLocalizedHtmlString("lbl_EditDelete")' class="_functionButtons"/>
+                    onclick="getSalesProductionStatusByDrawingCD($(this))"
+                    </td>*@
+                    <td class="labelClass GridCenter"></td>
+                    <td class="labelClass GridlLeft"></td>
+                    <td class="labelClass GridlLeft"></td>
+                    <td class="labelClass GridCenter"></td>
+                    <td class="labelClass GridlLeft"></td>
+                    <td class="labelClass GridRight"></td>
+                    <td class="labelClass GridlLeft"></td>
+                    <td class="labelClass GridRight"></td>
+                    <td class="labelClass GridlLeft"></td>
+                    <td class="labelClass GridlLeft"></td>
+                    <td class="labelClass GridCenter"></td>
+                    <td class="labelClass GridlLeft"></td>
+
+                    <td class="labelClass GridCenter"></td>
+                    <td class="labelClass GridRight"></td>
+                    <td class="labelClass GridRight"></td>
+                    <td class="labelClass GridlLeft"></td>
+                    <td class="labelClass GridlLeft"></td>
+                    <td class="labelClass GridRight"></td>
+
+                    <td class="labelClass GridCenter"></td>
+                    <td class="labelClass GridCenter"></td>
+                    <td class="labelClass GridCenter"></td>
+                    <td class="labelClass GridCenter"></td>
+                    <td class="labelClass GridCenter"></td>
+                    <td class="labelClass GridCenter"></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script src="~/Scripts/CommonScript.js"></script>

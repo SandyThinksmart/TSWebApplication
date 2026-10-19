@@ -1,0 +1,510 @@
+﻿#grdvHikinukiMachine tr:not(#tr1HdrGrdvHikinukiMachine):not(#tr2HdrGrdvHikinukiMachine):not(#tr3HdrGrdvHikinukiMachine):not(#tr4HdrGrdvHikinukiMachine):not(#tr1ItemGrdvHikinukiMachine):not(#tr2ItemGrdvHikinukiMachine):not(#tr3ItemGrdvHikinukiMachine)
+ {
+     display: none;
+ }
+ 
+#grdvHistory .th
+        {
+            border-width: thin;
+            border-style: solid;
+            text-align: center;
+            height: 15px;
+            border-color: #FF9900;
+            vertical-align: middle;
+        }
+
+/* Styles for Start Data Grid */
+
+#tblProcessStartData
+{
+  
+}
+
+#tdlblStartDateTime,#lblGridDimD,#lblGridLength,#lblGridWeight4,
+#txtGridTabaNo,#txtGridBendStatus,#lblGridEcDesicision,#lblGridMagnetism,#txtGridShikiiValue,
+#txtGridTabaNo3
+{
+    width: 85px;
+}
+
+
+
+#tdEmptyRow1Col6,#lblGridBend
+{
+    width: 40px;
+}
+
+#tdEmptyRow1Col12,#txtGridFinishedBars,#txtGridExtSurf,#txtGridEcNgBarTotal
+{
+    width: 45px;
+}
+
+#tdlblStartOperator
+{
+    width: 67px;
+}
+
+#txtGridMsgContent
+{
+    width: 70px;
+}
+
+#tdtxtStartOperator
+{
+    width: 160px;
+}
+
+#txtStartOperator, #txtEndOperator
+{
+    width: 135px;
+}
+
+#txtInspectionCoilSize, #txtInspectionCoilShape, #txtUpperLowerRollerAngle1, 
+#txtUpperLowerRollerAngle2, #txtCoilQuantity, #txtDieNo, #txtUpperRoleElevation,
+#txtNoOfCoils, #txtDieDim, #lblShikii, #txtShikii, #txtDrawDim2, 
+#txtCompressionTonnage, #txtIsOK,#lblGridWeight2,#lblGridWeight1,#lblGridTabaNo
+{
+    width: 50px;
+}
+
+#txtDrawDim1
+{
+    width: 50px;
+    border-right-width: 0;
+    padding-right: 0;
+}
+
+#tdlblFurnaceNum
+{
+    width: 26px;
+}
+
+#txtActAllocLength1,#txtActAllocLength2,#txtActAllocLength3
+{
+    width: 30px;
+}
+
+#txtFurnaceNum
+{
+    width: 72px;
+}
+
+#txtMn
+{
+    width: 20px;
+}
+
+#tdActAllocDim1,#tdActAllocDim2,#tdActAllocDim3,#tdActAllocDim4,#tdActAllocDim5,#tdActAllocDim6,
+#tdActAllocLength1,#tdActAllocLength2,#tdActAllocLength3
+{
+    width: 30px;
+}
+
+#tdtxtC
+{
+    width: 50px;
+}
+
+#txtStartDateTime
+{
+    width: 155px;
+}   
+        
+        
+#tdbtnStartDateTime
+{
+    width: 50px;
+}
+
+#btnStartDateTime
+{
+    width: 46px;
+}
+        
+        #txtHexR
+        {
+             width:50px;
+             
+            }
+            
+               
+                    
+#ddlDieShape
+{
+    width:55px;
+}
+ 
+#tdTPTest
+{
+    text-align: center !important;
+    width: 115px;
+}
+                    
+                       
+    #lblDrawDim,#lblUpperRoleElevation
+        {
+       width:80px;
+        }
+                            
+#txtMetallicLabelNo
+{
+     width: 110px;
+}
+   
+  #txtC
+         {
+            width:25px;
+            }
+  #lblMn{
+      float: right;
+  }
+                                        
+                                        
+      #lblCompressionTonnage
+            {width:65px;
+            }
+             #lblTPTest0
+          {
+            text-align:right;
+           }
+           
+#lblGridCustomerName
+{
+    width: 59px;
+}
+#lblGridChubanNo,#lblGridSpecification
+{
+    width: 67px;
+}
+#lblGridExtText
+{
+    width: 38px;
+}
+#txtGridDecisionColor
+{
+    width: 5px;
+}
+#txtGridCustomerName
+{
+    width: 73px;
+}
+#txtGridChuban
+{
+    width: 83px;
+}
+#txtGridMagnetism
+{
+    width: 75px;
+}
+#btnStartDateTime,#btnEndDateTime
+{
+    width: 83px;
+}
+#txtActualDim1,#txtActualDim2,#txtActualLength4,#txtActualLength2,#txtActualLength3
+{
+    width: 60px;
+}
+#txtGridMetallicPlateCode
+{
+    width: 97px;
+}
+#txtGridNoOfCoils
+{
+    width: 39px;
+}
+#txtGridQuantity,#lblGridNgBars
+{
+    width: 38px;
+}
+#txtActAllocDim1,#txtActAllocDim2,#txtActAllocDim3,#txtActAllocDim4,#txtActAllocDim5,#txtActAllocDim6
+{
+    width: 25px;
+}
+#txtGridFinishedQty
+{
+    width: 47px;
+}
+#txtGridProdNameCust
+{
+   width: 63px;
+}
+
+#lblGridMetallicLabelNo,#lblGridMetallicCharge,#lblGridMetallicCharge
+{
+   width: 79px;
+}
+#lblGridWeight,#tdGridMaterialDimD
+{
+   width: 32px;
+}
+#tdGridMetallicDim 
+{
+    width:100px;
+}
+#tdHdrMachineGridDimD 
+{
+    width:45px;
+}
+#lblGridInzu
+{
+   width: 31px;
+}
+#lblGridDimD1,#lblGridDimD2,#lblGridDimD3,#lblGridDimD4,#lblGridDimD5,#lblGridDimD6,#lblGrig4,#lblGrig5,#lblGrig6
+
+{
+   width: 20px; 
+} 
+#lblGridWeight3,#lblGridQty
+{
+   width: 35px; 
+}
+#lblGridShikki
+{
+   width: 48px;
+}
+#txtGridSpecification
+{
+   width: 82px;
+}
+#txtGridCharge
+{
+   width: 92px;
+}
+#tdGridDimDLength
+{
+	 width: 65px;
+}
+#tdGridDimDDie
+{
+	 width: 43px;
+}
+
+#ddlDecision
+{
+    width: 85px;
+}
+
+#ddlNextProcess
+{
+    width: 227px;
+}
+
+#dialogMessageIcon{
+    width: 45px;
+}
+#dialogMessageText{
+    width: 480px;
+}
+
+#grdvMessage .GridNormalRow
+{
+    background-color: #E2E2E2;
+}
+
+/*****************************************************************************/
+/* IE Specific CSS */
+         
+/* IE9 and Lower CSS styles go here */
+.ie #txtShikii
+{
+    margin-left: 4px;
+    width: 46px;
+}
+    
+.ie #txtFurnaceNum
+{
+    width: 72px;
+}
+    
+.ie #txtMn
+{
+    width: 20px;
+}
+
+
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+/* IE10+ CSS styles go here */
+    #txtShikii
+    {
+        margin-left: 4px;
+        width: 46px;
+    }
+    
+    #txtFurnaceNum
+    {
+        width: 72px;
+    }
+    
+    #txtMn
+    {
+        width: 20px;
+    }
+    
+    
+}
+
+/* End of IE Specific CSS */
+/*****************************************************************************/
+
+.Mandatory 
+{
+    background-color: #C1FFFF;    
+}
+
+.Hidden
+{
+    display: none;
+}
+.disabled
+{
+    background-color: #EEEEEE !important;
+    color: black;
+}
+.DropdownListClass 
+{
+ border-style:inset;  
+ font-family:MS Gothic;
+ height:23px; 
+ color:black;     
+}
+
+
+/** Jquery Override CSS */
+
+.ui-widget-header {
+    background: #225AD9;
+    border-style: none;
+    height: 5px;
+}
+
+.ui-dialog-title {
+    display: none;
+}
+
+.ui-dialog-titlebar-close {
+    display: none;
+}
+
+.ui-dialog{
+    border-style: solid;
+    border-color: #225AD9;
+    border-width: 2px;
+    border-radius: 0px;
+    background-color: white;
+}
+.ui-dialog div, .ui-dialog button {
+    border-radius: 0px;
+}
+
+.ui-dialog-buttonpane {
+    border: none;
+    text-align: center !important;
+}
+.ui-dialog-buttonset{
+    float: none !important;
+}
+.ui-button{
+    Height: 25px;
+    border: 1px inset Silver;
+    font-size: 12px;
+    width: 80px;
+}
+.ui-button-text{
+    padding:0 !important;
+    color: black;
+    font-size: 12px;
+}
+.ui-state-hover{
+    border: 1px solid #ccc;
+    background: #f6f6f6 url(images/ui-bg_glass_100_f6f6f6_1x400.png) 50% 50% repeat-x;
+    font-weight: bold;
+    color: #1c94c4;
+}
+.ui-dialog-content.ui-widget-content{
+    font-family: MS Gothic;
+    font-weight: 400;
+    font-size: 13px;
+    background-color: white;
+}
+.ui-dialog .ui-dialog-buttonpane{
+    padding:0;
+}
+.ui-dialog-buttonpane{
+    background-color: white;
+}
+.ui-widget-content {
+    background: white;
+    color: #333;
+}
+
+/*Added by Sagar b content 21/8/2017*/
+#GridNGDetails
+{
+    width: 950px;
+}
+
+ #GridFurnaceNum
+{
+    width: 142px;
+}
+
+ #GridDecision
+{
+    width: 75px;
+}
+
+  #ddlNGReason1, #ddlNGReason2, #ddlNGReason3{
+     width: 105px;
+ }
+
+#lblOnHold 
+{
+    padding-right:40px;
+}
+
+.HeaderPadding {
+    padding-left: 10px;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+.padddingLeft {
+    padding-left: 3px;
+}
+
+.panelPaddingLeft {
+    padding-left: 5px;
+}
+
+.padddingLeftRight {
+    padding-left: 3px;
+    padding-right: 3px;
+}
+.padddingDataLeft {
+    padding-left: 3px !important;
+}
+
+.padddingDataRight {
+    padding-right: 3px !important;
+}
+
+.dataNowrap {
+    white-space: nowrap;
+}
+.dropdownSearch1 select {
+    width: 104px;
+    height: 25px;
+}
+
+.dropdownSearch1 > * {
+    box-sizing: border-box;
+    height: 1.5em;
+}
+
+.dropdownSearch1 input {
+    position: absolute;
+    width: 80px;
+    height: 25px;
+}
+

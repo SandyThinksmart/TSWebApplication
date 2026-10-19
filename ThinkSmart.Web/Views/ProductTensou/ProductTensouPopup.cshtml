@@ -1,0 +1,300 @@
+﻿@using TSWebApplication.Domain.Utility
+@using TSWebApplication.Domain.Resources
+@model List<GridSearchFields>
+
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = @LocalizationServices.GetLocalizedHtmlString("title_ProdList");
+}
+<link href="~/css/Common_Styles.css" rel="stylesheet" />
+<link href="~/css/Common.css" rel="stylesheet" />
+<link href="~/css/masterStyles.css" rel="stylesheet" />
+<style>
+    .searchNameTxtBoxWidth {
+        width: 120px;
+    }
+
+    .searchDimTxtBoxWidth {
+        width: 100px;
+    }
+
+    .extractSortBtn {
+        width: 67px;
+    }
+
+    .txtLengthDim {
+        width: 55px;
+    }
+
+    .txtShape {
+        width: 22px;
+    }
+
+    .txtProdSpecNo {
+        width: 45px;
+    }
+</style>
+@* <div class="modal fade" id="ProductTensouPopupModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog-centered" role="document">
+        <div class="modal-content" style="width:1210px">
+            <div style="width:1029px;padding-top:16px;">
+                <div>
+                  <h1>Wel come </h1>
+                 
+
+                </div>
+            </div>
+            <div>
+                <h2>Welcome1 </h2>
+
+            </div>
+            <div>
+                <h2>Welcome3 </h2>
+            </div>
+        </div>
+    </div>
+</div> *@
+@*<div id="SortPopUpModalForProduct">
+    @{
+        @await Html.PartialAsync("~/Views/Shared/SortPopUp.cshtml")
+        ;
+    }
+</div>*@
+
+@* <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+ *@
+<div class="modal fade" id="ProductListPopupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog-centered" role="document">
+        <div class="modal-content" style="width:1210px">
+            <div style="width:1029px;padding-top:16px;">
+                <div>
+                    <table id="tblSearch" style="width: 1122px" cellpadding="0" cellspacing="0">
+                        <tr style="height:20px;">
+                            <td align="center" valign="middle" class="tdH1">
+                                <label ID="lblKoubanSearchGridHeader"
+                                       class="labelClass1" style="color:white;">@LocalizationServices.GetLocalizedHtmlString("lbl_SearchCondition")</label>
+                            </td>
+                            <td style="width: 310px"></td>
+
+                            <td align="center" valign="middle" rowspan="2" bgcolor="#006666" style="width: 160px;border:1px inset lightgrey;">
+                                <table cellpadding="2" cellspacing="2" style="height: 65px;">
+                                    <tr>
+                                        <td align="center" colspan="2">
+                                            <label ID="lblAuxiliaryFunctionSearchSort" class="labelClass" style="color:white">@LocalizationServices.GetLocalizedHtmlString("lbl_FilterCondition")</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Extract")" ID="btnSearchProduct" class="_functionButtons extractSortBtn" TabIndex="27" />
+                                        </td>
+                                        <td>
+                                            <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Sort_L")" ID="btnSortOnProduct" class="_functionButtons extractSortBtn" TabIndex="28" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                @*<div id="pnlSearch" style="overflow-x: auto;overflow-y: hidden;width: 857px;">*@
+
+                                <table id="tblheaderSearch" cellpadding="4" cellspacing="4" border="0" class="searchTextBox ">
+                                    <tr class="trTdH2">
+                                        <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter">
+                                            <label class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</label>
+
+                                        </th>
+                                        <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter">
+                                            <label class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_InternalName")</label>
+
+                                        </th>
+                                        <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter">
+                                            <label class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</label>
+
+                                        </th>
+                                        <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter" colspan="2">
+                                            <label class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</label>
+
+                                        </th>
+                                        @* <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter">
+                                        <label class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdDimEnd")</label>
+
+                                        </th>*@
+                                        <th id="tdShape" class="tdHeaderClass">
+                                            <label ID="lblShapeSearch" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</label>
+                                        </th>
+                                        <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter" colspan="2">
+                                            <label class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</label>
+
+                                        </th>
+                                        @* <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter">
+                                        <label class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_LengthEnds")</label>
+
+                                        </th>*@
+                                        <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter" colspan="2">
+                                            <label class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ManufacturingSpecificationNo")</label>
+
+                                        </th>
+                                        @*  <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter">
+                                        <label class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductSpecNo2")</label>
+
+                                        </th>*@
+                                    </tr>
+                                    <tr class="trTdSearchContent">
+                                        @* <td class="td tdSearchGrid">
+                                        <input type="text" ID="txtCustomerOnProd" MaxLength="20"
+                                        TabIndex="1" class="labelClass searchNameTxtBoxWidth"><span class="text-danger"></span>
+                                        </td>*@
+                                        <td class="td tdSearchGrid ">
+                                            <input type="text" ID="txtCustomerOnProd" MaxLength="20"
+                                                   TabIndex="17" class="labelClass searchNameTxtBoxWidth"><span class="text-danger"></span>
+
+                                        </td>
+                                        <td class="td tdSearchGrid ">
+                                            <input type="text" ID="txtInternalName" MaxLength="20"
+                                                   TabIndex="18" class="labelClass searchNameTxtBoxWidth"><span class="text-danger"></span>
+
+                                        </td>
+                                        <td class="td tdSearchGrid ">
+                                            <input type="text" ID="txtProdNameCust" MaxLength="20"
+                                                   TabIndex="19" class="labelClass searchNameTxtBoxWidth"><span class="text-danger"></span>
+
+                                        </td>
+
+                                        <td class="td tdSearchGrid">
+                                            <input type="text" ID="txtDiaMin" MaxLength="7" TabIndex="20" class=" labelClass FitSearchTextBox txtLengthDim"
+                                                   onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                                        </td>
+                                        <td class="td tdSearchGrid">
+                                            <input type="text" ID="txtDiaMax" MaxLength="7" TabIndex="21" class="labelClass FitSearchTextBox txtLengthDim"
+                                                   onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                                        </td>
+                                        <td class="td tdSearchGrid">
+                                            @* <input type="text" ID="txtShape" MaxLength="2" TabIndex="6" class="UpperCase labelClass FitSearchTextBox txtShape">*@
+                                            <input type="text" ID="txtShape" runat="server" class="UpperCase labelClass FitSearchTextBox txtShape" onkeyup="ToUpper(this)" onkeypress="return (event.charCode !=65 && event.charCode ==90 || (event.charCode >= 97 && event.charCode <= 123))"
+                                                   MaxLength="2" tabindex="22" />
+                                        </td>
+                                        <td class="td tdSearchGrid">
+                                            <input type="text" ID="txtLengthMin" MaxLength="7" TabIndex="23" class="labelClass FitSearchTextBox txtLengthDim"
+                                                   onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                                        </td>
+                                        <td class="td tdSearchGrid">
+                                            <input type="text" ID="txtLengthMax" MaxLength="7" TabIndex="24" class="labelClass FitSearchTextBox txtLengthDim"
+                                                   onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                                        </td>
+                                        <td class="td tdSearchGrid">
+                                            <input type="text" ID="txtProdSpecNo1" MaxLength="4" class="UpperCase labelClass FitSearchTextBox txtProdSpecNo" TabIndex="25">
+                                        </td>
+                                        <td class="td tdSearchGrid">
+                                            <input type="text" ID="txtProdSpecNo2" MaxLength="4" class="UpperCase labelClass FitSearchTextBox txtProdSpecNo" TabIndex="26">
+                                        </td>
+
+                                    </tr>
+                                </table>
+                                @* </div>*@
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </div>
+            <div>
+                <table id="tblProductList" style="width: 1121px;height:370px;overflow:auto;" cellpadding="0" cellspacing="0" border="1">
+                    <tr>
+                        <th style="vertical-align: top;">
+
+                            <div id="divProductMasterListGrid" style="height:363px;width:1122px;overflow:auto;">
+                                @{
+                                    @await Html.PartialAsync("ProductList", Model)
+                                    ;
+                                }
+                            </div>
+
+                        </th>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <table style="width:1122px;" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <table border="0" cellpadding="2" cellspacing="2" style="border:2px inset lightgrey">
+                                <tr>
+                                    <td style="background-color: #C00000; border-width: 0px; border-style: none;padding-left:5px;padding-right:5px;">
+                                        <table border="0" cellpadding="2" cellspacing="2" style="height:60px;width:113px;">
+                                            <tr>
+                                                <td align="center" colspan="4" valign="bottom">
+                                                    <label ID="Label3" class="labelClass" style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")</label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center">
+                                                    <input type="button" style="width: 110px;" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")" ID="btnInitializeOnProduct" class="_functionButtons" TabIndex="29" />
+                                                </td>
+
+                                            </tr>
+
+                                        </table>
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width:955px;"></td>
+                        <td>
+                            <table border="0" cellpadding="2" cellspacing="2" style="border:2px inset lightgrey">
+                                <tr>
+                                    <td style="background-color: navy; border-width: 0px; border-style: none;padding-left:5px;padding-right:5px;width: 191px;">
+                                        <table border="0" cellpadding="2" cellspacing="2" style="height:60px;width:101px;">
+                                            <tr>
+                                                <td align="center" colspan="4" valign="bottom">
+                                                    <label ID="Label3" class="labelClass" style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("btn_Cancel")</label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                @*  <td align="center">
+                                                <input style="width: 95px;" type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_OK")" ID="btnInitialize" class="_functionButtons" TabIndex="1" />
+                                                </td>*@
+                                                <td align="center">
+                                                    <input type="button" style="width: 95px;" data-dismiss="modal" aria-hidden="true" value="@LocalizationServices.GetLocalizedHtmlString("btn_Cancel")" ID="btnCancelOnProduct" onclick="OnProductCancelBtnClick($(this))" class="_functionButtons" TabIndex="30" />
+                                                </td>
+                                            </tr>
+
+                                        </table>
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script src="~/static/js/ProductTensou.js"></script>
+
+}

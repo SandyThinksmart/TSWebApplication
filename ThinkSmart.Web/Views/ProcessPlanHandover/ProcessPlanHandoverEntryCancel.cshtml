@@ -1,0 +1,344 @@
+﻿@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = "製造指示書を現場へ工程投入・工程投入の取消（製造工程の開始）_ProcessPlanHandover(Entry・Cancel)";
+
+
+}
+
+<link href="~/css/Common_Styles.css" rel="stylesheet" />
+<link href="~/css/Common.css" rel="stylesheet" />
+<link href="~/css/ProcessPlanHandover.css" rel="stylesheet" />
+<link href="~/css/masterStyles.css" rel="stylesheet" />
+<style type="text/css">
+    .hide {
+        display: none;
+    }
+
+    .header {
+        padding-left: 3px;
+    }
+
+    .freez > th {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 0.2px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freez2 > th {
+        position: sticky !important;
+        background-color: #B2C3E6;
+        top: 21px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freez3 > th {
+        position: sticky !important;
+        background-color: #B2C3E6;
+        top: 41.5px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freez4 > th {
+        position: sticky !important;
+        background-color: #B2C3E6;
+        top: 62px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freez5 > th {
+        position: sticky !important;
+        background-color: #B2C3E6;
+        top: 83.5px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+</style>
+
+<table width="1380px">
+    <tr>
+        <td align="left">
+            <table border="0" cellpadding="0" cellspacing="0" width="1380px" style="border:2px inset lightgrey">
+                <tr>
+                    <td>
+
+                    <td style="width: 128px; height: 57px; background-color: #C00000; border-width: 0px; border-style: none;">
+                        <table border="0" cellpadding="0" cellspacing="0"
+                               style="width: 100%; height: 80px;">
+                            <tr>
+                                <td align="center" colspan="4" valign="bottom">
+                                    <label ID="Label3" class="labelClass" style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")" ID="btnInitialize" class="_functionButtons"  TabIndex="29" />
+                                </td>
+
+                            </tr>
+                        </table>
+
+                    </td>
+
+                    <td align="left" width="260px">
+
+                        <table height="55px">
+                            <tr>
+
+                                <td align="left">
+                                    <input type="radio"  onchange="clickOnBeforeEntryChange()" id="rdoPrcessPlanSearchBeforeEntry" value='@LocalizationServices.GetLocalizedHtmlString("lbl_PrcessPlanSearchBeforeEntry")' name="fav">
+                                    <label for="rdoPrcessPlanSearchBeforeEntry" id="lblPrcessPlanSearchBeforeEntry">@LocalizationServices.GetLocalizedHtmlString("lbl_PrcessPlanSearchBeforeEntry")</label>
+
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td align="left">
+
+                                    <input type="radio" onchange="clickOnAfterEntryChange()" id="rdoPrcessPlanSearchAfterEntry" value='@LocalizationServices.GetLocalizedHtmlString("lbl_PrcessPlanSearchAfterEntry")' name="fav">
+                                    <label for="rdoPrcessPlanSearchAfterEntry" id="lblPrcessPlanSearchAfterEntry">@LocalizationServices.GetLocalizedHtmlString("lbl_PrcessPlanSearchAfterEntry")</label>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td style="background-color:#02a04b;width:190px;">
+                        <br />
+                        <table style="height:52px;width:190px">
+                            <tr>
+
+                                <td align="center" valign="bottom">
+
+                                    <label id="lblPrcessPlanSearch" class="labelClass" style="color:white;">@LocalizationServices.GetLocalizedHtmlString("lbl_PrcessPlanSearch")</label>
+
+
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" width="180px">
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_OrderNoSrNoSearch")" ID="btnOrderNoSrNoSearch" class="_functionButtons" TabIndex="30"
+                                           style="Width:150px;" />
+                                </td>
+                            </tr>
+
+                        </table>
+                    </td>
+                    <td width="10px"></td>
+                    <td style="background-color:#d66001;width:174px;">
+                        <br />
+                        <table height="52px" width="174px">
+                            <tr>
+                                <td valign="bottom" align="center">
+                                    <label style="color:white;" id="lblProcessEntryCancel">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessEntryCancel")</label>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_SaveInput")" ID="btnInput" class="_functionButtons" TabIndex="30" />
+
+
+                                    <input style="margin-left:-5px;" type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Cancel")" ID="btnCancel" class="_functionButtons" TabIndex="30" />
+
+                                </td>
+
+                            </tr>
+
+                        </table>
+
+
+                    </td>
+                    <td width="520px"></td>
+
+                    <td style="width: 7%; height: 57px; border-width: 0px; border-style: none;">
+                        <table bgcolor="Navy" border="0" cellpadding="0" cellspacing="0" frame="border" style="border-color: Navy; width: 100px; height: 100%;">
+                            <tr>
+                                <td align="center">
+                                    <label ID="lblClose" class="labelClass" style="color:White;padding-top:18px">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnClose" class="_functionButtons" OnClientClick="return Confirmation()" TabIndex="30" />
+                                </td>
+                            </tr>
+                        </table>
+
+
+                    </td>
+                </tr>
+
+
+
+            </table>
+        </td>
+    </tr>
+    <tr>
+
+        <td align="left">
+
+            <table cellpadding="0" cellspacing="0" border="0" frame="border" style="width: 1380px; border-collapse: collapse" id= "tblProcessPlanHandover">
+                <tr>
+                    <td align="center" valign="middle" style="background-color: #4E6CAB;">
+                        <label ID="lblprocessplanGridHeader"
+                               class="labelClass1" Width="100%" Height="15px" BackColor="#4E6CAB"
+                               Style="margin-top: 3px; margin-bottom: 0px;color:white">@LocalizationServices.GetLocalizedHtmlString("lbl_PrcoessPlan")</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+
+                        <div id="pnlProcessDefect" style="height:820px;width:1378px;overflow:auto;">
+                            <div>
+
+                                <table class="GridLines GridLayout" cellpadding="0" cellspacing="0" border="1" id="grdvProcessPlanHandoverList" style="border-collapse:collapse;text-align: left">
+
+                                    <thead>
+                                        <tr class="GridHeader GridViewScrollHeader freez GridHeaderPadding" id="grdvProcessPlanHandoverDetails" style="border-collapse:collapse;text-align: left">
+
+                                            @*<th></th>
+                                            <th></th>*@
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;width: 129px;">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</th>
+
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</th>
+
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_DimW")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_DimOther")</th>
+
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_Condition_L1")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocNoOfUnits")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocQty1")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocDate1")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductSpecNo")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;width:141px;">@LocalizationServices.GetLocalizedHtmlString("lbl_DdlNextProcess")</th>
+
+
+
+
+                                        </tr>
+                                    </thead>
+                                    @*<tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                    <tr>
+                                    <td>
+                                    <input id="btnLnkEdit" type="button" value='@LocalizationServices.GetLocalizedHtmlString("lbl_EditDelete")' class="_functionButtons" onclick="getStraighteningDetailsByStraighteningCD($(this))" />
+                                    </td>
+                                    <td class="labelClass">@item.PP_PROCESS_PLAN_CD</td>
+                                    <td class="labelClass">@item.STR_STRAIGHTENING_CD</td>
+                                    <td class="labelClass">@item.PP_CHUUBAN_GYOUBAN</td>
+                                    <td class="labelClass">@item.PP_PROD_SPEC_NO</td>
+                                    <td class="labelClass">@item.STR_TABA_NUMBERS</td>
+                                    <td class="labelClass">@item.STR_END_DATE_STRING</td>
+                                    <td class="labelClass">@item.STR_START_OPERATOR_NAME</td>
+                                    <td class="labelClass">@item.PP_CUSTOMER_NAME</td>
+                                    <td class="labelClass">@item.PP_PROD_NAME_CUST</td>
+                                    <td class="labelClass">@item.PP_PROD_DIM_D_String</td>
+                                    <td class="labelClass">@item.PP_PROD_SHAPE</td>
+                                    <td class="labelClass">@item.PP_PROD_LENGTH","{0:0.##}</td>
+                                    <td class="labelClass">@item.PP_MATL_NAME_MAK</td>
+                                    <td class="labelClass">@item.PP_MATL_DIM_D_String</td>
+                                    <td class="labelClass">@item.PP_CHARGE</td>
+                                    <td class="labelClass">@item.STR_METALLIC_PLATE_CODE</td>
+                                    <td class="labelClass">@item.STR_UNIT_TYPE</td>
+                                    <td class="labelClass">@item.STR_QTY</td>
+                                    <td class="labelClass">@item.STR_RESERVATION_NO</td>
+                                    <td class="labelClass">@item.STR_BEND_STATUS</td>
+                                    <td class="labelClass">@item.STR_EXT_TEXTURE</td>
+                                    </tr>
+                                    }
+                                    </tbody>*@
+
+                                    <tbody>
+
+
+
+                                        @for (Int32 i = 1; i <= 50; i++)
+                                        {
+
+                                            <tr class="GridNormalRow">
+
+                                                <td class="labelClass" align="left" style="padding-left:0px;">
+                                                    <input type="text" ID="@("txtchuuban"+i)" data-id="@i" data-orderno="yes" tabindex="1" oninput="myFunction(event,@i)" style="width: 129px" class=" TextBoxClass Mandatory okToReset InActiveIMEMode TextFieldsClass form-control" errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_OrNoIsRequired")" autofocus />
+                                                </td>
+                                                <td id="@("txtCustomer2"+i)" data-id="@i" class="labelClass disabled"><label type="text" ID="@("txtCustomer"+i)" data-id="@i"></label></td>
+                                                <td id="@("txtProdName"+i)" data-id="@i" class="labelClass disabled"><label type="text" ID="@("txtProdName"+i)" data-id="@i"></label></td>
+                                                <td id="@("txtShape"+i)" data-id="@i" class="labelClass disabled"><label type="text" ID="@("txtShape"+i)" data-id="@i"></label></td>
+                                                <td id="@("txtDia"+i)" data-id="@i" class="labelClass disabled"><label type="text" ID="@("txtDia"+i)" data-id="@i"></label></td>
+                                                <td id="@("txtDiaW"+i)" data-id="@i" class="labelClass disabled"><label type="text" ID="@("txtDiaW"+i)" data-id="@i"></label></td>
+                                                <td id="@("txtOther"+i)" data-id="@i" class="labelClass disabled"><label type="text" ID="@("txtOther"+i)" data-id="@i"></label></td>
+                                                <td id="@("txtLen"+i)" data-id="@i" class="labelClass disabled"><label type="text" ID="@("txtLen"+i)" data-id="@i"></label></td>
+                                                <td id="@("txtCondition"+i)" data-id="@i" class="labelClass disabled"><label type="text" ID="@("txtCondition"+i)" data-id="@i"></label></td>
+                                                <td id="@("txtCharge"+i)" data-id="@i" class="labelClass disabled"><label type="text" ID="@("txtCharge"+i)" data-id="@i"></label></td>
+                                                <td id="@("txtActAllPiec"+i)" data-id="@i" class="labelClass disabled"><label type="text" ID="@("txtActAllPiec"+i)" data-id="@i"></label></td>
+                                                <td id="@("txtActAllWt"+i)" data-id="@i" class="labelClass disabled"><label type="text" ID="@("txtActAllWt"+i)" data-id="@i"></label></td>
+                                                <td id="@("txtActAllDt"+i)" data-id="@i" class="labelClass disabled"><label type="text" ID="@("txtActAllDt"+i)" data-id="@i"></label></td>
+                                                <td id="@("txtProdSpecNo"+i)" data-id="@i" class="labelClass disabled"><label type="text" ID="@("txtProdSpecNo"+i)" data-id="@i"></label></td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("txtProcessPlanCd"+i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("txtLocationCd"+i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("txtActAllPiecesUnit"+i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("txtActAllPieces"+i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("txtActAllWt"+i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("ddlNextProcessCD"+i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td class="labelClass" align="left" style="padding-left:0px;width:141px;">
+                                                    <select id="@("ddlNextProcess"+i)" data-id="@i" name="ddlNextProcess" class="TextBoxClass DropdownListClass TextFieldsClass Mandatory form-control"
+                                                            tabindex="57">
+                                                    </select>
+                                                   <label ID="lblOrNoIsRequired" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_OrNoIsRequired")</label>
+                                                    <label ID="lblFollowingOrNoNotFound" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_FollowingOrNoNotFound")</label>
+                                                    <label ID="lblFollowingOrNoAlredyCompleted" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_FollowingOrNoAlredyCompleted")</label>
+                                                    <label ID="lblProcessStarted" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("successMsg_ProcessStarted")</label>
+                                                    <label ID="lblProcessCancelled" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("successMsg_ProcessCancelled")</label>
+                                                    <label ID="lblFollowingOrNoProcessStarted" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_FollowingOrNoProcessStarted")</label>
+                                                    <label ID="lblInRowProcessIsRequired" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_InRowProcessIsRequired")</label>
+                                                    <label ID="lblFollowingOrNoAlredyCompleted" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_FollowingOrNoAlredyCompleted")</label>
+                                                    <label ID="lblFollowingOrNoProcessAlreadyStarted" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_FollowingOrNoProcessAlreadyStarted")</label>
+                                                    <label ID="lblFollowingOrNoProcessNotStarted" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_FollowingOrNoProcessNotStarted")</label>
+                                                    <label ID="lblSystemException" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</label>
+
+                                                </td>
+
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+
+</table>
+@section Scripts{
+    <script src="/Static/js/ProcessPlanHandover.js"></script>
+}

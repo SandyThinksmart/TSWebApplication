@@ -1,0 +1,53 @@
+﻿.padddingLeftRight {
+    padding-left: 3px;
+    padding-right: 3px;
+}
+.paddingLeft1 {
+    padding-left: 10px;
+}
+.paddingtRight1 {
+    padding-right: 10px;
+}
+.HeaderLableWhite {
+    color: white;
+    /*border-bottom: 1px solid white;*/
+    border-bottom: revert;
+}
+.tableHeightWidth {
+    width: 1895px;
+    height: 705px;
+    overflow: auto;
+    margin-top: 5px;
+}
+.tblMargineLeft {
+    margin-left: -2px;
+}
+.column {
+    float: left;
+    width: 90%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.dropdownClass {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    /* border-radius: 0.25rem; */
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.txtBoxBackgroundColor {
+    background-color: white;
+}
+.txtDate{
+    width:118px;
+}

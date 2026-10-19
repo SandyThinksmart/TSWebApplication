@@ -1,0 +1,84 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<ChamferDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+}
+
+<div>
+
+    <table class="GridLines GridLayout" cellpadding="0" cellspacing="0" border="1">
+        <thead>
+            <tr class="GridHeader GridViewScrollHeader freez GridHeaderPadding" style="border-collapse:collapse;text-align: left">
+                <th class="headerPadding labelClass thGrid sticky-header">@LocalizationServices.GetLocalizedHtmlString("")</th>
+                @*<th></th>
+                <th></th>*@
+                <th class="headerPadding labelClass thGrid ">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</th>
+                <th class="headerPadding labelClass thGrid">@LocalizationServices.GetLocalizedHtmlString("lbl_TabaNo")</th>
+                @*<th class="headerPadding labelClass thGrid">@LocalizationServices.GetLocalizedHtmlString("lbl_Machine_L")</th>*@
+                <th class="headerPadding labelClass thGrid">@LocalizationServices.GetLocalizedHtmlString("lbl_OperationDay")</th>
+                <th class="headerPadding labelClass thGrid" >@LocalizationServices.GetLocalizedHtmlString("lbl_Operator")</th>
+                <th class="headerPadding labelClass thGrid">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</th>
+                @*<th></th>*@
+                <th class="headerPadding labelClass thGrid">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</th>
+                <th class="headerPadding labelClass thGrid">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductDim")</th>
+                <th class="headerPadding labelClass thGrid" >@LocalizationServices.GetLocalizedHtmlString("lbl_ProdShape")</th>
+                <th class="headerPadding labelClass thGrid" >@LocalizationServices.GetLocalizedHtmlString("lbl_ProductLength")</th>
+                <th class="headerPadding labelClass thGrid" >@LocalizationServices.GetLocalizedHtmlString("lblMaterialNameMaker")</th>
+                <th class="headerPadding labelClass thGrid" >@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialDimD")</th>
+                @*<th class="headerPadding labelClass thGrid" >@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</th>*@
+                <th class="headerPadding labelClass thGrid">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</th>
+                <th class="headerPadding labelClass thGrid">@LocalizationServices.GetLocalizedHtmlString("lbl_MetallicLabel")</th>
+                <th class="headerPadding labelClass thGrid">@LocalizationServices.GetLocalizedHtmlString("lbl_NoOfUnits")</th>
+                <th class="headerPadding labelClass thGrid">@LocalizationServices.GetLocalizedHtmlString("lbl_WeightWithoutKG")</th>
+                @*<th class="headerPadding labelClass thGrid">@LocalizationServices.GetLocalizedHtmlString("lbl_Operator")</th>*@
+                <th class="headerPadding labelClass thGrid">@LocalizationServices.GetLocalizedHtmlString("lbl_Decision")</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var item in Model)
+                {
+                    <tr data-lblCHAMFERINGCD="@item.CHAMFERING_CD">
+                        <td class="sticky-col1">
+                            <input id="btnLnkEdit" type="button" value='@LocalizationServices.GetLocalizedHtmlString("lbl_EditDelete")' class="_functionButtons"
+                           onclick="getChamferingDetailsByChamferingCD($(this))" />
+
+                        </td>
+                        @*<td class="labelClass">@item.PP_PROCESS_PLAN_CD</td>*@
+                        @*<td class="labelClass">@item.CHAMFERING_CD</td>*@
+                        <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap">@item.PP_CHUUBAN_GYOUBAN</td>
+                        <td class="labelClass NumericFieldsClass padddingRight" style="text-align:right;  white-space:nowrap">@item.TABA_NUMBERS</td>
+                        <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap">@item.CH_START_DATE_STRING</td>
+                        <td class="labelClass CharactFieldsClass padddingLeft" style="text-align:left;   white-space:nowrap">@item.CH_START_OPERATOR_NAME</td>
+                        <td class="labelClass CharactFieldsClass padddingLeft" style="text-align:left;   white-space:nowrap">@item.PP_CUSTOMER_NAME</td>
+                        <td class="labelClass CharactFieldsClass padddingLeft" style="text-align:left;   white-space:nowrap">@item.PP_PROD_NAME_CUST</td>
+                        <td class="labelClass padddingLeft padddingRight" style="text-align:right;   white-space:nowrap">@item.PP_PROD_DIM_D_STRING</td>
+                        <td class="labelClass" style="text-align:left; white-space:nowrap">@item.PP_PROD_SHAPE</td>
+                        <td class="labelClass NumericFieldsClass padddingRight" style="text-align:right;   white-space:nowrap">@string.Format("{0:0.##}",item.PP_PROD_LENGTH)</td>
+                        <td class="labelClass CharactFieldsClass padddingLeft" style="text-align:left;   white-space:nowrap">@item.PP_MATL_NAME_MAK</td>
+                        <td class="labelClass padddingLeft padddingRight" style="text-align:right;   white-space:nowrap">@item.PP_MATL_DIM_D_STRING</td>
+                        @*<td class="labelClass">@item.PP_MATL_SHAPE</td>*@
+                        <td class="labelClass padddingLeft padddingRight" style="text-align:Left; white-space:nowrap; ">@item.PP_CHARGE</td>
+                        <td class="labelClass CharactFieldsClass padddingLeft" style="text-align:left;">@item.CH_METALLIC_PLATE_CODE</td>
+                       @*  <td class="labelClass CharactFieldsClass padddingLeft" style="text-align:left; white-space:nowrap">      @(string.IsNullOrWhiteSpace(@item.CH_METALLIC_PLATE_CODE) || @item.CH_METALLIC_PLATE_CODE == "---" ? "" : @item.CH_METALLIC_PLATE_CODE)</td> *@
+                        <td class="labelClass NumericFieldsClass padddingRight" style="text-align:right; white-space:nowrap">@item.CH_FINISHED_BARS</td>
+                        <td class="labelClass NumericFieldsClass padddingRight" style="text-align:right; white-space:nowrap">@item.CH_FINISHED_QTY</td>
+                        <td class="labelClass CharactFieldsClass padddingLeft" style="text-align:center; white-space:nowrap">@item.CH_DECISION_STRING</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr style="height:20px;">
+                    <td colspan="17" style="text-align:left">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_DataNotFound")</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+
+</div>

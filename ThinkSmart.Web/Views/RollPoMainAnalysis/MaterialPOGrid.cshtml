@@ -1,0 +1,410 @@
+﻿@using TSWebApplication.Domain.Utility
+@using TSWebApplication.Domain.Resources
+@using TSWebApplication.Domain.Model
+@model List<RollSalesForecastDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+
+}
+<style>
+    .freezMatlGrid > th {
+        position: sticky !important;
+        background-color: #4e6cab;
+        top: 0.0px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezMatlGrid {
+        border-color: white;
+    }
+
+    .freezMatlGrid1 > th {
+        position: sticky !important;
+        top: 0.0px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezMatlGrid1 {
+        border-color: white;
+    }
+  
+
+</style>
+
+<table bgcolor="#7291D2" border="0" cellpadding="0" cellspacing="0" id="tblMaterialPoGrid" class="GridLines">
+
+
+    <tr class="freezMatlGrid">
+        <th align="center" valign="middle" class="tdH1" colspan="22" style="padding:2px;background-color:#304a7f">
+            <label id="" class="labelClass" style="color:white">@LocalizationServices.GetLocalizedHtmlString("lbl_MonthlyRollOrders")</label>
+
+        </th>
+
+    </tr>
+    <tr class="freezMatlGrid1">
+        <th class="tdHeaderClass1 labelClass GridCenter"></th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("DispatchMasterKubun_60")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlNameMaker")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" colspan="2">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DimDShape")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Width")</label>
+
+        </th>
+
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Auxiliary")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Condition")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialKubun_L")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_G/S")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MukesakiShort")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Rate")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_POQuantity")</label>
+        </th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" colspan="3">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ROLLChance")</label>
+        </th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Shousha")</label>
+        </th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Mochikomisaki")</label>
+        </th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_StockInWarehouse")</label>
+        </th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_TransCompany")</label>
+        </th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Remark")</label>
+        </th>
+
+    </tr>
+    @if (Model != null && Model.Count > 0)
+
+    {
+        int i = 0;
+        foreach (var item in Model)
+        {
+
+            i = i + 1;
+            <tr class="GridNormalRow MaterialGridRow">
+                <td class="labelClass padddingLeft padddingRight">
+                    <input id="radioBtn" type="radio" name="matlRadio" />
+
+                </td>
+                <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass" style="white-space:nowrap">
+                    @*                    <input type="text" id="@("txtMakerName"+i)" Class="labelClass  GridLeft materialGridCss" data-title="" disabled="disabled" data-rowid="" Style="border-style: none;background-color:#e2e2e2" value="@item.MAKER_NAME" />*@
+                    <label id="@("lblMakerName" + i)" class="labelClass GridLeft materialGridCss materialNameLabel"
+                           data-title="" data-rowid="" style="background-color:#e2e2e2">
+                        @item.MAKER_NAME
+                    </label>
+                </td>
+
+                <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass GridMandatoryTextBox" style=" white-space:nowrap">
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="text" id="@("txtMatlMakerName"+i)" Class="labelClass MandatoryTextBoxForGrid GridLeft" value="@item.MATL_MAKER_NAME" style="width: 103px;border-style: none;">
+                            </td>
+                            <td>
+                                <button type="button" class="btnArrow" onclick="OnMaterialListBtnClick($(this))" style="height:16px;float: right;width:25px"></button>
+                            </td>
+                        </tr>
+                    </table>
+
+
+
+                </td>
+                <td class="labelClass padddingRight tdNoWrap NumericFieldsClass " style=" white-space:nowrap;">
+                    <label class="labelClass padddingRight tdNoWrap NumericFieldsClass materialGridCss materialDimDLabel matlDimD" id="@("lblMatlDimD"+i)">@item.MATL_DIM_D</label>
+                    
+                </td>
+                <td class="labelClass  padddingRight materialGridCss" style="text-align:center; white-space:nowrap">
+                    <label class="materialGridCss materialShapeLabel" id="@("lblMatlShape"+i)">@item.MATL_SHAPE</label>
+                </td>
+                <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">
+
+                    <label id="@("lblMatlDimW"+i)" class=" labelClass padddingRight tdNoWrap NumericFieldsClass materialGridCss materialDimWLabel">@item.MATL_DIM_W</label>
+                </td>
+                <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">
+                    <label id="@("lblMatlDimOther"+i)" class="labelClass padddingLeft tdNoWrap CharactFieldsClass materialGridCss materialOtherLabel">@item.MATL_DIM_OTHER</label>
+
+                </td>
+                <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">
+
+                    <label id="@("lblMatlLength"+i)" class="labelClass padddingRight tdNoWrap NumericFieldsClass materialGridCss materiallengthLabel">@item.MATERIAL_LENGTH</label>
+                </td>
+                <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">
+                    <label id="@("lblCondDesc"+i)" class="labelClass padddingLeft tdNoWrap CharactFieldsClass materialGridCss materialCondiLabel">@item.CONDITION_DESCRIPTION</label>
+
+                </td>
+                <td class="labelClass padddingRight materialGridCss" style="text-align:center; white-space:nowrap">
+                    <label id="@("lblMatlTypeNameCBK"+i)" class="materialGridCss materialtypeLabel">@item.MATERIAL_TYPE_NAME_CBK</label>
+
+                </td>
+                <td class="labelClass padddingRight materialGridCss" style="text-align:center; white-space:nowrap">
+                    <label id="@("lblMatlSplKubun"+i)" class="materialGridCss materialKubunLabel">@item.MATL_SPECIAL_KUBUN</label>
+
+                </td>
+                @* <td class="GridMandatoryTextBox">
+                    <select id="@("ddlMukesaki"+i)" style="width:154px;" Class="labelClass  GridMandatoryDropdown">
+                    </select>
+
+                </td> *@
+                <td width="200px" class="GridMandatoryTextBox">
+
+                    <div id="divMukesaki">
+                        @{
+                            var startData = Tuple.Create("txtYobinaMukesakiSearch"+i, "btnYobinaMukesakiSearch"+i, "ddlMukesaki"+i, "valMsg_MukesakiRequired"+i, 4);
+                            @Html.Partial("~/Views/SearchComboMukesaki/SearchComboMukesaki.cshtml", startData)
+
+                        }
+                    </div>
+
+                   @*  <input type="hidden" id="hiStartOperator" name="hiStartOperator" /> *@
+                </td>
+                 
+                <td class="GridTextBoxtd">
+                    <input type="text" id="@("txtRate"+i)" value="@item.RATE"  MaxLength="7" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                    Class="labelClass GridTextBox InActiveIMEMode  padddingRight tdNoWrap NumericFieldsClass " style="width:60px;Height:18px;text-align:left" />
+
+                </td>
+                <td class="GridMandatoryTextBox">
+                    <input type="text" id="@("txtQty"+i)" Class="labelClass MandatoryTextBoxForGrid  padddingRight tdNoWrap NumericFieldsClass materialqty" data-title=""
+                           data-rowid="" Style="Width:65px" maxlength="8" value="@item.QTY" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+
+                </td>
+                <td class="GridMandatoryTextBox">
+                    <input type="text" id="@("txtRollYear"+i)" Class="labelClass MandatoryTextBoxForGrid  padddingRight tdNoWrap NumericFieldsClass" data-title=""
+                           data-rowid="" Style="Width:50px" value="@item.ROLL_YEAR" maxlength="4" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+
+                </td>
+                <td class="GridMandatoryTextBox">
+                    <input type="text" id="@("txtRollR"+i)" Class="labelClass MandatoryTextBoxForGrid  padddingRight tdNoWrap NumericFieldsClass" data-title=""
+                           data-rowid="" Style="Width:30px" value="@item.ROLL_R" maxlength="2" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+
+                </td>
+                <td class="GridMandatoryTextBox">
+                    <input type="text" id="@("txtRollChance"+i)" Class="labelClass MandatoryTextBoxForGrid  padddingRight tdNoWrap NumericFieldsClass" data-title=""
+                           data-rowid="" Style="Width:30px" value="@item.ROLL_CHANCE" maxlength="1" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+
+                </td>
+
+
+               @*  <td class="GridMandatoryTextBox">
+                    <select id="@("ddlSupplier"+i)" style="width:154px;" Class="labelClass  GridMandatoryDropdown">
+                    </select>
+
+                </td> *@
+                 <td width="200px" class="GridMandatoryTextBox">
+
+                    <div id="divSupplier">
+                        @{
+                            var startData1 = Tuple.Create("txtYobinaSupplierSearch"+i, "btnYobinaSupplierSearch"+i, "ddlSupplier"+i, "valMsg_SupplierRequired"+i, 4);
+                            @Html.Partial("~/Views/SearchComboSupplier/SearchComboSupplier.cshtml", startData1)
+
+                        }
+                    </div>
+
+                   @*  <input type="hidden" id="hiStartOperator" name="hiStartOperator" /> *@
+                </td>
+                @* <td class="GridMandatoryTextBox">
+                    <select id="@("ddlDestination"+i)" style="width:152px;" Class="labelClass  GridMandatoryDropdown">
+                    </select>
+
+                </td> *@
+                 <td width="200px" class="GridMandatoryTextBox">
+
+                    <div id="divMochikomisaki">
+                        @{
+                            var startData2 = Tuple.Create("txtYobinaMochikomisakiSearch"+i, "btnYobinaMochikomisakiSearch"+i, "ddlDestination"+i, "valMsg_DestinationRequired"+i, 4);
+                            @Html.Partial("~/Views/SearchComboMochikomisaki/SearchComboMochikomisaki.cshtml", startData2)
+
+                        }
+                    </div>
+
+                   @*  <input type="hidden" id="hiStartOperator" name="hiStartOperator" /> *@
+                </td>
+                <td class="GridMandatoryTextBox">
+                    <select id="@("ddlFutou"+i)" style="width:200px;" Class="labelClass  GridMandatoryDropdown">
+                    </select>
+
+                </td>
+                <td class="GridMandatoryTextBox">
+                    <select id="@("ddlHikitorisaki"+i)" style="width:200px;" Class="labelClass  GridMandatoryDropdown ">
+                    </select>
+
+                </td>
+
+                <td class="GridTextBoxtd">
+                    <input type="text" id="@("txtRemarks"+i)" Class="labelClass GridTextBox InActiveIMEMode GridRight padddingLeft tdNoWrap CharactFieldsClass" style="width:300px;Height:18px;text-align:left" MaxLength="100" value="@item.REMARKS" />
+
+                </td>
+              <td id="@("hdfMaterialcd"+i)" hidden><label>@item.MATERIAL_CD</label></td> 
+                   @*  <td id="@("hdfMatlNameMakerCd"+i)" hidden><label>@item.MATL_NAME_MAKER_CD</label></td> 
+                  <td id="@("hdfMatlKubun"+i)" hidden><label>@item.MATL_KUBUN</label></td> *@
+
+                 <td class="GridTextBoxtd" hidden>
+                    <input type="text" id="@("hdfMatlNameMakerCd"+i)" value="@item.MATL_NAME_MAKER_CD"  />
+
+                </td>
+               
+                 <td class="GridTextBoxtd" hidden>
+                    <input type="text" id="@("hdfMatlKubun"+i)" value="@item.MATL_KUBUN"  />
+
+                </td>
+               
+
+            </tr>
+
+        }
+    }
+    else
+    {
+        <tr class="GridNormalRow MaterialGridRow">
+            <td class="labelClass padddingLeft padddingRight">
+                <input type="radio" name="matlRadio" />
+            </td>
+            <td class="labelClass padddingLeft padddingRight" style="white-space:nowrap"></td>
+
+
+            <td class="labelClass padddingLeft padddingRight GridMandatoryTextBox" style=" white-space:nowrap">
+                <table>
+                    <tr>
+                        <td>
+                            <input type="text" Class="labelClass MandatoryTextBoxForGrid GridLeft" style="width: 103px;border-style: none;">
+                        </td>
+                        <td>
+                            <button type="button" class="btnArrow" onclick="OnMaterialListBtnClick($(this))" style="height:16px;float: right;width:25px"></button>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap;"></td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap;"></td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap;"></td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="GridMandatoryTextBox">
+                <select ID="ddlMukesaki" style="width:200px;"  Class="labelClass  GridMandatoryDropdown ">
+                </select>
+
+            </td>
+             <td class="GridTextBoxtd">
+                <input ID="" type="text" Class="labelClass GridTextBox InActiveIMEMode GridRight" style="width:60px;Height:18px" MaxLength="6" disabled />
+            </td>
+            <td class="GridMandatoryTextBox">
+                <input type="text" Class="labelClass MandatoryTextBoxForGrid GridLeft padddingRight tdNoWrap NumericFieldsClass" data-title=""
+                       data-rowid="" Style="Width:65px" maxlength="8" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" disabled />
+
+            </td>
+            <td class="GridMandatoryTextBox">
+                <input type="text" Class="labelClass MandatoryTextBoxForGrid GridLeft padddingRight tdNoWrap NumericFieldsClass" data-title=""
+                       data-rowid="" Style="Width:50px" maxlength="4" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" disabled />
+
+            </td>
+            <td class="GridMandatoryTextBox">
+                <input type="text" Class="labelClass MandatoryTextBoxForGrid GridLeft padddingRight tdNoWrap NumericFieldsClass" data-title=""
+                       data-rowid="" Style="Width:30px" maxlength="2" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" disabled />
+
+            </td>
+            <td class="GridMandatoryTextBox">
+                <input type="text" Class="labelClass MandatoryTextBoxForGrid GridLeft padddingRight tdNoWrap NumericFieldsClass" data-title=""
+                       data-rowid="" Style="Width:30px" maxlength="1" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" disabled />
+
+            </td>
+
+            <td class="GridMandatoryTextBox">
+                <select ID="ddlSupplier" style="width:200px;" data-id="" Class="labelClass  GridMandatoryDropdown ">
+                </select>
+
+            </td>
+            <td class="GridMandatoryTextBox">
+                <select ID="ddlDestination" data-id="" style="width:200px;"  Class="labelClass  GridMandatoryDropdown ">
+                </select>
+
+            </td>
+            <td class="GridMandatoryTextBox">
+                <select ID="ddlFutou" data-id="" style="width:200px;"  Class="labelClass  GridMandatoryDropdown ">
+                </select>
+
+            </td>
+            <td class="GridMandatoryTextBox">
+                <select ID="ddlHikitorisaki" data-id="" style="width:200px;"  Class="labelClass  GridMandatoryDropdown ">
+                </select>
+
+            </td>
+            <td class="GridTextBoxtd">
+                <input ID="" type="text" Class="labelClass GridTextBox InActiveIMEMode GridRight" style="width:320px;Height:18px" MaxLength="100" disabled />
+            </td>
+
+        </tr>
+    }
+
+</table>
+
+<label ID="valMsgRawMatlRequired" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_RawMatlRequired")</label>
+<label ID="valMsgMukesakiRequired" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_MukesakiRequired")</label>
+<label ID="valMsgPoWtRequired" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_PoWtRequired")</label>
+@*<label ID="valMsgPoWtRequired" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_PoWtRequired")</label>
+<label ID="valMsgPoWtRequired" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_PoWtRequired")</label>*@
+
+<label ID="valMsgRollChanceRequired" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_RollChanceRequired")</label>
+<label ID="valMsgSupplierRequired" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_SupplierRequired")</label>
+<label ID="valMsgDestinationRequired" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_DestinationRequired")</label>
+<label ID="valMsgWHStockRequired" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_WHStockRequired")</label>
+<label ID="valMsgTransCompRequired" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_TransCompRequired")</label>
+<label ID="successMsgMonthlyRollOrder" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("successMsg_MonthlyRollOrder")</label>
+
+
+
+
+@section Scripts {
+    <script src="~/static/js/AnalysePOQuantity.js"></script>
+
+    <link href="~/css/Common.css" rel="stylesheet" />
+    <link href="~/css/AnalysePOQuantity.css" rel="stylesheet" />
+    <link href="~/css/Common_Styles.css" rel="stylesheet" />
+    <link href="~/css/masterStyles.css" rel="stylesheet" />
+    @* <script src="~/static/js/MaterialPOGrid.js"></script>*@
+
+
+}  

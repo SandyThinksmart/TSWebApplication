@@ -1,0 +1,151 @@
+﻿body {
+    background-color: #6495ed;
+}
+
+#tblMain {
+    width: 100%;
+}
+
+.tdTitle {
+    text-align: left;
+    vertical-align: top;
+}
+
+.divTitle {
+    margin-top: 20px;
+    text-align: left;
+    vertical-align: middle;
+    background-color: blue;
+    height: 22px;
+    padding-top: 5px;
+    padding-left: 3px;
+}
+
+.whiteColor {
+    color: white;
+}
+
+.processData {
+    height: 200px;
+    padding-left: 10px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.tblPanel1 {
+    height: 215px;
+}
+.tblPanel3 {
+    height: 145px;
+    width:228px;
+}
+.dataLabelClass {
+    color: #000;
+    font-family: MS Gothic;
+    font-size: 23px;
+    font-weight: bold;
+    text-align: left;
+    height: 25px;
+    margin-left: 4px;
+    vertical-align: top;
+}
+
+.CustomerLabelClass {
+    width: 130px;
+    color: #000;
+    font-family: MS Gothic;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: left;
+    height: 16px;
+    margin-left: 4px;
+    white-space: nowrap;
+}
+
+.tblButtons {
+    width: 215px;
+    margin-left: 24px;
+}
+
+._functionButtons {
+    background-color: ButtonFace;
+    Height: 25px;
+    border: 1px inset Silver;
+    font-size: 12px;
+    font-family: MS Gothic;
+    width: 80px;
+}
+
+.emptyRow {
+    height: 40px;
+}
+
+#div2, #div3, #div4 {
+    display: none;
+    height: 215px;
+}
+
+.txtThaba {
+    width: 38px;
+    height: 26px;
+    text-align: right;
+}
+
+#txtNoOfUnit1_div2, #txtNoOfUnit2_div2, #txtNoOfUnit3_div2, #txtNoOfUnit4_div2 {
+    width: 56px;
+    height: 26px;
+    text-align: right;
+}
+
+#txtNoOfUnit1_div3 {
+    width: 70px;
+    height: 26px;
+    text-align: right;
+}
+#txtQuantity1_div2, #txtQuantity2_div2, #txtQuantity3_div2, #txtQuantity4_div2 {
+    width: 75px;
+    height: 26px;
+    text-align: right;
+}
+#txtQuantity1_div3 {
+    width: 100px;
+    height: 26px;
+    text-align: right;
+}
+
+#ddlUnitType1_div2, #ddlUnitType2_div2, #ddlUnitType3_div2, #ddlUnitType4_div2 {
+    width: 50px;
+    height: 26px;
+}
+#ddlUnitType1_div3 {
+    width: 55px;
+    height: 26px;
+}
+#ddlNextProcess {
+    width: 158px;
+    height: 26px;
+}
+
+.ReadOnlyTextBoxHT {
+    font-family: MS Gothic;
+    border: 1px solid;
+    background-color: #d3d3d3;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.LabelBarCount {
+    margin-right: 10px;
+}
+
+#btnCloseWindow {
+    margin-right: 24px;
+}
+
+.opacity-ddl {
+    opacity: inherit;
+}
+.div4-padding-top
+{
+    padding-top:5px;
+}

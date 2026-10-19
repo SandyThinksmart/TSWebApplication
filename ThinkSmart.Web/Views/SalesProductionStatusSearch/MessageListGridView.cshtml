@@ -1,0 +1,89 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<ProcessPlanForSalesProductionStatusDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+}
+
+<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/salesproductionstatussearch.css" rel="stylesheet" asp-append-version="true" />
+
+
+
+<div id="DivGridMsgList" class="tab-pane" >
+    <table class="GridLines">
+        <thead>
+            <tr class="GridHeader GridLinesHeaderThinBlack thHeaderClass freez">
+                <th class="tdCenter">
+                  
+                </th>
+                <th class="tdCenter">
+                    <label ID="lblMessageDate" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_MessageDateT3")</label>
+                </th>
+                <th class="tdCenter">
+                    <label ID="lblOperator" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_Oprator")</label>
+                </th>
+                <th class="tdCenter">
+                    <label ID="lblProcessName" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNameT3")</label>
+                </th>
+                <th class="tdCenter">
+                    <label ID="lblMachineName" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_MachineName_L")</label>
+                </th>
+                 <th class="tdCenter">
+                    <label ID="lblMessageContent" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_MessageContent")</label>
+                </th>
+                <th class="tdCenter">
+                    <label ID="lblMessageDate" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_DefectCount")</label>
+                </th>
+                <th class="tdCenter">
+                    <label ID="lblOperator" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_DefectWeight")</label>
+                </th>
+                <th class="tdCenter">
+                    <label ID="lblProcessName" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_FinishedPieces")</label>
+                </th>
+                <th class="tdCenter">
+                    <label ID="lblMachineName" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_FinishedWeight")</label>
+                </th>
+                <th class="tdCenter">
+                    <label ID="lblMessageContent" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_Decision")</label>
+                </th>
+                <th class="tdCenter">
+                    <label ID="lblMessageContent" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_NextProc")</label>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                @foreach (var item in Model)
+                {
+                    <tr class="GridNormalRow" data-lblMSGCD="@item.MSG_CD">
+                        <td>
+                            <input id="btnlnkedit" type="button" value='@LocalizationServices.GetLocalizedHtmlString("lbl_EditDelete")' class="_functionButtons"
+                                   onclick="GetMessageDetailsByMSGCD($(this))" />
+                        </td>
+                        <td style="display:none;" class="OprCd">@item.OPERATOR_CD</td>
+                        <td class="labelClass GridCenter" style="width:108px;white-space:pre-wrap">@item.MESSAGE_DATE_TIME</td>
+                        <td class="labelClass GridLeft">@item.END_OPERATOR_NAME</td>
+                        <td class="labelClass GridLeft">@item.PP_PROCESS_NAME</td>
+                        <td class="labelClass GridLeft">@item.MACHINE_NAME</td>
+                        <td class="labelClass GridLeft">@item.MESSAGE</td>
+                        <td class="labelClass GridRight">@item.DEFECT_COUNT</td>
+                        <td class="labelClass GridRight">@item.TABA_NO</td>
+                        <td class="labelClass GridRight">@item.WIP_COUNT</td>
+                        <td class="labelClass GridRight">@item.WIP_WEIGHT</td>
+                        <td class="labelClass GridCenter">@item.RESULT_DECISION_STRING</td>
+                        <td class="labelClass GridLeft">@item.PP_PROCESS_NAME</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="12" class="GridLeft">@LocalizationServices.GetLocalizedHtmlString("lbl_NoRecordFound_L")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

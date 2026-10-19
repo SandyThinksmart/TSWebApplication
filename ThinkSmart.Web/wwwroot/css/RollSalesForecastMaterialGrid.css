@@ -1,0 +1,45 @@
+﻿body {
+}
+
+.gridTd {
+    border-width: thin;
+    border-style: solid;
+    border-color: #FF9900;
+    vertical-align: middle;
+}
+
+.tdInputBoxWidthRoll {
+    max-width: 51px;
+}
+
+.tdInputBoxBorderWidth {
+    border-style: none !important;
+    width: inherit;
+}
+
+#txtMagariBlend {
+    width: 121px
+}
+
+#txtCondition {
+    width: 90px
+}
+
+#txtMsgMatl {
+    width: 414px
+}
+#txtProductStock {
+    max-width: 90px;
+}
+#txtOrderRemainingStock {
+    max-width: 121px;
+}
+
+.GridBorder > tbody > tr > td /* Apply border to headers */ {
+    border: 1px solid #FF9900;
+    /*padding-left: 3px;*/
+    white-space: nowrap;
+}
+.GridRemark {
+    width: 210px;
+}

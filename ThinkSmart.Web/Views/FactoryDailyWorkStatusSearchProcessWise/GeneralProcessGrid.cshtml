@@ -1,0 +1,225 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<GeneralDailyProcessDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+
+}
+<style>
+    .freezGeneralProcessGrid > th {
+        position: sticky !important;
+        background-color: #4e6cab;
+        top: 0.0px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezGeneralProcessGrid {
+        border-color: white;
+    }
+
+    .freezGeneralProcessGrid1 > th {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 20px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezGeneralProcessGrid1 {
+        border-color: white;
+    }
+
+</style>
+<table class="GridLinesTable GridLayout GridColumnLeftPadding" cellpadding="0" cellspacing="0" border="1" id="tblGeneralProcess">
+    <thead>
+        <tr class="freezGeneralProcessGrid">
+
+            <th id="GeneralProcessHeader" colspan="37" style="color:white;" class="GridHeader GridViewScrollHeader labelClass1 tdH1 sticky-header">@LocalizationServices.GetLocalizedHtmlString("lbl_GeneralProcessDailyReport")</th>
+        </tr>
+        <tr class="GridHeader GridViewScrollHeader freezGeneralProcessGrid1 GridHeaderPadding gridHeaderBgColor">
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter sticky-header">
+
+            </th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessKubun_L")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Location")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_OperationDayStart")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_OperationDayEnd")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Operator")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap" style="width:80px;">@LocalizationServices.GetLocalizedHtmlString("lbl_Machine_L")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Gouban")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_TabaNo")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_DimOtherFactory")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_DimTolerance")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_LengthTolerance")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_DeliveryDate")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocWeight")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_FinishedPieces")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_FinishedWeight")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_NGReason1")</th>
+
+            <th id="" class="headerPadding labelClass  tdNoWrap" colspan="2">@LocalizationServices.GetLocalizedHtmlString("lbl_NGUnits1")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_NGWeight1")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_NGReason2")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap" colspan="2">@LocalizationServices.GetLocalizedHtmlString("lbl_NGUnits2")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_NGWeight2")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_NGReason3")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap" colspan="2">@LocalizationServices.GetLocalizedHtmlString("lbl_NGUnits3")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_NGWeight3")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_DailyReportSupplement")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Decision")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lblNextProcess")</th>
+           
+
+        </tr>
+
+
+
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count > 0)
+
+        {
+            foreach (var item in Model)
+            {
+                <tr class="GridNormalRow" data-lblProcessPlanCD="@item.PP_PROCESS_PLAN_CD">
+
+                    <td class="sticky-col1">
+                        <input type="button" id="" ID="lnkEdit" class="btnArrow" onclick="OnEditClick($(this))" style="height:22px" CausesValidation="false" />
+                    </td>
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.PROCESS_KUBUN_STRING</td>
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.GP_LOCATION_NAME</td>
+                    <td class="labelClass padddingLeftRight centerAlign">
+                        <label id="lblStartDate" style="width:95px"> @item.GP_START_DATE_STRING</label>
+                       
+                        </td>
+                    <td class="labelClass padddingLeftRight centerAlign">
+                        <label id="lblEndDate" style="width:95px">@item.GP_END_DATE_STRING</label>
+                        </td>
+                    <td class="labelClass padddingLeftRight tdNoWrap CharactFieldsClass">@item.GP_END_OPERATOR_NAME</td>
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.GP_MACHINE_NAME</td>
+                    <td class="labelClass tdNoWrap padddingLeftRight centerAlign">@item.PP_CHUUBAN</td>
+                    <td class="labelClass tdNoWrap padddingLeftRight centerAlign">@item.PP_GYOUBAN_STRING</td>
+                    <td class="labelClass tdNoWrap centerAlign">@item.ALL_TABA_NO</td>
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.PP_CUSTOMER_NAME</td>
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.PP_PROD_NAME_CUST</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.PP_PROD_DIM_D</td>
+                    <td class="labelClass centerAlign">@item.PP_PROD_SHAPE</td>
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.PP_PROD_DIM_OTHER</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.PP_PROD_LENGTH_STRING</td>
+                    <td class="labelClass centerAlign">@item.DIM_TOL_MIN_MAX_CHR</td>
+                    <td class="labelClass centerAlign">@item.LENGTH_TOL_MIN_MAX_CHR</td>
+                    <td class="labelClass padddingLeftRight centerAlign">@item.PP_DELIVERY_DATE_STRING</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.PP_ACT_ALLOC_QTY</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.GP_OK_UNITS_SINGLE @item.GP_UNIT_TYPE_STRING</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.GP_QTY_DOUBLE</td>
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.PROC_DEFECT_STRING1</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.GP_NG_UNITS1</td>
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.GP_NG_UNIT_TYPE1_STRING</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.GP_NG_QTY1</td>
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.PROC_DEFECT_STRING2</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.GP_NG_UNITS2</td>
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.GP_NG_UNIT_TYPE2_STRING</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.GP_NG_QTY2</td>
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.PROC_DEFECT_STRING3</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.GP_NG_UNITS3</td>
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.GP_NG_UNIT_TYPE3_STRING</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.GP_NG_QTY3</td>
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.DAILY_PROCESS_NOTE</td>
+                    <td class="labelClass tdNoWrap centerAlign">@item.GP_DECISION_STRING</td>
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.GP_NEXT_PROCESS_NAME</td>
+                    
+
+
+                </tr>
+            }
+        }
+        else
+        {
+            <tr class="GridNormalRow">
+                <td class="labelClass padddingLeft padddingRight " style=" white-space:nowrap">
+                    <input type="button" class="btnArrow" style="height:22px;float: right;" />
+                </td>
+
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+            </tr>
+        }
+
+    </tbody>
+    <tfoot>
+        <tr class="footerRow" style="position: sticky !important;">
+
+            <td colspan="19" align="right">
+                <label runat="server">@LocalizationServices.GetLocalizedHtmlString("lbl_TotalActAllocWeight")</label>
+            </td>
+
+            <td class="padddingRight tdNoWrap NumericFieldsClass">
+
+                @(Model?
+                                .GroupBy(x => new { x.PP_CHUUBAN, x.PP_GYOUBAN_STRING })
+                                .Select(g => g.FirstOrDefault())
+                                .Sum(x => x?.PP_ACT_ALLOC_QTY ?? 0) ?? 0)
+                
+               
+
+
+            </td>
+            <td align="right" class="tdNoWrap">
+                <label runat="server">@LocalizationServices.GetLocalizedHtmlString("lbl_TotalWeight")</label>
+            </td>
+            <td class="padddingRight tdNoWrap NumericFieldsClass">
+                @* <label ID="lblTotal"> @(Model?.Where(x => x.GP_DECISION == 10).Sum(x => x.GP_QTY_DOUBLE ?? 0) ?? 0)</label> *@
+
+                <label ID="lblTotal">
+                    @(Model?.Where(x => x.GP_DECISION == 10 ||
+                                        x.GP_DECISION == 30 ||
+                                        x.GP_DECISION == 40)
+                                        .Sum(x => x.GP_QTY_DOUBLE ?? 0) ?? 0)</label>
+
+            </td>
+            <td colspan="16"></td>
+        </tr>
+    </tfoot>
+</table>

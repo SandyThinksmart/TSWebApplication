@@ -1,0 +1,209 @@
+﻿
+#mainDiv {    
+    margin-top: -1px;   
+    padding-top: 4px;
+    margin-bottom:3px;
+}
+
+
+#pnlSalesForecastGrid {
+    width: 1817px;
+    border: 2px solid gray;
+    margin-top: -1px;
+    height: 250px;
+    padding-top: 1px;
+    overflow: auto;
+}
+
+#tblSearch1 {
+    margin-top: -5px;
+}
+
+    #tblSearch1 th {
+        border-top: 2px Inset white;
+        border-bottom: 2px Inset Lightgray;
+        padding: 3px;
+    }
+
+#tblFilter {
+    width: 160px;
+    margin-top: 19px;
+}
+
+#btnExtract, #btnSort, #btnExcel, #btnCSV, #btnInitialize {
+    width: 70px;
+}
+
+#pnlMakerListGrid {
+    width: 1880px;
+    border: 2px solid gray;
+    margin-top: -1px;
+    height: 615px;
+    padding-top: 1px;
+    overflow: auto;
+}
+#pnlMaterialPOGrid {
+    width: 1880px;
+    border: 2px solid gray;
+    margin-top: -1px;
+    height: 205px;
+    padding-top: 1px;
+    overflow: auto;
+}
+
+#pnlBottom {
+    padding-top: 4px;
+    padding-left: 2px;
+}
+
+#tblExport {
+    margin-bottom: 5px;
+}
+
+#tblInitialize {
+    min-width: 100px;
+}
+
+#tblClose {
+    width: 100px;
+    height: 100%;
+    margin-bottom: 5px;
+}
+
+#lblAuxiliaryFunctionCSVExcel {
+    color: white;
+    margin-left: 8px;
+    white-space: nowrap;
+}
+.GridTextBoxtd {
+    background-color: white !important;
+    height: 18px;
+}
+.GridTextBox {
+    border-style: none;
+    width: 96%;
+    height: 95%;
+    font-family: MS Gothic;
+    font-weight: 400;
+    font-size: 13px;
+}
+.tdHeader {
+    border-width: thin;
+    border-style: solid;
+    background-color: #8eaceb;
+    border-color: White;
+    text-align: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
+    white-space: nowrap;
+}
+.tdHeader1 {
+    border-width: thin;
+    border-style: solid;
+    background-color: #7090d3;
+    border-color: White;
+    text-align: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
+    white-space: nowrap;
+}
+.gridLabel{
+    width:40px;
+    white-space:pre-line
+}
+#pnlOneMonthProductForecastGrid {
+    width: 1750px;
+    border: 2px solid gray;
+    margin-top: -1px;
+    height: 425px;
+    padding-top: 1px;
+    overflow: auto;
+}
+#pnlOneMonthMaterialForecastGrid {
+    width: 1750px;
+    border: 2px solid gray;
+    margin-top: -1px;
+    height: 425px;
+    padding-top: 1px;
+    overflow: auto;
+}
+
+#pnlProdSpecWiseSalesStatusGrid {
+    width: 1015px;
+    border: 2px solid gray;
+    margin-top: -1px;
+    height: 155px;
+    padding-top: 1px;
+    overflow: auto;
+}
+.grdLabel {
+    width: 56px;
+    white-space: pre-line
+}
+#pnlProdShukkaDetailsGrid {
+    width: 1000px;
+    border: 2px solid gray;
+    margin-top: -1px;
+    height: 140px;
+    padding-top: 1px;
+    overflow: auto;
+}
+#pnlProdChart1, #pnlProdChart2 {
+    width: 1015px;
+    border: 2px solid gray;
+    margin-top: -1px;
+    height: 140px;
+    padding-top: 1px;
+    overflow: auto;
+}
+.closeBtn {
+    background-color: ButtonFace;
+    Height: 23px;
+    border: 1px inset Silver;
+    font-size: 12px;
+    font-family: MS Gothic;
+    width: 80px;
+}
+
+.tdLbl{
+padding-right:10px;
+}
+.tdTextBox {
+    padding-right: 18px;
+}
+.dropdown select {
+    width: 59px;
+}
+
+.dropdown > * {
+    box-sizing: border-box;
+    height: 1.5em;
+}
+
+.dropdown input {
+    position: absolute;
+    width: 40px;
+    height: 20px;
+}
+#tblchart1Summary
+{
+    height:120px;
+}
+#tblchart2Summary {
+    height: 80px;
+}
+#pnlProdStockGrid, #pnlProdShukkaGrid, #pnlProdStockAbove90DaysGrid {
+    width: 1015px;
+    border: 2px solid gray;
+    margin-top: -1px;
+    padding-top: 1px;
+    overflow: auto;
+}
+.materialGridCss {
+    font-family: 'MS PGothic';
+    color: black;
+}

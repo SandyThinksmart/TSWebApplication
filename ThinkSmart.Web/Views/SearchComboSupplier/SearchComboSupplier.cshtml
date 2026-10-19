@@ -1,0 +1,39 @@
+﻿@using TSWebApplication.Domain.Utility
+@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+
+
+@{
+    var data = (Tuple<string, string, string, string, int>)Model;
+    string txtName = data.Item1;
+    string btnName = data.Item2;
+    string ddlName = data.Item3;
+    string resrName = data.Item4;
+    int index = data.Item5;
+}
+@{
+    Layout = null;
+}
+<link href="~/css/SearchComboMukesaki.css" rel="stylesheet" asp-append-version="true" />
+
+<div id="divSearchComboSupplier">
+    <table class="tblMainSupplier">
+        <tr>
+            <td align="left" valign="top" id="tdTextYobina">
+                <input name="@txtName" type="text" class="form-control SearchText InActiveIMEMode labelClass" id="@txtName" maxlength="6" tabindex="@index" />
+
+            </td>
+            <td align="left" valign="top" class="SetLeftPadding" id="tdButton">
+                <input type="button" name="@btnName" class="SearchButton" value="-" id="@btnName" onclick="GetSupplierListByYobina($(this))" tabindex="@index+1" />
+            </td>
+            <td align="left" valign="top" class="SetLeftPadding" id="tdOperator">
+                <select ID="@ddlName" name="dropdown" onload="BindSupplierList('@ddlName')" class="SearchDropDown MandatoryDropdown Mandatory DropdownListClass dropListClass form-control" errorLabel="@LocalizationServices.GetLocalizedHtmlString(resrName)" tabindex="@index+2">
+                </select>
+
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+<script src="~/Static/js/SearchComboSupplier.js" asp-append-version="true"></script>

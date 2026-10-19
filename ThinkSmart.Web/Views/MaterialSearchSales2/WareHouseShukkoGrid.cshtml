@@ -1,0 +1,53 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+
+}
+
+<div style="height:200px;overflow:auto;border-bottom: solid;border-width: thin;border-color: gray;">
+    <table bgcolor="#7291D2" border="0" cellpadding="0" cellspacing="0" id="tblWareHouseShukko">
+
+        <tr>
+            <td colspan="7" align="center" valign="middle" class="tdH1">
+                <label ID="lbl_WareHouseShukko"
+                       class="labelClass" style="color:white">@LocalizationServices.GetLocalizedHtmlString("lbl_WareHouseShukko")</label>
+            </td>
+        </tr>
+
+        <tr class="trTdH2">
+            <th id="tdKubun" class="tdHeaderClass labelClass GridCenter">
+                <label ID="lbl_Kubun" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Kubun")</label>
+            </th>
+            <th id="tdShippingDestination" class="tdHeaderClass labelClass GridCenter">
+                <label ID="lbl_ShippingDestination" class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_shukkaDate")</label>
+            </th>
+            <th id="tdMochikomisaki" class="tdHeaderClass labelClass GridCenter">
+                <label ID="lbl_Mochikomisaki" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_IssuePlace")</label>
+            </th>
+            <th id="tdShukkaWeight" class="tdHeaderClass labelClass GridCenter">
+                <label ID="lbl_ShukkaWeight" class="labelClass ">@LocalizationServices.GetLocalizedHtmlString("lbl_ShukkaWeight")</label>
+            </th>
+            <th id="tdCharge" class="tdHeaderClass labelClass GridCenter">
+                <label ID="lbl_Charge" class="labelClass1 ">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</label>
+            </th>
+            <th id="tdRemark" class="tdHeaderClass labelClass GridCenter">
+                <label ID="lbl_Remark" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Remark")</label>
+            </th>
+
+
+        </tr>
+        <tr class="GridNormalRow">
+            <td class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+           
+
+        </tr>
+    </table>
+</div>
+

@@ -1,0 +1,367 @@
+﻿@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+@{
+     ViewData["Title"] = "T_F_束別在庫問合せ（向け先材・一般材・スポット材・黒皮）_Tag Wise Stock Status Search (Mukesaki・General・Spot・KW)";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/css/Common_Styles.css" rel="stylesheet" />
+<link href="~/css/masterStyles.css" rel="stylesheet" />
+
+
+@section Scripts{
+   <script type="text/javascript" src="~/Static/js/TagWiseStockStatusSearch.js"></script>
+}
+
+<style type="text/css">
+        .hide {
+            display: none;
+        }
+       
+          .HeaderPadding {
+            padding-left: 10px;
+            padding-right: 10px;
+            white-space:nowrap;
+        }
+          .freez > th {
+    position: sticky !important;
+    background-color: #4e6cab;
+    top: 0.2px;
+    height: 21px;
+}
+
+.freez1 > th {
+    position: sticky !important;
+    background-color: #7291D2;
+    top: 22px;
+    height: 22px;
+    box-shadow: 0 0 0px 0.5px White;
+}
+
+.freez2 > th {
+    position: sticky !important;
+    background-color: #7291D2;
+    top: 44.5px;
+    height: 21px;
+    box-shadow: 0 0 0px 0.5px White;
+}
+.freez3 > th {
+    position: sticky !important;
+    background-color: #7291D2;
+    top: 66.5px;
+    height: 21px;
+     box-shadow: 0 0 0px 0.5px White;
+}
+
+
+.freez4 > th {
+    position: sticky !important;
+    background-color: #7291D2;
+    top: 80.5px;
+    height: 21px;
+    box-shadow: 0 0 0px 0.5px White;
+   
+}
+    </style>
+    <br />
+    <br />
+<form id="form1" >
+      
+        
+            <div style="margin: auto 0px auto 0px; width: 1195px; height: 600px;">
+                <div id="pnlSearchGrid" style="width:1195px">
+                <div style="margin: auto 0px auto 0px; width: 1195px; height: 600px;">
+                    
+                       <table style="width: 1195px" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td style="width: 992px">
+                                     <table cellpadding="0" cellspacing="0" border="0" frame="border" style="width: 1050px; border-collapse: collapse; height: 56px; margin-bottom: 0px;">
+                                            <tr>
+                                                <td colspan="11" align="center" valign="bottom" style="height: 20px; background-color: #4E6CAB">
+                                                    <label ID="lblProductTagSearchGridHeader"  
+                                                        class="labelClass1"  Height="17px"  Style="padding-top: 3px;color:white;" BackColor="#4E6CAB">@LocalizationServices.GetLocalizedHtmlString("lbl_SearchCondition")</label>
+                                                </td>
+                                            </tr>
+                                             <tr>
+                                                <td class="tdH2 padding-top-bottom">
+                                                    <label ID="lblProdName"  
+                                                        class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</label>
+                                                </td>
+                                                  <td class="tdH2 padding-top-bottom">
+                                                            <label ID="lblInternalName"  
+                                                                class="labelClass1" Width="90px">@LocalizationServices.GetLocalizedHtmlString("lbl_InternalName")</label>
+                                                        </td>
+                                                        <td class="tdH2 padding-top-bottom" colspan="2">
+                                                    <label ID="lblDimD"  
+                                                        class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</label>
+                                                </td>
+                                                <td class="tdH2 padding-top-bottom">
+                                                    <label ID="lblShape"  
+                                                        class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</label>
+                                                </td>
+                                                <td class="tdH2 padding-top-bottom" colspan="2">
+                                                    <label ID="lblLength"  
+                                                        class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</label>
+                                                </td>
+                                                 <td class="tdH2 padding-top-bottom">
+                                                    <label ID="lblCharge"  
+                                                        class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</label>
+                                                </td>
+                                                <td class="tdH2 padding-top-bottom">
+                                                    <label ID="lblCustomer"  
+                                                        class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</label>
+                                                </td>
+                                                <td class="tdH2 padding-top-bottom">
+                                                    <label ID="lblInventoryLocation"  
+                                                        class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_InventoryLocation")</label>
+                                                </td>
+                                                <td class="tdH2 padding-top-bottom">
+                                                    <label ID="lblChuuban"  
+                                                        class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("製品荷札№")</label>
+                                                </td>
+                                              
+                                            </tr>
+                                            <tr>
+                                                <td class="tdSerachComponant" style="width: 145px; margin-left: 40px;text-align:left">
+                                                    <input type="text" ID="txtProdName"   TabIndex="1"
+                                                       style="width:145px;height:22px;" MaxLength="25" class="transparentTextBax InActiveIMEMode"><span class="text-danger"></span>
+                                                </td>
+                                                <td class="tdSerachComponant" style="width:120px;text-align:left">
+                                                            <input type="text" ID="txtInternalName"   
+                                                                MaxLength="20" TabIndex="2"  style="width:120px;height:22px;" class="transparentTextBax InActiveIMEMode"><span class="text-danger"></span>
+                                                             
+                                                        </td>
+                                                        <td class="tdSerachComponant" style="width: 60px;text-align:left">
+                                                    <input type="text" ID="txtDimD1"   TabIndex="2"
+                                                        style="width:60px;height:22px;" class="transparentTextBax InActiveIMEMode" Style="text-align: right" MaxLength="7"><span class="text-danger"></span>
+                                                    
+                                                </td>
+                                                 <td class="tdSerachComponant" style="width: 60px;text-align:left">
+                                                    <input type="text" ID="txtDimD2"   TabIndex="2"
+                                                        style="width:60px;height:22px;" class="transparentTextBax InActiveIMEMode" Style="text-align: right" MaxLength="7"><span class="text-danger"></span>
+                                                    
+                                                </td>
+                                                <td class="tdSerachComponant" style="width: 35px;text-align:left">
+                                                    <input type="text" ID="txtShape"    TabIndex="3"
+                                                        style="width:35px;height:22px;" class="transparentTextBax InActiveIMEMode" Style="text-align: right" MaxLength="7"><span class="text-danger"></span>
+                                                    
+                                                </td>
+                                                <td class="tdSerachComponant" style="width: 60px;text-align:left">
+                                                    <input type="text" ID="txtLength1"   MaxLength="2" TabIndex="4"
+                                                        style="width:60px;height:22px;" class="transparentTextBax InActiveIMEMode UpperCase"><span class="text-danger"></span>
+                                                </td>
+                                                 <td class="tdSerachComponant" style="width: 60px;text-align:left">
+                                                    <input type="text" ID="txtLength2"   MaxLength="2" TabIndex="4"
+                                                        style="width:60px;height:22px;" class="transparentTextBax InActiveIMEMode UpperCase"><span class="text-danger"></span>
+                                                </td>
+                                                <td class="tdSerachComponant" style="width: 100px;text-align:left">
+                                                    <input type="text" ID="txtCharge"  style="width:100px;height:22px;" class="transparentTextBax InActiveIMEMode" Style="text-align: right" MaxLength="7" TabIndex="5"><span class="text-danger"></span>
+                                                    
+                                                </td>
+
+                                                <td class="tdSerachComponant" style="width: 152px;text-align:left">
+                                                     <select ID="ddCustomer" style="width:152px;height:22px;border-style:none;"  TabIndex="8">
+                                                    </select>
+                                                    
+                                                </td>
+                                                <td class="tdSerachComponant" style="width: 140px;text-align:left">
+                                                    <select ID="ddInventoryLocation" style="width:140px;height:22px;border-style:none;"  TabIndex="8">
+                                                    </select>
+                                                </td>
+                                                <td class="tdSerachComponant" style="width: 126px;text-align:left">
+                                                    <input type="text" ID="txtProductNo"   TabIndex="7"  style="width:126px;height:22px;" MaxLength="40" class="transparentTextBax InActiveIMEMode UpperCase"><span class="text-danger"></span>
+                                                </td>
+                                               
+                                                        </tr>
+                                            </table>
+
+                                    </td>
+                                   
+                                        <td align="center" valign="top">
+                                    <table cellpadding="1" cellspacing="1" style="width: 200px; height: auto">
+                                        <tr style="height: auto;">
+                                            <td rowspan="1" align="center" valign="middle" style="background-color: Green;">
+                                                <table cellpadding="2" cellspacing="2" style="height: 62px">
+                                                    <tr>
+                                                        <td align="center" colspan="2">
+                                                            <label ID="Label1"  
+                                                                style="color:white" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_AuxiliaryFunctionSearchSort_L")</label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input  type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Extract")" ID="btnSearch"  
+                                                                style="width:90px" class="_functionButtons" TabIndex="15" OnClick="btnSelect_Click" />
+                                                        </td>
+                                                        <td>
+                                                            <input  type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Sort_L")" ID="btnSort"  
+                                                               style="width:90px" TabIndex="16" class="_functionButtons" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                           
+
+                                    </td>
+                                    </tr>
+                                    </table>
+                                    <input type="hidden" id="dataleft" name="dataleft"   />
+                                            <input type="hidden" id="dataTop" name="dataTop"   />
+                                            <input type="hidden" id="headtops" name="headtops"   />
+                                            <input type="hidden" id="headlefts" name="headlefts"   />
+                                          
+                         </td>
+                         </tr>
+                         </table>
+                         <div style="margin-top:2px">
+                                  <table cellpadding="0" cellspacing="0" border="0" frame="border" style="width: 1268px; border-collapse: collapse;">
+                                        <tr>
+                                            <td align="center" valign="middle" style="background-color: #4E6CAB;">
+                                                <label ID="lblWIPProductProcessList"  
+                                                    class="labelClass1" Width="100%" Height="15px" BackColor="#4E6CAB"
+                                                    Style="margin-top: 3px; margin-bottom: 0px;color:white">@LocalizationServices.GetLocalizedHtmlString("束別在庫情報（製品・スポット・黒皮）")</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+
+                                                <div id="pnlProcessDefect" style="height:780px;width:1268px;overflow:auto;">
+    <div>
+
+        <table class="GridLines GridLayout" cellpadding="0" cellspacing="0" border="1" id="grdvprocesswaitingList" style="border-collapse:collapse;text-align: left" >
+
+<thead>
+<tr  id="grdvStraighteningDetails" style="border-collapse:collapse;text-align: left">
+
+@*<th></th>
+<th></th>*@
+<th rowspan="2" class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Select")</th>
+<th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</th>
+<th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_InternalName")</th>
+<th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductDimW_M")</th>
+<th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</th>
+<th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("異形（補助）")</th>
+<th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</th>
+<th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Condition")</th>
+<th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</th>
+<th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ChamferShort")</th>
+<th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_CornerRadiusKatakana_L")</th>
+<th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Kubun")</th>
+<th colspan="2" class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_InventoryLocation")</th>
+
+
+
+
+</tr>
+<tr>
+    <th colspan="2" class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</th>
+    <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_DimTolerance")</th>
+    <th colspan="2" class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_FureMagariStd_S")</th>
+    <th colspan="2" class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</th>
+    <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_NifudaNumber")</th>
+    <th colspan="2" class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ManufacturingSpecificationNo")</th>
+    <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_NyukoDate")</th>
+    <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_NoOfUnits")</th>
+    <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_WeightWithoutKG")</th>
+</tr>
+</thead>
+
+<tbody>
+
+@*<tr>
+
+<td class="labelClass"><br /><br /></td>
+<td class="labelClass"></td>
+<td class="labelClass"></td>
+<td class="labelClass"></td>
+<td class="labelClass"></td>
+<td class="labelClass"></td>
+<td class="labelClass"></td>
+<td class="labelClass"></td>
+<td class="labelClass"></td>
+<td class="labelClass"></td>
+<td class="labelClass"></td>
+<td class="labelClass"></td>
+<td class="labelClass"></td>
+<td class="labelClass"></td>
+
+
+
+</tr>*@
+
+</tbody>
+</table>
+
+    
+    </div>
+    </div>
+                                            </td>
+
+                                        </tr>
+                                    </table>
+                           <table style="width: 1270px;height:66px;margin-top:2px" >
+                            <tr>
+
+                                <td></td>
+                                <td align="center" style="width: 100px; height: 50px; background-color: Red;">
+                                    <table cellpadding="2" cellspacing="2">
+                                        <tr>
+                                            <td align="center">
+                                                <label ID="lblDeleteL"  class="labelClass" style="color:white" >@LocalizationServices.GetLocalizedHtmlString("lbl_Delete")</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input  type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Delete")" ID="btnDelete"  class="_functionButtons" TabIndex="16"
+                                                    style="width:90px" OnClick="btnDelete_Click" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td align="center" style="width: 100px; background-color: brown;">
+                                    <table cellpadding="2" cellspacing="2">
+                                        <tr>
+                                            <td align="center">
+                                                <label ID="lblReprint"  class="labelClass" style="color:white"
+                                                    >@LocalizationServices.GetLocalizedHtmlString("btn_Reprint_L")</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input  type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Print")" ID="btnPrint"  class="_functionButtons"
+                                                    style="width:90px"
+                                                    CausesValidation="false" TabIndex="17" OnClick="btnPrint_Click" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td align="center" style="width: 100px; background-color: Blue;">
+                                    <table cellpadding="2" cellspacing="2">
+                                        <tr>
+                                            <td align="center">
+                                                <label ID="lblCloseHeader"  
+                                                    style="color:white" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input  type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnClose"  
+                                                    style="width:90px" TabIndex="18" class="_functionButtons" OnClientClick="return Confirmation()" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+
+                   </div>
+                </div>
+                </div>
+                </div>
+     
+                <div id="SortPopUpModalMain">
+    @{
+                                        @await Html.PartialAsync("~/Views/Shared/SortPopUp.cshtml");
+    }
+</div>
+    </form>

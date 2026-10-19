@@ -1,0 +1,64 @@
+﻿#divFilterList
+{
+    margin-top:10px;
+}
+
+.noWrap {
+    white-space: nowrap;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.alignCenter {
+    text-align: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+#txtYear {
+    width: 100px;
+    text-align: right;
+}
+
+#txtMonth, #txtChance {
+    width: 80px;
+    text-align: right;
+}
+#txtMukesakiName {
+    width: 50px;
+}
+
+#btnMukesakiSearch {
+    width: 30px;
+    height: 22px;
+}
+
+#ddlMukesakiName {
+    width: 150px;
+    height: 22px;
+}
+#ddlMakerName {
+    width: 150px;
+    height: 22px;
+}
+#ddlMaterialType {
+    width: 80px;
+    height: 22px;
+}
+#tblFilterList {
+    height: 70px;
+    
+}
+.M_HeaderGrid {
+    background-color: #4E6CAB;
+    color:white;
+    text-align:center;
+}
+.trEmptyRow
+{
+    height:20px;
+}
+.tbEmptyButton
+{
+    width:70px;
+}

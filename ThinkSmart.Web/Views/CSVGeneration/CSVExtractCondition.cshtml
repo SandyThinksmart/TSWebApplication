@@ -1,0 +1,114 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<OutputCSVDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_CSV_Output").Value.Replace("<br/>", "").Replace("<br />", "");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int tensouProcessID = ViewBag.TensouProcessCD;
+}
+@section Scripts {
+    <script src="~/Static/js/CSVCondition.js" asp-append-version="true"> </script>
+}
+<link href="~/css/CSVGeneration.css" rel="stylesheet" asp-append-version="true" />
+<table>
+    <tr>
+        <td align="left" valign="top" colspan="2">
+            <div id="pnlConditionGrid">
+                <div id="divConditionGrid">
+                    @{
+                        @await Html.PartialAsync("CSVConditionGrid", Model)
+                        ;
+                    }
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" valign="top">
+            <table id="tblExport">
+                <tr>
+                    <td align="left" valign="top">
+                        <div id="divCSV">
+                            <table id="tblCSV">
+                                <tr>
+                                    <td align="center" valign="bottom">
+                                        <label ID="lblExportCSVFile" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ExportCSVFile")</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        <input type="button" id="btnCSV" class="_functionButtons labelClass" tabindex="1"
+                                               value='@LocalizationServices.GetLocalizedHtmlString("btn_CSV_L")' />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                    <td align="left" valign="top">
+                        <div id="divPDF">
+                            <table id="tblPDF">
+                                <tr>
+                                    <td align="center" valign="bottom">
+                                        <label ID="lblPrint" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Print")</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        <input type="button" id="btnPDF" class="_functionButtons labelClass" tabindex="2"
+                                               value='@LocalizationServices.GetLocalizedHtmlString("lbl_Print")' />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+           
+        </td>
+        <td align="right" valign="top">
+            <div id="divClose">
+                <table id="tblClose">
+                    <tr>
+                        <td align="center" valign="bottom">
+                            <label ID="lblCloseWindow" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <input type="button" id="btnClose" class="_functionButtons labelClass" tabindex="12"
+                                   value='@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")' />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+
+</table>
+
+<input type="hidden" id="tensouProcessvalue" value="@tensouProcessID" />
+<input type="hidden" id="locationCDvalue" value="" />
+<div id="divErrorMessages" class="Hidden">
+    <label id="lblErrorMessageE_CSV_001" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+    </label>
+    <label id="lblErrorMessageE_CSV_002" class="Hidden">
+        <span ID="LiteralEnterAtLeastOneSearchCondition">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_EnterAtLeastOneSearchCondition")</span>
+    </label>
+    <label id="lblErrorMessageE_CSV_003" class="Hidden">
+        <span ID="LiteralDataNotFound">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_DataNotFound")</span>
+    </label>
+    <label id="lblErrorMessageE_CSV_004" class="Hidden">
+        <span ID="LiteralDateTimeInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_DateTimeInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_CSV_005" class="Hidden">
+        <span ID="LiteralStartDateTimeInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_StartDateTimeInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_CSV_006" class="Hidden">
+        <span ID="LiteralEndDateTimeInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_EndDateTimeInvalid")</span>
+    </label>
+</div>
+<div id="LoadingImage" style="display: none">
+    <img id="loadImage" src="~/images/loading.gif" height="60px" width="60px" />
+</div>

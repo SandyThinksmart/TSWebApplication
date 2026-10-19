@@ -1,0 +1,111 @@
+﻿@using TSWebApplication.Domain.Resources
+@using TSWebApplication.Domain.Model
+@model List<HSKMillSheetDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_HSKMillSheetSave").Value.Replace("</br>", "");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    DateTime fromDate = DateTime.Now;
+    fromDate = fromDate.AddMonths(-3);
+
+    DateTime toDate = DateTime.Now;
+}
+
+
+<link href="~/css/Common_Styles.css" rel="stylesheet" />
+<link href="~/css/HSKMillSheetPostHTInspection.css" rel="stylesheet" />
+
+<link href="~/css/Common.css" rel="stylesheet" />
+<link href="~/css/masterStyles.css" rel="stylesheet" />
+
+
+<style type="text/css">
+    .hide {
+        display: none;
+    }
+
+    .header {
+        padding-left: 3px;
+    }
+
+    .freez > td {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 0.2px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .HeaderPadding {
+        padding-left: 10px;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+
+    .rightPadding {
+        padding-right: 2px;
+    }
+
+    .disabled {
+        background-color: #EEEEEE !important;
+        color: black;
+    }
+</style>
+<br />
+<br />
+
+
+
+
+<div style="height:54px; border:solid thin">
+    <table>
+        <tr>
+         <td colspan="8" style="width:600px"></td>
+            <td class="Select">
+                <table id="tblprint" align="center">
+                    <tr>
+                        <td align="center">
+                            <label ID="lblchemicalComponant" class="labelClass labelClassWhite">@LocalizationServices.GetLocalizedHtmlString("lbl_Select")</label>
+                        </td>
+                    </tr>
+                  <tr>
+                        <td>
+                            <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Select")" ID="btnChuubanSearch" class="_functionButtons" TabIndex="5" Style="width: 86px;"
+                                   ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" />
+                        </td>
+                    </tr>
+                    </table>
+                    </td>
+         
+            <td class="Close">
+                <table id="tblprint" align="center">
+                    <tr>
+                        <td align="center">
+                            <label ID="lblchemicalComponant" class="labelClass labelClassWhite">@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnClose" OnClientClick="return Confirmation()" class="_functionButtons" TabIndex="5" Style="width: 86px;"
+                                   ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+
+        </tr>
+    </table>
+</div>
+
+    <div id="divErrorMessages" class="Hidden">
+        <label id="lblErrorMessageE_STA_ENTRY_014" class="Hidden">
+            <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+        </label>
+        <label id="lblErrorMessageE_HSKMILLSHEET_FinalInspectionNotDoneYet" class="Hidden">
+            <span ID="LiteralFinalInspectionNotDoneYet">@LocalizationServices.GetLocalizedHtmlString("valMsg_FinalInspectionNotDoneYet")</span>
+        </label>
+</div>
+
+@section Scripts {
+    <script src="~/static/js/HSKMillSheetFinalInspection.js"></script>
+}

@@ -1,0 +1,349 @@
+﻿@using TSWebApplication.Domain.Utility
+@using TSWebApplication.Domain.Resources
+@using TSWebApplication.Domain.Model
+@* @model List<GridSearchFields> *@
+@model List<RollSalesForecastDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+
+}
+<link href="~/css/RollSalesForecastProductGrid.css" rel="stylesheet" />
+<div>
+    <table bgcolor="#7291D2" border="0" cellpadding="0" cellspacing="0" id="tblProductGrid" class="GridBorder">
+
+        <tr>
+            <th align="center" valign="middle" class="tdH1" colspan="18" style="padding:2px;">
+                <label id="lblRollPOProductReport" class="labelClass" style="color:white">@LocalizationServices.GetLocalizedHtmlString("lbl_RollForecastList")</label>
+
+            </th>
+
+        
+        <tr>
+            <th align="left" valign="middle" rowspan="2" class="tdHeaderClass labelClass GridCenter">
+                <label id="lblProductKubun_L" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductKubun_L")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter">
+                <label id="lbl_ProdNameCust" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter" colspan="4">
+                <label id="lblDimD" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Dimension")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter" rowspan="2">
+                <label id="lblLength" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</label>
+
+            </th>
+
+            <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter" rowspan="2">
+                <label id="lblFrequency/Bend" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Frequency/Bend")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter" rowspan="2">
+                <label id="lblCondition" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Condition")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter" colspan="4">
+                <label id="lblActualShukka" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualShukka")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter" colspan="4">
+                <label id="lblEstimated_Amount" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Estimated_Amount")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter" rowspan="2">
+                <label id="lblProductSpecNo" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductSpecNo")</label>
+
+            </th>
+
+        </tr>
+        <tr>
+            <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter">
+                <label id="lblDispatchMasterKubun10" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter">
+                <label id="lblDiameter" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Diameter")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter">
+                <label id="lblShape" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter">
+                <label id="lblWidth" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Width")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter">
+                <label id="lblAuxiliary" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Auxiliary")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter">
+                <label id="lblHistoryMonth1" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter">
+                <label id="lblHistoryMonth2" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter">
+                <label id="lblHistoryMonth3" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter">
+                <label id="lblAverage" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Average")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter">
+                <label id="lblLastRoll1" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")</label><br />
+                (<label id="lblRollForMonth1" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")</label>)
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter">
+                <label id="lblLastRoll2" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")</label><br />
+                (<label id="lblRollForMonth2" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")</label>)
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter">
+                <label id="lblLastRoll3" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")</label><br />
+                (<label id="lblRollForMonth3" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")</label>)
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter">
+                <label id="lblLastRoll4" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")</label><br />
+                (<label id="lblRollForMonth4" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")</label>)
+            </th>
+        </tr>
+        <tr>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblMaterialNameMaker" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lblMaterialNameMaker")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblInternal" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Internal")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" colspan="4">
+                <label id="lblDimTolerance" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Tolerance_L")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblLengthTolerance" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Tolerance_L")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblRemainingStockL" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_RemainingStock_L")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblFinishedProductStock" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_FinishedProductStock")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" colspan="8">
+                <label id="lblMsg" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MsgForMaterial")</label>
+
+            </th>
+           @* <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblInquiry" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Inquiry")</label><br />
+                <label id="lblProcessPlanStatusKubun2of2" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessPlanStatusKubun2of2")</label>
+
+            </th>*@
+           @* <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" colspan="3">
+                <label id="lblMaterialReply" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Material_Reply")</label>
+
+            </th>*@
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblAssignedManufacturer" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DefaultMaker_L")</label>
+            </th>
+
+        </tr>
+         @*  @if (Model != null && Model.Count > 0)
+
+            {
+                foreach (var item in Model)
+                {
+                <tr class="GridNormalRow ProductGridRow" data-lblProductCD="@item.PRODUCT_CD" data-rollfccd="@(item.ROLL_FC_CD?.ToString() ?? "")">
+
+                <td class="  labelClass padddingLeft tdNoWrap CharactFieldsClass" style="text-align:center; white-space:nowrap">@item.PROCDUCT_KUBUN_STRING</td>
+                <td class="  labelClass padddingLeft tdNoWrap CharactFieldsClass" style="text-align:left; white-space:nowrap">
+                        <table><tr><td><label id="lblCustomerName" class="labelClass" style="white-space:nowrap">@item.CUSTOMER_NAME</label></td><td>  <input type="button" class="btnArrow" onclick="OnProductListBtnClick($(this))" style="height:16px;float: right" /></td></tr></table>
+                      
+                </td>
+                <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="white-space:nowrap">@item.PROD_DIM_D</td>
+                <td class="  labelClass tdNoWrap centerAlign" style="text-align:left; white-space:nowrap">@item.SHAPE</td>
+                <td class="  labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PROD_DIM_W</td>
+                <td class=" labelClass padddingLeft tdNoWrap CharactFieldsClass" style="white-space:nowrap">@item.PROD_DIM_OTHER</td>
+                <td class=" labelClass padddingRight tdNoWrap NumericFieldsClass" style="white-space:nowrap">@item.PROD_LENGTH</td>
+                <td class=" labelClass padddingLeft tdNoWrap CharactFieldsClass" style="text-align:center; white-space:nowrap">@item.MAGARI_BEND_TOLLERENCE</td>
+                <td class=" labelClass padddingLeft tdNoWrap CharactFieldsClass" style="text-align:center; white-space:nowrap">@item.CONDITION_DESCRIPTION</td>
+                <td class="" style=" white-space:nowrap"><input type="text"  id="txtHistoryMonthData1" class="tdInputBoxBorderWidth tdInputBoxWidthRoll " value="@item.DISPATCH_QTY1" /></td>
+                <td class="" style="white-space:nowrap;"><input type="text"  id="txtHistoryMonthData2" class="tdInputBoxBorderWidth tdInputBoxWidthRoll " value="@item.DISPATCH_QTY2" /></td>
+                <td class="" style="white-space:nowrap;"><input type="text"  id="txtHistoryMonthData3" class="tdInputBoxBorderWidth tdInputBoxWidthRoll " value="@item.DISPATCH_QTY3" /></td>
+                <td class="" style="white-space:nowrap;"><input type="text"  id="txtHistoryMonthDataResult" class="tdInputBoxBorderWidth tdInputBoxWidthRoll " value="@item.AVG_DISPATCH_QTY" /></td>
+                <td class="" style="white-space:nowrap"><input type="text" class="tdInputBoxBorderWidth tdInputBoxWidthRoll NumericFieldsClass" value="@item.FC_QTY_R1" /></td>
+                <td class="" style="white-space:nowrap"><input type="text" class="tdInputBoxBorderWidth tdInputBoxWidthRoll NumericFieldsClass" value="@item.FC_QTY_R2" /></td>
+                <td class="" style="white-space:nowrap"><input type="text" class="tdInputBoxBorderWidth tdInputBoxWidthRoll NumericFieldsClass" value="@item.FC_QTY_R3" /></td>
+                <td class="" style="white-space:nowrap"><input type="text" class="tdInputBoxBorderWidth tdInputBoxWidthRoll NumericFieldsClass" value="@item.FC_QTY_R4" /></td>
+                <td class="labelClass tdNoWrap centerAlign" style="text-align:center; white-space:nowrap">@item.PROD_SPEC_NO</td>
+                </tr>
+
+                <tr class="GridNormalRow ProductGridRow">
+                <td class="labelClass tdNoWrap CharactFieldsClass" style="white-space:nowrap">@item.MATL_MAKER_NAME</td>
+                <td class="labelClass  tdNoWrap CharactFieldsClass" style="white-space:nowrap">@item.INTERNAL_NAME_STRING</td>
+                    <td colspan="4" class="labelClass tdNoWrap centerAlign" style="text-align:center; white-space:nowrap">@item.DIM_TOL</td>
+                    <td class="labelClass  tdNoWrap centerAlign" style="text-align:center; white-space:nowrap">@item.LEN_TOL</td>
+
+                    <td class="" style="white-space:nowrap"><input type="text" id="txtOrderRemainingStock" class=" tdInputBoxWidth tdInputBoxBorderWidth tdInputBoxWidthRoll NumericFieldsClass" value="0" /></td>
+                    <td class="" style="white-space:nowrap"><input type="text" id="txtProductStock" class=" tdInputBoxWidth tdInputBoxBorderWidth tdInputBoxWidthRoll NumericFieldsClass" value="0" /></td>
+                    <td colspan="8" class="" style="white-space:nowrap"><input type="text" style="" id="txtMsgMatl" class="tdInputBoxBorderWidth"  value="@item.REMARKS" /></td>
+                    <td class="labelClass  tdNoWrap CharactFieldsClass" style="white-space:nowrap">@item.MAKER_NAME</td>
+                </tr>
+           
+        }
+
+        } *@
+
+       @{
+            int i = 1;
+        }
+
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (var item in Model)
+    {
+        <tr class="GridNormalRow ProductGridRow" data-lblProductCD="@item.PRODUCT_CD" data-rollfccd="@(item.ROLL_FC_CD?.ToString() ?? "")">
+
+            <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass" style="text-align:center; white-space:nowrap">@item.PROCDUCT_KUBUN_STRING</td>
+
+            <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass" style="text-align:left; white-space:nowrap">
+                <table>
+                    <tr>
+                        <td>
+                            <label id="lblCustomerName_@i" class="labelClass">@item.CUSTOMER_NAME</label>
+                        </td>
+                        <td>
+                            <input type="button" class="btnArrow" onclick="OnProductListBtnClick($(this))" style="height:16px;float:right" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.PROD_DIM_D</td>
+            <td class="labelClass tdNoWrap centerAlign">@item.SHAPE</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.PROD_DIM_W</td>
+            <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.PROD_DIM_OTHER</td>
+            <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.PROD_LENGTH</td>
+            <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.MAGARI_BEND_TOLLERENCE</td>
+            <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.CONDITION_DESCRIPTION</td>
+
+            <td><input type="text" id="txtHistoryMonthData_@i" class="tdInputBoxBorderWidth tdInputBoxWidthRoll historyMonth" value="@item.DISPATCH_QTY1" /></td>
+
+            <td><input type="text" id="txtHistoryMonthData_@i" class="tdInputBoxBorderWidth tdInputBoxWidthRoll historyMonth" value="@item.DISPATCH_QTY2" /></td>
+
+            <td><input type="text" id="txtHistoryMonthData_@i" class="tdInputBoxBorderWidth tdInputBoxWidthRoll historyMonth" value="@item.DISPATCH_QTY3" /></td>
+
+            <td><input type="text" id="txtHistoryMonthDataResult_@i" class="tdInputBoxBorderWidth tdInputBoxWidthRoll historyMonthResult ReadOnlyTextBox" value="@item.AVG_DISPATCH_QTY" /></td>
+
+            <td><input type="text" id="txtFC_QTY_R1_@i" class="tdInputBoxBorderWidth tdInputBoxWidthRoll NumericFieldsClass" value="@item.FC_QTY_R1" /></td>
+
+            <td><input type="text" id="txtFC_QTY_R2_@i" class="tdInputBoxBorderWidth tdInputBoxWidthRoll NumericFieldsClass" value="@item.FC_QTY_R2" /></td>
+
+            <td><input type="text" id="txtFC_QTY_R3_@i" class="tdInputBoxBorderWidth tdInputBoxWidthRoll NumericFieldsClass" value="@item.FC_QTY_R3" /></td>
+
+            <td><input type="text" id="txtFC_QTY_R4_@i" class="tdInputBoxBorderWidth tdInputBoxWidthRoll NumericFieldsClass" value="@item.FC_QTY_R4" /></td>
+
+            <td class="labelClass tdNoWrap centerAlign">@item.PROD_SPEC_NO</td>
+        </tr>
+
+        <tr class="GridNormalRow ProductGridRow">
+
+            <td class="labelClass tdNoWrap CharactFieldsClass">@item.MATL_MAKER_NAME</td>
+
+            <td class="labelClass tdNoWrap CharactFieldsClass">@item.INTERNAL_NAME_STRING</td>
+
+            <td colspan="4" class="labelClass tdNoWrap centerAlign">@item.DIM_TOL</td>
+
+            <td class="labelClass tdNoWrap centerAlign">@item.LEN_TOL</td>
+
+            <td>
+                <input type="text" id="txtOrderRemainingStock_@i" class="tdInputBoxWidth tdInputBoxBorderWidth tdInputBoxWidthRoll NumericFieldsClass" value="0" />
+            </td>
+
+            <td>
+                <input type="text" id="txtProductStock_@i" class="tdInputBoxWidth tdInputBoxBorderWidth tdInputBoxWidthRoll NumericFieldsClass" value="0" />
+            </td>
+
+            <td colspan="8">
+                <input type="text" id="txtMsgMatl" class="labelClass tdInputBoxBorderWidth" value="@item.REMARKS" />
+            </td>
+
+            <td class="labelClass tdNoWrap CharactFieldsClass">@item.MAKER_NAME</td>
+
+        </tr>
+
+        i++;
+    }
+        }
+        else
+        {
+            <tr class="GridNormalRow">
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+                    <input type="button" class="btnArrow" style="height:16px;float: right;" onclick="OnProductListBtnClick($(this))" />
+                </td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass" style="text-align:center; white-space:nowrap"><input type="text" id="txtHistoryMonthData1" class="tdInputBoxBorderWidth tdInputBoxWidthRoll" /></td>
+                <td class="labelClass" style="text-align:center; white-space:nowrap"><input type="text" id="txtHistoryMonthData2" class="tdInputBoxBorderWidth tdInputBoxWidthRoll" /></td>
+                <td class="labelClass" style="text-align:center; white-space:nowrap"><input type="text" id="txtHistoryMonthData3" class="tdInputBoxBorderWidth tdInputBoxWidthRoll" /></td>
+                <td class="labelClass" style="text-align:center; white-space:nowrap"><div id="txtHistoryMonthDataResult" readonly></div></td>
+                <td class="labelClass" style="text-align:center; white-space:nowrap"><input type="text" id="txtRollMonthData1" class="tdInputBoxBorderWidth tdInputBoxWidthRoll" /></td>
+                <td class="labelClass" style="text-align:center; white-space:nowrap"><input type="text" id="txtRollMonthData2" class="tdInputBoxBorderWidth tdInputBoxWidthRoll" /></td>
+                <td class="labelClass" style="text-align:center; white-space:nowrap"><input type="text" id="txtRollMonthData2" class="tdInputBoxBorderWidth tdInputBoxWidthRoll" /></td>
+                <td class="labelClass" style="text-align:center; white-space:nowrap"><input type="text" id="txtRollMonthData3" class="tdInputBoxBorderWidth tdInputBoxWidthRoll" /></td>
+                <td class="labelClass" style="text-align:center; white-space:nowrap"></td>
+            </tr>
+
+            <tr class="GridNormalRow">
+                <td class="labelClass  " style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass  " style="text-align:center; white-space:nowrap"></td>
+                <td colspan="4" class="labelClass  " style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass  " style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass  " style="text-align:center; white-space:nowrap"><input type="text" class="tdInputBoxBorderWidth" id="txtOrderRemainingStock"/></td>
+                <td class="labelClass  " style="text-align:center; white-space:nowrap"><input type="text" class="tdInputBoxBorderWidth" id="txtProductStock"/></td>
+                <td colspan="8" class="labelClass" style="white-space:nowrap"><input type="text" id="txtMsgMatl" class="tdInputBoxBorderWidth" /></td>
+                <td class="labelClass  " style="text-align:center; white-space:nowrap"></td>
+            </tr>
+        }
+    </table>
+   
+   
+</div>
+<label ID="valMsgProductAlreadySelected" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_RecordAlreadySelected")</label>
+<label id="lblErrorMessageE_DimDStartRequired" class="Hidden">
+    <span ID="LiteralDimDStartRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_DimDStartRequired")</span>
+</label>
+<label id="lblErrorMessageE_LengthStartRequired" class="Hidden">
+    <span ID="LiteralLengthStartRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ProdLengthStartRequired")</span>
+</label>
+@*<div id="PopUpModalProductMaster">
+    @{
+        @await Html.PartialAsync("~/Views/RollPoForecast/RollSalesForecastProductMasterList.cshtml")
+        ;
+    }
+</div>*@
+
+@section Scripts{
+
+    <link href="~/css/Common.css" rel="stylesheet" />
+    <link href="~/css/RollPoForecast.css" rel="stylesheet" />
+    <link href="~/css/Common_Styles.css" rel="stylesheet" />
+    <link href="~/css/masterStyles.css" rel="stylesheet" />
+   
+
+
+}  

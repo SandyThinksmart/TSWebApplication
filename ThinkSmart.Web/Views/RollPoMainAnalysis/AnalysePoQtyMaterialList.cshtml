@@ -1,0 +1,192 @@
+﻿@using TSWebApplication.Domain.Utility
+@using TSWebApplication.Domain.Resources
+@model List<GridSearchFields>
+@inject LocalizationServices LocalizationServices
+
+<style>
+    .gridTd {
+        border-width: thin;
+        border-style: solid;
+        border-color: #FF9900;
+        vertical-align: middle;
+    }
+
+    .freezMatlNameWiseOrderGrid1 > th {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 1px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezMatlNameWiseOrderGrid1 {
+        border-color: white;
+    }
+
+</style>
+<table bgcolor="#7291D2" border="0" cellpadding="0" cellspacing="0" class="GridLines" style="overflow:auto" id="materialListTable">
+    <thead>
+        <tr class="trTdH2 freezMatlNameWiseOrderGrid1">
+            <th class="tdHeaderClass labelClass GridCenter">
+                <label id="lblMakerName" class="labelClass"></label>
+
+            </th>
+            <th class=tdHeaderClass labelClass GridCenter">
+                <label class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_MakerMaster")</label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <label class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_InternalName")</label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <label class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlNameMaker")</label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <label class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <label class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <label class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Width")</label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <label class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Auxiliary")</label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <label class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <label class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Condition")</label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <label class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_GeneralSpecial_L")</label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <label class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialKubun_L")</label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <label class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_MukesakiShort")</label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <label class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Shousha")</label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <label class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Mochikomisaki")</label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <label class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_StockInWarehouse")</label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <label class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_TransCompany")</label>
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr class="GridNormalRow" data-lblMaterialCD="@item.MATERIAL_CD" data-lblMukesakiCD="@item.MUKESAKI_CD">
+                    <td class="td tdSearchGrid" style="text-align:center; white-space:nowrap;">
+                        <input type="button" class="btnArrow" onclick="OnClickMaterialList($(this))" style="height:16px;" />
+                    </td>
+                    <td class="gridTd tdSearchGrid labelClass padddingLeft tdNoWrap CharactFieldsClass">
+                        @item.MAKER_NAME
+                    </td>
+                    <td class="gridTd tdSearchGrid labelClass padddingLeft tdNoWrap CharactFieldsClass">
+                        @item.INTERNAL_NAME_STRING
+                    </td>
+                    <td class="gridTd tdSearchGrid labelClass padddingLeft tdNoWrap CharactFieldsClass">
+                        @item.MATL_MAKER_NAME
+                    </td>
+
+                    <td class="gridTd tdSearchGrid labelClass padddingRight tdNoWrap NumericFieldsClass" style="width:65px;">
+                        @item.MATL_DIM_D
+                    </td>
+                    <td class="gridTd tdSearchGrid labelClass tdNoWrap centerAlign">
+                        @item.MATL_SHAPE
+                    </td>
+                    <td class="gridTd tdSearchGrid labelClass padddingRight tdNoWrap NumericFieldsClass" style="width:65px;">
+                        @item.MATL_DIM_W
+                    </td>
+                    <td class="gridTd tdSearchGrid labelClass padddingLeft tdNoWrap CharactFieldsClass">
+                        @item.MATL_DIM_OTHER
+                    </td>
+                    <td class="gridTd tdSearchGrid labelClass padddingRight tdNoWrap NumericFieldsClass" style="width:65px;">
+                        @item.MATERIAL_LENGTH
+                    </td>
+                    <td class="gridTd tdSearchGrid labelClass tdNoWrap centerAlign">
+                        @item.CONDITION_DESCRIPTION
+                    </td>
+                    <td class="gridTd tdSearchGrid labelClass tdNoWrap centerAlign">
+                        @item.MATL_SPECIAL_KUBUN
+                    </td>
+                    <td class="gridTd tdSearchGrid labelClass tdNoWrap centerAlign">
+                        @item.MATERIAL_TYPE_NAME_CBK
+                    </td>
+                    <td class="gridTd tdSearchGrid labelClass padddingLeft tdNoWrap CharactFieldsClass">
+                        @item.MUKESAKI_NAME
+                    </td>
+                    <td class="gridTd tdSearchGrid labelClass padddingLeft tdNoWrap CharactFieldsClass">
+                        @item.SUPPLIER_NAME
+                    </td>
+                    <td class="gridTd tdSearchGrid labelClass padddingLeft tdNoWrap CharactFieldsClass ">
+                        @item.MOCHIKOMISAKI_NAME
+                    </td>
+                    <td class="gridTd tdSearchGrid labelClass padddingRight tdNoWrap NumericFieldsClass">
+                        @item.ACTUAL_STOCK
+                    </td>
+                    <td class="gridTd tdSearchGrid labelClass padddingLeft tdNoWrap CharactFieldsClass">
+                        @item.HTSAKI_NAME
+                    </td>
+
+
+                </tr>
+            }
+        }
+        else
+        {
+            <tr class="GridNormalRow">
+                <td class="td tdSearchGrid " style="text-align:center; white-space:nowrap">
+                    <input type="button" class="btnArrow" style="height:16px;" />
+                </td>
+                <td class="td tdSearchGrid">
+                </td>
+                <td class="td tdSearchGrid ">
+                </td>
+                <td class="td tdSearchGrid ">
+                </td>
+
+                <td class="td tdSearchGrid " style="width:65px;">
+                </td>
+                <td class="td tdSearchGrid " >
+                </td>
+                <td class="td tdSearchGrid ">
+                </td>
+                <td class="td tdSearchGrid ">
+                </td>
+                <td class="td tdSearchGrid " style="width:65px;">
+                </td>
+                <td class="td tdSearchGrid ">
+                </td>
+                <td class="td tdSearchGrid ">
+                </td>
+                <td class="td tdSearchGrid ">
+                </td>
+                <td class="td tdSearchGrid ">
+                </td>
+                <td class="td tdSearchGrid ">
+                </td>
+                <td class="td tdSearchGrid ">
+                </td>
+                <td class="td tdSearchGrid ">
+                </td>
+                <td class="td tdSearchGrid ">
+                </td>
+
+
+            </tr>
+        }
+    </tbody>
+</table>

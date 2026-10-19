@@ -1,0 +1,271 @@
+﻿@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_WIPTagSplitDelete").Value.Replace("</br>", "");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/Common.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/WIPTagSplit.css" rel="stylesheet" asp-append-version="true" />
+
+<body>
+    <table id="tblMain">
+        <tr>
+            <td class="tdTitle">
+                <div class="divTitle">
+                    <label ID="lblScreenTitle" class="labelClass whiteColor">@LocalizationServices.GetLocalizedHtmlString("lbl_WIPTagSplitDelete").Value.Replace("</br>", "")</label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="processData">
+                <div id="div1">
+                <table class="tblPanel1">
+                    <tr>
+                            <td align="left" valign="top" colspan="2">   
+                                <table>
+                                    <tr>
+                                        <td align ="left" valign="top">
+                                            <label ID="lblChuubanValue" class="dataLabelClass "></label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" valign="top">
+                                            <label ID="lblCustomerValue" class="CustomerLabelClass"></label>
+                                        </td>
+                                    </tr>
+                                </table>
+                               
+                         </td>
+                    </tr>
+                       
+                    <tr>
+                            <td align="left" valign="middle">
+                            <label ID="lblProduct" class="labelClass whiteColor">@LocalizationServices.GetLocalizedHtmlString("lbl_Product")</label>
+                        </td>
+                        <td align="left" valign="top">
+                                <label ID="lblProductNameValue" class="dataLabelClass"></label>
+                        </td>
+                    </tr>
+                    <tr>
+                            <td align="left" valign="middle">
+                            <label ID="lblDimD" class="labelClass whiteColor">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</label>
+                        </td>
+                        <td align="left" valign="top">
+                                <label ID="lblDimDValue" class="dataLabelClass"></label>
+                                <label ID="lblChamferValue" class="dataLabelClass"></label>
+                        </td>
+                    </tr>
+                     <tr>
+                            <td align="left" valign="middle">
+                            <label ID="lblTolerance" class="labelClass whiteColor">@LocalizationServices.GetLocalizedHtmlString("lbl_Tolerance_L")</label>
+                        </td>
+                        <td align="left" valign="top">
+                                <label ID="lblToleranceValue" class="dataLabelClass"></label>
+                        </td>
+                    </tr>
+                    <tr>
+                            <td align="left" valign="middle">
+                            <label ID="lblLength" class="labelClass whiteColor">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</label>
+                        </td>
+                        <td align="left" valign="top">
+                                <label ID="lblLengthValue" class="dataLabelClass"></label>
+                        </td>
+                    </tr>
+                     <tr>
+                            <td align="left" valign="middle">
+                            <label ID="lblCharge" class="labelClass whiteColor">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</label>
+                        </td>
+                        <td align="left" valign="top">
+                                <label ID="lblChargeValue" class="dataLabelClass"></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" valign="middle">
+                            <label ID="lblOperator" class="labelClass whiteColor">@LocalizationServices.GetLocalizedHtmlString("lbl_Operator")</label>
+                        </td>
+                        <td align="left" valign="top">
+                                <label ID="lblOperatorValue" class="dataLabelClass"></label>
+                        </td>
+                    </tr>
+                   
+                </table>
+                </div>
+                <div id="div2">
+                    <table class="tblPanel2">
+                        <tr>
+                            <td align="center" valign="top">
+                                <label ID="lblTabaNo_div2" class="labelClass whiteColor">@LocalizationServices.GetLocalizedHtmlString("lbl_TabaNo")</label>
+                            </td>
+                            <td align="right" valign="top" colspan="2">
+                                <label ID="lblBarCount" class="labelClass whiteColor LabelBarCount">@LocalizationServices.GetLocalizedHtmlString("lbl_BarCount")</label>
+                            </td>
+                            <td align="center" valign="top">
+                                <label ID="lblFinishedWeight" class="labelClass whiteColor">@LocalizationServices.GetLocalizedHtmlString("lbl_FinishedWeight")</label>
+                            </td>
+
+                        </tr>
+                        
+                        <tr>
+                            <td align="left" valign="top">
+                                <input type="text" id="txtThaba1_div2" class="ReadOnlyTextBoxHT txtThaba" readonly="readonly"/>
+                            </td>
+                            <td align="left" valign="top">
+                                <input type="text" id="txtNoOfUnit1" class="ReadOnlyTextBoxHT" readonly="readonly" />
+                            </td>
+                            <td align="left" valign="top">
+                                <select id="ddlUnitType1" class="ReadOnlyTextBoxHT opacity-ddl" disabled></select>
+                            </td>
+                            <td align="left" valign="top">
+                                <input type="text" id="txtQuantity1" class="ReadOnlyTextBoxHT" readonly="readonly" />
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td align="left" valign="top">
+                                <input type="text" id="txtThaba2_div2" class="ReadOnlyTextBoxHT txtThaba" readonly="readonly" />
+                            </td>
+                            <td align="left" valign="top">
+                                <input type="text" id="txtNoOfUnit2" class="ReadOnlyTextBoxHT" readonly="readonly" />
+                            </td>
+                            <td align="left" valign="top">
+                                <select id="ddlUnitType2" class="ReadOnlyTextBoxHT opacity-ddl" disabled></select>
+                            </td>
+                            <td align="left" valign="top">
+                                <input type="text" id="txtQuantity2" class="ReadOnlyTextBoxHT" readonly="readonly" />
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td align="left" valign="top">
+                                <input type="text" id="txtThaba3_div2" class="ReadOnlyTextBoxHT txtThaba" readonly="readonly" />
+                            </td>
+                            <td align="left" valign="top">
+                                <input type="text" id="txtNoOfUnit3" class="ReadOnlyTextBoxHT" readonly="readonly" />
+                            </td>
+                            <td align="left" valign="top">
+                                <select id="ddlUnitType3" class="ReadOnlyTextBoxHT opacity-ddl" disabled></select>
+                            </td>
+                            <td align="left" valign="top">
+                                <input type="text" id="txtQuantity3" class="ReadOnlyTextBoxHT" readonly="readonly" />
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td align="left" valign="top">
+                                <input type="text" id="txtThaba4_div2" class="ReadOnlyTextBoxHT txtThaba" readonly="readonly" />
+                            </td>
+                            <td align="left" valign="top">
+                                <input type="text" id="txtNoOfUnit4" class="ReadOnlyTextBoxHT" readonly="readonly" />
+                            </td>
+                            <td align="left" valign="top">
+                                <select id="ddlUnitType4" class="ReadOnlyTextBoxHT opacity-ddl" disabled></select>
+                            </td>
+                            <td align="left" valign="top">
+                                <input type="text" id="txtQuantity4" class="ReadOnlyTextBoxHT" readonly="readonly" />
+                            </td>
+
+                        </tr>
+                    </table>
+                </div>
+                <div id="div3">
+                    <table class="tblPanel3">
+                        <tr>
+                            <td align="center" valign="top">
+                                <label ID="lblTabaNo_div3" class="labelClass whiteColor">@LocalizationServices.GetLocalizedHtmlString("lbl_TabaNo")</label>
+                            </td>
+                          
+                            <td align="center" valign="top">
+                                <label ID="lblNextProcess_div3" class="labelClass whiteColor">@LocalizationServices.GetLocalizedHtmlString("lbl_NextProcess")</label>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td align="left" valign="top">
+                                <input type="text" id="txtThaba1_div3" class="ReadOnlyTextBoxHT txtThaba" readonly="readonly" />
+                            </td>
+                           
+                            <td align="left" valign="top">
+                                <select id="ddlNextProcess1" class="ReadOnlyTextBoxHT opacity-ddl" disabled></select>
+                            </td>
+                           
+                        </tr>
+                        <tr>
+                            <td align="left" valign="top">
+                                <input type="text" id="txtThaba2_div3" class="ReadOnlyTextBoxHT txtThaba" readonly="readonly" />
+                            </td>
+
+                            <td align="left" valign="top">
+                                <select id="ddlNextProcess2" class="ReadOnlyTextBoxHT opacity-ddl" disabled></select>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td align="left" valign="top">
+                                <input type="text" id="txtThaba3_div3" class="ReadOnlyTextBoxHT txtThaba" readonly="readonly" />
+                            </td>
+                           
+                            <td align="left" valign="top">
+                                <select id="ddlNextProcess3" class="ReadOnlyTextBoxHT opacity-ddl" disabled></select>
+                            </td>
+                           
+                        </tr>
+
+                        <tr>
+                            <td align="left" valign="top">
+                                <input type="text" id="txtThaba4_div3" class="ReadOnlyTextBoxHT txtThaba" readonly="readonly" />
+                            </td>
+
+                            <td align="left" valign="top">
+                                <select id="ddlNextProcess4" class="ReadOnlyTextBoxHT opacity-ddl" disabled></select>
+                            </td>
+
+                        </tr>
+                    </table>
+                </div>
+                <div id="div4" class="div4-padding-top">
+                    <label id="lblSuccessMsg" class="dataLabelClass">@LocalizationServices.GetLocalizedHtmlString("successMsg_Split_DataDeleted")</label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="emptyRow">
+            </td>
+        </tr>
+    </table>
+    <table class="tblButtons">
+        <tr>
+            <td align="left" valign="top">
+
+                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnPrev" class="no-timeout _functionButtons"
+                       CausesValidation="false" TabIndex="1" />
+
+            </td>
+            <td align="center" valign="top">
+
+                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnCloseWindow" class="_functionButtons Hidden"
+                       CausesValidation="false" TabIndex="1" />
+
+            </td>
+            <td align="left" valign="top">
+                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Next")" ID="btnNext" ValidationGroup="TrnValidation" class="no-timeout _functionButtons"
+                       CausesValidation="false" TabIndex="2" />
+            </td>
+        </tr>
+    </table>
+    <div id="divErrorMessages" class="Hidden">
+        <label id="lblErrorMessageE_WIP_Tag_Split_001" class="Hidden">
+            <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+        </label>
+    </div>
+    <input type="hidden" id="hdfButtonClose" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" />
+    <input type="hidden" id="hdfButtonDelete" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Delete")" />
+    <input type="hidden" id="hdfButtonNext" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Next")" />
+    <input type="hidden" id="hdfButtonPrev" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Return")" />
+    
+</body>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+<script src="~/Static/js/WIPTagSplitDelete.js" asp-append-version="true"></script>

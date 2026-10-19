@@ -1,0 +1,180 @@
+﻿@using TSWebApplication.Domain.Resources
+@using TSWebApplication.Domain.Model
+@inject LocalizationServices LocalizationServices
+@model List<MakerMillSheetConfiguration>
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_MakerMillsheetTemplateMaster").Value.Replace("</br>", "");
+    
+}
+<style type="text/css">
+    .hide {
+        display: none;
+    }
+
+    .header {
+        padding-left: 3px;
+    }
+
+    .freez > th {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 0.2px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .HeaderPadding {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+</style>
+<script>
+    window.onload = function() {
+
+
+        window.resizeTo(720, 660);
+
+    };
+</script>
+
+<link href="~/css/Common.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/masterStyles.css" rel="stylesheet" asp-append-version="true" />
+<br />
+<br />
+
+<div id="divMain" style="margin: auto 0px auto 0px;">
+    
+    <div id="divSearch" class="searchBar">
+        <div style="width: 460px">
+            <table cellpadding="0" cellspacing="0" border="0" frame="border" style="border-collapse: collapse; width: 450px">
+                <tr>
+                    <td valign="bottom" style="width: 450px; height: 70px">
+                        <table cellpadding="0" cellspacing="0" border="0" style="width: 450px" class="searchTextBox">
+                            <tr style="height:20px">
+                                <td align="center" valign="middle" bgcolor="#4E6CAB">
+                                    <label ID="lblGridHeader"
+                                           class="labelClass1" Style="display: inline-block; color: White; background-color: #4E6CAB;">@LocalizationServices.GetLocalizedHtmlString("lbl_SearchCondition")</label>
+                                </td>
+                            </tr>
+                        </table>
+                        <table cellpadding="0" cellspacing="0" border="0" style="width: 450px" class="searchTextBox">
+                            
+                            <tr class="trTdH2" style="height:20px;">
+                                <td class="tdH2" style="width:230px;">
+                                    <label ID="lblMakerName" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialMaker")</label>
+                                </td>
+                                <td class="tdH2">
+                                    <label ID="lblM_TemplateName" class="labelClass" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_M_TemplateName")</label>
+                                </td>
+                            </tr>
+                            <tr class="trTdSearchContent">
+                               
+                                <td class="td tdSearchGrid">
+                                    <select id="ddlMakerName" name="ddlMakerName" class="DropdownClass DropdownListClass form-control InsetBorder" tabindex="1">
+                                        <option value="0" selected="selected"></option>
+                                    </select>
+                                </td>
+                                <td class="td tdSearchGrid">
+
+                                    <input type="text" ID="txtTemplateName" TabIndex="2" MaxLength="50" class="InActiveIMEMode labelClass" style="width: 100%;height:22px">
+
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+
+                    <td align="left">
+                        <table style="width: 190px; height: 70px; margin-left: 5px; background-color: #006666">
+                            <tr>
+                                <td align="center" style="vertical-align: bottom" colspan="2">
+                                    <label ID="Label1"
+                                           style="color:white;" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_AuxiliaryFunctionSearchSort_L")</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="50%" align="center">
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Extract")" ID="btnSearch"
+                                           class="_functionButtons" TabIndex="11" onclick="btnSearch_Click()" />
+                                </td>
+                                <td align="center">
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Sort_L")" ID="btnSort"
+                                           TabIndex="12" class="_functionButtons" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+    </div>
+    <div id="divMainMillSheetConfigList">
+        @{
+            @await Html.PartialAsync("MakerMillSheetConfigListGrid", Model)
+            ;
+        }
+    </div>
+
+    <br />
+
+
+    <table style="width: 647px">
+        <tr>
+            <td width="455px"></td>
+            <td align="right" style="width: 5%; height: 60px; background-color: #C00000;">
+                <table width="100px" cellpadding="2" cellspacing="2">
+                    <tr>
+                        <td align="center">
+                            <label ID="Label15" class="labelClass" style="color:white;" Text="@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")">@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")" ID="btnInitialize" class="_functionButtons" TabIndex="13" style="width:90px;" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width:3px;"></td>
+            <td align="right" style="width: 5%; background-color: navy;">
+
+                <table width="100px" cellpadding="2" cellspacing="2">
+                    <tr>
+                        <td align="center">
+                            <label ID="lblClose"
+                                   style="color:white;" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnGoBack"
+                                   style="width:90px;" TabIndex="14" class="_functionButtons" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+    </table>
+</div>
+<div id="divErrorMessages" class="Hidden">
+    <label id="lblErrorMessageE_Maker_MillSheet_List_001" class="Hidden">
+        <span ID="LiteralExceptionOccured" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+    </label>
+    <label id="lblErrorMessageE_Maker_MillSheet_List_002" class="Hidden">
+        <span ID="LiteralEnterAtLeastOneSearchCondition" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_EnterAtLeastOneSearchCondition")</span>
+    </label>
+</div>
+<div id="SortPopUpModalMain">
+    @{
+        @await Html.PartialAsync("~/Views/Shared/SortPopUp.cshtml")
+        ;
+    }
+</div>
+
+@section Scripts {
+    <script src="~/Static/js/MakerMillSheetPDFConfigList.js" asp-append-version="true"></script>
+
+}

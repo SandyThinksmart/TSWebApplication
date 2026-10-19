@@ -1,0 +1,229 @@
+﻿@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+@using TSWebApplication.Domain.Model
+@model List<PostHTDetails>
+@{
+    //ViewData["Title"] = "Privacy Policy";
+  ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_PostHTInspectionEntryEditDelete").Value.Replace("</br>","");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+  
+}
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<link href="~/css/Common.css" rel="stylesheet" />
+<link href="~/css/Common_Styles.css" rel="stylesheet" />
+<link href="~/css/masterStyles.css" rel="stylesheet" />
+
+<link href="~/css/PostHTInspectionList.css" rel="stylesheet" />
+<script src="~/js/posthtinspectionlist.js"></script>
+<script type="text/javascript">
+   //$(document).ready(function() 
+   //{
+   //    alert("Message");
+   //   var w = $(window).width();
+   //   var h = $(window).height();  
+   //});
+</script>
+    <style type="text/css">
+        .freez > th {
+            border: thin solid White;
+            background-color: #7291D2;
+            border-color: White;
+            position: sticky !important;
+            top: 0.2px;
+            height: 20px;
+            box-shadow: 0 0 0px 1px White;
+        }
+
+      .headerPadding {
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+        }
+
+        .fixLengthDataPadding {
+            padding-left: 5px !important;
+            padding-right: 5px !important;
+        }
+    </style>
+<form>
+    <asp:ScriptManager ID="ScriptManager1" >
+        </asp:ScriptManager>
+    <div id="divMain" style="margin-top:15px;">
+    <Panel ID="pnlProductSearch" runat="server">
+        <table cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse; width: 756px">
+            <tr>
+                <td valign="bottom" style="width: 540px; height: 70px">
+                    <table cellpadding="0" cellspacing="0" style="height: 70px">
+                        <tr>
+                            <td colspan="6" valign="bottom" align="center" style="height: 15px; background-color: #4E6CAB">
+                                <label ID="lblPostHTSearchGridHeader"
+                                       style="Color:White;padding-top: 3px;" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_SearchCondition")</label>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            @*<td class="tdH2">
+                                <label ID="lblSrchMachine" Class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Machine_L")</label>
+                            </td>*@
+                            <td class="tdH2">
+                                <label ID="lblSrchFurnaceNum" Class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</label>
+                            </td>
+                            <td class="tdH2">
+                                <label ID="Label2" CssClass="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcCondition")</label>
+                            </td>
+                            <td class="tdH2">
+                                <label ID="Label3" CssClass="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_PatternNo")</label>
+
+                            </td>
+                            <td colspan="2" class="tdH2">
+                                <label ID="lblInspectionDate" CssClass="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_InspectionDate")</label>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            @*<td class="tdSerachComponant" style="width: 105px">
+                                    @*<input type="text" ID="txtmachine" runat="server" class=" form-control UpperCase TextFieldsClass" style="border-style: none;font-family:'MS Gothic';Width:96%; Height:22px" ;
+                                           BorderStyle="Inset" MaxLength="30" TabIndex="2" />*@
+                                   @* <select ID="ddlMachine" TabIndex="1" style="width:100px;height:22px;background-color:revert;" class="form-control labelClass MandatoryDropdown" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_MachineRequired")" />
+                            </td>*@
+                            <td class="tdSerachComponant" style="width: 120px">
+                                    <input type="text" ID="txtSrchFurnaceNum" runat="server" class=" form-control UpperCase TextFieldsClass" style="border-style: none;font-family:'MS Gothic';Width:96%; Height:22px" ;
+                                           BorderStyle="Inset" MaxLength="30" TabIndex="2" />                                   
+                            </td>
+                            <td class="tdSerachComponant" style="width: 105px">
+                                   @* <input type="text" ID="txtSrchProcCond" runat="server" class=" form-control UpperCase TextFieldsClass" style="border-style: none;font-family:'MS Gothic';Width:96%; Height:22px" ;
+                                           BorderStyle="Inset" MaxLength="30" TabIndex="2" />*@
+                                    <select ID="ddlProcCondition" Style="width: 104px;border-style:groove;background-color:revert;" class="form-control TextFieldsClass" TabIndex="3" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_ProcConditionRequired")" />
+                                    
+                                   
+                                
+                                </td>
+                            <td class="tdSerachComponant" style="width: 150px">
+                                    <input type="text" ID="txtSrchPatternNo" runat="server" class=" form-control UpperCase TextFieldsClass" style="border-style: none;font-family:'MS Gothic';Width:96%; Height:22px" ;
+                                           BorderStyle="Inset" MaxLength="5" TabIndex="3" />
+                              
+                                <AjaxToolKit:FilteredTextBoxExtender ID="fteSrchPatternNo" runat="server" Enabled="True"
+                                                                     TargetControlID="txtSrchPatternNo" ValidChars="0123456789">
+                                </AjaxToolKit:FilteredTextBoxExtender>
+
+                            </td>
+                            <td class="td tdSearchGrid " style="width: 168px">
+                                    <input type="text" ID="txtSrchInspectionDateStart" runat="server" class=" form-control UpperCase TextFieldsClass" style="border-style: none;font-family:'MS Gothic';Width:96%; Height:22px" ;
+                                           BorderStyle="Inset" MaxLength="2" TabIndex="4" />
+                              
+                            </td>
+                            <td class="td tdSearchGrid " style="width: 168px">
+                                    <input type="text" ID="txtSrchInspectionDateEnd" runat="server" class=" form-control UpperCase TextFieldsClass" style="border-style: none;font-family:'MS Gothic';Width:96%; Height:22px" ;
+                                           BorderStyle="Inset" MaxLength="2" TabIndex="4" />
+                              
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+                
+                <td style="width: 12px"></td>
+                <td align="left">
+                    <table style="width: 200px; height: 70px; margin-left: 5px; background-color: green">
+                        <tr>
+                            <td align="center" style="vertical-align: bottom" colspan="2">
+                                <label ID="Label1"
+                                       style="Color:white" CssClass="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_AuxiliaryFunctionSearchSort_L")</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="align:middle;" width="50%">
+                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Extract")" ID="btnSearch" ValidationGroup="TrnValidation" class="_functionButtons"
+                                           style="width: 90px" CausesValidation="false" TabIndex="38" onclick="btnSearch_Click()" />
+                            </td>
+                            <td style="align:middle;">
+                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Sort_L")" ID="btnSort" ValidationGroup="TrnValidation" class="_functionButtons"
+                                       style="width: 90px" CausesValidation="false" TabIndex="39" />
+
+
+                                <AjaxToolKit:ModalPopupExtender ID="ModalPopupExtender1" runat="server"
+                                                                TargetControlID="btnSort" PopupControlID="pnlSortPanel" BackgroundCssClass="popupbg"
+                                                                DropShadow="false" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </Panel>
+    <div id="divPostHTInspectionListGrid" style="margin: auto 0px auto 0px;">
+            @{
+                @await Html.PartialAsync("PostHTInspectionListGrid", Model)
+                ;
+            }
+
+                    </div>
+                    <div>
+                        
+                            <table style="width: 755px">
+                                <tr>
+                                    <td align="left" style="width: 10%; height: 50px; background-color: DarkRed;">
+                                        <table width="100px" cellpadding="2" cellspacing="2">
+                                            <tr>
+                                                <td align="center">
+                                    <label ID="Label4" class="labelClass" style="Color:White">@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")</label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center">
+                                                    <input  type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")" ID="btnInitialize"  class="_functionButtons" TabIndex="9"
+                                            style="Width:100px" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td></td>
+                                    <td align="right" style="width: 10%;  height: 50px;background-color: navy;">
+                                        <table width="100px" cellpadding="2" cellspacing="2">
+                                            <tr>
+                                                <td align="center">
+                                                    <label ID="lblClose"  
+                                                       style="Color:White" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center">
+                                                    <input  type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnCloseOnList"  
+                                                         TabIndex="7" class="_functionButtons" style="Width:90px"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        
+                    </div>
+        <input type="hidden" id="hdfQuality_CD" name="hdfUserName" value="" />
+        <input type="hidden" id="hdfProcessPlan_CD" name="hdfUserName" value=""/>
+        <input type="hidden" id="hdfGroupNo" name="hdfGroupNo" />
+
+</div>
+
+
+
+</form>
+<label id="lblErrorMessageE_PostHT_011" class="Hidden">
+    <span class="LiteralEnterAtLeastOneSearchCondition" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_EnterAtLeastOneSearchCondition")</span>
+</label>
+<label id="lblErrorMessageE_PostHT_012" class="Hidden">
+    <span class="LiteralTransferDateInvalid" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_InspStartDate_Invalid")</span>
+</label>
+<label id="lblErrorMessageE_PostHT_013" class="Hidden">
+    <span class="LiteralTransferDateStartRequired" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_InspStartDate_Required")</span>
+</label>
+<label id="lblErrorMessageE_PostHT_014" class="Hidden">
+    <span class="LiteralDimDStartRequired" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_InspEndDate_Invalid")</span>
+</label>
+<div id="SortPopUpModalMain">
+    @{
+                @await Html.PartialAsync("~/Views/Shared/SortPopUp.cshtml")
+        ;
+    }
+</div>
+@section Scripts{
+    <script src="~/static/js/PostHTInspectionList.js"></script>
+ }

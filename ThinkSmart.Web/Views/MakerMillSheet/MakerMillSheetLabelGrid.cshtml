@@ -1,0 +1,57 @@
+﻿@using TSWebApplication.Domain.Utility
+@using TSWebApplication.Domain.Resources
+@model List<NameValue>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+}
+
+<div>
+    <table class="GridLines GridColumnLeftPadding" cellpadding="0" cellspacing="0" border="1" id="grdvMillSheetFields">
+
+        <thead>
+            <tr class="GridHeader GridViewScrollHeader">
+                <th class="labelClass thGrid"></th>
+                <th class="checkbox-width thGrid"></th>
+                <th class="headerPadding labelClass thGrid">@LocalizationServices.GetLocalizedHtmlString("lbl_Elements")</th>
+                <th class="headerPadding labelClass thGrid EditDelete" colspan="2"> <label ID="lblEditDelete" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Edit")</label></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                int i = 0;
+                @foreach (var item in Model)
+                {
+                    i = i + 1;
+                    <tr>
+                        <td align="center" valign="middle">
+                            @i
+                        </td>
+                        <td align="center" valign="middle" class="chkSelect">
+                            <input type="checkbox" ID=@("chkSelectField"+i) class="labelClass chkResize checkbox-Grid"/>
+                            <label ID=@("lblLabelFieldCD" + i) class="labelClass Hidden">@item.CD</label>
+                        </td>
+                        <td align="left" valign="middle">
+                            <label ID=@("lblLabelName"+i) class="labelClass m-padding-top-bottom">@item.Name</label>
+
+                        </td>
+                        <td align="left" valign="middle" class="EditDelete">
+                            <input type="radio" id=@("rdoEditDelete" + i) name="modify" style="height:15px;width:15px;" class="disabled" onclick="DrawFieldRectangle($(this))" disabled="disabled" />
+                            <input type="hidden" id=@("hdfRectValue" + i) name="hdfRect" />
+                        </td>
+                      
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr style="height:20px;">
+                    <td colspan="4" align="left" style="padding-left:5px;"><label ID="lbldatanotavailable" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_NoRecordFound_L")</label></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>

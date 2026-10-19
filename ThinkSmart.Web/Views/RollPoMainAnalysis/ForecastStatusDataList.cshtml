@@ -1,0 +1,58 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<ForecastStatusPopupDetails>
+@inject LocalizationServices LocalizationServices
+
+<style>
+    .freezForcastStatusPopupGrid1 > th {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 20px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezForcastStatusPopupGrid1 {
+        border-color: white;
+    }
+
+  
+
+    
+</style>
+
+<table bgcolor="#7291D2" border="0" cellpadding="0" cellspacing="0" id="tblForecastStatusPopUp" class="GridLines" style="overflow:auto">
+    <tr class="trTdH2 freezForcastStatusPopupGrid1">
+        <th class="tdHeaderClass labelClass GridCenter">
+            <label id="lblSalesInchargeName" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_SalesInchargeName")</label>
+        </th>
+        <th class="tdHeaderClass labelClass GridCenter">
+            <label id="lblDepartment" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Department")</label>
+        </th>
+        <th class="tdHeaderClass labelClass GridCenter">
+            <label id="lblClosed" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Closed")</label>
+        </th>
+    </tr>
+    @if (Model != null && Model.Count > 0)
+    {
+
+        foreach (var item in Model)
+        {
+
+            <tr class="GridNormalRow" >
+                <td class="labelClass">@item.EMPLOYEE_NAME</td>
+                <td class="labelClass">@item.DEPARTMENT_NAME</td>
+                <td class="labelClass" style="padding-left: 23px;width: 8px;">
+                    @if (@item.ACTIVE_FLAG == 1)
+                    {
+                        <input type="checkbox" checked disabled/>
+                    }
+                    else
+                    {
+                        <input type="checkbox" disabled />
+                    }
+                </td>
+            </tr>
+        }
+    }
+</table>

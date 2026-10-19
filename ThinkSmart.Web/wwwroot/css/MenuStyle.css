@@ -1,0 +1,178 @@
+﻿#menuWrapper {
+    width: 830px;
+}
+
+#menuHeader {
+    background-color: #336699;
+    width: 100%;
+    height: 32px
+}
+
+#menuContent {
+    height: 535px;
+}
+
+#menuFooter {
+    float: right;
+    right: 0;
+    bottom: 0;
+}
+
+.MenuTable {
+    width: 100%;
+    border: 2px solid Silver;
+    margin-top: 0px;
+    vertical-align: top;
+    background-color: White;
+}
+
+    .MenuTable td:hover {
+        outline: 2px solid #E0ECF8;
+        background-color: #E0ECF8;
+    }
+
+.tdclass {
+    height: 25px;
+}
+.tdclass1 {
+    height: 42px;
+}
+
+.menulabel {
+    color: White;
+    font-size: 15px;
+}
+
+.exitlabel {
+    font-size: 15px;
+    color: White;
+}
+
+.menuButtons {
+    border-style: inset;
+    margin-bottom: 10px;
+    height: 26px;
+    text-align: center;
+}
+
+.exitButtons {
+    border-style: inset;
+    margin-bottom: 10px;
+    height: 26px;
+    text-align: center;
+}
+
+.menuSearch {
+    margin-left: 2px;
+    margin-bottom: 10px;
+    width: 51px;
+    height: 18px;
+    border-style: inset;
+}
+
+.linkFormat {
+    color: Navy;
+    font-size: 13px;
+    font-family: Arial;
+    height: 25px;
+    cursor: pointer;
+    line-height: normal;
+}
+
+.labelClass {
+    color: #FFFFFF;
+    font-family: MS Gothic;
+    font-size: 13px;
+    margin-left: 0px;
+}
+
+.style1 {
+    width: 342px;
+    height: 25;
+}
+
+.style2 {
+    width: 310px;
+    height: 25px;
+    padding:5px;
+}
+
+.style3 {
+    height: 25px;
+    width: 303px;
+}
+
+.selected {
+    background-color: #E0ECF8;
+}
+
+.pptLink {
+    text-decoration: none;
+}
+
+#DivCloseButton {
+    background-color: #0000ff;
+    text-align: center;
+    width: 100px;
+    height: 50px;
+}
+
+#divLblClose, #divBtnClose {
+    line-height: 25px;
+}
+
+.subMenu {
+    overflow-y: auto;
+    height: 525px;
+}
+
+.underDev {
+    border-style: none;
+    width: 100%;
+    height: auto;
+    background-color: white;
+    text-align: left;
+    padding-left: 0px;
+    color: Navy;
+    font-size: 13px;
+    font-family: Arial;
+}
+.MenuHeight {
+    padding-top: 21px;
+    padding-bottom: 16px;
+}
+.topPadding{
+    padding-top:5px;
+}
+table {
+    border-collapse: collapse;
+}
+
+.menu,
+.sub {
+    cursor: pointer;
+    user-select: none;
+}
+
+
+.sub {
+    background: white;
+    padding-left: 30px;
+    border:1px solid silver;
+}
+
+.link {
+    padding-left: 60px;
+    background: white;
+    border: 1px solid silver;
+}
+
+.hidden {
+    display: none;
+}
+
+.icon {
+    display: inline-block;
+    font-weight: bold;
+    width:15px;
+}

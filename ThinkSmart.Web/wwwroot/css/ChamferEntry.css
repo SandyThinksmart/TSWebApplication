@@ -1,0 +1,247 @@
+﻿#tdlblStartDateTime, #tdlblEndDateTime {
+    width: 99px;
+}
+
+#txtStartDateTime, #lblEndDateTime {
+    width: 91px;
+}
+
+#tdlblStartOperator, #tdlblEndOperator {
+    width: 72px;
+    text-align: right;
+}
+
+#tdtxtStartOperator {
+    width: 160px;
+}
+
+#tdtxtStartDateTime {
+    width: 255px;
+    text-align: left;
+}
+
+#tdtxtEndDateTime {
+    width: 245px;
+    text-align: left;
+}
+
+
+#txtStartOperator, #txtEndOperator {
+    width: 110px;
+}
+
+#tdlblFurnaceNum {
+    width: 46px;
+    text-align: right;
+}
+
+#tdtxtFurnaceNum {
+    width: 100px;
+}
+
+#txtFurnaceNum {
+    width: 88px;
+    height: 22px;
+}
+
+#tblProcessStartData1, #tblProcessEndData1 {
+    table-layout: fixed;
+}
+    #txtActualLength {
+        width: 60px;
+        height: 22px;
+        text-align: right;
+    }
+
+.Mandatory {
+    background-color: #C1FFFF;
+   
+}
+
+.Hidden {
+    display: none;
+}
+
+.disabled {
+    background-color: #EEEEEE !important;
+    color: black;
+}
+
+#txtFinishedBarCount {
+    width: 100px;
+    height: 22px;
+}
+
+#ddlUnitType {
+    width: 59px;
+}
+
+#txtFinishedQuantity {
+    width: 110px;
+    height: 22px;
+}
+
+#txtThaba1, #txtThaba2, #txtThaba3, #txtThaba4 {
+    width: 36px;
+    height: 22px;
+}
+
+#tdlblDecision {
+    width: 70px;
+}
+
+#tdlblActualLength {
+    width: 80px;
+    text-align: right;
+}
+
+#txtStartDate, #txtEndDate {
+    width: 100px;
+    height: 22px;
+}
+
+#txtStartTime, #txtEndTime {
+    width: 60px;
+    height: 22px;
+}
+
+#btnStartDateTime, #btnEndDateTime {
+    width: 39px;
+}
+
+#txtNoOfCoils {
+    width: 100px;
+    height: 18px;
+    text-align: right;
+}
+
+#txtDieNo, #txtChShape {
+    width: 89px;
+    height: 22px
+}
+
+#tdGridDimDLength {
+    width: 65px;
+}
+
+#tdHdrMachineGridDimD {
+    width: 45px;
+}
+
+#tdGridMetallicCharge {
+    width: 45px;
+}
+
+#txtMetalicPlateCode {
+    width: 100px;
+    height: 22px;
+}
+
+
+
+.GridThaba {
+    width: 70px;
+}
+
+
+/** Jquery Override CSS */
+
+.ui-widget-header {
+    background: #225AD9;
+    border-style: none;
+    height: 5px;
+}
+
+.ui-dialog-title {
+    display: none;
+}
+
+.ui-dialog-titlebar-close {
+    display: none;
+}
+
+.ui-dialog {
+    border-style: solid;
+    border-color: #225AD9;
+    border-width: 2px;
+    border-radius: 0px;
+    background-color: white;
+}
+
+    .ui-dialog div, .ui-dialog button {
+        border-radius: 0px;
+    }
+
+.ui-dialog-buttonpane {
+    border: none;
+    text-align: center !important;
+}
+
+.ui-dialog-buttonset {
+    float: none !important;
+}
+
+.ui-button {
+    Height: 25px;
+    border: 1px inset Silver;
+    font-size: 12px;
+    width: 80px;
+}
+
+.ui-button-text {
+    padding: 0 !important;
+    color: black;
+    font-size: 12px;
+}
+
+.ui-state-hover {
+    border: 1px solid #ccc;
+    background: #f6f6f6 url(images/ui-bg_glass_100_f6f6f6_1x400.png) 50% 50% repeat-x;
+    font-weight: bold;
+    color: #1c94c4;
+}
+
+.ui-dialog-content.ui-widget-content {
+    font-family: MS Gothic;
+    font-weight: 400;
+    font-size: 13px;
+    background-color: white;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+    padding: 0;
+}
+
+.ui-dialog-buttonpane {
+    background-color: white;
+}
+
+.ui-widget-content {
+    background: white;
+    color: #333;
+}
+.headerPadding {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    white-space: nowrap;
+}
+.thGrid{
+    text-align: center;
+    white-space: nowrap;
+    border-color: white;
+}
+.noWrap{
+    white-space:nowrap;
+}
+.padddingLeft {
+    padding-left: 3px;
+}
+.padddingRight {
+    padding-right: 3px;
+}
+.freez > th {
+    position: sticky !important;
+    background-color: #7291D2;
+    top: 0.2px;
+    height: 20px;
+}

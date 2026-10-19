@@ -1,0 +1,82 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<MakerMaterialDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+
+}
+
+<div>
+
+
+   
+    <table id="tblMatrial" class="GridLines GridLayout" cellpadding="0" cellspacing="0" border="1">
+        <thead>
+            <tr class="GridHeader GridViewScrollHeader freez GridHeaderPadding" id="grdvColdDrawingDetails" style="border-collapse:collapse;text-align: left">
+               @*  <th></th> *@
+                <th class="headerPadding labelClass padding-top-bottom" style="text-align:center;white-space:nowrap"><label ID="lblSteelMatlType" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_SteelMatlType")</label></th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap"><label ID="lblMaterialNameMaker" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialNameMaker")</label></th>
+                <th class="headerPadding labelClass thDimStart" style="text-align:center;white-space:nowrap"><label ID="lblDimStart" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DimStart")</label></th>
+                <th class="headerPadding labelClass thDimEnd" style="text-align:center;white-space:nowrap"><label ID="lblDimEnd" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DimEnd")</label></th>
+                <th class="headerPadding labelClass thRate" style="text-align:center;white-space:nowrap"><label ID="lblRatePerKG" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_RatePerKG")</label></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @{
+                int i = 0;
+            }
+            
+            @if (Model != null && Model.Count > 0)
+            {
+                 
+               
+                 
+                foreach (var item in Model)
+                {
+                     i = i + 1;
+                    
+
+                    <tr class="dataRow">
+                       @*  <td class="labelClass padddingLeft padddingRight"> <input type="checkbox" ID="chkSelectRow" class="labelClass" TabIndex="9" /></td> *@
+                        <td class="labelClass GridLeft">@item.MTL_NAME_INTERNAL</td>
+                        <td class="labelClass GridLeft">
+                            <label ID="@("lblMaterialName"+i)" class="labelClass">@item.MATL_MAKER_NAME</label>
+                            <label ID="@("lblMatlNameMakerCD"+i)" class="labelClass" style="display:none;">@item.MATL_NAME_MAKER_CD</label>
+                            <label ID="@("lblRateCD"+i)" class="labelClass" style="display:none;">@item.MATERIAL_RATE_CD</label>
+                            </td>
+                        <td align="left" valign="top" style="padding-left:0px;">
+                            <input type="text" ID="@("txtDimStart" + i)" value="@item.DIM_START" class="TextFieldsClass form-control alignRightText txtDimStart" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_DimStartRequired")"
+                            MaxLength="8" autocomplete="off" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            </td>
+                        <td align="left" valign="top" style="padding-left:0px;">
+                            <input type="text" ID="@("txtDimEnd" + i)" value="@item.DIM_END" class="TextFieldsClass form-control alignRightText txtDimEnd" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_DimEndRequired")"
+                            MaxLength="8" autocomplete="off" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                        </td>
+                        <td class="labelClass" align="left" valign="top" style="padding-left:0px;">
+                            <input type="text" ID="@("txtPrice"+i)" value="@item.RATE" class="TextFieldsClass form-control alignRightText txtRate" MaxLength="12" autocomplete="off" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            </td>
+                        
+                    </tr>
+
+                }
+               
+            }
+            else
+            {
+                <tr class="dataRow">
+
+                  @*   <td class="labelClass padddingLeft padddingRight">  <input type="checkbox" ID="chkSelectRow" class="labelClass" TabIndex="28" /></td> *@
+
+                    <td class="labelClass GridCenter"></td>
+                    <td class="labelClass GridCenter"></td>
+                    <td class="labelClass GridLeft"></td>
+                    <td class="labelClass GridLeft"></td>
+                    <td class="labelClass GridLeft"></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

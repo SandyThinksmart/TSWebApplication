@@ -1,0 +1,122 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<HSKMillSheetDetails> 
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+}
+
+<link href="~/css/Common_Styles.css" rel="stylesheet" />
+<link href="~/css/hskmillsheeteditdelete.css" rel="stylesheet" />
+
+<link href="~/css/Common.css" rel="stylesheet" />
+<link href="~/css/masterStyles.css" rel="stylesheet" />
+
+<div>
+    <table class="freez GridLines GridColumnLeftPadding" id="tbHSKMillSheet" style="width:1391px">
+                    <thead>
+                    <tr class="GridHeader GridViewScrollHeader freez GridHeaderPadding">
+                        <td colspan="20" class="labelClass labelClassWhite ">
+                            <label ID="lblchemicalComponant">@LocalizationServices.GetLocalizedHtmlString("lbl_MillSheetList")</label>
+                        </td>
+                    </tr>
+
+                    <tr class="GridHeader1 GridLines12 textboxheight">
+                <th headerPadding labelClass thGrid>
+                        <label ID="lblchemicalComponant" class="labelClass"></label>
+                    </th>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Receiver")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Condition")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialDimD")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MakerName")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DelDate_L")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_NoOfUnits_L")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_WeightWithoutKG")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Issue")No</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_CreatedDate_L")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_UpdatedDate_L")</label>
+                        </td>
+                    </tr>
+                     </thead>
+                     <tbody>
+           
+            @if (Model != null && Model.Count > 0)
+            {
+                @foreach (var item in Model)
+                {
+                    <tr data-lblHSKMILLSHEET_CD="@item.HSK_MILL_SHEET_CD">
+                    <td style="width:50px;">
+                        <input id="btnLnkEdit" type="button" value='@LocalizationServices.GetLocalizedHtmlString("lbl_EditDelete")' class="_functionButtons"
+                               onclick="getHikinukiDetailsByDrawingCD($(this))" />
+                    </td>
+                        <td id="chuubanGyouban" class="textboxheight text-left" style="text-wrap-mode:nowrap;">@item.PP_CHUUBAN</td>
+                        <td class="textboxheight text-left" style="text-wrap-mode:nowrap;">@item.PP_CUSTOMER_NAME</td>
+                        <td class="textboxheight text-left" style="text-wrap-mode:nowrap;">@item.RECEIVER_NAME</td>
+                         <td class="textboxheight text-left" style="text-wrap-mode:nowrap;">@item.PROD_NAME_CUST</td>
+                        <td class="textboxheight text-left" style="text-wrap-mode:nowrap;">@item.PP_PROD_CONDITION_DESCRIPTION</td>
+                        <td class="textboxheight text-center" style="text-wrap-mode:nowrap;">@item.PROD_SHAPE</td>
+                        <td class="textboxheight text-right" style="text-wrap-mode:nowrap;">@item.PROD_DIM_D</td>
+                        <td class="textboxheight text-right" style="text-wrap-mode:nowrap;">@item.PROD_LENGTH</td>
+                        <td class="textboxheight text-right" style="text-wrap-mode:nowrap;">@item.PP_PROD_DIM_D</td>
+                        <td class="textboxheight text-left" style="text-wrap-mode:nowrap;">@item.PP_CHARGE</td>
+                        <td class="textboxheight text-left" style="text-wrap-mode:nowrap;">@item.PP_MAKER_NAME_SHORT</td>
+                        <td class="textboxheight text-center" style="text-wrap-mode:nowrap;">@item.DELIVERY_DATE</td>
+                        <td class="textboxheight text-right" style="text-wrap-mode:nowrap;">@item.PP_NO_OF_UNITS_DECODE</td>
+                        <td class="textboxheight text-right" style="text-wrap-mode:nowrap;">@item.WEIGHT</td>
+                        <td class="textboxheight text-right" style="text-wrap-mode:nowrap;">@item.UNIT</td>
+                        <td class="textboxheight text-center" style="text-wrap-mode:nowrap;">@item.CREATED_DATE</td>
+                        <td class="textboxheight text-center" style="text-wrap-mode:nowrap;">@item.UPDATED_DATE</td>
+                    </tr>
+
+                }
+            }
+             else
+            {
+                <tr style="height:20px;">
+                    <td colspan="18" align="left" style="padding-left:5px;"><label ID="lbldatanotavailable" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_NoRecordFound_L")</label></td>
+                </tr>
+            }
+        </tbody>
+
+          </table>
+  </div>

@@ -1,0 +1,474 @@
+﻿
+/* Style for Product Entry tab */
+#divProdSpecNumberT1 {
+    /*width: 198px;*/
+    float: right;
+}
+
+#spantxtProductSpecNoT1, #spanlblProductSpecNoT1 {
+    display: inline-block;
+}
+
+#spantxtProductSpecNoT2, #spanlblProductSpecNoT2 {
+    display: inline-block;
+}
+
+#TbPrductEntry {
+    width: 872px;
+    border: 1px inset lightgrey;
+}
+
+#pnlSearch, #pnlProductDetails {
+    width: 100%;
+    border: 0.5px solid lightgrey;
+}
+
+#TabContainerPMS_header {
+    font-size: 12px;
+}
+
+#TabContainerPMS_body {
+    padding: 0;
+}
+
+#pnlProductDetails span {
+    display: inline-block;
+}
+
+#txtProductSpecNoT1, #txtProductSpecNoT2 {
+    width: 112px;
+}
+
+
+
+#txtChuubanT1, #txtChuubanT4, #txtCustomerInchargeT4, #txtCustomerInchargeT1, #txtChargeT4, #txtChargeT1, #txtProdDimOtherT1, #txtProdDimOtherT4, #txtSalesInchargeT1 {
+    width: 110px;
+}
+
+#txtStampT1, #txtNoOfUnitsT1 {
+    width: 70px;
+}
+
+#txtLengthToleranceT1, #txtLengthToleranceT4 {
+    width: 80px;
+    text-align: center;
+}
+
+#txtDeliveryDateT1, #txtReceiverT1, #txtCustomerT1, #txtMaterialNameMakerT1, #txtProdNameCustomerT1, #txtHostRefNoT1, #txtHostRefNoT4 {
+    width: 140px;
+}
+
+#txtDimToleranceT1, #txtDimToleranceT4 {
+    width: 140px;
+    text-align: left;
+}
+
+#tdtxtMatlShapeT1 {
+    width: 55px;
+}
+
+#tdlblMatlDimT1 {
+    width: 30px;
+}
+
+#txtMatlShapeT1, #txtProdShapeT1 {
+    width: 30px;
+}
+
+#txtMatlDimT1, #txtProdDimT1, #txtMatlDimT4, #txtProdDimT4 {
+    width: 55px;
+    text-align: left;
+}
+
+#txtUnitWtT1, #txtUnitWtT4 {
+    width: 55px;
+    text-align: right;
+}
+
+#txtLengthT1, #txtLengthT4, #txtQuantityT1, #txtQuantityT4 {
+    width: 36px;
+    text-align: right;
+}
+
+#txtStdDeliveryDateT1, #txtColorT1 {
+    width: 42px;
+}
+
+#tdColorT1 {
+    text-align: left;
+}
+
+#tdtxtBendStandardT1 {
+    width: 180px;
+    text-align: left;
+}
+
+#txtBendStandardT1, #txtExtTextureT1, #txtDisplayT1, #txtPackingT1 {
+    width: 179px;
+}
+
+#tdDisplayT1 {
+    text-align: left;
+}
+
+#tdPackingT1 {
+    text-align: left;
+}
+
+#tdExtTextureT1 {
+    text-align: left;
+}
+
+#txtIntDiaMinT1, #txtExtDiaMaxT1 {
+    width: 73px;
+    background-color: lightgrey;
+}
+
+#txtWindingDirectionT1 {
+    width: 72px;
+    background-color: lightgrey;
+}
+
+#txtKakouiraiRemarksT1 {
+    width: 315px;
+}
+
+#txtProdOrderRemarkT1 {
+    width: 355px;
+}
+
+#txtProductionProcessT1 {
+    width: 768px;
+}
+
+.gridProcessHistory table span {
+    font-size: 11.5px !important;
+}
+
+
+#tdlblChuubanT1 {
+    width: 50px;
+}
+
+#tdtxtChuubanT1 {
+    width: 150px;
+}
+
+#tdlblDeliveryDateT1 {
+    width: 60px;
+}
+
+#tdtxtDeliveryDateT1 {
+    width: 150px;
+}
+
+#tdlblCustomerInchargeT1 {
+    width: 72px;
+}
+
+#tdtxtCustomerInchargeT1 {
+    width: 125px;
+}
+
+#tdEmptyRow2Col7 {
+    width: 50px;
+}
+
+#tdlblStdDeliveryDateT1 {
+    width: 30px;
+    text-align: right;
+}
+
+#tdtxtStdDeliveryDateT1 {
+    width: 40px;
+}
+
+#spantxtKakouiraiRemarksT1 {
+    width: 315px;
+}
+
+#tdlblUnitWtT1 {
+    width: 60px;
+}
+
+#tdtxtUnitWtT1 {
+    width: 65px;
+}
+
+#spanCoilDetailsT1 {
+    background-color: lightgrey;
+    width: 100%
+}
+
+/* End style for Product Entry tab */
+
+
+
+#tblMessageList {
+    width: 255px;
+    height: 60px;
+    background-color: steelblue;
+}
+
+#tblFIFailurRate {
+    width: 185px;
+    height: 60px;
+    background-color: purple;
+}
+
+#tblECDefectRate {
+    width: 175px;
+    height: 60px;
+    background-color: green
+}
+
+#tblWip {
+    width: 95px;
+    height: 60px;
+    background-color: #C00000;
+}
+
+#DivCloseButton {
+    background-color: Navy;
+    text-align: center;
+    border: 1px inset gray;
+    width: 115px;
+}
+
+#btnMessageList {
+    text-align: center;
+    width: 85px;
+}
+
+.tblMainWidth {
+    width: 1800px;
+    margin-left: 5px
+}
+
+.lbl_ProdSpecNo {
+    vertical-align: bottom;
+    padding-bottom: 7px;
+}
+
+#lblProcess, #txtChargeSearch {
+    width: 120px;
+}
+
+#lblProdPoint {
+    width: 230px;
+}
+
+.GridLinesHeaderThinBlack > th /* Apply border to headers */ {
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-bottom-width: 1px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    height: 18px;
+    padding-left: 3px;
+}
+
+#txtProdDimT1, #txtMatlDimT1 {
+    width: 140px;
+}
+
+#txtChamfer {
+    width: 89px;
+}
+
+#txtColor, #txtStdDeliveryDate {
+    width: 57px;
+}
+
+#txtProdOrderRemark {
+    width: 397px;
+}
+
+#txtWindingDirection {
+    width: 50px;
+    background-color: lightgrey;
+}
+
+#tdProdNameCust, #tdProdNameInt, #txtProdNameCust, #txtProdNameInt, #txtCustomerName #txtScSalesIncharge, #txtScSalesIncharge, #txtCustomerName {
+    width: 150px;
+}
+
+#tdLength {
+    width: 55px;
+}
+
+#txtLengthMinSearch, #txtLengthMaxSearch, #txtDimD1, #txtDimD2 {
+    text-align: right;
+   /* Width: 55px;*/
+    Width: 100%;
+}
+
+#txtActAllocDate1Search, #txtActAllocDate2Search, #txtCompleteDateStart, #txtCompleteDateEnd {
+    width: 75px;
+}
+
+#txtChuubanSearch {
+    width: 90px;
+}
+
+#txtProdSpecNo1Search, #txtProdSpecNo2Search {
+    /* width: 45px;*/
+    width: 100%;
+}
+
+#lblProdSpecNo {
+    padding-bottom: 3px;
+}
+
+#lblStdDeliveryDateT1 {
+    margin-left: -19px;
+}
+
+/*.freez > th {
+    position: sticky !important;
+    background-color: #7291D2;
+    top: 0.2px;
+    height: 20px;
+    box-shadow: 0 0 0px 0.5px White;
+}*/
+
+.freez1 > td {
+    position: sticky !important;
+    background-color: #7291D2;
+    top: 0.2px;
+    height: 20px;
+    box-shadow: 0 0 0px 0.5px White;
+}
+
+.freez2 > th {
+    position: sticky !important;
+    background-color: #7291D2;
+    top: 20.2px;
+    height: 20px;
+    box-shadow: 0 0 0px 0.5px White;
+}
+
+.freez3 > th {
+    position: sticky !important;
+    background-color: #7291D2;
+    top: 42.2px;
+    height: 20px;
+    /*box-shadow: 0 0 0px 0.5px White;*/
+}
+
+.freezListHeader {
+    position: sticky !important;
+    background-color: #4e6cab;
+    top: 0.0px;
+    height: 20px;
+    box-shadow: 0 0 0px 0.5px White;
+    border-color: white;
+}
+/*.freez1 {
+    border-color: white;
+}
+
+.freez2 {
+    border-color: white;
+}
+
+.freez3 {
+    border-color: white;
+}*/
+    
+
+#tblBasicOperation {
+    width: 200px;
+    height: 60px;
+    background-color: darkgreen;
+}
+
+#TbPMSHardnessAndPostHT {
+    visibility: visible;
+    max-height: 65px;
+    overflow-y: scroll;
+    /*border: solid 1px;*/
+    margin-left: 5px;
+}
+
+#tblmsgTitle {
+    border-style: none;
+    visibility: visible;
+    border: solid 1px;
+    width: 590px;
+    margin-left: 5px;
+    text-align: center;
+    background-color: #336699;
+    color: white;
+}
+
+#tblBody {
+    border-style: none;
+    visibility: visible;
+    border: solid 1px;
+    width: 589px;
+    margin-left: 5px;
+}
+
+#txtYobinaStartOperatorSearch {
+    border-style: Inset;
+    height: 20px;
+    width: 43px;
+}
+
+#btnYobinaStartOpeartorSearch {
+    height: 21px;
+    width: 20px;
+}
+
+#ddlSalesInchargeValue {
+    background-color: #CCFFFF;
+    width: 111px;
+    border-style: inset;
+    padding-bottom: 2px;
+    font-size: small;
+}
+
+#DivGridMsgList {
+    visibility: visible;
+    height: 300px;
+    width: 589px;
+    overflow: auto;
+    border: solid 1px;
+    margin-left: 5px;
+}
+
+#DivProcessPlan {
+    visibility: visible;
+    height: 430px;
+    overflow: auto;
+    border: solid 1px;
+    margin-left: 5px;
+    width: 370px;
+}
+
+#TabContainerPMS {
+    border-style: none;
+    visibility: visible;
+    height: 408px;
+    overflow: auto;
+    border: solid 1px;
+    width: 1473px;
+}
+
+.lblMsgTitle {
+    text-align: center;
+    white-space: nowrap;
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+}
+
+#txtChuubanT1, #txtCustomerT1, #txtMaterialNameMakerT1, #txtProdNameCustomerT1, #txtStampT1, #txtNoOfUnitsT1, #txtKakouiraiRemarksT1, #txtDeliveryDateT1, #txtReceiverT1, #txtMatlDimT1,
+#txtProdDimT1, #txtDimToleranceT1, #txtLengthT1, #txtQuantityT1, #txtSalesInchargeT1, #txtChamfer, #txtChargeT1, #txtProdDimOtherT1, #txtLengthToleranceT1, #txtStdDeliveryDate, #txtUnitWtT1,
+#txtColor, #txtBendStandardT1, #txtExtTextureT1, #txtDisplayT1, #txtPackingT1, #txtIntDiaMinT1, #txtExtDiaMaxT1, #txtWindingDirection, #txtProdOrderRemark, #txtProdSpecNo {
+    padding-left: 2px;
+    padding-right: 2px;
+}

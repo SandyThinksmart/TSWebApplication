@@ -1,0 +1,368 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<WipStatusDetails>
+@inject LocalizationServices LocalizationServices
+@{
+	ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_NextProcessWaitingStatusSearch").Value;
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+	.hide {
+		display: none;
+	}
+
+	.header {
+		padding-left: 3px;
+	}
+
+	.freez > th {
+		position: sticky !important;
+		background-color: #7291D2;
+		top: 0.2px;
+		height: 20px;
+		box-shadow: 0 0 0px 0.5px White;
+	}
+
+	.freez2 > th {
+		position: sticky !important;
+		background-color: #B2C3E6;
+		top: 21px;
+		height: 20px;
+		box-shadow: 0 0 0px 0.5px White;
+	}
+
+	.freez3 > th {
+		position: sticky !important;
+		background-color: #B2C3E6;
+		top: 41.5px;
+		height: 20px;
+		box-shadow: 0 0 0px 0.5px White;
+	}
+
+	.freez4 > th {
+		position: sticky !important;
+		background-color: #B2C3E6;
+		top: 62px;
+		height: 20px;
+		box-shadow: 0 0 0px 0.5px White;
+	}
+
+	.freez5 > th {
+		position: sticky !important;
+		background-color: #B2C3E6;
+		top: 83.5px;
+		height: 20px;
+		box-shadow: 0 0 0px 0.5px White;
+	}
+
+	#LoadingImage {
+		position: fixed;
+		display: block;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		text-align: center;
+		opacity: 0.7;
+		background-color: #fff;
+		z-index: 99;
+		padding-top: 15%;
+	}
+
+	
+	#loadimage {
+		position: absolute;
+		padding-top: 40%;
+		top: 100px;
+		left: 280px;
+		z-index: 100;
+	}
+</style>
+
+<div style="width: 1900px;">
+
+
+	<div style="border: 0px solid Blue; width: 1900px;">
+		<table border="0" cellpadding="0" cellspacing="0" width="1900px" id="tblNextProcessWaitingStatusSearch">
+			<tr>
+				<td>
+					<table style="width: 1900px;margin-bottom:3px;border:2px Inset Lightgrey">
+						<tr>
+							<td style="width: 85px; height: 57px; background-color: #C00000; border-width: 0px; border-style: none;">
+								<table border="0" cellpadding="0" cellspacing="0"
+									   style="width: 100%; height: 88px;">
+									<tr>
+										<td align="center" colspan="4" valign="bottom">
+											<label ID="Label3" class="labelClass" style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")</label>
+										</td>
+									</tr>
+									<tr>
+										<td align="center" valign="middle">
+											<input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")" ID="btnInitialize" class="_functionButtons" TabIndex="8" />
+										</td>
+
+									</tr>
+								</table>
+							</td>
+							<td style="width:1px;background-color:white;"></td>
+							<td style="width: 120px; height: 55px;">
+								<div id="pnlSearch">
+									<table bgcolor="#7291D2" border="0" cellpadding="0px" cellspacing="0">
+										<tr>
+											<td align="center" style="background-color:#4E6CAB;height:42px;" colspan="3">
+												<br />
+												<label id="lblSearchCondition" class="lableClass" style="color:white;padding-top:4px;">@LocalizationServices.GetLocalizedHtmlString("lbl_SearchCondition")</label>
+
+
+											</td>
+
+										</tr>
+
+										<tr>
+											<td align="center" style="border-top:2px Inset white;border-bottom:2px Inset Lightgray;">
+												<div style="height:20px;">
+													<label id="lblStatus" style="padding-top:4px;" class="lableClass">@LocalizationServices.GetLocalizedHtmlString("lbl_WIPStatus")</label>
+												</div>
+											</td>
+											<td align="center" style="border-top:2px Inset white;border-bottom:2px Inset Lightgray;border-left:1px solid white;">
+												<div style="height:20px;">
+													<label id="lblLocation" style="padding-top:4px;" class="lableClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Location")</label>
+												</div>
+											</td>
+											<td align="center" style="border-top:2px Inset white;border-bottom:2px Inset Lightgray;border-left:1px solid white;">
+												<div style="height:20px;">
+													<label id="lblProcess_L" style="padding-top:4px;" class="lableClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Process_L")</label>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td align="center">
+
+												<select id="ddlStatus" runat="server" class="form-control MandatoryDropdown Mandatory" style="width:119px;height:28px" tabindex="1">
+													@* <option value="0">@LocalizationServices.GetLocalizedHtmlString("lbl_ALL")</option> *@
+													<option value="1">@LocalizationServices.GetLocalizedHtmlString("lbl_WAIT")</option>
+													<option value="2">
+														@LocalizationServices.GetLocalizedHtmlString("lbl_StatusWIP")
+													</option>
+												</select>
+
+											</td>
+											<td align="center">
+
+												<select id="ddlLocation" runat="server" class="form-control MandatoryDropdown Mandatory" errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_LocationRequired")" style="width:119px;height:28px" tabindex="2">
+												</select>
+
+											</td>
+											<td align="center">
+
+												<select id="ddlProcess" class=" DropdownListClass dropListClass" style="width:182px;height:28px" tabindex="3">
+												</select>
+
+											</td>
+										</tr>
+
+									</table>
+								</div>
+							</td>
+							@*  <td align="center" valign="bottom" width="30px">
+                                                <table bgcolor="#7291D2" border="0" cellpadding="0px" cellspacing="0" 
+                                                    style="width: 100%;">
+                                                   
+                                                    
+                                                    <tr>
+                                                       
+
+                                                    </tr>
+                                                    <tr>
+                                                        
+
+                                                    </tr>
+
+                                                </table>
+                                            </td>*@
+							@* <td style="background-color:white;width:8px;"></td>*@
+							<td align="center" style="width:170px;background-color:#006666">
+								<table style="height:70px;margin-top:19px;">
+									<tr>
+										<td align="center" style="color:white;" colspan="2">
+
+											<label id="lblFilterCondition" class="lableClass" style="color:white;width:166px;overflow-wrap:break-word;">@LocalizationServices.GetLocalizedHtmlString("lbl_FilterCondition")</label>
+										</td>
+
+									</tr>
+
+									<tr>
+										<td>
+											<input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Extract")" ID="btnExtract" class="_functionButtons" TabIndex="4" />
+										</td>
+										<td>
+											<input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Sort_L")" ID="btnSort" class="_functionButtons" TabIndex="5" />
+										</td>
+
+									</tr>
+								</table>
+
+
+							</td>
+							<td style="width:770px;padding-left:10px" align="left">
+								
+
+							</td>
+							<td align="left">
+
+								<div style="color:red">
+									<br /><br />
+									<label id="lblheaderDelayedDaysA" class="labelClass" style="font-size:unset;font-family:sans-serif">@LocalizationServices.GetLocalizedHtmlString("lbl_headerDelayedDaysA")</label>
+
+									<br /><br />
+									<label id="lblheaderDelayedDaysB" class="labelClass" style="font-size:unset;font-family:sans-serif">@LocalizationServices.GetLocalizedHtmlString("lbl_headerDelayedDaysB")</label>
+
+								</div>
+
+							</td>
+							<td align="center" style="background-color:green" width="80px">
+
+								<table style="margin-top:19px;min-width:140px;max-width:144px;">
+									<tr>
+										<td width="100px" align="center">
+
+											<label id="lblExportCSV" class="lableClass" style="color:white;margin-left:5px;">@LocalizationServices.GetLocalizedHtmlString("lbl_ExportCSV")</label>
+
+											<label ID="lblDataNotFOund" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_DataNotFound")</label>
+											<label ID="valMsgCOMSystemException" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</label>
+										</td>
+
+									</tr>
+
+									<tr>
+										<td align="center">
+											<br />
+											<input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_CSV_L")" ID="btnExportCSV" class="_functionButtons" TabIndex="6" />
+
+
+										</td>
+										@*<td align="right">
+                                                                <br />
+                                                                 <input  type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Excel_L").Value.ToUpper()" ID="btnExcelL" class="_functionButtons" TabIndex="29" />
+                                                                
+                                                                 
+                                                            </td>*@
+
+									</tr>
+								</table>
+							</td>
+							<td style="width: 7%; height: 57px; border-width: 0px; border-style: none;" align="right">
+								<table bgcolor="Navy" border="0" cellpadding="0" cellspacing="0" frame="border" style="border-color: Navy; width: 100px; height: 100%;">
+									<tr>
+										<td align="center">
+											<label ID="lblClose" class="labelClass" style="color:White;padding-top:18px">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+										</td>
+									</tr>
+									<tr>
+										<td align="center">
+											<input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnClose" class="_functionButtons" OnClientClick="return Confirmation()" TabIndex="7" />
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table cellpadding="0" cellspacing="0" border="0" frame="border" style="width: 1900px; border-collapse: collapse;">
+
+						<tr>
+							<td>
+
+								<div id="pnlProcessDefect" style="height:795px;width:1898px;overflow:auto;">
+
+									<div id="divNextProcessWaitingStatusSearchGridMain">
+										@{
+											@await Html.PartialAsync("NextProcessWaitingStatusSearchGrid", Model)
+											;
+										}
+									</div>
+
+
+
+
+								</div>
+							</td>
+
+						</tr>
+					</table>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<table>
+						<tr>
+							<td rowspan="3" style="padding-bottom:38px">
+								<label style="padding-left:5px;font-size:12px">@LocalizationServices.GetLocalizedHtmlString("lbl_Note_M")</label>
+
+							</td>
+
+							<td>
+								<table>
+									<tr>
+										<td>
+											<label style="padding-top:3px;font-size:12px">@LocalizationServices.GetLocalizedHtmlString("lbl_NextProcessWaitingStatusSearchNote1")</label><p style="margin-bottom:10px !important;margin-top:-4px !important;">
+												@* <label class="noteClass" style="font-size:12px">@LocalizationServices.GetLocalizedHtmlString("lbl_NextProcessWaitingStatusSearchNote2")</label>
+						<label class="noteClass" style="font-size:12px">@LocalizationServices.GetLocalizedHtmlString("lbl_NextProcessWaitingStatusSearchNote3")</label> *@
+											</p>
+										</td>
+</tr>
+									<tr>
+										<td>
+											<label style="font-size:12px">@LocalizationServices.GetLocalizedHtmlString("lbl_NoteWIPCantShowWithoutTabaNumber")</label>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label style="padding-top:5px;color:red;font-size:12px">@LocalizationServices.GetLocalizedHtmlString("lbl_NextProcessWatingScreenNote3")</label>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+					
+					
+					@* <p style="margin-bottom:0px !important;margin-top:-4px !important;"><label class="noteClass" style="font-size:12px;">@LocalizationServices.GetLocalizedHtmlString("lbl_Note2WIPCantShowWithoutTabaNumber")</label></p> *@
+					
+
+					<input type="hidden" id="hfldStatusFlag" name="hfldStatusFlag" />
+				</td>
+			</tr>
+		</table>
+
+	</div>
+	<label id="csvFileName" class="Hidden">
+		<span ID="csvFileNameNextProcess">@LocalizationServices.GetLocalizedHtmlString("lbl_NextProcessWaitingCSV")</span>
+	</label>
+	<div id="LoadingImage" style="display: none">
+		<img id="loadImage" src="~/images/loading.gif" height="60px" width="60px" />
+	</div>
+</div>
+
+<div id="SortPopUpModalMain">
+	@{
+		@await Html.PartialAsync("~/Views/Shared/SortPopUp.cshtml")
+		;
+	}
+</div>
+@section Scripts {
+
+	<link href="~/css/Common.css" rel="stylesheet" asp-append-version="true" />
+	<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+	<link href="~/css/masterStyles.css" rel="stylesheet" asp-append-version="true" />
+
+	<link href="~/css/NextPrcessWaitingStatusSearch.css" rel="stylesheet" asp-append-version="true" />
+	<script src="~/Static/js/NextPrcessWaitingStatusSearch.js" asp-append-version="true"></script>
+	<script src="~/Scripts/CommonScript.js" asp-append-version="true"></script>
+
+}

@@ -1,0 +1,130 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<HSKMillSheetDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+}
+
+<link href="~/css/Common_Styles.css" rel="stylesheet" />
+<link href="~/css/hskmillsheeteditdelete.css" rel="stylesheet" />
+
+<link href="~/css/Common.css" rel="stylesheet" />
+<link href="~/css/masterStyles.css" rel="stylesheet" />
+
+<div>
+    <table>
+        <tr>
+            <td>
+                <table style="width:800px" class="freez GridLines GridColumnLeftPadding">
+                    <thead>
+                    <tr class="td1 GridLines12 textboxheight">
+                        <td colspan="17" class="labelClass labelClassWhite textboxheight">
+                            <label ID="lblchemicalComponant">@LocalizationServices.GetLocalizedHtmlString("lbl_FinalInspDetails")</label>
+                        </td>
+                    </tr>
+                    <tr class="GridHeader1 GridLines12 textboxheight">
+                            <td>
+                                <label ID="lblchemicalComponant" class="labelClass"> </label>
+                            </td>
+                        <td>
+                                <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_TabaNo")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualDimension1")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualDimension2")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualDim3")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualLength")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualRadius1")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualRadius2")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualRadius3")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualRadius4")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualRadius5")</label>
+                        </td>
+                        <td>
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualRadius6")</label>
+                        </td>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                @if (Model != null && Model.Count > 0)
+                  {
+                    int i = 0;
+                    foreach (var item in Model)
+                    {
+                      i = i + 1;
+                       <tr class="GridRight padddingRight">
+                      <td class="labelClass">
+
+                       <input type="radio" ID=@("selectRow" + i) data-id="@i" class="labelClass" name="radiobtn" />
+                      </td>
+                         <td style="display:none;">
+                             <label type="text" ID="@("FINAL_INSP_CD" + i)" data-id="@i">@item.FINAL_INSP_CD</label>
+                         </td>
+                        <td>
+                           <label ID="lblThaba"  class="labelClass">@item.FI_TABA_NO</label>
+                        </td>
+                        <td>
+                         <label ID="lblActDim1" class="labelClass padddingRight">@item.FI_DIM1</label>
+                        </td>
+                        <td>
+                          <label ID="lblActDim2" class="labelClass">@item.FI_DIM2</label>
+                        </td>
+                        <td>
+                          <label ID="lblActDim3" class="labelClass">@item.FI_DIM3</label>
+                        </td>
+                        <td>
+                         <label ID="lblAct_len" class="labelClass">@item.FI_LENGTH</label>
+                        </td>
+                        <td>
+                         <label ID="lblCRad1" class="labelClass">@item.FI_ACT_RADIUS_1</label>
+                        </td>
+                        <td>
+                         <label ID="lblCRad2" class="labelClass">@item.FI_ACT_RADIUS_2</label>
+                        </td>
+                        <td>
+                         <label ID="lblCRad3" class="labelClass">@item.FI_ACT_RADIUS_3</label>
+                        </td>
+                        <td>
+                          <label ID="lblCRad4" class="labelClass">@item.FI_ACT_RADIUS_4</label>
+                        </td>
+                        <td>
+                          <label ID="lblCRad5" class="labelClass">@item.FI_ACT_RADIUS_5</label>
+                        </td>
+                        <td>
+                          <label ID="lblCRad6" class="labelClass">@item.FI_ACT_RADIUS_6</label>
+                        </td>
+
+                    </tr>
+
+                            }
+                        }
+                        else
+                        {
+                            <tr style="height:20px;">
+                                <td colspan="18" align="left" style="padding-left:5px;"><label ID="lbldatanotavailable" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_NoRecordFound_L")</label></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>

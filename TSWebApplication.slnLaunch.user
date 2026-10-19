@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "ThinkSmart.Web\\TSWebApplication.Web.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "ThinkSmart.API\\TSWebApplication.API\\TSWebApplication.API.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

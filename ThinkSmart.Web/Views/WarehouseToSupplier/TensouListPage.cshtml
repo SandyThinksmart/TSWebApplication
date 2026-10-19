@@ -1,0 +1,338 @@
+﻿
+@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<MaterialTensouDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_WarehouseToSupplierEntry").Value.Replace("</br>", "");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int userId = ViewBag.UserId;
+}
+<link href="~/css/Common.css" rel="stylesheet" />
+<link href="~/css/Common_Styles.css" rel="stylesheet" />
+<script href="~/js/CommonScript.js" type="text/javascript"></script>
+<link href="~/css/masterStyles.css" rel="stylesheet" />
+<link href="~/css/TensouEditDeleteScreen.css" rel="stylesheet" />
+
+    <form id="form1">
+        <asp:ScriptManager ID="ScriptManager1">
+        </asp:ScriptManager>
+    <div id="divMain" style="margin: auto 0px auto 0px;">
+
+        <div id="dvSearch" class="searchBar" style="margin-top:16px">
+            <div Style="width: 1060px">
+                <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td colspan="2" style="width: 1140px;">
+                        @*----start---------*@
+                        <table cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                                <td align="center" valign="bottom" style="background-color: #4E6CAB">
+                                    <label ID="lblProductSearchGrid"
+                                               class="labelClass1" style="width:1140px;height:17px;color:white">@LocalizationServices.GetLocalizedHtmlString("lbl_SearchCondition")</label>
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td style="height: 100%;">
+                                        <div ID="divProductSearch" style="width:1338px;overflow:auto;">
+                                    <table cellpadding="0" cellspacing="0" border="0" class="searchTextBox" style="width: 1500px; border-collapse: collapse;">
+
+                                        <tr>
+                                            <td class="tdH2" style="width: 106px">
+                                                <label ID="lblMaterialMaker"
+                                                       class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialMaker")</label>
+                                            </td>
+                                            <td class="tdH2">
+                                                <label ID="lblMatlNameMaker"
+                                                       class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlNameMaker")</label>
+                                            </td>
+                                            <td class="tdH2">
+                                                <label ID="lblInternalName"
+                                                       class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_InternalName")</label>
+                                            </td>
+                                            <td class="tdH2" colspan="2" align="center">
+                                                <label ID="lblDimension"
+                                                       class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</label>
+                                            </td>
+                                            <td class="tdH2">
+                                                <label ID="lbl_DimDShape"
+                                                       class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</label>
+                                            </td>
+                                            <td class="tdH2" colspan="2" style="width: 115px;" align="center">
+                                                <label ID="lblLength"
+                                                       class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</label>
+                                            </td>
+
+                                            @*<td class="tdH2">
+                                            <label ID="lblProvisionNoteNo"
+                                            class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_ProvisionNoteNo")</label>
+                                            </td>*@
+                                            <td class="tdH2">
+                                                <label ID="lblKouban"
+                                                       class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_Kouban")</label>
+                                            </td>
+
+                                            <td class="tdH2">
+                                                <label ID="lblCharge"
+                                                       class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</label>
+                                            </td>
+
+                                            <td class="tdH2" colspan="2">
+                                                <label ID="lblTransferDate"
+                                                       class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_TransferDate")</label>
+                                            </td>
+
+                                            <td class="tdH2">
+                                                <label ID="lblSource"
+                                                       class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_ShipyardAndWarehouse")</label>
+                                            </td>
+                                            <td class="tdH2" colspan="2">
+                                                <label ID="lblTensoDestination"
+                                                       class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_OutTensou")</label>
+                                            </td>
+                                        </tr>
+                                        <tr id="SearchGridRow">
+                                            <td class="td tdSearch" style="width: 135px">
+                                                @*<input type="text" ID="txtMaterialMaker"  TabIndex="1"  class="labelClass" MaxLength="8"  Height="21px" Width="96%"><span class="text-danger"></span>*@
+                                                <select ID="ddlMaterialMaker" TabIndex="1" class="DropdownClass"  style="width:130px" >
+                                                </select>
+
+                                            </td>
+                                            <td class="td tdSearch" style="width: 120px">
+                                                <input type="text" ID="txtRawMatl" class="labelClass"
+                                                       TabIndex="1" MaxLength="20" style="height:21px;width:96%"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td tdSearch" style="width: 120px">
+                                                <input type="text" ID="txtInternalName" class=" InActiveIMEMode UpperCase labelClass"
+                                                           TabIndex="3" MaxLength="20" style="height:21px;width:96%"><span class="text-danger"></span>
+
+                                            </td>
+
+                                            <td class="td tdSearch">
+                                                    <input type="text" ID="txtSrchDimDStart" class="GridDimDShort InActiveIMEMode labelClass" TabIndex="4" Style="text-align: right;" MaxLength="7" style="height:21px;width:96%"><span class="text-danger"></span>
+
+
+                                            </td>
+                                            <td class="td tdSearch">
+                                                    <input type="text" ID="txtSrchDimDEnd" class="GridDimDShort InActiveIMEMode labelClass" TabIndex="5" Style="text-align: right;" MaxLength="7" style="height:21px;width:96%"><span class="text-danger"></span>
+
+
+                                            </td>
+                                            <td class="td tdSearch">
+                                                <input type="text" ID="txtShape" class="GridShapeShort InActiveIMEMode UpperCase labelClass" TabIndex="6"
+                                                       Style="text-align: left;" MaxLength="2" Height="21px" Width="96%"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td tdSearch">
+                                                    <input type="text" ID="txtLengthMin" class="GridLengthMedium InActiveIMEMode labelClass" TabIndex="7" Style="text-align: right;" MaxLength="7" style="height:21px;width:96%"><span class="text-danger"></span>
+
+
+                                            </td>
+                                            <td class="td tdSearch">
+                                                    <input type="text" ID="txtLengthMax" class="GridLengthMedium InActiveIMEMode labelClass" TabIndex="8" Style="text-align: right;" MaxLength="7" style="height:21px;width:96%"><span class="text-danger"></span>
+
+
+                                            </td>
+
+                                            @*<td class="td tdSearch" style="width:90px"  >
+                                            <input type="text" ID="txtInternalName1"  class="GridNameShort InActiveIMEMode UpperCase labelClass"
+                                            TabIndex="3" MaxLength="20" Height="21px" Width="96%" ><span class="text-danger"></span>
+                                            </td>*@
+                                            <td class="td tdSearch">
+                                                <input type="text" ID="txtKouban" class="GridKouban InActiveIMEMode UpperCase labelClass"
+                                                       TabIndex="3" MaxLength="20" style="height:21px;width:96%"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td tdSearch">
+                                                <input type="text" ID="txtCharge" class="GridChargeXL UpperCase labelClass"
+                                                           TabIndex="11" MaxLength="4" style="height:21px;width:96%" ><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td tdSearch">
+                                                <input type="text" ID="txtStartDate" class="GridDateShort InActiveIMEMode  UpperCase labelClass"
+                                                           TabIndex="12" MaxLength="11" style="height:21px;width:96%" ClientIDMode="Static"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td tdSearch">
+                                                <input type="text" ID="txtEndDate" class="GridDateShort UpperCase InActiveIMEMode labelClass"
+                                                           TabIndex="11" MaxLength="4" style="height:21px;width:96%" ><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td tdSearch" style="width: 165px;">
+                                                <ThinkSmart:SearchCombo ID="scFutou" DropDownWidth="120" TabIndex="2" TextBoxCss="TextboxClass" DropDownCss="dropListClass" ValidationGroup="false" DropDownHeight="24" />
+                                                    <table cellpadding="1" cellspacing="0">
+
+                                                        <tr id="trsc">
+                                                            <td>
+                                                                <input type="text" ID="txtFutouInputSearch" runat="server" class=" form-control TextFieldsClass" style="font-family:'MS Gothic';Width:43px; Height:22px" ;
+                                                                       BorderStyle="Inset" MaxLength="6" TabIndex="2" />
+                                                            </td>
+                                                            <td>
+                                                                <input type="button" ID="btnYobinaFutouSearch" class="form-control TextFieldsClass" runat="server" value="-"
+                                                                       style="Width:20px;Height:22px;text-align:center" CausesValidation="false" TabIndex="3" />
+                                                            </td>
+                                                            <td>
+                                                                <select ID="ddlFutou" runat="server" class="form-control DropdownClass" style="border-style:inset; padding-bottom:2px;font-family:'MS Gothic'; Height:22px; Width:127px" TabIndex="4" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ShipyardRequired")">
+                                                                </select>
+
+                                                            </td>
+
+
+                                                        </tr>
+                                                    </table>
+                                            </td>
+                                            <td class="td tdSearch" style="width: 165px;">
+                                                @*<ThinkSmart:SearchCombo ID="scMochikomisaki" DropDownWidth="120" TabIndex="2" TextBoxCss="TextboxClass" DropDownCss="dropListClass" ValidationGroup="false" DropDownHeight="24" />*@
+                                                    <table cellpadding="1" cellspacing="0">
+
+                                                        <tr id="trsc">
+                                                            <td>
+                                                                <input type="text" ID="txtMochikomisakiInputSearch" runat="server" class=" form-control TextFieldsClass" style="font-family:'MS Gothic';Width:43px; Height:22px" ;
+                                                                       BorderStyle="Inset" MaxLength="6" TabIndex="2" />
+                                                            </td>
+                                                            <td>
+                                                                <input type="button" ID="btnYobinaMochikomisakiSearch" class="form-control TextFieldsClass" runat="server" value="-"
+                                                                       style="Width:20px;Height:22px;text-align:center" CausesValidation="false" TabIndex="3" />
+                                                            </td>
+                                                            <td>
+                                                                <select ID="ddlMochikomisaki" runat="server" class=" form-control  DropdownClass" style="border-style:inset; padding-bottom:2px;font-family:'MS Gothic'; Height:22px; Width:127px" TabIndex="4" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TesnsouLocationRequired")">
+                                                                </select>
+
+                                                            </td>
+
+
+                                                        </tr>
+                                                    </table>
+                                            </td>
+
+                                        </tr>
+                                    </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        @*--------END--------------*@
+                    </td>
+                    <td align="right" valign="top">
+                        <table cellpadding="1" cellspacing="1" style="width: 100px;">
+                            @*<table border="0" cellpadding="0" cellspacing="0" style="width: 100px; height:74px;">*@
+                            <tr>
+                                <td rowspan="1" align="center" valign="middle" style="background-color: #006666;">
+                                    <table cellpadding="1" cellspacing="1" style="height: 79px; width: 100px;">
+                                        <tr>
+                                            <td align="center" colspan="2">
+                                                <label ID="Label1"
+                                                   style="color:white" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_AuxiliaryFunctionSearchSort_L")</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Extract")" ID="btnSearch"
+                                                   style="width:80px" class="_functionButtons" TabIndex="12" />
+                                            </td>
+                                            <td>
+                                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Sort_L")" ID="btnSort"
+                                                    80px" TabIndex="13" class="_functionButtons" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </td>
+                </tr>
+               
+
+            </table>
+            </div>
+
+
+        </div>
+
+        <div style="height:650px;width:1510px;overflow:auto;">
+           <div id="pnlTensouGrid">
+                                <div id="divTensouGridMain">
+                                    @{
+                                                @await Html.PartialAsync("TensouGrid1", Model)
+                                        ;
+                                    }
+                                </div>
+                            </div>
+        </div>
+
+        <div id="divBottom" style="overflow: auto; width: 1513px;">
+                <table style="width: 100%">
+                    <tr>
+                        <td align="center" style="width: 100px; height: 50px; background-color: Red;">
+
+                            <table cellpadding="2" cellspacing="2" style="height: 100%">
+                                <tr>
+                                    <td align="center">
+                                        <label ID="Label2" class="labelClass" style="color: White">@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")" ID="btnInitialize" class="_functionButtons" TabIndex="17"
+                                           style="width:90px"   />
+
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+                        <td></td>
+                        <td align="center" style="width: 100px; background-color: Blue;">
+
+                            <table cellpadding="2" cellspacing="2" style="height: 100%">
+                                <tr>
+                                    <td align="center">
+                                        <label ID="Label6"
+                                           style="color: White" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnClose"
+                                               style="width:90px"  TabIndex="18" class="_functionButtons" OnClick="btnClose_Click" />
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </form>
+    <div id="SortPopUpModalMain">
+    @{
+            @await Html.PartialAsync("~/Views/Shared/SortPopUp.cshtml");
+    }
+</div>
+<div id="divErrorMessages" class="Hidden">
+    <label id="lblErrorMessageE_MaterialTensou_Error" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+    </label>
+    <label id="lblErrorMessageE_MaterialTensou_Koubancmp" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_KoubanCompleted")</span>
+    </label>
+
+    <label id="lblErrorMessageE_KoubanNotFound" class="Hidden">
+        <span ID="LiteralChubanRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_KoubanNotFound")</span>
+    </label>
+    <label id="lblErrorMessageE_TransferDateInvalid" class="Hidden">
+        <span ID="LiteralSr.NoRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_TransferDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_TransferDateInvalid" class="Hidden">
+        <span ID="LiteralSr.NoRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_TransferDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_MaterialTensou_014" class="Hidden">
+        <span class="LiteralEnterAtLeastOneSearchCondition">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_EnterAtLeastOneSearchCondition")</span>
+    </label>
+
+</div>
+
+@section Scripts{
+    
+    <script src="/Static/js/Tensoueditdeletescreen.js"></script>
+}

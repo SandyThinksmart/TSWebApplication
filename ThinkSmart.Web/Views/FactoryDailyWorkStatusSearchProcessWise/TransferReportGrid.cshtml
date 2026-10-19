@@ -1,0 +1,163 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<WIPTensouDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+
+}
+<style>
+    .freezTransferReportGrid > th {
+        position: sticky !important;
+        background-color: #4e6cab;
+        top: 0.0px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezTransferReportGrid {
+        border-color: white;
+    }
+
+    .freezTransferReportGrid1 > th {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 20px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezTransferReportGrid1 {
+        border-color: white;
+    }
+
+</style>
+<table class="GridLinesTable GridLayout GridColumnLeftPadding" cellpadding="0" cellspacing="0" border="1" id="tblTransferReport">
+    <thead>
+        <tr class="freezTransferReportGrid">
+
+            <th id="TransferReportHeader" colspan="34" style="color:white;" class="GridHeader GridViewScrollHeader labelClass1 tdH1 sticky-header">@LocalizationServices.GetLocalizedHtmlString("lbl_TransferDailyReport")</th>
+        </tr>
+        <tr class="GridHeader GridViewScrollHeader freezTransferReportGrid1 GridHeaderPadding">
+
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter sticky-header">
+
+            </th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_PlanDate")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_TensoDestination")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_TransferDate")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Source1")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_VehicleName")</th>
+
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_WidthAndOther")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_TabaNo")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_NoOfUnits")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_WeightWithoutKG")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ManufacturingSpecificationNo")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_TransferNumber")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Message")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_CommunicationRemark")</th>
+            <th id="" class="headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lblNextProcess")</th>
+
+
+        </tr>
+
+
+
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count > 0)
+
+        {
+            foreach (var item in Model)
+            {
+                <tr class="GridNormalRow" data-lblProcessPlanCD="@item.PP_PROCESS_PLAN_CD">
+
+
+                    <td class ="sticky-col1">
+                        <input type="button" id="" ID="lnkEdit" class="btnArrow" onclick="OnEditClick($(this))" style="height:22px" CausesValidation="false" />
+                    </td>
+                    <td class="labelClass centerAlign">@item.ACCEPT_PLANNED_DATE</td>
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.TRANSFER_PLANNED_LOCATION</td>
+                    <td class="labelClass centerAlign">@item.TRANSFER_DATE_STRING</td>
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.TRANSFER_START_LOCATION</td>
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.VEHICLE_NAME</td>
+
+                    <td class="labelClass tdNoWrap padddingLeftRight centerAlign">@item.PP_CHUUBAN</td>
+                    <td class="labelClass tdNoWrap padddingLeftRight CharactFieldsClass">@item.PP_CUSTOMER_NAME</td>
+                    <td class="labelClass tdNoWrap CharactFieldsClass">@item.PP_PROD_NAME_CUST</td>
+                    <td class="labelClass padddingLeft tdNoWrap NumericFieldsClass">@item.PP_PROD_DIM_D</td>
+                    <td class="labelClass centerAlign">@item.PP_PROD_SHAPE</td>
+                    <td class="labelClass padddingLeft tdNoWrap NumericFieldsClass">@item.PP_PROD_DIM_W_OTHER</td>
+                    <td class="labelClass NumericFieldsClass">@item.PP_PROD_LENGTH_STRING</td>
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.PP_CHARGE</td>
+                    <td class="labelClass padddingRight tdNoWrap centerAlign">@item.TABA_STRING</td>                    
+                    <td class="labelClass NumericFieldsClass">@item.NO_OF_UNITS @item.UNIT_TYPE_STRING</td>
+                    @*  <td class="labelClass NumericFieldsClass">@item.PP_NO_OF_UNITS_DECODE </td> *@
+                    <td class="labelClass NumericFieldsClass">@item.QTY</td>
+                    <td class="labelClass padddingLeftRight centerAlign">@item.PP_PROD_SPEC_NO</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.WIP_TRANSFER_CD</td>
+                    <td class="labelClass padddingRight tdNoWrap CharactFieldsClass">@item.TRANSFER_REMARK</td>
+                    <td class="labelClass padddingRight tdNoWrap CharactFieldsClass">@item.ACCEPTANCE_REMARK</td>
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.NEXT_PROCESS_NAME</td>
+
+
+
+                </tr>
+            }
+        }
+        else
+        {
+            <tr class="GridNormalRow">
+
+                <td class="labelClass padddingLeft padddingRight " style=" white-space:nowrap">
+                    <input type="button" class="btnArrow" style="height:22px;float: right;" />
+                </td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+               
+
+            </tr>
+        }
+
+    </tbody>
+    <tfoot>
+        <tr class="footerRow" style="position: sticky !important;">
+            
+            <td colspan="16" align="right">
+                <label runat="server">@LocalizationServices.GetLocalizedHtmlString("lbl_TotalWeight")</label>
+            </td>
+            <td class="padddingRight tdNoWrap NumericFieldsClass">
+                <label ID="lblTotal"> @(Model?.Sum(x => x.QTY ?? 0) ?? 0)</label>
+
+            </td>
+            <td colspan="6"></td>
+        </tr>
+    </tfoot>
+</table>

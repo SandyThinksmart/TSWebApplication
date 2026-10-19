@@ -1,0 +1,187 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lbl_CustomerWiseProdStockShukkaDetails");
+
+}
+
+<table border="0" cellpadding="0" cellspacing="0" width="800px" id="tblMain" style="margin-top:20px;">
+    <tr>
+        <td align="left" valign="top">
+            <div id="pnlCustSpecWiseSalesStatusGrid">
+                @{
+                    @await Html.PartialAsync("~/Views/RollPOMainAnalysis/CustomerWiseProdStockShukkaDetailsGrid.cshtml")
+                    ;
+                }
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" valign="top">
+            <div id="pnlProdShukkaDetailsGrid">
+                @{
+                    @await Html.PartialAsync("~/Views/RollPOMainAnalysis/ProdShukkaDetailsGrid.cshtml")
+                    ;
+                }
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" valign="top">
+            <div id="pnlProdShukkaDetailsGrid">
+                @{
+                    @await Html.PartialAsync("~/Views/RollPOMainAnalysis/MonthWiseStockDetails.cshtml")
+                    ;
+                }
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" valign="top" >
+            <div id="pnlProdShukkaDetailsGrid">
+                <table>
+                    <tr>
+                        <td style="width:215px;background-color:#adc3f1">
+                            
+                            <table>
+                                
+                                <tr>
+                                    <td style="padding-right:5px;"> <div style="height:10px;width:20px;background-color:#f7642ae8"></div> </td>
+                                    <td>
+                                    <label ID="lblLastYearShukkaDateRange" class="labelClass"></label>
+                                        <label ID="lblLastYearShukka" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Shukka1")</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> <div style="height:10px;width:20px;background-color:#f1d20ae8"></div> </td>
+                                    <td>
+                                        <label ID="lblLastToLastYearShukkaDateRange" class="labelClass"></label>
+                                        <label ID="lblLastToLastYearShukka" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Shukka1")</label>
+                                    </td>
+                                </tr>
+                               
+                                <tr>
+                                    <td> <div style="height:10px;width:20px;background-color:#f708eadb"></div> </td>
+                                    <td>
+                                        <label ID="lblLastYearStockDateRange" class="labelClass"></label>
+                                        <label ID="lblLastYearStock" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Stock1")</label>
+                                        
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td> <div style="height:10px;width:20px;background-color:#080bf7e3"></div> </td>
+                                    <td>
+                                        <label ID="lblLastToLastYearStockDateRange" class="labelClass"></label>
+                                        <label ID="lblLastToLastYearStock" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Stock1")</label>
+                                    </td>
+
+                                </tr>
+                            </table>
+                           
+                        </td>
+                        <td style="width:800px;">
+                            <div>
+                                <canvas id="myChart1" style="max-height:132px;max-width:850px;"></canvas>
+                            </div>
+
+                        </td>
+                    </tr>
+                </table>
+                
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" valign="top">
+            <div id="pnlProdShukkaDetailsGrid">
+                @{
+                    @await Html.PartialAsync("~/Views/RollPOMainAnalysis/PendingStockDetails.cshtml")
+                    ;
+                }
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" valign="top">
+            <div id="pnlProdShukkaDetailsGrid">
+                <table>
+                    <tr>
+                        <td style="width:200px;background-color:#adc3f1">
+
+                            <table>
+
+                                <tr>
+                                    <td style="padding-right:5px;"> <div style="height:10px;width:20px;background-color:#f708eadb"></div> </td>
+                                    <td><label ID="lblReaminStockLastYearRange" class="labelClass"> </label></td>
+
+                                </tr>
+                                <tr>
+                                    <td> <div style="height:10px;width:20px;background-color:#080bf7e3"></div> </td>
+                                    <td><label ID="lblReaminStockLastToLastYearRange" class="labelClass" style="white-space:nowrap"></label></td>
+
+                                </tr>
+                            </table>
+
+                        </td>
+                        <td style="width:800px;">
+                            <div>
+                                <canvas id="myChart02" style="max-height:132px;max-width:850px;"></canvas>
+                            </div>
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="right" valign="top">
+            <div id="pnlBottom">
+                <table id="tblBottomBtnClose">
+                    <tr>
+                        <td colspan="6" style="width:406px"></td>
+                        <td id="tdBtnClose" style="background-color: Navy;">
+                            <table id="tblClose">
+                                <tr>
+                                    <td align="center" valign="middle">
+                                        <label ID="lblClose" class="labelClass" style="color:white;padding-top:12px">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" valign="middle">
+                                        <br />
+                                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnClose" class="closeBtn" OnClientClick="return Confirmation()" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+
+</table>
+<input type="hidden" id="lblSymbolRange" name="lblSymbolRange" value="@LocalizationServices.GetLocalizedHtmlString("lbl_SymbolRange")" />
+<input type="hidden" id="hfdlblMonth" name="hfdlblMonth" value="@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")" />
+<div id="divErrorMessages" class="Hidden">
+    <label id="lblErrorMessageE_ProdSpec_001" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+    </label>
+</div>
+
+
+@section Scripts {
+
+    <link href="~/css/Common.css" rel="stylesheet" />
+    <link href="~/css/AnalysePOQuantity.css" rel="stylesheet" />
+    <link href="~/css/Common_Styles.css" rel="stylesheet" />
+    <link href="~/css/masterStyles.css" rel="stylesheet" />
+    <script src="~/Static/js/Chart.js"></script>
+   
+    <script src="~/static/js/customerwiseprodstockshukka.js"></script>
+  
+
+}

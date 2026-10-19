@@ -1,0 +1,158 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<ProductDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+
+}
+
+<table bgcolor="#7291D2" border="0" cellpadding="0" cellspacing="0" id="tblProdShukkaDetails" class="GridLines" align="left">
+    <tr >
+        <th rowspan="2" style="width:140px;background-color:white">
+            <label id=""  ></label>
+
+        </th>
+        <th align="center" valign="middle" class="tdH1" colspan="16" style="padding:2px;">
+            <label id="" class="labelClass" style="color:white">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualShukka")</label>
+
+        </th>
+       
+
+    </tr>
+    <tr>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter Fixed-Width">
+            <label id="lblDispatchMonth1" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter Fixed-Width">
+            <label id="lblDispatchMonth2" class="labelClass ">@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter Fixed-Width">
+            <label id="lblDispatchMonth3" class="labelClass ">@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")</label>
+
+        </th>
+
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter Fixed-Width">
+            <label id="lblDispatchMonth4" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter Fixed-Width">
+            <label id="lblDispatchMonth5" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")</label>
+
+        </th>
+
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter Fixed-Width">
+            <label id="lblDispatchMonth6" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter Fixed-Width">
+            <label id="lblDispatchMonth7" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter Fixed-Width">
+            <label id="lblDispatchMonth8" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter Fixed-Width">
+            <label id="lblDispatchMonth9" class="labelClassearch ">@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter Fixed-Width">
+            <label id="lblDispatchMonth10" class="labelClassearch">@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter Fixed-Width">
+            <label id="lblDispatchMonth11" class="labelClassearch">@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter Fixed-Width">
+            <label id="lblDispatchMonth12" class="labelClassearch">@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter Fixed-Width">
+            <label id="" class="labelClassearch">@LocalizationServices.GetLocalizedHtmlString("lbl_Average")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter Fixed-Width">
+            <label id="" class="labelClassearch">@LocalizationServices.GetLocalizedHtmlString("lbl_Maximum")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter Fixed-Width">
+            <label id="" class="labelClassearch">@LocalizationServices.GetLocalizedHtmlString("lbl_Minimum")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter Fixed-Width">
+            <label id="" class="labelClassearch">@LocalizationServices.GetLocalizedHtmlString("lbl_Sum_L")</label>
+        </th>
+
+    </tr>
+         
+        <tr class="GridNormalRow">
+        <td id="lastYear" class="tdHeader labelClass GridCenter" style="text-align:left; white-space:nowrap"><label id="lblShukkaLastYearRange"></label><label>@LocalizationServices.GetLocalizedHtmlString("lbl_Shukka1")</label></td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow1_Month1"></label> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow1_Month2"></label></td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow1_Month3"></label></td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow1_Month4"></label></td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow1_Month5"></label> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow1_Month6"></label> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow1_Month7"></label> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow1_Month8"></label> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow1_Month9"></label> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow1_Month10"></label> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow1_Month11"></label></td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow1_Month12"></label> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow1AVG_SHUKKA_QTY"></label> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow1MAX_SHUKKA_QTY"></label> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow1MIN_SHUKKA_QTY"></label> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow1TOTAL_SHUKKA_QTY"></label> </td>
+
+        </tr>
+        <tr class="GridNormalRow">
+        <td id="lastToLastYear" class="tdHeader labelClass GridCenter" style="text-align:left; white-space:nowrap"><label id="lblShukkaLastToLastYearRange"></label><label>@LocalizationServices.GetLocalizedHtmlString("lbl_Shukka1")</label></td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow2_Month1"></label> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow2_Month2"></label></td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow2_Month3"></label></td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow2_Month4"></label></td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow2_Month5"></label> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow2_Month6"></label> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow2_Month7"></label> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow2_Month8"></label> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow2_Month9"></label> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow2_Month10"></label> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow2_Month11"></label></td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow2_Month12"></label> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow2AVG_SHUKKA_QTY"></label> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow2MAX_SHUKKA_QTY"></label> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow2MIN_SHUKKA_QTY"></label> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"><label id="lblRow2TOTAL_SHUKKA_QTY"></label> </td>
+
+        </tr>
+        <tr class="GridNormalRow">
+         @*  <td id="lastYear" class="tdHeader labelClass GridCenter" style="text-align:center; white-space:nowrap"><label id=@("lastYearStartDate"+i)></label> ～ <label id=@("lastYearEndDate"+i)></label></td> *@
+                <td class="tdHeader labelClass " style="text-align:left; white-space:nowrap">
+                    <label id="">@LocalizationServices.GetLocalizedHtmlString("lbl_LastYrData")</label>
+                </td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"> <label id="lblSum_Month1"></label> </td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"> <label id="lblSum_Month2"></label> </td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"> <label id="lblSum_Month3"></label> </td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"> <label id="lblSum_Month4"></label> </td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"> <label id="lblSum_Month5"></label> </td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"> <label id="lblSum_Month6"></label> </td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"> <label id="lblSum_Month7"></label> </td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"> <label id="lblSum_Month8"></label> </td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"> <label id="lblSum_Month9"></label> </td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"> <label id="lblSum_Month10"></label> </td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"> <label id="lblSum_Month11"></label> </td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"> <label id="lblSum_Month12"></label> </td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"> <label id="lblSum_AVG_SHUKKA_QTY"></label> </td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"> <label id="lblSum_MAX_SHUKKA_QTY"></label> </td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"> <label id="lblSum_MIN_SHUKKA_QTY"></label> </td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:right; white-space:nowrap"> <label id="lblSum_TOTAL_SHUKKA_QTY"></label> </td>
+
+        </tr>
+      
+   
+
+</table>

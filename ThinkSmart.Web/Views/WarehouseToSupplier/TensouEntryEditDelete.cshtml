@@ -1,0 +1,381 @@
+﻿@using TSWebApplication.Domain.Resources
+@using TSWebApplication.Web
+@using TSWebApplication.Web.Models
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_WarehouseToSupplierEntry").Value.Replace("</br>", "");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int userId = ViewBag.UserId;
+}
+    <link href="~/css/Common.css" rel="stylesheet" />
+    <link href="~/css/Common_Styles.css" rel="stylesheet" />
+    <script href="~/js/CommonScript.js" type="text/javascript"></script>
+    <link href="~/css/masterStyles.css" rel="stylesheet"  />
+    <link href="~/css/TensouEditDeleteScreen.css" rel="stylesheet" />
+    <meta name="google" content="notranslate" />
+   <form id="form1">
+        <asp:ScriptManager ID="ScriptManager1"></asp:ScriptManager>
+        <div>
+
+            <table style="height: 100%;margin-top:18px" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td style="width: 483px">
+                        <table style="width: 480px; height: 60px; background-color: #C00000;">
+                            <tr>
+                                <td colspan="5" align="center">
+                                <label ID="lblBasicOperation" class="labelClass" style="color:white">@LocalizationServices.GetLocalizedHtmlString("lbl_BasicOperations")</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")" ID="btnInitialize" class="_functionButtons"
+                                       CausesValidation="false" />  @*OnClick="btnInitialize_Click"*@
+                                </td>
+                                <td>
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Register")" ID="btnSave" ValidationGroup="TrnValidation" Enabled="false" class="_functionButtons"
+                                       CausesValidation="false" TabIndex="15" />  @*OnClick="btnSave_Click"*@
+                                </td>
+                                <td>
+                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Select")" ID="btnSelect" class="_functionButtons" CausesValidation="false" /> 
+                                </td>
+                                <td>
+                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Edit")" ID="btnEdit" class="_functionButtons" CausesValidation="false" onclick="updateTensouDetails()" /> 
+                                </td>
+                                <td>
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Delete")" ID="btnDelete" class="_functionButtons" CausesValidation="false" />@*OnClick="btnDelete_Click"*@
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="260px">
+                        <table style="width: 232px; height: 60px; background-color: darkslategrey;">
+
+                            <tr>
+                                <td align="center" style="vertical-align: bottom">
+                                <label ID="lblSearch" class="labelClass" style="color:white">@LocalizationServices.GetLocalizedHtmlString("btn_ExtractKouban_1")</label>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="vertical-align: bottom">
+                                    <input type="text" ID="txtSrchKouban" class="TextboxClass InActiveIMEMode"
+                                       TabIndex="1" Style="width:100px;height:20px"><span class="text-danger"></span>
+
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Extract")" ID="btnExtractKouban" class="_functionButtons"
+                                       CausesValidation="false"   />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+
+                    <td style="width: 340px;" align="center"></td>
+                <td align="right"  style="width: 100px; background-color: Blue;">
+                    <table id="tblClose" cellpadding="2" cellspacing="2" style="height: 100%;width:100%">
+                            <tr>
+                                <td align="center" style="vertical-align: bottom">
+                                
+                                <label ID="lblExit" class="labelClass" style="color: White">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnClose" class="_functionButtons "
+                                       TabIndex="16" CausesValidation="false" /> @*OnClientClick="return Confirmation()"*@
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+            </table>
+
+
+
+
+            <table style="width: 100%; height: 60px;" cellpadding="1" cellspacing="1">
+                <tr>
+                    <td>
+                        <label ID="lblTensoDestination" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ShipyardAndWarehouse")</label>
+                    </td>
+                    <td style="width: 250px">
+                    <table cellpadding="1" cellspacing="0">
+
+                        <tr id="trsc">
+                            <td>
+                                <input type="text" ID="txtFutouInputSearch" runat="server" class=" form-control TextFieldsClass" style="font-family:'MS Gothic';Width:43px; Height:22px" ;
+                                       BorderStyle="Inset" MaxLength="6" TabIndex="2" />
+                            </td>
+                            <td>
+                                <input type="button" ID="btnYobinaFutouSearch" class="form-control TextFieldsClass" runat="server" value="-"
+                                       style="Width:20px;Height:22px;text-align:center" CausesValidation="false" TabIndex="3" />
+                            </td>
+                            <td>
+                                <select ID="ddlFutou" runat="server" class="form-control MandatoryDropdown" style="border-style:inset; padding-bottom:2px;font-family:'MS Gothic'; Height:22px; Width:127px" TabIndex="4" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ShipyardRequired")">
+                                </select>
+
+                            </td>
+
+
+                        </tr>
+                    </table>
+
+                    </td>
+                    <td style="width: 70px">
+                        <label ID="lblTransferDate" class="labelClass"
+                               Width="70px">@LocalizationServices.GetLocalizedHtmlString("lbl_TransferDate")</label>
+                    </td>
+                    <td style="width: 170px">
+                    <input type="text" ID="txtTransferDate" class="MandatoryTextBox InActiveIMEMode" 
+                           TabIndex="3" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TransferDateRequired")" >
+                           <span class="text-danger"></span>
+                    </td>
+                    <td style="width: 70px">
+                        <label ID="lblVoucherNumber" class="labelClass"
+                               Width="70px">@LocalizationServices.GetLocalizedHtmlString("lbl_VoucherNumber")</label>
+                    </td>
+                    <td style="width: 170px">
+                        <input type="text" ID="txtVoucherNumber" class="TextboxClass InActiveIMEMode"
+                               TabIndex="8"><span class="text-danger"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 132px">
+                        <label ID="lblSourceLocation" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_OutTensou")</label>
+                    </td>
+                    <td>
+                       @* <ThinkSmart:SearchCombo ID="scMochikomisaki" DropDownWidth="150" TabIndex="2" DropDownCss="MandatoryDropdown" validationgroup="false" />*@
+                    <table cellpadding="1" cellspacing="0">
+
+                        <tr id="trsc">
+                            <td>
+                                <input type="text" ID="txtMochikomisakiInputSearch" runat="server" class=" form-control TextFieldsClass" style="font-family:'MS Gothic';Width:43px; Height:22px" ;
+                                       BorderStyle="Inset" MaxLength="6" TabIndex="2" />
+                            </td>
+                            <td>
+                                <input type="button" ID="btnYobinaMochikomisakiSearch" class="form-control TextFieldsClass" runat="server" value="-"
+                                       style="Width:20px;Height:22px;text-align:center" CausesValidation="false" TabIndex="3" />
+                            </td>
+                            <td>
+                                <select ID="ddlMochikomisaki" runat="server" class=" form-control  MandatoryDropdown" style="border-style:inset; padding-bottom:2px;font-family:'MS Gothic'; Height:22px; Width:127px" TabIndex="4" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TesnsouLocationRequired")">
+                                </select>
+
+                            </td>
+
+
+                        </tr>
+                    </table>
+                    
+                    </td>
+                    <td>
+                        <label ID="lblArrivalStockDate" class="labelClass"
+                               Width="70px">@LocalizationServices.GetLocalizedHtmlString("lbl_NyukaDate_L")</label>
+                    </td>
+                    <td>
+                        <input type="text" ID="txtArrivalStockDate" class="ReadOnlyTextBox InActiveIMEMode"
+                               TabIndex="-1" Enabled="false"><span class="text-danger"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px">
+                        <label ID="lblMaterialMaker" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialMaker")</label>
+                    </td>
+                    <td>
+                        <input type="text" ID="txtMaterialMaker" class="ReadOnlyTextBox"
+                               TabIndex="-1" Enabled="false"><span class="text-danger"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label ID="lblRawMatl" class="labelClass"
+                               Width="70px">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlNameMaker")</label>
+                    </td>
+                    <td>
+                        <input type="text" ID="txtRawMatl" class="ReadOnlyTextBox"
+                               TabIndex="-1" Enabled="false"><span class="text-danger"></span>
+                    </td>
+
+                    <td>
+                        <label ID="lblDimDShape" class="labelClass"
+                               Width="70px">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD_Shape")</label>
+                    </td>
+                    <td>
+                        <input type="text" ID="txtDimD" class="ReadOnlyTextBox"
+                               TabIndex="-1" Enabled="false"><span class="text-danger"></span>
+                        <input type="text" ID="txtShape" class="ReadOnlyTextBox"
+                               TabIndex="-1" Enabled="false"><span class="text-danger"></span>
+                    </td>
+                    <td>
+                        <label ID="lblLength" class="labelClass"
+                               Width="70px">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</label>
+                    </td>
+                    <td>
+                        <input type="text" ID="txtlength" class="ReadOnlyTextBox"
+                               TabIndex="-1" Enabled="false"><span class="text-danger"></span>
+                    </td>
+                    <td style="width: 110px;">
+                        <label ID="lblMatlKubun" class="labelClass"
+                               Width="70px">@LocalizationServices.GetLocalizedHtmlString("lbl_CoilBarKurokawa_L")</label>
+                    </td>
+                    <td>
+                        <input type="text" ID="txtMatlKubun" class="ReadOnlyTextBox"
+                               TabIndex="1" Enabled="false"><span class="text-danger"></span>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <label ID="lblInternalName" class="labelClass"
+                               Width="70px">@LocalizationServices.GetLocalizedHtmlString("lbl_InternalName")</label>
+                    </td>
+                    <td>
+                        <input type="text" ID="txtInternalName" class="ReadOnlyTextBox"
+                               TabIndex="-1" Enabled="false"><span class="text-danger"></span>
+                    </td>
+                    <td>
+                        <label ID="lblMukesaki" class="labelClass"
+                               Width="70px">@LocalizationServices.GetLocalizedHtmlString("lbl_Mukesaki")</label>
+                    </td>
+                    <td>
+                        <input type="text" ID="txtMukesaki" class="ReadOnlyTextBox"
+                               TabIndex="-1" Enabled="false"><span class="text-danger"></span>
+                    </td>
+                    <td>
+                        <label ID="lblCondition" class="labelClass"
+                               Width="70px">@LocalizationServices.GetLocalizedHtmlString("lbl_Condition")</label>
+                    </td>
+                    <td>
+                        <input type="text" ID="txtCondition" class="ReadOnlyTextBox"
+                               TabIndex="1" Enabled="false"><span class="text-danger"></span>
+                    </td>
+                    <td>
+                        <label ID="lblGeneralSpecial" class="labelClass"
+                               Width="70px">@LocalizationServices.GetLocalizedHtmlString("lbl_GeneralSpecial_L")</label>
+                    </td>
+                    <td>
+                        <input type="text" ID="txtGeneralSpecial" class="ReadOnlyTextBox"
+                               TabIndex="1" Enabled="false"><span class="text-danger"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label ID="lblKouban" class="labelClass"
+                               Width="70px">@LocalizationServices.GetLocalizedHtmlString("lbl_Kouban")</label>
+                    </td>
+                    <td>
+                        <input type="text" ID="txtkouban" class="ReadOnlyTextBox"
+                               TabIndex="1" Enabled="false"><span class="text-danger"></span>
+                    </td>
+
+                    <td>
+                        <label ID="lblCharge" class="labelClass"
+                               Width="70px">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</label>
+                    </td>
+                    <td>
+                        <input type="text" ID="txtCharge" class="TextboxClass InActiveIMEMode"
+                               TabIndex="4"><span class="text-danger"></span>
+                    </td>
+                    <td>
+                        <label ID="lblProvisionNoteNo" class="labelClass"
+                               Width="70px">@LocalizationServices.GetLocalizedHtmlString("lbl_ProvisionNoteNo")</label>
+                    </td>
+                    <td>
+                        <input type="text" ID="txtProvisionNoteNo" class="TextboxClass InActiveIMEMode"
+                               TabIndex="7"><span class="text-danger"></span>
+                    </td>
+                    <td>
+                        <label ID="lblDimOther" class="labelClass"
+                               Width="112px">@LocalizationServices.GetLocalizedHtmlString("lbl_DimWOther")</label>
+                    </td>
+                    <td style="width: 150px;">
+                        <input type="text" ID="txtDimW" class="ReadOnlyTextBox"
+                           TabIndex="1" Style="width:40px" Enabled="false"><span class="text-danger"></span>
+                        <input type="text" ID="txtDimOther" class="ReadOnlyTextBox"
+                           TabIndex="1" Style="width:80px" Enabled="false"><span class="text-danger"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label ID="lblTensouNoOfUnits" class="labelClass"
+                               Width="70px">@LocalizationServices.GetLocalizedHtmlString("lbl_TensouNoOfUnits")</label>
+                    </td>
+                    <td>
+                        <input type="text" ID="txtNoOfUnits" class="TextboxClass InActiveIMEMode"
+                           TabIndex="4" Style="width: 82px"><span class="text-danger"></span>
+                        <select ID="ddlUnit" TabIndex="5"
+                                Style="border-style: inset; width:50px" class="" >
+                        </select>
+                    </td>
+                    <td>
+                        <label ID="lblTensouQuantity" class="labelClass"
+                               Width="70px">@LocalizationServices.GetLocalizedHtmlString("lbl_TensouQuantity")</label>
+                    </td>
+                    <td>
+                    <input type="text" ID="txtQuantity" class="MandatoryTextBox InActiveIMEMode" Style="width:125px" 
+                           TabIndex="6" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TransferWtRequired")" >
+                           <span class="text-danger"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label ID="lblRemark" class="labelClass"
+                               Width="70px">@LocalizationServices.GetLocalizedHtmlString("lbl_Remark")</label>
+                    </td>
+                    <td colspan="5">
+                        <input type="text" ID="txtRemark" class="TextboxClass"
+                           TabIndex="9" Style="width:94%"><span class="text-danger"></span>
+
+                    </td>
+                </tr>
+            </table>
+            <input type="hidden" id="hdfKoubanCD" name="hdfKoubanCD" />
+        <input type="hidden" id="hdfTranferCD" name="hdfTranferCD" />
+        <input type="hidden" id="hdfLoginId" name="hdfLoginId" value="@userId" />
+        <input type="hidden" id="hdfDBOperation" name="hdfDBOperation" />
+
+
+        </div>
+    </form>
+<div id="divSuccessMessages" class="Hidden">
+    <label id="lblSuccessMessageS_MaterialTensou_DataSave" class="Hidden">
+        <span ID="LiteralDataSavedSuccessfully">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataSaved")</span>
+    </label>
+    <label id="lblSuccessMessageS_MaterialTensou_DataUpdated" class="Hidden">
+        <span ID="LiteralDataUpdatedSuccessfully">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataUpdated")</span>
+    </label>
+    <label id="lblSuccessMessageS_MaterialTensou_DataDeleted" class="Hidden">
+        <span ID="LiteralCOM_DataDeletedSuccessfully">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataDeleted")</span>
+    </label>
+</div>
+
+<div id="divErrorMessages" class="Hidden">
+    <label id="lblErrorMessageE_MaterialTensou_Error" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+    </label>
+    <label id="lblErrorMessageE_MaterialTensou_Koubancmp" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_KoubanCompleted")</span>
+    </label>
+
+    <label id="lblErrorMessageE_KoubanNotFound" class="Hidden">
+        <span ID="LiteralChubanRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_KoubanNotFound")</span>
+    </label>
+    <label id="lblErrorMessageE_TransferDateInvalid" class="Hidden">
+        <span ID="LiteralSr.NoRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_TransferDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_TransferDateInvalid" class="Hidden">
+        <span ID="LiteralSr.NoRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_TransferDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_MaterialTensou_014" class="Hidden">
+        <span class="LiteralEnterAtLeastOneSearchCondition">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_EnterAtLeastOneSearchCondition")</span>
+        </label>
+   
+ </div>
+
+@section Scripts{
+   @* <script src="/Static/js/PostHTInspection.js"></script>*@
+    <script src="/Static/js/Tensoueditdeletescreen.js"></script>
+}
+
+
+
+                                

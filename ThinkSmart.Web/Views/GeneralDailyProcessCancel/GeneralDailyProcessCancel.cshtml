@@ -1,0 +1,445 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<GeneralDailyProcessDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_GeneralDailyProcessCancel");
+}
+<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/Common.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/masterStyles.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/GeneralDailyProcessCancel.css" rel="stylesheet" asp-append-version="true" />
+<br />
+<div class="headerClass">
+    <div class="col-12 col-md-12 col-xl-12 col-lg-12">
+        <label class="headerName">@LocalizationServices.GetLocalizedHtmlString("lblTitle_GeneralDailyProcessCancel")</label>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card card-warning" style="border:0">
+                <div class="card-body" style="padding-top:0px !important">
+                    <div id="cancelFirstForm">
+                        <form [formGroup]="firstForm" autocomplete="off">
+
+                            <div class="row chubbanDiv">
+
+                                <div class="col-6">
+
+                                    <div class="form-group">
+                                        <label id="lblChubban" class="lableFont">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</label>
+                                        <input type="text" id="chubbanNo1" placeholder="" class="form-control" maxlength="11" mask='00000000000' style="background-color: #C1FFFF;text-transform:uppercase">
+
+                                    </div>
+
+                                </div>
+                                <div class="col-1">
+                                    <div class="form-group">
+                                        <label></label>
+                                        <label class="headerDash">-</label>
+
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label class="lableFont">@LocalizationServices.GetLocalizedHtmlString("lbl_TabaNo")</label>
+                                        <br />
+                                        <input type="text" id="bundleNo1"   data-id="1" class="form-control BundleNoCss" maxlength="3" mask='000'>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row thabaNoBox">
+                                <div class="col-7">
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <input type="text" id="bundleNo2" data-id="2" maxlength="3" mask="000" class="form-control BundleNoCss" value=""  >
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="row thabaNoBox">
+                                <div class="col-7">
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <input type="text" id="bundleNo3" data-id="3" maxlength="3" mask="000" class="form-control BundleNoCss" value=""  >
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="row thabaNoBox">
+                                <div class="col-7">
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <input type="text" id="bundleNo4" data-id="4" maxlength="3" mask="000" class="form-control BundleNoCss" value=""  >
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <br />
+
+                            <div class="row">
+                                <div class="col-4">
+
+
+                                    <label id="lblOperator" class="lableFont">@LocalizationServices.GetLocalizedHtmlString("lbl_Operator")</label>
+
+
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" maxlength="9" id="operatorCD" value="" class="form-control" style="background-color: #C1FFFF;text-transform:uppercase" placeholder="">
+
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+
+                                <div class="col-4">
+
+                                    <label id="lblProcess" class="lableFont">@LocalizationServices.GetLocalizedHtmlString("lbl_Process_L")</label>
+
+                                </div>
+
+                                <div class="col-8">
+                                    <input type="text" maxlength="6" style="text-transform:uppercase;background-color: #C1FFFF;" class="form-control" id="processCD" value="" placeholder="">
+                                </div>
+                            </div>
+
+                            <br />
+                            <div class="row">
+                                <div class="col-4">
+
+
+                                    <label id="lblMachine" class="lableFont">@LocalizationServices.GetLocalizedHtmlString("lbl_Machine")</label>
+
+
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" maxlength="7" style="text-transform:uppercase" class="form-control" id="machineCD" value="" placeholder="">
+                                </div>
+                            </div>
+                            <br />
+
+                            <br /><br /><br /><br /> <br /><br />
+                            <br /> <br /><br />
+                            <!--Extra lines added for alignment purposes-->
+
+                            <div class="form-group" style="margin-bottom: 0rem">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input type="button" id="btnMenu" class="btnBack" value="@LocalizationServices.GetLocalizedHtmlString("lbl_MenuPage")">
+                                    </div>
+                                    @*<div class="col-1"></div>*@
+                                    <div class="col-6">
+                                        <input type="button" id="btnNextFirstForm" class="btnNext" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Next")" />
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div id="cancelSecondForm" style="display:none;">
+                        <form [formGroup]="secondForm" autocomplete="off">
+                            <label class="lableFont">@LocalizationServices.GetLocalizedHtmlString("lbl_OperationDay")</label>
+                        <div id="GeneralDailyProcessDataDisplayGrid" style="height:500px;overflow:auto">
+                            @{
+                                    @await Html.PartialAsync("GeneralDailyProcessGrid", Model)
+                                ;
+                            }
+                        </div>
+                            <br /><br />
+                            <br />
+                            <div class="form-group" style="margin-bottom: 0rem">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input type="button" id="btnBackSecondForm" class="btnBack" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Return")">
+                                    </div>
+                                    @*<div class="col-1"></div>*@
+                                    <div class="col-6">
+                                        <input type="button" id="btnNextSecondForm" class="btnNext" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Next")" />
+                                    </div>
+
+                                </div>
+                            </div>
+                            </form>
+                    </div>
+                    <div id="cancelThirdForm" style="display:none;">
+                        <form [formGroup]="thirdForm">
+                            <div class="col-12">
+                            <div class="row chubbanDiv">
+
+                                <div class="col-5">
+
+                                    <div class="form-group">
+                                        <label class="lableFont">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</label>
+                                        <input type="text" id="chubbanNo3" placeholder="" class="form-control" disabled>
+
+                                    </div>
+
+                                </div>
+                                <div class="col-1">
+                                    <div class="form-group">
+                                        <label class="headerDash"></label>
+                                        <label>-</label>
+
+                                    </div>
+                                </div>
+                                <div class="col-5 col">
+                                    <div class="form-group">
+                                        <label class="lableFont">@LocalizationServices.GetLocalizedHtmlString("lbl_TabaNo")</label>
+                                        <br />
+                                        <div class="row">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <input id="bundleNo21" type="text" class="form-control TabaCss" disabled>
+                                                    </td>
+                                                    <td>
+                                                        <input id="bundleNo22" type="text" class="form-control TabaCss" disabled>
+                                                    </td>
+                                                    <td>
+                                                        <input id="bundleNo23" type="text" class="form-control TabaCss" disabled>
+                                                    </td>
+                                                    <td>
+                                                        <input id="bundleNo24" type="text" class="form-control TabaCss" disabled>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="row rowSpace">
+                                <div class="col-4" style="text-align:left">
+
+
+                                    <label class="lableFont">@LocalizationServices.GetLocalizedHtmlString("lbl_StartDateTime")</label>
+
+
+                                </div>
+
+                                <div class="col-8">
+
+                                    <input type="text" id="txtDateTime" class="form-control textBoxRow" name="input" disabled />
+
+                                </div>
+                            </div>
+                            <div class="row rowSpace">
+                                <div class="col-4" style="text-align:left">
+
+
+                                    <label class="lableFont">@LocalizationServices.GetLocalizedHtmlString("lbl_Operator")</label>
+
+
+                                </div>
+
+                                <div class="col-8">
+
+                                    <input type="text" id="txtOperator" class="form-control textBoxRow" name="input" disabled />
+
+                                </div>
+                            </div>
+                            <div class="row rowSpace">
+                                <div class="col-4" style="text-align:left">
+
+
+                                    <label class="lableFont">@LocalizationServices.GetLocalizedHtmlString("lbl_Process_L")</label>
+
+
+                                </div>
+
+                                <div class="col-8">
+
+                                    <input type="text" id="txtProcess" class="form-control textBoxRow" name="input" disabled />
+
+                                </div>
+                            </div>
+                            <div class="row rowSpace">
+                                <div class="col-4" style="text-align:left">
+
+
+                                    <label class="lableFont">@LocalizationServices.GetLocalizedHtmlString("lbl_Machine")</label>
+
+
+                                </div>
+
+                                <div class="col-8">
+
+                                    <input type="text" id="txtMachine" class="form-control textBoxRow" name="input" disabled />
+
+                                </div>
+                            </div>
+                            <div class="row rowSpace">
+                                <div class="col-4" style="text-align:left">
+
+
+                                    <label class="lableFont">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</label>
+
+
+                                </div>
+
+                                <div class="col-8">
+
+                                    <input type="text" id="txtCustomerName" class="form-control textBoxRow" name="input" disabled />
+
+                                </div>
+                            </div>
+                            <div class="row rowSpace">
+                                <div class="col-4" style="text-align:left">
+
+
+                                    <label class="lableFont">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</label>
+
+
+                                </div>
+
+                                <div class="col-8">
+
+                                    <input type="text" id="txtProdName" class="form-control textBoxRow" name="input" disabled />
+
+                                </div>
+                            </div>
+                            <div class="row rowSpace">
+                                <div class="col-4" style="text-align:left">
+
+
+                                    <label class="lableFont">@LocalizationServices.GetLocalizedHtmlString("lbl_DimDShapeOther")</label>
+
+
+                                </div>
+
+
+                                <div class="col-8">
+                                    <div class="row">
+                                        <div class="col-4" style="padding-right:0px;">
+                                            <input type="text" id="txtDim" maxlength="6" style="text-transform:uppercase;text-align:right;" class="form-control" disabled />
+                                        </div>
+                                        <div class="col-2" style="padding-right:0px;padding-left:2px;">
+                                            <input type="text" id="txtShape" class="form-control" style="text-align:left;" name="input" disabled />
+                                        </div>
+                                        <div class="col-6" style="padding-left:2px;">
+                                            <input type="text" id="txtDimOther" maxlength="6" style="text-transform:uppercase;text-align:left;" class="form-control" disabled />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4" style="text-align:left">
+
+
+                                    <label class="lableFont">@LocalizationServices.GetLocalizedHtmlString("lbl_DimTolerance")</label>
+
+
+                                </div>
+                                <div class="col-8">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <input type="text" maxlength="6" style="text-transform:uppercase;display:none" class="form-control" disabled>
+                                        </div>
+                                        <div class="col-8" style="padding-left:2px;">
+
+                                            <input type="text" id="txtDimTolMinMaxChr" class="form-control" style="text-align:left;" name="input" disabled />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row rowSpace">
+                                <div class="col-4" style="text-align:left">
+
+
+                                    <label class="lableFont">@LocalizationServices.GetLocalizedHtmlString("lbl_LengthTol")</label>
+
+
+                                </div>
+                                <div class="col-8">
+                                    <div class="row">
+                                        <div class="col-4" style="padding-right:0px">
+
+                                            <input type="text" id="txtLength" class="form-control" style="text-align:right;" name="input" disabled />
+
+                                        </div>
+                                        <div class="col-8" style="padding-left:2px">
+
+                                            <input type="text" id="txtLengthTolMinMaxChr" style="text-align:left;" class="form-control" name="input" disabled />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input type="button" id="btnBackThirdForm" class="btnBack" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Return")">
+
+
+                                    </div>
+                                    <div>
+                                        @*  <div class="col-1"></div>*@
+                                        <div class="col-6">
+                                            <input type="button" id="btnCancel" class="btnNext" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Cancel")">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="divErrorMessages" class="Hidden">
+    <label id="lblErrorMessageE_GENREALPROCESS_CANCEL_01" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+    </label>
+    <label id="lblErrorMessageE_GENREALPROCESS_CANCEL_02" class="Hidden">
+        <span ID="LiteralOrNoRequiredForProcessCancel">@LocalizationServices.GetLocalizedHtmlString("valMsg_OrNoRequiredForDailyProcess")</span>
+    </label>
+    <label id="lblErrorMessageE_GENREALPROCESS_CANCEL_03" class="Hidden">
+        <span ID="LiteralBundleNo1RequiredForProcessCancel">@LocalizationServices.GetLocalizedHtmlString("valMsg_BundleNo1RequiredForDailyProcess")</span>
+    </label>
+    <label id="lblErrorMessageE_GENREALPROCESS_CANCEL_04" class="Hidden">
+        <span ID="LiteralBoarcodeIsIncorrect">@LocalizationServices.GetLocalizedHtmlString("valMsg_BoarcodeIsIncorrect")</span>
+    </label>
+    <label id="lblErrorMessageE_GENREALPROCESS_CANCEL_05" class="Hidden">
+        <span ID="LiteralOperatorRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_OperatorRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_GENREALPROCESS_CANCEL_06" class="Hidden">
+        <span ID="LiteralProcessIsRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ProcessIsRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_GENREALPROCESS_CANCEL_07" class="Hidden">
+        <span ID="LiteralProcessMarkedCompletedForChubban">@LocalizationServices.GetLocalizedHtmlString("valMsg_ProcessMarkedCompletedForChubban")</span>
+    </label>
+    <label id="lblErrorMessageE_GENREALPROCESS_CANCEL_08" class="Hidden">
+        <span ID="LiteralBoarcodeNotFound">@LocalizationServices.GetLocalizedHtmlString("valMsg_BoarcodeNotFound")</span>
+    </label>
+    <label id="lblErrorMessageE_GENREALPROCESS_CANCEL_09" class="Hidden">
+        <span ID="LiteralDailyProcessNotExist">@LocalizationServices.GetLocalizedHtmlString("valMsg_DailyProcessNotExist")</span>
+    </label>
+    <label id="lblErrorMessageE_GENREALPROCESS_CANCEL_010" class="Hidden">
+        <span ID="LiteralSuccessMsgDataDleted">@LocalizationServices.GetLocalizedHtmlString("successMsg_ProcessDeleted")</span>
+    </label>
+    <label id="lblErrorMessageE_GENREALPROCESS_ENTRY_011" class="Hidden">
+        <span ID="valMsgCOMEmployeeInactive">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_EmployeeInactive")</span>
+    </label>
+    <label id="lblErrorMessageE_GENREALPROCESS_ENTRY_012" class="Hidden">
+        <span ID="valMsgCOMInactiveMachine">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_InactiveMachine")</span>
+    </label>
+    <label id="lblErrorMessageE_GENREALPROCESS_ENTRY_013" class="Hidden">
+        <span ID="valMsgInvalidProcess">@LocalizationServices.GetLocalizedHtmlString("valMsg_InvalidProcess")</span>
+    </label>
+</div>
+@section Scripts{
+    <script src="/Static/js/GeneralDailyProcessCancel.js" asp-append-version="true"></script>
+}
+

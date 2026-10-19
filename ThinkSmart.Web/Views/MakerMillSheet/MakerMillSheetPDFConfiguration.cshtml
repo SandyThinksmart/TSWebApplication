@@ -1,0 +1,140 @@
+﻿@using TSWebApplication.Domain.Resources
+@using TSWebApplication.Domain.Utility
+@model List<NameValue>
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_MakerMillsheetTemplateMaster").Value.Replace("</br>", "");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<link href="~/css/masterStyles.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/MakerMillSheet.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/Common.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+
+<script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+<script src="~/Scripts/PDFReader/pdf-min.js" asp-append-version="true"></script>
+
+<table style="margin-top:30px;">
+    <tr>
+        <td align="left" valign="top">
+            <table style="height: 60px; border-radius: 4px; width: 420px; background-color: #C00000;">
+                <tr>
+                    <td colspan="5" align="center" valign="bottom">
+                        <label ID="lblBasicOperations" class="labelClass" style="color:white;">@LocalizationServices.GetLocalizedHtmlString("lbl_BasicOperations")</label>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" valign="top">
+                        <input type="button" class="_functionButtons" tabindex="1" id="btnInitialize" value='@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")' />
+                    </td>
+                    <td align="right" valign="top">
+                        <input type="button" id="btnSave" tabindex="2" class="_functionButtons" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Register")" title="@LocalizationServices.GetLocalizedHtmlString("lbl_Register")" />
+                    </td>
+                    <td align="right" valign="top">
+                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Select")" ID="btnSelect"
+                               class="_functionButtons" tabindex="3" />
+                    </td>
+                    <td align="right" valign="top">
+                        <input type="button" id="btnEdit" class="_functionButtons" value='@LocalizationServices.GetLocalizedHtmlString("btn_Edit")' disabled="disabled" tabindex="4" />
+                    </td>
+                    <td align="right" valign="top" style="padding-right:3px;">
+                        <input type="button" id="btnDelete" class="_functionButtons" value='@LocalizationServices.GetLocalizedHtmlString("lbl_Delete")' disabled="disabled" tabindex="5" />
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+        <td align="left" valign="bottom">
+            <input type="button" value="+" id="btnCreateBox" class="disabled btn-radius" disabled="disabled">
+            <input type="button" value="x" id="btnRemoveBox" class="disabled btn-radius" disabled="disabled">
+        </td>
+    </tr>
+    <tr>
+        <td align="left" valign="top">
+            <table cellpadding="5" cellspacing="5" id="tblConfig">
+                
+                <tr>
+                    <td align="left" valign="middle">
+                        <label ID="lblPDF_File" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_PDF_File")</label>
+                    </td>
+                    <td align="left" valign="top"> <input type="file" id="pdfUpload" /></td>
+                </tr>
+                <tr>
+                    <td align="left" valign="middle">
+                        <label ID="lblMakerName" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialMaker")</label>
+                    </td>
+                    <td align="left" valign="top">
+                        <select id="ddlMakerName" name="ddlMakerName" class="MandatoryDropdown Mandatory DropdownListClass form-control InsetBorder"
+                                tabindex="1" style="height:22px;width:250px;">
+                            <option value="0" selected="selected"></option>
+                           
+                        </select>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" valign="middle">
+                        
+                        <label ID="lblM_TemplateName" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_M_TemplateName")</label>
+                    </td>
+                    <td align="left" valign="top">
+                        <input type="text" ID="txtTemplateName" class="TextFieldsClass Mandatory form-control" style="Width:250px" BackColor="#C1FFFF" MaxLength="50" TabIndex="2"
+                               errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_MatalicLabNoRequired")">
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top" colspan="2">
+
+                        <div id="divMillSheetLabelGrid">
+                                @{
+                                    @await Html.PartialAsync("MakerMillSheetLabelGrid", Model)
+                                    ;
+                                }
+                            </div>
+                       
+                    </td>
+                </tr>
+               
+                <tr>
+                    <td align="left" valign="top" colspan="2">
+                        <label id="txtOutput" style="display:none;"></label>
+                    </td>
+                </tr>
+            </table>
+
+        </td>
+        <td align="left" valign="top">
+            <div style="position: relative;border:1px solid gray;width:1290px;height:810px;overflow:auto;">
+                <canvas id="pdfCanvas"></canvas>
+                <canvas id="drawCanvas" style="position:absolute; top:0; left:0;"></canvas>
+            </div>
+            
+        </td>
+    </tr>
+</table>
+<div id="divSuccessMessages" class="Hidden">
+    <label id="lblSuccessMessageS_Maker_MillSheet_001" class="Hidden">
+        <span ID="LiteralDataSaved" style="margin-left:5px">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataSaved")</span>
+    </label>
+    <label id="lblSuccessMessageS_Maker_MillSheet_002" class="Hidden">
+        <span ID="LiteralDataUpdated">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataUpdated")</span>
+    </label>
+    <label id="lblSuccessMessageS_Maker_MillSheet_003" class="Hidden">
+        <span ID="LiteralDataDeleted">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataDeleted")</span>
+    </label>
+</div>
+<div id="divErrorMessages" class="Hidden">
+    <label id="lblErrorMessageE_Maker_MillSheet_001" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+    </label>
+    <label id="lblErrorMessageE_Maker_MillSheet_002" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_MatlMakerRequired")</span>
+    </label>
+    </div>
+    
+<script src="~/Static/js/MakerMillSheetPDFConfiguration.js" asp-append-version="true"></script>

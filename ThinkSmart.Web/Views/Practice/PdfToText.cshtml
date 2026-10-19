@@ -1,0 +1,170 @@
+﻿@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+@{
+    // Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
+}
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<table>
+    <tr>
+        <td align="left" valign="top">
+            <table cellpadding="5" cellspacing="5">
+                <tr>
+                    <td align="left" valign="top">Browse File</td>
+                    <td align="left" valign="top"> <input type="file" id="pdfUpload" /></td>
+                </tr>
+                <tr>
+                    <td align="left" valign="top">Select Field Name</td>
+                    <td align="left" valign="top">
+                        <select id="ddlColumnName" name="ddlDieShape" class="MandatoryDropdown Mandatory DropdownListClass form-control InsetBorder" 
+                                tabindex="20" style="height:22px;width:160px;">
+                            <option value="0" selected="selected"></option>
+                            </select>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" valign="top">
+                        <button type="button" id="btnMarkBox">Create Box</button>
+                        </td>
+                    <td align="left" valign="top">
+                        <button type="button" id="btnDeleteBox">Delete Box</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" valign="top" colspan="2">
+                        <label id ="txtOutput"></label>
+                    </td>
+                </tr>
+            </table>
+           
+
+            @* <button onclick="saveModifiedPdf()">Save PDF</button> *@
+        </td>
+        <td align="left" valign="top"><canvas id="pdfCanvas"></canvas></td>
+    </tr>
+</table>
+
+
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+<script>
+    let startX, startY, endX, endY;
+    let canvas = document.getElementById('pdfCanvas');
+    const removeBtn = document.getElementById('btnDeleteBox');
+    const upload = document.getElementById('pdfUpload');
+    const txtOutput = document.getElementById('txtOutput');
+    let ctx = canvas.getContext('2d');
+    let pdfDoc, pdfBytes;
+    let boxes = [];
+    document.getElementById('btnDeleteBox').addEventListener('click', async (e) => {
+      
+        const file = upload.files[0];
+        pdfBytes = await file.arrayBuffer();
+        const loadingTask = pdfjsLib.getDocument({ data: pdfBytes });
+        pdfDoc = await loadingTask.promise;
+
+        const page = await pdfDoc.getPage(1);
+        const viewport = page.getViewport({ scale: 1.5 });
+
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+
+        const renderContext = {
+            canvasContext: ctx,
+            viewport: viewport
+        };
+        await page.render(renderContext).promise;
+    });
+
+    document.getElementById('pdfUpload').addEventListener('change', async (e) => {
+        
+        const file = e.target.files[0];
+        pdfBytes = await file.arrayBuffer();
+        const loadingTask = pdfjsLib.getDocument({ data: pdfBytes });
+        pdfDoc = await loadingTask.promise;
+
+        const page = await pdfDoc.getPage(1);
+        const viewport = page.getViewport({ scale: 1.5 });
+
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+
+        const renderContext = {
+            canvasContext: ctx,
+            viewport: viewport
+        };
+        await page.render(renderContext).promise;
+    });
+
+    canvas.addEventListener('mousedown', (e) => {
+        startX = e.offsetX;
+        startY = e.offsetY;
+       
+    });
+
+    canvas.addEventListener('mouseup', async (e) => {
+        if ($("#pdfCanvas").hasClass("cursor")) {
+            endX = e.offsetX;
+            endY = e.offsetY;
+
+              boxes.push({
+            x: Math.min(startX, endX),
+            y: Math.min(startY, endY),
+            width: Math.abs(endX - startX),
+            height: Math.abs(endY - startY)
+        });
+
+            // Draw red box
+            ctx.beginPath();
+            ctx.strokeStyle = 'red';
+            ctx.lineWidth = 2;
+            ctx.rect(startX, startY, endX - startX, endY - startY);
+            ctx.stroke();
+
+            txtOutput.innerText = ((startX / 1.5).toFixed(2) + "   " + (startY / 1.5).toFixed(2) + "   " + (endX / 1.5).toFixed(2) + "  " + (endY / 1.5).toFixed(2));
+            $("#pdfCanvas").css("cursor", "auto");
+            $("#pdfCanvas").removeClass("cursor");
+        }
+    });
+
+    async function saveModifiedPdf() {
+        const pdfDoc = await PDFLib.PDFDocument.load(pdfBytes);
+        const pages = pdfDoc.getPages();
+        const firstPage = pages[0];
+
+        const width = canvas.width;
+        const height = canvas.height;
+
+        // Scale to PDF points
+        const pdfWidth = firstPage.getWidth();
+        const pdfHeight = firstPage.getHeight();
+
+        const scaleX = pdfWidth / width;
+        const scaleY = pdfHeight / height;
+
+        firstPage.drawRectangle({
+            x: startX * scaleX,
+            y: pdfHeight - endY * scaleY, // invert Y-axis
+            width: (endX - startX) * scaleX,
+            height: (endY - startY) * scaleY,
+            borderColor: PDFLib.rgb(1, 0, 0),
+            borderWidth: 2,
+        });
+
+        const modifiedPdfBytes = await pdfDoc.save();
+
+        const blob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'modified.pdf';
+        link.click();
+    }
+</script>
+<script src="~/Static/js/Practice.js"></script>
+<input type="text"
+       inputmode="latin"
+       name="englishName"
+       placeholder="Name (English only)"
+       oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '');" />

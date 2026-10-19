@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- https://go.microsoft.com/fwlink/?LinkID=208121. -->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>E:\PMS-Build\PMSWEB</_PublishTargetUrl>
+    <History>True|2026-08-13T09:55:20.4159667Z||;True|2026-08-12T12:30:03.6781453+05:30||;True|2026-07-21T17:25:38.4806408+05:30||;True|2026-07-21T16:19:07.6423512+05:30||;True|2026-07-20T18:32:26.9259141+05:30||;True|2026-07-20T15:54:57.9119790+05:30||;True|2026-07-17T18:23:41.3723580+05:30||;True|2026-07-16T18:45:46.0877041+05:30||;True|2026-07-14T12:33:42.6561143+05:30||;True|2026-07-07T20:09:05.9826797+05:30||;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>

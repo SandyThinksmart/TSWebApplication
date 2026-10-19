@@ -1,0 +1,82 @@
+﻿@using TSWebApplication.Domain.Resources
+@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Utility
+@inject LocalizationServices LocalizationServices
+@model List<MakerMillSheetDetails>
+@{
+    Layout = null;
+}
+<div class="divMillsheetGrid">
+    <table class="GridLines GridColumnLeftPadding freez" cellpadding="0" cellspacing="0" border="1">
+        
+        
+        <thead>
+            <tr class="GridHeader GridViewScrollHeader freez GridHeaderPadding">
+                <th class="headerPadding labelClass tdH2">
+                    
+                </th>
+             <th  class="headerPadding labelClass tdH2">@LocalizationServices.GetLocalizedHtmlString("lbl_MakerMaster")
+            </th>
+            <th
+                 class="headerPadding labelClass tdH2">@LocalizationServices.GetLocalizedHtmlString("lbl_TypeOfSteel")
+            </th>
+            <th class="headerPadding labelClass tdH2">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")
+            </th>
+            <th class="headerPadding labelClass tdH2">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")
+            </th>
+            <th class="headerPadding labelClass tdH2">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")
+            </th>
+            <th class="headerPadding labelClass tdH2">@LocalizationServices.GetLocalizedHtmlString("lbl_Kouban")
+            </th>
+            <th class="headerPadding labelClass tdH2">@LocalizationServices.GetLocalizedHtmlString("lbl_NoOfUnits")
+            </th>
+            <th class="headerPadding labelClass tdH2">@LocalizationServices.GetLocalizedHtmlString("lbl_WeightWithoutKG")
+            </th>
+            <th class="headerPadding labelClass tdH2">@LocalizationServices.GetLocalizedHtmlString("lbl_SaveDateTime")
+            </th>
+            <th class="headerPadding labelClass tdH2">@LocalizationServices.GetLocalizedHtmlString("lbl_UpdateDateTime")
+            </th>
+            <th class="headerPadding labelClass tdH2">@LocalizationServices.GetLocalizedHtmlString("lbl_PDFName")
+            </th>
+
+        </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr data-MAKER_MILL_SHEET_CD="@item.MAKER_MILL_SHEET_CD" data-MakerName="@item.MAKER_MILL_SHEET_CD">
+                        <td class="labelClass" style="padding-right:3px;">
+                            <input type="submit" onclick="OnEditClick($(this))" value="●" id="grdvEditDelete" tabindex="13" class="_functionButtons" style="height:22px;width:30px;">
+                        </td>
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:left; white-space:nowrap">@item.MAKER_NAME</td>
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:left; white-space:nowrap">@item.MATL_NAME_MAKER</td>
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:right; white-space:nowrap">@item.DIM_D</td>
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:right; white-space:nowrap">@item.LENGTH</td>
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:left; white-space:nowrap">@item.CHARGE</td>
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:left; white-space:nowrap">@item.KOUBAN</td>
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:right; white-space:nowrap">@item.NO_OF_UNITS</td>
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:right; white-space:nowrap">@item.QUANTITY</td>
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:center; white-space:nowrap">@item.CREATED_DATE_STRING</td>
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:center; white-space:nowrap">@item.UPDATED_DATE_STRING</td>
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:left; white-space:nowrap">@item.FILENAME</td>
+                       
+                        @*<td class="labelClass">@item.de</td>*@
+
+
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr style="height:20px;">
+                    <td colspan="12">@LocalizationServices.GetLocalizedHtmlString("lbl_NoRecordFound_L")</td>
+                </tr>
+            }
+        </tbody>
+
+
+       
+    </table>
+</div>

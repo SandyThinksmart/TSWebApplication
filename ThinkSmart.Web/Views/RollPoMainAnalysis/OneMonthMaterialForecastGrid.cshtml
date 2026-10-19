@@ -1,0 +1,325 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<RollForcastPopup>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+}
+<style>
+    .freezMaterialGrid > th {
+        position: sticky !important;
+        background-color: #4e6cab;
+        top: 0.0px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezMaterialGrid {
+        border-color: white;
+    }
+
+         .freezMaterialGrid1 > th {
+        position: sticky !important;
+        background-color:#8eaceb;
+        top: 22px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezMaterialGrid1 {
+        border-color: white;
+    }
+    
+    .freezMaterialGrid2 > th {
+        position: sticky !important;
+        background-color: #8eaceb;
+        top: 44px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezMaterialGrid2 {
+        border-color: white;
+    } 
+
+     .freezMaterialGrid3 > th {
+        position: sticky !important;
+        background-color: #b2c3e6;
+        top: 79px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezMaterialGrid3 {
+        border-color: white;
+    }
+
+    .freezMaterialGrid4 > th {
+        position: sticky !important;
+        background-color: #8eaceb;
+        top: 101px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezMaterialGrid4 {
+        border-color: white;
+    }
+      
+</style>
+<div id="divMaterialDetails">
+    <table id="tblMaterialDetails" border="0" cellpadding="0" cellspacing="0" id="tblMaterialGrid" class="GridLines">
+
+        <tr class="freezMaterialGrid">
+            <th align="center" valign="middle" class="tdH1" colspan="26" style="padding:2px;">
+                <label id="" class="labelClass" style="color:white">@LocalizationServices.GetLocalizedHtmlString("lbl_RollForecastList(MatlName)")</label>
+
+            </th>
+
+        </tr>
+        <tr class="freezMaterialGrid1">
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter" rowspan="3">
+                <label id="" class="labelClass"></label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter" rowspan="2">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter" rowspan="2">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Maker_Details")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter" rowspan="2">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlNameMaker")</label>
+
+            </th>
+
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter" rowspan="2">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialKubun_L")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter" colspan="4">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DimDShape")</label>
+
+            </th>
+
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter" rowspan="2">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter" colspan="4">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_EstimatedUsage")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter" colspan="4">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlRequireWt")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter" rowspan="3">
+                <label id="" class="labelClassearch gridLabel">@LocalizationServices.GetLocalizedHtmlString("lbl_Investigation_End")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter" rowspan="3">
+                <label id="" class="labelClassearch">@LocalizationServices.GetLocalizedHtmlString("lbl_Material_Reply")</label>
+
+            </th>
+
+
+
+        </tr>
+        <tr class="freezMaterialGrid2">
+            @*  <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlNameMaker")</label>
+
+            </th> *@
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Diameter")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Width")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Auxiliary")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+                <label id="lblMaterilGridLastRoll1" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll") </label><br />
+                <label id="lblMaterilGridRollForMonth1" class="labelClass">（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+                <label id="lblMaterilGridLastRoll2" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll") </label><br />
+                <label id="lblMaterilGridRollForMonth2" class="labelClass">（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+                <label id="lblMaterilGridLastRoll3" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll") </label><br />
+                <label id="lblMaterilGridRollForMonth3" class="labelClass">（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+                <label id="lblMaterilGridLastRoll4" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll") </label><br />
+                <label id="lblMaterilGridRollForMonth4" class="labelClass">（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+                <label id="lblFooterLastRoll1" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll") </label><br />
+                <label id="lblFooterRollForMonth1" class="labelClass">（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+            </th>
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+                <label id="lblFooterLastRoll2" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll") </label><br />
+                <label id="lblFooterRollForMonth2" class="labelClass">（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+                <label id="lblFooterLastRoll3" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll") </label><br />
+                <label id="lblFooterRollForMonth3" class="labelClass">（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+                <label id="lblFooterLastRoll4" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll") </label><br />
+                <label id="lblFooterRollForMonth4" class="labelClass">（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+
+            </th>
+        </tr>
+        <tr class="freezMaterialGrid3">
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Incharge_L")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MakerMaster")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_InternalName")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_GeneralSpecial_L")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" colspan="4">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Condition")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DirectDeliveryLocation")</label>
+
+            </th>
+
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" colspan="8">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Remark")</label>
+
+            </th>
+        </tr>
+
+         @if (Model != null && Model.Any())
+        {
+             int i = 0;
+            foreach (var item in Model)
+            {
+                 i = i + 1;
+                <tr class="GridNormalRow">
+                    <td class="labelClass padddingLeft padddingRight alignCenter" rowspan="2">
+                        <input type="radio" ID=@("selectRow" + i) data-id="@i" class="labelClass" name="radiobtn" />
+                    </td>
+                    <td style="display:none;">
+                        <label type="text" ID="@("matlRollFCCd"+i)" data-id="@i">@item.ROLL_FC_CD</label>
+                    </td>
+                    <td class="labelClass CharactFieldsClass padddingLeft">@item.CUSTOMER </td>
+                    <td class="labelClass CharactFieldsClass padddingLeft">@item.MAKER_DETAILS</td>
+                    <td class="labelClass CharactFieldsClass padddingLeft">@item.MATL_NAME_MAKER</td>
+                    <td class="labelClass CharactFieldsClass padddingLeft">@item.MATL_KUBUN_NAME</td>
+                    <td class="labelClass NumericFieldsClass padddingRight">@item.DIM_D</td>
+                    <td class="labelClass padddingLeft padddingRight alignCenter">@item.SHAPE</td>
+                    <td class="labelClass NumericFieldsClass padddingRight">@item.DIM_W</td>
+                    <td class="labelClass CharactFieldsClass padddingLeft">@item.DIM_OTHER</td>
+                    <td class="labelClass NumericFieldsClass padddingRight">@item.MATERIAL_LENGTH</td>
+                    <td class="labelClass NumericFieldsClass padddingRight">@item.FC_QTY_R1</td>
+                    <td class="labelClass NumericFieldsClass padddingRight">@item.FC_QTY_R2</td>
+                    <td class="labelClass NumericFieldsClass padddingRight">@item.FC_QTY_R3</td>
+                    <td class="labelClass NumericFieldsClass padddingRight">@item.FC_QTY_R4</td>
+                    <td class="labelClass NumericFieldsClass padddingRight">@item.REQD_MATL_QTY_1MONTH</td>
+                    <td class="labelClass NumericFieldsClass padddingRight">@item.REQD_MATL_QTY_2MONTH</td>
+                    <td class="labelClass NumericFieldsClass padddingRight">@item.REQD_MATL_QTY_3MONTH</td>
+                    <td class="labelClass NumericFieldsClass padddingRight">@item.REQD_MATL_QTY_4MONTH</td>
+                    <td rowspan="2" class="labelClass padddingLeft padddingRight" style="text-align:center;background-color:white">
+                       @* <input type="checkbox" id="@("chkMatlSalesFcDoneDate"+i)" style="position: relative;width: 15px;"/>*@
+                        @if (item.SALES_FC_DONE_DATE.HasValue)
+                                            {
+                                                <input type="checkbox" id="@("chkMatlSalesFcDoneDate"+i)" checked/>
+                                            }
+                                            
+                                            else
+                                            {
+                                                <input type="checkbox" id="@("chkMatlSalesFcDoneDate"+i)"/>
+                                            }
+                    </td>
+
+                    <td rowspan="2" class="labelClass padddingLeft">
+                       
+                        @* <select ID="ddlMaterialReply" TabIndex="25" class="DropdownListClass dropListClass"
+                                style="height: 38px;width:300px;margin-left:-2px;">
+                        </select> *@
+                         <input type="text" id="@("txtMaterialReplyMatl"+i)"  class="labelClass GridTextBox padddingLeft tdNoWrap CharactFieldsClass" style="height:36px; width:236px;" value="@item.REPLY_FROM_MATL_DEPT"/>
+                       
+                    </td>
+
+                </tr>
+                <tr class="GridNormalRow lastRowBorderColor" >
+                    <td class="labelClass CharactFieldsClass padddingLeft">@item.INCHARGE</td>
+                    <td class="labelClass CharactFieldsClass padddingLeft">@item.MAKER_NAME</td>
+                    <td class="labelClass CharactFieldsClass padddingLeft">@item.INTERNAL_NAME</td>
+                    <td class="labelClass CharactFieldsClass padddingLeft">@item.MATL_SPECIAL_KUBUN_NAME</td>
+                    <td colspan="4" class="labelClass CharactFieldsClass padddingLeft">@item.CONDITION_DESCRIPTION</td>
+                    <td class="labelClass padddingLeft padddingRight alignCenter"></td>
+                    <td colspan="8" class="labelClass CharactFieldsClass padddingLeft">
+                        @item.MSG_TO_MATL_DEPT
+                    </td>                   
+                </tr>
+
+            }
+             <tr class="GridNormalRow " style="background-color:#ffffae">
+
+                <td class="labelClass NumericFieldsClass"  colspan="10">
+            <label class="labelClass">
+                @LocalizationServices.GetLocalizedHtmlString("lbl_Sum_L")
+            </label>
+        </td>
+                <td class="labelClass padddingRight tdNoWrap NumericFieldsClass ">  @Model.Sum(x => x.FC_QTY_R1 ?? 0).ToString("0.0")</td>
+                <td class="labelClass padddingRight tdNoWrap NumericFieldsClass "> @Model.Sum(x => x.FC_QTY_R2 ?? 0).ToString("0.0")</td>
+                <td class="labelClass padddingRight tdNoWrap NumericFieldsClass ">  @Model.Sum(x => x.FC_QTY_R3 ?? 0).ToString("0.0")</td>
+                <td class="labelClass padddingRight tdNoWrap NumericFieldsClass "> @Model.Sum(x => x.FC_QTY_R4 ?? 0).ToString("0.0")</td>
+                
+                 <td class="labelClass padddingRight tdNoWrap NumericFieldsClass ">  @Model.Sum(x => x.REQD_MATL_QTY_1MONTH ?? 0).ToString("0.0")</td>
+                <td class="labelClass padddingRight tdNoWrap NumericFieldsClass "> @Model.Sum(x => x.REQD_MATL_QTY_2MONTH ?? 0).ToString("0.0")</td>
+                <td class="labelClass padddingRight tdNoWrap NumericFieldsClass ">  @Model.Sum(x => x.REQD_MATL_QTY_3MONTH ?? 0).ToString("0.0")</td>
+                <td class="labelClass padddingRight tdNoWrap NumericFieldsClass "> @Model.Sum(x => x.REQD_MATL_QTY_4MONTH ?? 0).ToString("0.0")</td>
+                <td></td>
+                <td></td>
+            </tr>
+        } 
+       else
+        {
+            <tr style="text-align:left"><td colspan="25"><label ID="lbldatanotavailable" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_NoRecordFound_L")</label></td></tr>
+        }
+    </table>
+
+</div>
+@section Scripts {
+
+    <link href="~/css/Common.css" rel="stylesheet" />
+    <link href="~/css/AnalysePOQuantity.css" rel="stylesheet" />
+    <link href="~/css/Common_Styles.css" rel="stylesheet" />
+    <link href="~/css/masterStyles.css" rel="stylesheet" />
+
+
+}  

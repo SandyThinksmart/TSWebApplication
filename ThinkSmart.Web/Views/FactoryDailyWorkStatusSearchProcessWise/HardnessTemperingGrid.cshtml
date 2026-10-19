@@ -1,0 +1,666 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<HardeningTemperingDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+
+}
+<style>
+    .freezHardnessTemperingDailyGrid > th {
+        position: sticky !important;
+        background-color: #4e6cab;
+        top: 0.0px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezHardnessTemperingDailyGrid {
+        border-color: white;
+    }
+
+    
+</style>
+<table class="GridLines GridLayout GridColumnLeftPadding" cellpadding="0" cellspacing="0" border="1" id="tblTbPMSConditioningreport" style="margin-left: 10px;">
+    <thead>
+
+        <tr class="freezHardnessTemperingDailyGrid">
+            <th id="ConditioningHeader" colspan="21" style="color:white; border: 1px solid black;" class="GridHeader GridViewScrollHeader labelClass1 tdH1">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessTempering")</th>
+        </tr>
+        @if (Model != null && Model.Count > 0)
+
+        {
+            foreach (var item in Model)
+            {
+                <tr class="GridHeader GridViewScrollHeader GridHeaderPadding">
+
+                    <th id="ConditioningPrcoessPlan" colspan="3" class="headerPadding bgcolor1 labelClass tdPaddingLeftandRight tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_PrcoessPlan")</th>
+                    <th id="Conditioning" colspan="8" class="headerPadding bgcolor1 labelClass tdPaddingLeftandRight tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceSetting")</th>
+                    <th id="Conditioning1" colspan="3" class="headerPadding bgcolor1 labelClass tdPaddingLeftandRight tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_QuenchingSetting")</th>
+                    <th id="Conditioning2" colspan="3" class="headerPadding bgcolor1 labelClass tdPaddingLeftandRight tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_TemperingSetting")</th>
+                    <th id="ConditioningDecision" colspan="3" class="headerPadding bgcolor1 labelClass tdPaddingLeftandRight tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_InspectionDecesion")</th>
+
+                </tr>
+
+                <tr class="GridViewScrollHeaderGridHeaderPadding">
+                    <th id="ConditioningFurnaceNum" class="labelClass padddingLeft tdNoWrap tdHeader Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</th>
+                    <th class="tdNoWrap disabled FurnaceNum" colspan="2"><input type="text" id="txtFurnanceNo" class="disabled CharactFieldsClass labelClass" style="border-style:none;height:24px;" value=@item.FURNACE_NO /></th>
+                    <th class="labelClass tdNoWrap disabled" style="width:80px;" colspan="2"></th>
+                    <th id="ConditioningTempFurn" colspan="2" class="labelClass padddingLeft tdHeader tdPaddingLeftandRight1 tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceTemperature")</th>
+                    <th class="tdNoWrap disabled" colspan="4" style="width:160px;"><input id="txttemperature" type="text" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:110px;" value=@item.TEMPERATURE_FURNACE /><label id="lblC" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("℃")</label></th>
+
+                    <th id="ConditioningHardeiningInfo" class="labelClass padddingLeft tdHeader tdPaddingLeftandRight tdNoWrap" style="text-align:left;">@LocalizationServices.GetLocalizedHtmlString("lbl_MachineNoOperator")</th>
+
+                    <th class=" tdNoWrap disabled" style="width:120px;"><input type="text" id="txtHardeningMachine" class="disabled labelClass CharactFieldsClass" style="border-style:none;height:24px;" value="@item.HARDENING_MACHINE_NAME" /></th>
+                    <th class=" tdNoWrap disabled" style="width:120px;"><input type="text" id="txtHardeingOperator" class="disabled labelClass CharactFieldsClass" style="border-style:none;height:24px;" value="@item.HARDENING_OPERATOR_NAME" /></th>
+                    <th id="ConditioningTemperingInfo" class="labelClass padddingLeft tdHeader tdPaddingLeftandRight tdNoWrap Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_MachineNoOperator")</th>
+
+                    <th class=" tdNoWrap disabled" style="width:120px;"><input type="text" id="txtTemperingMachine" class="disabled labelClass CharactFieldsClass" style="border-style:none;height:24px;" value=@item.TEMPERING_MACHINE_NAME /></th>
+                    <th class=" tdNoWrap disabled" style="width:120px;"><input type="text" id="txtTemperingOperator" class="disabled labelClass CharactFieldsClass" style="border-style:none;height:24px;" value="@item.TEMPERING_OPERATOR_NAME" /></th>
+                    <th id="ConditioningInspector" class="labelClass padddingLeft tdHeader tdPaddingLeftandRight tdNoWrap Proceplanwidth"><label id="lblInspector" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Inspector")</label></th>
+
+                    <th class=" tdNoWrap disabled CharactFieldsClass" style="width:140px;"><input type="text" id="txtHardeingOperator" class="disabled labelClass CharactFieldsClass" style="border-style:none;height:24px;" value="@item.INSPECTED_OPERATOR_NAME" /></th>
+                    <th class="labelClass tdNoWrap disabled" rowspan="2" style="width:100px; color: Red;"> @item.DECISION_STRING </th>
+
+
+
+                </tr>
+
+                <tr class="GridViewScrollHeaderGridHeaderPadding">
+
+                    <th id="ConditioningChuuban" class="labelClass padddingLeft tdNoWrap tdHeader Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</th>
+
+                    <th class="tdNoWrap disabled FurnaceNum" colspan="2"><input type="text" id="txtOrderNoHardness" class="disabled CharactFieldsClass labelClass" style="border-style:none;height:24px;" value="@item.PP_CHUUBAN" /></th>
+
+                    <th class="labelClass tdNoWrap disabled" rowspan="2" colspan="2" style="width:80px;"> <input type="text" style="width:80px;border-style:none;" class="disabled centerAlign labelClass" value="@item.WATER_OIL_STRING"/></th>
+
+                    <th id="ConditioningConcenFurn" colspan="2" class="labelClass padddingLeft tdHeader tdPaddingLeftandRight1 tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceConcentration")</th>
+
+                    <th class="tdNoWrap disabled" colspan="4" style="width:160px;"><input id="txtConentrationFurn" type="text" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:110px;" value="@item.CONCENTRATION_FURNACE" /><label id="lblPercentageSymbol">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label></th>
+
+                    <th id="ConditioningHardeingDate" class="labelClass padddingLeft tdHeader tdPaddingLeftandRight tdNoWrap Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceInOutDateTime")</th>
+
+                    <th class=" tdNoWrap disabled" style="width:120px;"><input id="txtHardeningstartdate" type="text" class="disabled labelClass" style="border-style:none;height:24px;width:130px" value="@item.START_DATE_HARDENING_STRING" /></th>
+
+                    <th class=" tdNoWrap disabled" style="width:120px;"><input id="txtHardeningenddate" type="text" class="disabled labelClass" style="border-style:none;height:24px;width:130px" value="@item.END_DATE_HARDENING_STRING" /></th>
+
+                    <th id="ConditioningTemperingDate" class="labelClass padddingLeft tdHeader tdPaddingLeftandRight tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceInOutDateTime")</th>
+
+                    <th class=" tdNoWrap disabled" style="width:120px;"><input id="txtTemperingstartdate" type="text" class="disabled labelClass" style="border-style:none;height:24px;width:130px" value="@item.START_DATE_TEMPERING_STRING" /></th>
+
+                    <th class=" tdNoWrap disabled" style="width:120px;"><input id="txtTemperingenddate" type="text" class="disabled labelClass" style="border-style:none;height:24px;width:130px" value="@item.END_DATE_TEMPERING_STRING" /></th>
+
+                    <th id="ConditioningInspectionDate" class="labelClass padddingLeft tdHeader tdPaddingLeftandRight tdNoWrap Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_InspectionDate")</th>
+
+                    <th class=" tdNoWrap disabled" style="width:140px;"><input id="txtTemperingstartdate" type="text" class="disabled labelClass" style="border-style:none;height:24px;width:130px" value="@item.INSPECTION_DATE_STRING" /></th>
+                </tr>
+
+                <tr class="GridViewScrollHeaderGridHeaderPadding">
+                    <th id="ConditioningCustomer" class="labelClass padddingLeft tdNoWrap tdHeader Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</th>
+                    <th class="tdNoWrap disabled FurnaceNum" colspan="2"><input type="text" id="txtCustomer" class="disabled labelClass CharactFieldsClass" style="border-style:none;height:24px;" value="@item.PP_CUSTOMER_NAME" /></th>
+                    <th id="ConditioningFreqFurn" colspan="2" class="labelClass padddingLeft tdNoWrap tdHeader tdPaddingLeftandRight1">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceFrequncy")</th>
+                    <th class="tdNoWrap disabled" colspan="4" style="width:160px;"><input id="txtFreqFurn" type="text" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:110px;" value="@item.FREQUENCY_FURNACE" /><label id="lblHz" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("Hz")</label></th>
+                    <th id="ConditioningHardeingTempTime" class="labelClass padddingLeft  tdNoWrap tdHeader Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_TemperatureIntoTime")</th>
+                    <th class=" tdNoWrap disabled NumericFieldsClass" style="width:120px;"><input id="txtHardeningTemp" type="text" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:30px;" value="@item.TEMPERATURE_HARDENING" /><label id="lblC1" class="labelClass NumericFieldsClass">@LocalizationServices.GetLocalizedHtmlString("℃")</label></th>
+                    <th class=" tdNoWrap disabled NumericFieldsClass" style="width:120px;"><input id="txtHardeningTime" type="text" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:30px;" value="@item.TIME_HARDENING" /><label id="lblvalue" class="labelClass NumericFieldsClass">@LocalizationServices.GetLocalizedHtmlString("分")</label></th>
+
+                    <th id="ConditioningTemperingTempTime" class="labelClass padddingLeft tdNoWrap tdHeader Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_TemperatureIntoTime")</th>
+                    <th class=" tdNoWrap disabled NumericFieldsClass" style="width:120px;"><input id="txtTemperingTemp" type="text" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:30px;" value="@item.TEMPERATURE_TEMPERING" /><label id="lblC2" class="labelClass NumericFieldsClass">@LocalizationServices.GetLocalizedHtmlString("℃")</label></th>
+                    <th class=" tdNoWrap disabled NumericFieldsClass" style="width:120px;"><input id="txtTemperingTime" type="text" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:30px;" value="@item.TIME_TEMPERING" /><label id="lblvalue2" class="labelClass NumericFieldsClass">@LocalizationServices.GetLocalizedHtmlString("分")</label></th>
+                    <th id="ConditioningLocationName" class="labelClass padddingLeft tdNoWrap tdHeader Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessTempLocation")</th>
+                    <th class=" tdNoWrap disabled CharactFieldsClass" style="width:140px;"><input id="txtLocation" type="text" class="disabled labelClass CharactFieldsClass" style="border-style:none;height:24px;width:110px" value="@item.LOCATION_NAME" /></th>
+                    <th class="labelClass tdNoWrap disabled" style="width:100px; color: Red; ">@item.PP_PROD_SPEC_NO </th>
+                </tr>
+
+                <tr class="GridViewScrollHeaderGridHeaderPadding">
+                    <th id="ConditioningProdNameCust" class="labelClass padddingLeft  tdNoWrap tdHeader Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</th>
+                    <th class="tdNoWrap disabled FurnaceNum" colspan="2"><input type="text" id="txtProdNameHardness" class="disabled labelClass CharactFieldsClass" style="border-style:none;height:24px;" value="@item.PP_PROD_NAME_CUST" /></th>
+                    <th id="ConditioninglblUnitType3OF3_1" class="labelClass  tdNoWrap tdHeader" width="30px">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitType3OF3")</th>
+                    <th class="tdNoWrap disabled"><input id="txtCFurn" type="text" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:30px;" value="@item.C_FURNACE" /><label id="lblPercentageSymbol1">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label></th>
+                    <th id="ConditioningManganese" class="labelClass  tdNoWrap tdHeader" width="30px">@LocalizationServices.GetLocalizedHtmlString("lbl_Manganese")</th>
+                    <th class="tdNoWrap disabled"><input id="txtMnFurn" type="text" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:35px;" value="@item.MN_FURNACE" /><label id="lblPercentageSymbol2">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label></th>
+                     <th id="ConditioningCr" class="labelClass  tdNoWrap tdHeader" width="30px">@LocalizationServices.GetLocalizedHtmlString("lbl_Cr")</th>
+                    <th class="tdNoWrap disabled"><input id="txtCrFurn" type="text" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:35px;" value="@item.CR_FURNACE" /><label id="lblPercentageSymbol4">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label></th>
+                    <th id="ConditioningMo" class="labelClass  tdNoWrap tdHeader" width="30px">@LocalizationServices.GetLocalizedHtmlString("lbl_Mo")</th>
+                    <th class="tdNoWrap disabled"><input id="txtMoFurn" type="text" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:35px;" value="@item.MO_FURNACE" /><label id="lblPercentageSymbol3">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label></th>
+
+                   
+                    <th id="Conditioninghrc" colspan="3" class="headerPadding bgcolor1 labelClass tdPaddingLeftandRight tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_HRCHardness")</th>
+                    <th id="Conditioninghrc1" colspan="3" class="headerPadding bgcolor1 labelClass tdPaddingLeftandRight tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_HRCHardness")</th>
+                    <th id="Conditionin12" colspan="3" class="headerPadding bgcolor1 labelClass tdPaddingLeftandRight tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_InternalJob")</th>
+                </tr>
+
+                <tr class="GridViewScrollHeaderGridHeaderPadding">
+                    <th id="ConditioningCharge" class="labelClass padddingLeft tdNoWrap padddingLeft tdHeader Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</th>
+                    <th class="tdNoWrap disabled FurnaceNum" colspan="2"><input type="text" id="txtChargeHardness" class="disabled labelClass CharactFieldsClass" style="border-style:none;height:24px;" value="@item.PP_CHARGE" /></th>
+                    <th id="HardnessSpecified" colspan="4" class="labelClass padddingLeft tdNoWrap tdHeader Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessSpecified")</th>
+                    <th class="labelClass tdNoWrap disabled" colspan="4">
+                        <input type="text" class="disabled labelClass" style="border-style:none;height:24px;width:40px" value="@item.HARDNESS_PATTERN2_MIN"/>
+                        <label id="lblSymbolRange2_2">@LocalizationServices.GetLocalizedHtmlString("lbl_SymbolRange")</label>
+                        <input type="text" class="disabled labelClass" style="border-style:none;height:24px;width:40px" value="@item.HARDNESS_PATTERN2_MAX" />
+
+                        @*<input type="text" id="txtHardnessMin" class="disabled labelClass" style="border-style:none;height:24px;width:40px" value=" @item.HARDNESS_MIN" />
+
+                        
+
+                        <input type="text" id="txtHardnessMax" class="disabled labelClass" style="border-style:none;height:24px;width:40px" value="@item.HARDNESS_MAX" />*@
+                    </th>
+
+                    <th id="tblnumber" colspan="3" class="labelClass tdHeader tdNoWrap ">
+                        <table>
+                            <tr>
+                                <th class="labelClass  tdNoWrap tdHeader1 th4"></th>
+                                <th id="lbl1" class="labelClass   tdHeader1 th1">@LocalizationServices.GetLocalizedHtmlString("①")</th>
+                                <th id="lbl2" class="labelClass   tdHeader1 th1">@LocalizationServices.GetLocalizedHtmlString("②")</th>
+                                <th id="lbl3" class="labelClass   tdHeader1 th1">@LocalizationServices.GetLocalizedHtmlString("③")</th>
+                                <th id="lblcenter" class="labelClass tdHeader1 th1">@LocalizationServices.GetLocalizedHtmlString("lbl_Center")</th>
+                            </tr>
+                        </table>
+                    </th>
+                    <th id="tblnumber2" colspan="3" class="labelClass tdHeader tdNoWrap ">
+                        <table>
+                            <tr>
+                                <th class="labelClass  tdNoWrap tdHeader1 th4"></th>
+                                <th id="lbl1" class="labelClass   tdHeader1 th1">@LocalizationServices.GetLocalizedHtmlString("①")</th>
+                                <th id="lbl2" class="labelClass   tdHeader1 th1">@LocalizationServices.GetLocalizedHtmlString("②")</th>
+                                <th id="lbl3" class="labelClass   tdHeader1 th1">@LocalizationServices.GetLocalizedHtmlString("③")</th>
+                                <th id="lblcenter" class="labelClass tdHeader1 th1">@LocalizationServices.GetLocalizedHtmlString("lbl_Center")</th>
+                            </tr>
+                        </table>
+                    </th>
+                    <th id="tblnumber3" colspan="3" class="labelClass tdHeader tdNoWrap ">
+                        <table>
+                            <tr>
+                                <th id="ConditioningDM-F" class="labelClass   tdHeader1 th1">@LocalizationServices.GetLocalizedHtmlString("lbl_DM-F")</th>
+                                <th id="ConditioningDM-T" class="labelClass   tdHeader1 th1">@LocalizationServices.GetLocalizedHtmlString("lbl_DM-T")</th>
+                                <th id="ConditioningJobOut" class="labelClass padddingLeft  tdHeader1 th1">@LocalizationServices.GetLocalizedHtmlString("lbl_JobOut")</th>
+                                <th id="ConditioningJobIn" class="labelClass padddingLeft tdHeader1 th1">@LocalizationServices.GetLocalizedHtmlString("lbl_JobIn")</th>
+                            </tr>
+                        </table>
+                    </th>
+
+                </tr>
+
+                <tr class="GridViewScrollHeaderGridHeaderPadding">
+
+                    <th colspan="3">
+                        <table width="100%">
+                            <tr>
+                                <th id="Conditioningdimention" class="labelClass padddingLeft tdNoWrap tdHeader Proceplanwidth" style="width:145px;border-style:revert;border-right:0.7px solid black;">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlDimProdDim")</th>
+                                <th class="th"> <input type="text" id="txtMatlDim" class="disabled labelClass NumericFieldsClass" style="border-style:none; height:24px;width:100% " value="@item.PP_MATL_DIM_D  @item.PP_MATL_SHAPE" /></th>
+
+                                <th class="th"> <input type="text" id="txtProdDim" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%;" value="@item.PP_PROD_DIM_D @item.PP_PROD_SHAPE" /></th>
+                            </tr>
+                        </table>
+
+                    </th>
+
+
+                    <th id="ConditioningHardnessMinMax" colspan="4" class="labelClass padddingLeft tdNoWrap tdHeader Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessTarget")</th>
+                    <th class="tdNoWrap disabled" colspan="4">
+                        <input type="text" id="txtHardnessMin" class="disabled labelClass" style="border-style:none;height:24px;width:40px" value=" @item.HARDNESS_MIN" />
+
+                        <label id="lblSymbolRange2_3">@LocalizationServices.GetLocalizedHtmlString("lbl_SymbolRange")</label>
+
+                        <input type="text" id="txtHardnessMax" class="disabled labelClass" style="border-style:none;height:24px;width:40px" value="@item.HARDNESS_MAX" />
+                    </th>
+
+                    <th id="" colspan="3" class="labelClass   ">
+                        <table>
+                            <tr style=" border-style:none">
+                                <th id="QHardnessNorthUP" class="labelClass padddingLeft  tdHeader1 th4">@LocalizationServices.GetLocalizedHtmlString("lbl_NorthUp")</th>
+                                <th class="th3"> <input type="text" id="txtQHardnessNortUP1" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.Q_HARDNESS_NORTH_UP_1" /></th>
+                                <th class="th3"> <input type="text" id="txtQHardnessNortUP2" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.Q_HARDNESS_NORTH_UP_2" /></th>
+                                <th class="th2"> <input type="text" id="txtQHardnessNortUP3" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.Q_HARDNESS_NORTH_UP_3" /></th>
+                                <th class="th2"> <input type="text" id="txtQHardnessNortUPAvg" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value=@item.Q_HARDNESS_NORTH_UP_CEN /></th>
+                            </tr>
+                        </table>
+                    </th>
+                    <th id="" colspan="3" class="labelClass   ">
+                        <table>
+                            <tr style=" border-style:none">
+                                <th id="TemperingHardnessNorthUP" class="labelClass padddingLeft  tdHeader1 th4">@LocalizationServices.GetLocalizedHtmlString("lbl_NorthUp")</th>
+                                <th class="th3"> <input type="text" id="txtTHardnessNortUP1" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.T_HARDNESS_NORTH_UP_1" /></th>
+                                <th class="th3"> <input type="text" id="txtTHardnessNortUP2" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.T_HARDNESS_NORTH_UP_2" /></th>
+                                <th class="th2"> <input type="text" id="txtTHardnessNortUP3" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.T_HARDNESS_NORTH_UP_3" /></th>
+                                <th class="th2"> <input type="text" id="txtTHardnessNortUPAvg" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.T_HARDNESS_NORTH_UP_CENT" /></th>
+                            </tr>
+                        </table>
+                    </th>
+                    <th id="" colspan="3" class="labelClass   ">
+                        <table>
+                            <tr style=" border-style:none">
+                                <th class="th2">
+                                    <input type="text" class="disabled labelClass centerAlign" style="border-style:none;height:24px;width:100%" value="@item.DM_F_MIN @LocalizationServices.GetLocalizedHtmlString("lbl_SymbolRange") @item.DM_F_MAX" />
+                                </th>
+
+                                <th class="th2">
+                                    <input type="text" class="disabled labelClass centerAlign" style="border-style:none;height:24px;width:100%" value="@item.DM_T_MIN @LocalizationServices.GetLocalizedHtmlString("lbl_SymbolRange") @item.DM_T_MAX" />
+                                </th>
+                                <th class="th2"> <input type="text" class="disabled labelClass CharactFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.STRUCTURE_OUT" /></th>
+                                <th class="th2"> <input type="text" class="disabled labelClass CharactFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.STRUCTURE_IN" /></th>
+                            </tr>
+                        </table>
+                    </th>
+
+                </tr>
+
+                <tr>
+                    <th id="ConditioningMetallicLabelNo" class="labelClass padddingLeft tdNoWrap tdHeader Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_MetallicLabelNo")</th>
+                    <th class="tdNoWrap disabled" colspan="2"><input type="text" id="txtMetallicLablNo" class="disabled labelClass CharactFieldsClass" style="border-style:none;height:24px;width:110px;float:left" value="@item.METALLIC_PLATE_CODE" /></th>
+                    <th id="ConditioningHardeningRemark" class="labelClass padddingLeft tdNoWrap tdHeader Proceplanwidth" style="text-align:center" colspan="8">@LocalizationServices.GetLocalizedHtmlString("lbl_Remark")</th>
+                    <th id="" colspan="3" class="labelClass   ">
+                        <table>
+                            <tr style=" border-style:none">
+                                <th id="QHardnessNorthDown" class="labelClass padddingLeft  tdHeader1 th4">@LocalizationServices.GetLocalizedHtmlString("lbl_NorthDown")</th>
+                                <th class="th3"> <input type="text" id="txtQHardnessNorthDown1" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.Q_HARDNESS_NORTH_DOWN_1" /></th>
+                                <th class="th3"> <input type="text" id="txtQHardnessNorthDown2" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.Q_HARDNESS_NORTH_DOWN_2" /></th>
+                                <th class="th2"> <input type="text" id="txtQHardnessNorthDown3" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.Q_HARDNESS_NORTH_DOWN_3" /></th>
+                                <th class="th2"> <input type="text" id="txtQHardnessNorthDownAvg" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.Q_HARDNESS_NORTH_DOWN_CEN" /></th>
+                            </tr>
+                        </table>
+                    </th>
+                    <th id="" colspan="3" class="labelClass   ">
+                        <table>
+                            <tr style=" border-style:none">
+                                <th id="THardnessNorthDown" class="labelClass padddingLeft tdHeader1 th4">@LocalizationServices.GetLocalizedHtmlString("lbl_NorthDown")</th>
+                                <th class="th3"> <input type="text" id="txtTHardnessNorthDown1" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.T_HARDNESS_NORTH_DOWN_1" /></th>
+                                <th class="th3"> <input type="text" id="txtTHardnessNorthDown2" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.T_HARDNESS_NORTH_DOWN_2" /></th>
+                                <th class="th2"> <input type="text" id="txtTHardnessNorthDown3" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.T_HARDNESS_NORTH_DOWN_3" /></th>
+                                <th class="th2"> <input type="text" id="txtTHardnessNorthDownAvg" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.T_HARDNESS_NORTH_DOWN_CEN" /></th>
+                            </tr>
+                        </table>
+                    </th>
+                    <th id="" colspan="3" class="labelClass padddingLeft tdHeader" style="text-align:-webkit-center">
+                        <table>
+                            <tr>
+                                <th id="lblRemark" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Remark")</th>
+                            </tr>
+                        </table>
+                    </th>
+                </tr>
+
+                <tr class="GridViewScrollHeaderGridHeaderPadding">
+                    <th id="NumberofWeight" class="labelClass padddingLeft tdNoWrap tdHeader Proceplanwidth"> @LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocUnitsWt") </th>
+                    <th class=" disabled NumericFieldsClass"><input type="text" class="disabled labelClass NumericFieldsClass" id="txtNoOfUnits" style="border-style:none;height:11px;width:100%" value="@item.PP_NO_OF_UNITS @item.PP_UNIT_TYPE_STRING" /> </th>
+                    <th class="disabled"> <input type="text" class="disabled labelClass NumericFieldsClass" id="txtWeight" style="border-style:none;height:24px;width:100%" value="@item.PP_ACT_ALLOC_QTY" /></th>
+                    <th class="disabled labelClass CharactFieldsClass" colspan="8" rowspan="2" style="white-space: normal; word-wrap: break-word; overflow-wrap: anywhere;">@item.REMARK</th>
+                    <th id="" colspan="3" class="labelClass   ">
+                        <table>
+                            <tr style=" border-style:none">
+                                <th id="QHardnessSouthUP" class="labelClass padddingLeft tdHeader1 th4">@LocalizationServices.GetLocalizedHtmlString("lbl_SouthUp")</th>
+                                <th class="th3"> <input type="text" id="txtQHardnessSouthUP1" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.Q_HARDNESS_SOUTH_UP_1" /></th>
+                                <th class="th3"> <input type="text" id="txtQHardnessSouthUP2" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.Q_HARDNESS_SOUTH_UP_2" /></th>
+                                <th class="th2"> <input type="text" id="txtQHardnessSouthUP3" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.Q_HARDNESS_SOUTH_UP_3" /></th>
+                                <th class="th2"> <input type="text" id="txtQHardnessSouthUPAvg" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.Q_HARDNESS_SOUTH_UP_CEN" /></th>
+                            </tr>
+                        </table>
+                    </th>
+                    <th id="" colspan="3" class="labelClass   ">
+                        <table>
+                            <tr style=" border-style:none">
+                                <th id="THardnessSouthUP" class="labelClass padddingLeft tdHeader1 th4">@LocalizationServices.GetLocalizedHtmlString("lbl_SouthUp")</th>
+                                <th class="th3"> <input type="text" id="txtTHardnessSouthUP1" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.T_HARDNESS_SOUTH_UP_1" /></th>
+                                <th class="th3"> <input type="text" id="txtTHardnessSouthUP2" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.T_HARDNESS_SOUTH_UP_2" /></th>
+                                <th class="th2"> <input type="text" id="txtTHardnessSouthUP3" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.T_HARDNESS_SOUTH_UP_3" /></th>
+                                <th class="th2"> <input type="text" id="txtTHardnessSouthUPAvg" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.T_HARDNESS_SOUTH_UP_CENT" /></th>
+                            </tr>
+                        </table>
+                    </th>
+                    <th id="" class="disabled labelClass CharactFieldsClass" colspan="3" rowspan="2" style="white-space: normal; word-wrap: break-word; overflow-wrap: anywhere;">
+                        @item.HT_REMARK
+                    </th>
+
+                </tr>
+
+                <tr class="GridViewScrollHeaderGridHeaderPadding">
+                    <th id="NumberofWeightHT" class="labelClass padddingLeft tdNoWrap tdHeader1 Proceplanwidth"> @LocalizationServices.GetLocalizedHtmlString("lbl_UnitsWeight") </th>
+                    <th class="NumericFieldsClass disabled"> <input type="text" id="txtNoOfUnitsHardness" class="disabled NumericFieldsClass labelClass" style="border-style:none;height:11px;width:100%" value="@item.NO_OF_UNITS @item.UNIT_STRING" /> </th>
+                    <th class="disabled"> <input type="text" id="txtWeightHardness" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.WEIGHT" /></th>
+                    <th id="" colspan="3" class="labelClass   ">
+                        <table>
+                            <tr style=" border-style:none">
+                                <th id="QHardnessSouthDown" class="labelClass padddingLeft tdHeader1 th4">@LocalizationServices.GetLocalizedHtmlString("lbl_SouthDown") </th>
+                                <th class="th3"> <input type="text" id="txtQHardnessSouthDown1" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.Q_HARDNESS_SOUTH_DOWN_1" /></th>
+                                <th class="th3"> <input type="text" id="txtQHardnessSouthDown2" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.Q_HARDNESS_SOUTH_DOWN_2" /></th>
+                                <th class="th2"> <input type="text" id="txtQHardnessSouthDown3" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.Q_HARDNESS_SOUTH_DOWN_3" /></th>
+                                <th class="th2"> <input type="text" id="txtQHardnessSouthDownAvg" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.Q_HARDNESS_SOUTH_DOWN_CEN" /></th>
+                            </tr>
+                        </table>
+                    </th>
+                    <th id="" colspan="3" class="labelClass">
+                        <table>
+                            <tr style=" border-style:none">
+                                <th id="THardnessSouthDown" class="labelClass padddingLeft tdHeader1 th4">@LocalizationServices.GetLocalizedHtmlString("lbl_SouthDown") </th>
+                                <th class="th3"> <input type="text" id="txtTHardnessSouthDown1" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.T_HARDNESS_SOUTH_DOWN_1" /></th>
+                                <th class="th3"> <input type="text" id="txtTHardnessSouthDown2" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.T_HARDNESS_SOUTH_DOWN_2" /></th>
+                                <th class="th2"> <input type="text" id="txtTHardnessSouthDown3" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.T_HARDNESS_SOUTH_DOWN_3" /></th>
+                                <th class="th2"> <input type="text" id="txtTHardnessSouthDownAvg" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:100%" value="@item.T_HARDNESS_SOUTH_DOWN_CEN" /></th>
+                            </tr>
+                        </table>
+                        <label id="ConditioningQMacNoOperator" hidden>@LocalizationServices.GetLocalizedHtmlString("lbl_QMacNo/Operator") </label>
+                        <label id="ConditioningQFrncInOutDtTm" hidden>@LocalizationServices.GetLocalizedHtmlString("lbl_QFrncInOutDtTm") </label>
+                        <label id="ConditioningQTempXTime" hidden>@LocalizationServices.GetLocalizedHtmlString("lbl_QTemp X Time") </label>
+                        <label id="ConditioningQNorthUp" hidden>@LocalizationServices.GetLocalizedHtmlString("lbl_QNorthUp") </label>
+                        <label id="ConditioningQNorthDown" hidden>@LocalizationServices.GetLocalizedHtmlString("lbl_QNorthDown") </label>
+                        <label id="ConditioningQSouthUp" hidden>@LocalizationServices.GetLocalizedHtmlString("lbl_QSouthUp") </label>
+                        <label id="ConditioningQSouthDown" hidden>@LocalizationServices.GetLocalizedHtmlString("lbl_QSouthDown") </label>
+                        <label id="ConditioningTMacNoOperator" hidden>@LocalizationServices.GetLocalizedHtmlString("lbl_TMacNo/Operator") </label>
+                        <label id="ConditioningTFrncInOutDtTm" hidden>@LocalizationServices.GetLocalizedHtmlString("lbl_TFrncInOutDtTm") </label>
+                        <label id="ConditioningTTempXTime" hidden>@LocalizationServices.GetLocalizedHtmlString("lbl_TTemp X Time") </label>
+                        <label id="ConditioningTNorthUp" hidden>@LocalizationServices.GetLocalizedHtmlString("lbl_TNorthUp") </label>
+                        <label id="ConditioningTNorthDown" hidden>@LocalizationServices.GetLocalizedHtmlString("lbl_TNorthDown") </label>
+                        <label id="ConditioningTSouthUp" hidden>@LocalizationServices.GetLocalizedHtmlString("lbl_TSouthUp") </label>
+                        <label id="ConditioningTSouthDown" hidden>@LocalizationServices.GetLocalizedHtmlString("lbl_TSouthDown") </label>
+                        <label id="ConditioningInspectionRemark" hidden>@LocalizationServices.GetLocalizedHtmlString("lbl_InspectionRemark") </label>
+                        <label id="ConditioningProdSpecNo" hidden>@LocalizationServices.GetLocalizedHtmlString("lbl_ManufacturingSpecificationNo")</label>
+
+                    </th>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr class="GridHeader GridViewScrollHeader GridHeaderPadding">
+
+                <th id="ConditioningPrcoessPlan" colspan="3" class="headerPadding bgcolor1 labelClass tdPaddingLeftandRight tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_PrcoessPlan")</th>
+                <th id="Conditioning" colspan="8" class="headerPadding bgcolor1 labelClass tdPaddingLeftandRight tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceSetting")</th>
+                <th id="Conditioning1" colspan="3" class="headerPadding bgcolor1 labelClass tdPaddingLeftandRight tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_QuenchingSetting")</th>
+                <th id="Conditioning2" colspan="3" class="headerPadding bgcolor1 labelClass tdPaddingLeftandRight tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_TemperingSetting")</th>
+                <th id="Conditioning3" colspan="3" class="headerPadding bgcolor1 labelClass tdPaddingLeftandRight tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_InspectionDecesion")</th>
+
+            </tr>
+
+            <tr class="GridViewScrollHeaderGridHeaderPadding">
+                <th id="ConditioningFurnaceNum" class="labelClass  tdNoWrap tdHeader Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</th>
+                <th class="labelClass tdNoWrap disabled FurnaceNum" colspan="2"><input type="text" id="txtFurnanceNo" class="disabled" style="border-style:none;height:24px;" /></th>
+                <th class="labelClass tdNoWrap disabled" style="width:80px;" colspan="2"></th>
+                <th id="ConditioningTempFurn" colspan="2" class="labelClass tdHeader tdPaddingLeftandRight1 tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceTemperature")</th>
+                <th class="tdNoWrap disabled" colspan="4" style="width:160px;"><input id="txttemperature" type="text" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:110px;" /><label id="lblC" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("℃")</label></th>
+
+                <th id="ConditioningHardeiningInfo" class="labelClass tdHeader tdPaddingLeftandRight tdNoWrap" style="text-align:left;">@LocalizationServices.GetLocalizedHtmlString("lbl_MachineNoOperator")</th>
+
+                <th class=" tdNoWrap disabled" style="width:120px;"><input type="text" id="txtHardeningMachine" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;" /></th>
+                <th class="labelClass tdNoWrap disabled" style="width:120px;"><input type="text" id="txtHardeingOperator" class="disabled NumericFieldsClass" style="border-style:none;height:24px;" /></th>
+                <th id="ConditioningTemperingInfo" class="labelClass tdHeader tdPaddingLeftandRight tdNoWrap Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_MachineNoOperator")</th>
+
+                <th class="labelClass tdNoWrap disabled" style="width:120px;"><input type="text" id="txtTemperingMachine" class="disabled NumericFieldsClass" style="border-style:none;height:24px;" /></th>
+                <th class="labelClass tdNoWrap disabled" style="width:120px;"><input type="text" id="txtTemperingOperator" class="disabled NumericFieldsClass" style="border-style:none;height:24px;" /></th>
+                <th id="ConditioningInspector" class="labelClass tdHeader tdPaddingLeftandRight tdNoWrap Proceplanwidth"><label id="lblInspector" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Inspector")</label></th>
+
+                <th class="labelClass tdNoWrap disabled" style="width:140px;"></th>
+                <th class="labelClass tdNoWrap disabled" rowspan="2" style="width:100px; color: Red;"> @LocalizationServices.GetLocalizedHtmlString("lbl_InspectionDecesion") </th>
+
+
+
+            </tr>
+
+            <tr class="GridViewScrollHeaderGridHeaderPadding">
+
+                <th id="ConditioningChuuban" class="labelClass  tdNoWrap tdHeader Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</th>
+
+                <th class="labelClass tdNoWrap disabled FurnaceNum" colspan="2"><input type="text" id="txtOrderNoHardness" class="disabled" style="border-style:none;height:24px;" /></th>
+
+                <th class="labelClass tdNoWrap disabled" rowspan="2" colspan="2" style="width:80px;"></th>
+
+                <th id="ConditioningConcenFurn" colspan="2" class="labelClass tdHeader tdPaddingLeftandRight1 tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceConcentration")</th>
+
+                <th class="tdNoWrap disabled" colspan="4" style="width:160px;"><input id="txtConentrationFurn" type="text" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:110px;" /><label id="lblPercentageSymbol">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label></th>
+
+                <th id="ConditioningHardeingDate" class="labelClass tdHeader tdPaddingLeftandRight tdNoWrap Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceInOutDateTime")</th>
+
+                <th class="labelClass tdNoWrap disabled" style="width:120px;"><input id="txtHardeningstartdate" type="text" class="disabled" style="border-style:none;height:24px;width:110px" /></th>
+
+                <th class="labelClass tdNoWrap disabled" style="width:120px;"><input id="txtHardeningenddate" type="text" class="disabled" style="border-style:none;height:24px;width:110px" /></th>
+
+                <th id="ConditioningTemperingDate" class="labelClass tdHeader tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceInOutDateTime")</th>
+
+                <th class="labelClass tdNoWrap disabled" style="width:120px;"><input id="txtTemperingstartdate" type="text" class="disabled" style="border-style:none;height:24px;width:110px" /></th>
+
+                <th class="labelClass tdNoWrap disabled" style="width:120px;"><input id="txtTemperingenddate" type="text" class="disabled" style="border-style:none;height:24px;width:110px" /></th>
+
+                <th id="ConditioningInspectionDate" class="labelClass tdHeader tdPaddingLeftandRight tdNoWrap Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_InspectionDate")</th>
+
+                <th class="labelClass tdNoWrap disabled" style="width:140px;"></th>
+            </tr>
+
+            <tr class="GridViewScrollHeaderGridHeaderPadding">
+                <th id="ConditioningCustomer" class="labelClass  tdNoWrap tdHeader Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</th>
+                <th class="labelClass tdNoWrap disabled FurnaceNum" colspan="2"><input type="text" id="txtCustomer" class="disabled" style="border-style:none;height:24px;" /></th>
+                <th id="ConditioningFreqFurn" colspan="2" class="labelClass  tdNoWrap tdHeader tdPaddingLeftandRight1">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceFrequncy")</th>
+                <th class="tdNoWrap disabled" colspan="4" style="width:160px;"><input id="txtFreqFurn" type="text" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:110px;" /><label id="lblHz" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("Hz")</label></th>
+                <th id="ConditioningHardeingTempTime" class="labelClass  tdNoWrap tdHeader Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_TemperatureIntoTime")</th>
+                <th class="labelClass tdNoWrap disabled" style="width:120px;"><input id="txtHardeningTemp" type="text" class="disabled NumericFieldsClass" style="border-style:none;height:24px;width:110px;" /><label id="lblC1" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("℃")</label></th>
+                <th class="labelClass tdNoWrap disabled" style="width:120px;"><input id="txtHardeningTime" type="text" class="disabled NumericFieldsClass" style="border-style:none;height:24px;width:110px;" /><label id="lblvalue" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("分")</label></th>
+
+                <th id="ConditioningTemperingTempTime" class="labelClass  tdNoWrap tdHeader Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_TemperatureIntoTime")</th>
+                <th class="labelClass tdNoWrap disabled" style="width:120px;"><input id="txtTemperingTemp" type="text" class="disabled NumericFieldsClass" style="border-style:none;height:24px;width:110px;" /><label id="lblC2" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("℃")</label></th>
+                <th class="labelClass tdNoWrap disabled" style="width:120px;"><input id="txtTemperingTime" type="text" class="disabled NumericFieldsClass" style="border-style:none;height:24px;width:110px;" /><label id="lblvalue2" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("分")</label></th>
+                <th id="ConditioningLocationName" class="labelClass  tdNoWrap tdHeader Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessTempLocation")</th>
+                <th class="labelClass tdNoWrap disabled" style="width:140px;"><input id="txtLocation" type="text" class="disabled" style="border-style:none;height:24px;width:110px" /></th>
+                <th class="labelClass tdNoWrap disabled" style="width:100px; color: Red; "> @LocalizationServices.GetLocalizedHtmlString("lbl_ManufacturingSpecificationNo") </th>
+            </tr>
+
+            <tr class="GridViewScrollHeaderGridHeaderPadding">
+                <th id="ConditioningProdNameCust" class="labelClass  tdNoWrap tdHeader Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</th>
+                <th class="labelClass tdNoWrap disabled FurnaceNum" colspan="2"><input type="text" id="txtProdNameHardness" class="disabled" style="border-style:none;height:24px;" /></th>
+                <th id="ConditioninglblUnitType3OF3_1" class="labelClass  tdNoWrap tdHeader" width="30px">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitType3OF3")</th>
+                <th class="tdNoWrap disabled"><input id="txtCFurn" type="text" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:30px;" /><label id="lblPercentageSymbol1">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label></th>
+                <th id="ConditioningManganese" class="labelClass  tdNoWrap tdHeader" width="30px">@LocalizationServices.GetLocalizedHtmlString("lbl_Manganese")</th>
+                <th class="labelClass tdNoWrap disabled"><input id="txtMnFurn" type="text" class="disabled NumericFieldsClass" style="border-style:none;height:24px;width:35px;" /><label id="lblPercentageSymbol2">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label></th>
+
+                <th id="ConditioningCr" class="labelClass  tdNoWrap tdHeader" width="30px">@LocalizationServices.GetLocalizedHtmlString("lbl_Cr")</th>
+                <th class="tdNoWrap disabled"><input id="txtCrFurn" type="text" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:35px;" /><label id="lblPercentageSymbol4">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label></th>
+                <th id="ConditioningMo" class="labelClass  tdNoWrap tdHeader" width="30px">@LocalizationServices.GetLocalizedHtmlString("lbl_Mo")</th>
+                <th class="tdNoWrap disabled"><input id="txtMoFurn" type="text" class="disabled labelClass NumericFieldsClass" style="border-style:none;height:24px;width:35px;" /><label id="lblPercentageSymbol3">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label></th>
+
+                
+                <th id="Conditioninghrc" colspan="3" class="headerPadding bgcolor1 labelClass tdPaddingLeftandRight tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_HRCHardness")</th>
+                <th id="Conditioninghrc1" colspan="3" class="headerPadding bgcolor1 labelClass tdPaddingLeftandRight tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_HRCHardness")</th>
+                <th id="Conditionin12" colspan="3" class="headerPadding bgcolor1 labelClass tdPaddingLeftandRight tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_InternalJob")</th>
+            </tr>
+
+            <tr class="GridViewScrollHeaderGridHeaderPadding">
+                <th id="ConditioningCharge" class="labelClass  tdNoWrap tdHeader Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</th>
+                <th class="labelClass tdNoWrap disabled FurnaceNum" colspan="2"><input type="text" id="txtChargeHardness" class="disabled" style="border-style:none;height:24px;" /></th>
+                <th id="HardnessSpecified" colspan="4" class="labelClass  tdNoWrap tdHeader Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessSpecified")</th>
+                <th class="labelClass tdNoWrap disabled" colspan="4">
+                    <input type="text" class="disabled" style="border-style:none;height:24px;width:50px" />
+                    <label id="lblSymbolRange2_2">@LocalizationServices.GetLocalizedHtmlString("lbl_SymbolRange")</label>
+                    <input type="text" class="disabled" style="border-style:none;height:24px;width:50px" />
+                </th>
+
+                <th id="tblnumber" colspan="3" class="labelClass tdHeader tdNoWrap ">
+                    <table>
+                        <tr>
+                            <th class="labelClass  tdNoWrap tdHeader1 th4"></th>
+                            <th id="lbl1" class="labelClass   tdHeader1 th1">@LocalizationServices.GetLocalizedHtmlString("①")</th>
+                            <th id="lbl2" class="labelClass   tdHeader1 th1">@LocalizationServices.GetLocalizedHtmlString("②")</th>
+                            <th id="lbl3" class="labelClass   tdHeader1 th1">@LocalizationServices.GetLocalizedHtmlString("③")</th>
+                            <th id="lblcenter" class="labelClass tdHeader1 th1">@LocalizationServices.GetLocalizedHtmlString("lbl_Center")</th>
+                        </tr>
+                    </table>
+                </th>
+                <th id="tblnumber2" colspan="3" class="labelClass tdHeader tdNoWrap ">
+                    <table>
+                        <tr>
+                            <th class="labelClass  tdNoWrap tdHeader1 th4"></th>
+                            <th id="lbl1" class="labelClass   tdHeader1 th1">@LocalizationServices.GetLocalizedHtmlString("①")</th>
+                            <th id="lbl2" class="labelClass   tdHeader1 th1">@LocalizationServices.GetLocalizedHtmlString("②")</th>
+                            <th id="lbl3" class="labelClass   tdHeader1 th1">@LocalizationServices.GetLocalizedHtmlString("③")</th>
+                            <th id="lblcenter" class="labelClass tdHeader1 th1">@LocalizationServices.GetLocalizedHtmlString("lbl_Center")</th>
+                        </tr>
+                    </table>
+                </th>
+                <th id="tblnumber3" colspan="3" class="labelClass tdHeader tdNoWrap ">
+                    <table>
+                        <tr>
+                            <th id="lbl1" class="labelClass   tdHeader1 th1">@LocalizationServices.GetLocalizedHtmlString("lbl_DM-F")</th>
+                            <th id="lbl2" class="labelClass   tdHeader1 th1">@LocalizationServices.GetLocalizedHtmlString("lbl_DM-T")</th>
+                            <th id="lbl3" class="labelClass   tdHeader1 th1">@LocalizationServices.GetLocalizedHtmlString("lbl_JobOut")</th>
+                            <th id="lblcenter" class="labelClass tdHeader1 th1">@LocalizationServices.GetLocalizedHtmlString("lbl_JobIn")</th>
+                        </tr>
+                    </table>
+                </th>
+
+            </tr>
+
+            <tr class="GridViewScrollHeaderGridHeaderPadding">
+
+                <th colspan="3">
+                    <table width="100%">
+                        <tr>
+                            <th id="Conditioningdimention" class="labelClass  tdNoWrap tdHeader Proceplanwidth" style="width:145px;border-style:revert;border-right:0.7px solid black;">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlDimProdDim")</th>
+                            <th class="th"> <input type="text" id="txtMatlDim" class="disabled" style="border-style:none; height:24px;width:100% " /></th>
+
+                            <th class="th"> <input type="text" id="txtProdDim" class="disabled " style="border-style:none;height:24px;width:100%;" /></th>
+                        </tr>
+                    </table>
+
+                </th>
+
+
+                <th id="ConditioningHardnessMinMax" colspan="4" class="labelClass  tdNoWrap tdHeader Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessTarget")</th>
+                <th class="labelClass tdNoWrap disabled" colspan="4">
+                    <input type="text" id="txtHardnessMin" class="disabled" style="border-style:none;height:24px;width:40px" />
+
+                    <label id="lblSymbolRange2_3">@LocalizationServices.GetLocalizedHtmlString("lbl_SymbolRange")</label>
+
+                    <input type="text" id="txtHardnessMax" class="disabled" style="border-style:none;height:24px;width:40px" />
+                </th>
+
+                <th id="" colspan="3" class="labelClass   ">
+                    <table>
+                        <tr style=" border-style:none">
+                            <th id="QHardnessNorthUP" class="labelClass   tdHeader1 th4">@LocalizationServices.GetLocalizedHtmlString("lbl_NorthUp")</th>
+                            <th class="th3"> <input type="text" id="txtQHardnessNortUP1" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th3"> <input type="text" id="txtQHardnessNortUP2" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th2"> <input type="text" id="txtQHardnessNortUP3" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th2"> <input type="text" id="txtQHardnessNortUPAvg" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                        </tr>
+                    </table>
+                </th>
+                <th id="" colspan="3" class="labelClass   ">
+                    <table>
+                        <tr style=" border-style:none">
+                            <th id="TemperingHardnessNorthUP" class="labelClass   tdHeader1 th4">@LocalizationServices.GetLocalizedHtmlString("lbl_NorthUp")</th>
+                            <th class="th3"> <input type="text" id="txtTHardnessNortUP1" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th3"> <input type="text" id="txtTHardnessNortUP2" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th2"> <input type="text" id="txtTHardnessNortUP3" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th2"> <input type="text" id="txtTHardnessNortUPAvg" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                        </tr>
+                    </table>
+                </th>
+                <th id="" colspan="3" class="labelClass   ">
+                    <table>
+                        <tr style=" border-style:none">
+                            <th class="th2"> <input type="text" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th2"> <input type="text" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th2"> <input type="text" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th2"> <input type="text" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                        </tr>
+                    </table>
+                </th>
+
+            </tr>
+
+            <tr>
+                <th id="ConditioningMetallicLabelNo" class="labelClass  tdNoWrap tdHeader Proceplanwidth">@LocalizationServices.GetLocalizedHtmlString("lbl_MetallicLabelNo")</th>
+                <th class="labelClass tdNoWrap disabled" colspan="2"><input type="text" id="txtMetallicLablNo" class="disabled" style="border-style:none;height:24px;width:80px" /></th>
+                <th id="ConditioningHardeningRemark" class="labelClass  tdNoWrap tdHeader Proceplanwidth" style="text-align:center" colspan="8">@LocalizationServices.GetLocalizedHtmlString("lbl_Remark")</th>
+                <th id="" colspan="3" class="labelClass   ">
+                    <table>
+                        <tr style=" border-style:none">
+                            <th id="QHardnessNorthDown" class="labelClass   tdHeader1 th4">@LocalizationServices.GetLocalizedHtmlString("lbl_NorthDown")</th>
+                            <th class="th3"> <input type="text" id="txtQHardnessNorthDown1" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th3"> <input type="text" id="txtQHardnessNorthDown2" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th2"> <input type="text" id="txtQHardnessNorthDown3" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th2"> <input type="text" id="txtQHardnessNorthDownAvg" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                        </tr>
+                    </table>
+                </th>
+                <th id="" colspan="3" class="labelClass   ">
+                    <table>
+                        <tr style=" border-style:none">
+                            <th id="THardnessNorthDown" class="labelClass   tdHeader1 th4">@LocalizationServices.GetLocalizedHtmlString("lbl_NorthDown")</th>
+                            <th class="th3"> <input type="text" id="txtTHardnessNorthDown1" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th3"> <input type="text" id="txtTHardnessNorthDown2" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th2"> <input type="text" id="txtTHardnessNorthDown3" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th2"> <input type="text" id="txtTHardnessNorthDownAvg" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                        </tr>
+                    </table>
+                </th>
+                <th id="" colspan="3" class="labelClass tdHeader" style="text-align:-webkit-center">
+                    <table>
+                        <tr>
+                            <th id="lblRemark" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Remark")</th>
+                        </tr>
+                    </table>
+                </th>
+            </tr>
+
+            <tr class="GridViewScrollHeaderGridHeaderPadding">
+                <th id="NumberofWeight" class="labelClass  tdNoWrap tdHeader Proceplanwidth"> @LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocUnitsWt") </th>
+                <th class="th disabled"><input type="text" class="disabled NumericFieldsClass" id="txtNoOfUnits" style="border-style:none;height:11px;width:100%" /> @LocalizationServices.GetLocalizedHtmlString("lbl_UnitType3OF3")</th>
+                @*  <th class="th"> <input type="text" class="disabled" style="border-style:none;height:24px;width:100%" /> @LocalizationServices.GetLocalizedHtmlString("lbl_UnitType3OF3")</th>*@
+                <th class="th disabled"> <input type="text" class="disabled" id="txtWeight" style="border-style:none;height:24px;width:100%" /></th>
+                <th class="disabled" colspan="8" rowspan="2"></th>
+                <th id="" colspan="3" class="labelClass   ">
+                    <table>
+                        <tr style=" border-style:none">
+                            <th id="QHardnessSouthUP" class="labelClass tdHeader1 th4">@LocalizationServices.GetLocalizedHtmlString("lbl_SouthUp")</th>
+                            <th class="th3"> <input type="text" id="txtQHardnessSouthUP1" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th3"> <input type="text" id="txtQHardnessSouthUP2" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th2"> <input type="text" id="txtQHardnessSouthUP3" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th2"> <input type="text" id="txtQHardnessSouthUPAvg" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                        </tr>
+                    </table>
+                </th>
+                <th id="" colspan="3" class="labelClass   ">
+                    <table>
+                        <tr style=" border-style:none">
+                            <th id="THardnessSouthUP" class="labelClass tdHeader1 th4">@LocalizationServices.GetLocalizedHtmlString("lbl_SouthUp")</th>
+                            <th class="th3"> <input type="text" id="txtTHardnessSouthUP1" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th3"> <input type="text" id="txtTHardnessSouthUP2" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th2"> <input type="text" id="txtTHardnessSouthUP3" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th2"> <input type="text" id="txtTHardnessSouthUPAvg" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                        </tr>
+                    </table>
+                </th>
+                <th id="" class="labelClass disabled" colspan="3" rowspan="2">
+
+                </th>
+
+            </tr>
+
+            <tr class="GridViewScrollHeaderGridHeaderPadding">
+                <th id="NumberofWeightHT" class="labelClass  tdNoWrap tdHeader1 Proceplanwidth"> @LocalizationServices.GetLocalizedHtmlString("lbl_UnitsWeight") </th>
+                <th class="th disabled"> <input type="text" id="txtNoOfUnitsHardness" class="disabled NumericFieldsClass" style="border-style:none;height:11px;width:100%" /> @LocalizationServices.GetLocalizedHtmlString("lbl_UnitType3OF3") </th>
+                <th class="th disabled"> <input type="text" id="txtWeightHardness" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                <th id="" colspan="3" class="labelClass   ">
+                    <table>
+                        <tr style=" border-style:none">
+                            <th id="QHardnessSouthDown" class="labelClass   tdHeader1 th4">@LocalizationServices.GetLocalizedHtmlString("lbl_SouthDown")</th>
+                            <th class="th3"> <input type="text" id="txtQHardnessSouthDown1" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th3"> <input type="text" id="txtQHardnessSouthDown2" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th2"> <input type="text" id="txtQHardnessSouthDown3" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th2"> <input type="text" id="txtQHardnessSouthDownAvg" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                        </tr>
+                    </table>
+                </th>
+                <th id="" colspan="3" class="labelClass   ">
+                    <table>
+                        <tr style=" border-style:none">
+                            <th id="THardnessSouthDown" class="labelClass   tdHeader1 th4">@LocalizationServices.GetLocalizedHtmlString("lbl_SouthDown")</th>
+                            <th class="th3"> <input type="text" id="txtTHardnessSouthDown1" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th3"> <input type="text" id="txtTHardnessSouthDown2" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th2"> <input type="text" id="txtTHardnessSouthDown3" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                            <th class="th2"> <input type="text" id="txtTHardnessSouthDownAvg" class="disabled" style="border-style:none;height:24px;width:100%" /></th>
+                        </tr>
+                    </table>
+                </th>
+            </tr>
+        }
+    </thead>
+</table>
+

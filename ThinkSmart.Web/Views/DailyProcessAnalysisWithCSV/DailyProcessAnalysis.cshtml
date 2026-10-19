@@ -1,0 +1,2070 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model Tuple<HeatTreatMentDetails>
+@inject LocalizationServices LocalizationServices
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_DailyProcessAnalysis").Value; ;
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    DateTime fromDate = DateTime.Now;
+    fromDate = fromDate.AddDays(-7);
+
+    DateTime toDate = DateTime.Now;
+
+    string maxRowLimit = @Configuration.GetSection("MaxRowLimit")["Value"];
+    
+}
+@section Scripts{
+
+
+    <script src="~/Static/js/DailyProcessAnalysis.js" asp-append-version="true"></script>
+    <script src="~/Scripts/CommonScript.js" asp-append-version="true"></script>
+ }
+
+<link href="~/css/Common.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/masterStyles.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/dailyprocessanalysis.css" rel="stylesheet" asp-append-version="true" />
+    <br />
+    <br />
+    <style type="text/css">
+        .hide {
+            display: none;
+        }
+
+        .header {
+            padding-left: 3px;
+        }
+
+        .freez > th {
+            position: sticky !important;
+            background-color: #7291D2;
+            top: 0.2px;
+            height: 20px;
+            box-shadow: 0 0 0px 0.5px White;
+        }
+
+        .HeaderPadding {
+            padding-left: 10px;
+            padding-right: 10px;
+            white-space: nowrap;
+        }
+
+        .rightPadding {
+            padding-right: 2px;
+        }
+
+        .freez {
+            border-color: white;
+        }
+
+        .disabled {
+            background-color: #EEEEEE !important;
+            color: black;
+        }
+
+        div.fixed {
+            position: fixed;
+            padding-top: 2px;
+            margin-left: 50%;
+        }
+
+        #LoadingImage {
+            position: fixed;
+            display: block;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            text-align: center;
+            opacity: 0.7;
+            background-color: #fff;
+            z-index: 99;
+            padding-top: 20%;
+        }
+
+        #loadimage {
+            position: absolute;
+            padding-top: 40%;
+            top: 100px;
+            left: 280px;
+            z-index: 100;
+        }
+    </style>
+    <div id="SortPopUpModalMain">
+        @{
+        @await Html.PartialAsync("~/Views/Shared/SortPopUp.cshtml")
+        ;
+    }
+</div>
+
+
+
+<div class="">
+    <table>
+        <tr>
+            <td align="center" valign="middle" class="tdH1" style="width: 1485px">
+                <label ID="lblKoubanSearchGridHeader" class="labelClass1" style="color:white">@LocalizationServices.GetLocalizedHtmlString("lbl_SearchCondition")</label>
+            </td>
+            <td align="center" valign="middle" rowspan="2" bgcolor="#006666" style="width: 175px">
+                <table cellpadding="2" cellspacing="2" style="height: 75px">
+                    <tr>
+                        <td align="center" colspan="2">
+                            <label ID="lblAuxiliaryFunctionSearchSort" class="labelClass" style="color:white; margin-top:9px">@LocalizationServices.GetLocalizedHtmlString("lbl_FilterCondition")</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Sort_L")" ID="btnSort" class="_functionButtons"  />
+
+                        </td>
+                        <td>
+                            <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Extract")" ID="btnSearch" class="_functionButtons"  />
+
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="column" style="overflow:auto; width:1726px">
+                    <table id="tblSearch" style="width: 1880px" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                            <td>
+                                <table cellpadding="1" cellspacing="1" border="0" class="searchTextBox tdGridHeader">
+                                    <tr class="trTdH2">
+                                        <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                            <label ID="lblChuubanCom" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</label>
+                                        </td>
+                                        <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                            <label ID="lblGoubanCom" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Gouban")</label>
+                                        </td>
+                                        <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                            <label ID="lblManufacturingSpecificationNo1Com" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_ManufacturingSpecificationNo1")</label>
+                                        </td>
+                                        <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                            <label ID="lblManufacturingSpecificationNo2Com" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_ManufacturingSpecificationNo2")</label>
+                                        </td>
+                                        <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                            <label ID="" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_VER")</label>
+                                        </td>
+                                        <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                            <label ID="lblCustomerCOm" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</label>
+                                        </td>
+                                        <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                            <label ID="lblProdNameCustCom" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</label>
+                                        </td>
+                                        <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                            <label ID="lblInternalNameCom" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_InternalName")</label>
+                                        </td>
+                                        <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                            <label ID="lblMadeShapeRptCom" class="labelClass1 ">@LocalizationServices.GetLocalizedHtmlString("lbl_DailyScreenShape")</label>
+                                        </td>
+                                        <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                            <label ID="lblProductDimDCom" class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductDimD_L")</label>
+                                        </td>
+                                        <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                            <label ID="lblProductDimWCom" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductDimW_L")</label>
+                                        </td>
+                                        <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                            <label ID="lblProductDimOtherCom" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductDimOther_L")</label>
+                                        </td>
+                                        <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                            <label ID="lblProdLengthCom" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdLength")</label>
+                                        </td>
+                                        <td class="tdH2 tdPaddingLeftandRight">
+                                            <label ID="lblSalesInchargeSearch" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdLengthText")</label>
+                                        </td>
+                                        <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                            <label ID="" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("title_ListMasterCondition_L")</label>
+                                        </td>
+                                        <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                            <label ID="" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlCoilBarKW")</label>
+                                        </td>
+                                        <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                            <label ID="lblMaterialNameMakerCom" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lblMaterialNameMaker")</label>
+                                        </td>
+                                        <td class="tdH2 tdPaddingLeftandRight">
+                                            <label ID="lblMaterialShapeCom" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialShape_S")</label>
+                                        </td>
+                                        <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                            <label ID="txtMaterialDimDD" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialDimDD")</label>
+                                        </td>
+                                        <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                            <label ID="lblMaterialDimWCom" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialDimW")</label>
+                                        </td>
+                                        <td class="tdH2 tdPaddingLeftandRight">
+                                            <label ID="lblMaterialDimOtherCom" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialDimOther")</label>
+                                        </td>
+                                        <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                            <label ID="lblMaterialLengthCom" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialLength_L")</label>
+                                        </td>
+                                        <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                            <label ID="lblProdSpecSearch" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlCondition")</label>
+                                        </td>
+                                        <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                            <label ID="lblChargeCom" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</label>
+                                        </td>
+                                        <td class="tdH2 tdPaddingLeftandRight" colspan="2">
+                                            <label ID="lblActAllocDateCom" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocDate")</label>
+                                        </td>
+                                    </tr>
+                                    <tr class="trTdSearchContent">
+                                        <td class="td">
+                                            <input type="text" ID="txtChuubanCom" maxlength="10" class="csvDisable labelClass" style="width:83px" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 88 || event.charCode == 120))" tabindex="1"><span class="text-danger"></span>
+                                        </td>
+                                        <td class="td txtBoxBackgroundColor">
+                                            <input type="text" ID="txtGoubanCom" maxlength="2" class="csvDisable labelClass" style="width:36px" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" tabindex="2"><span class="text-danger"></span>
+                                        </td>
+                                        <td class="td">
+                                            <input type="text" ID="txtManufacturingSpecificationNo1Com" maxlength="4" class="csvDisable labelClass" style="width:85px" tabindex="3"><span class="text-danger"></span>
+                                        </td>
+                                        <td class="td">
+                                            <input type="text" ID="txtManufacturingSpecificationNo2Com" maxlength="4" class="csvDisable labelClass" style="width:85px" tabindex="4"><span class="text-danger"></span>
+                                        </td>
+                                        <td class="td">
+                                            <input type="text" ID="txtVER" maxlength="3" class="csvDisable labelClass" style="width:28px" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" tabindex="5"><span class="text-danger"></span>
+                                        </td>
+                                        <td class="td">
+                                            <input type="text" ID="txtCustomerCOm" maxlength="20" class="csvDisable labelClass UpperCase" style="width:140px" tabindex="6"><span class="text-danger"></span>
+                                        </td>
+                                        <td class="td">
+                                            <input type="text" ID="txtProdNameCustCom" maxlength="20" class="csvDisable labelClass UpperCase" style="width:140px" tabindex="7"><span class="text-danger"></span>
+                                        </td>
+                                        <td class="td">
+                                            <input type="text" ID="txtInternalNameCom" maxlength="20" class="csvDisable labelClass UpperCase" style="width:140px" tabindex="8"><span class="text-danger"></span>
+                                        </td>
+                                        <td class="td txtBoxBackgroundColor">
+                                            <input type="text" ID="txtMadeShapeRptCom" maxlength="2" style="width:37px;" class="csvDisable labelClass UpperCase CharOnly"
+                                                   tabindex="9"><span class="text-danger"></span>
+                                        </td>
+                                        @* <td class="td">
+                                        <input type="text" ID="txtProductDimDCom" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"><span class="text-danger"></span>
+                                        </td>*@
+                                        <td class="td">
+                                            <input type="text" ID="txtDiaMin" MaxLength="7"
+                                                   class="InActiveIMEMode labelClass FitSearchTextBox csvDisable"
+                                                   onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" style="width:65px" tabindex="10"><span class="text-danger"></span>
+
+
+
+                                        </td>
+                                        <td class="td">
+                                            <input type="text" ID="txtDiaMax" MaxLength="7"
+                                                   class="InActiveIMEMode labelClass FitSearchTextBox csvDisable"
+                                                   onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" style="width:65px" tabindex="11"><span class="text-danger"></span>
+
+                                        </td>
+                                        <td class="td">
+                                            <input type="text" ID="txtProductDimWCom" class="csvDisable labelClass" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" style="width:94px" tabindex="12"><span class="text-danger"></span>
+                                        </td>
+                                        <td class="td">
+                                            <input type="text" ID="txtProductDimOtherCom" maxlength="10" class="csvDisable labelClass" style="width:105px" tabindex="13"><span class="text-danger"></span>
+                                        </td>
+                                        @* <td class="td">
+                                        <input type="text" ID="txtProdLengthCom" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"><span class="text-danger"></span>
+                                        </td>*@
+                                        <td class="td">
+                                            <input type="text" ID="txtLengthMin" MaxLength="7"
+                                                    class="InActiveIMEMode labelClass FitSearchTextBox csvDisable"
+                                                   onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" style="width:65px" tabindex="14"><span class="text-danger"></span>
+                                        </td>
+                                        <td class="td">
+                                            <input type="text" ID="txtLengthMax" MaxLength="7"
+                                                    class="InActiveIMEMode labelClass FitSearchTextBox csvDisable"
+                                                   onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" style="width:65px" tabindex="15"><span class="text-danger"></span>
+                                        </td>
+                                        <td class="td txtBoxBackgroundColor">
+                                            <input type="text" ID="txtProdLengthOther" maxlength="10" class="csvDisable labelClass" style="width:120px" tabindex="16"><span class="text-danger"></span>
+                                        </td>
+
+                                        <td class="td">
+                                            @*<input type="text" ID="" style="width:65px"><span class="text-danger"></span>*@
+                                            <select ID="ddlProdCondition" runat="server" class="dropListClass csvDisable" style="width:130px" tabindex="17">
+                                            </select>
+                                        </td>
+                                        <td class="td">
+                                            @*<input type="text" ID="txtMatlTypeCBK" style="width:150px" maxlength="10" ><span class="text-danger"></span>*@
+                                            <select ID="ddlMatlTypeCBK" runat="server" class="dropListClass csvDisable" style="width:150px" tabindex="18">
+                                                <option value="0"></option>
+                                                <option value="1">@LocalizationServices.GetLocalizedHtmlString("lbl_Coil")</option>
+                                                <option value="2">@LocalizationServices.GetLocalizedHtmlString("lbl_Bar")</option>
+                                                <option value="3">@LocalizationServices.GetLocalizedHtmlString("lbl_Kurokawa")</option>
+                                            </select>
+                                        </td>
+                                        <td class="td">
+                                            <input type="text" ID="txtMaterialNameMakerCom" maxlength="20" class="csvDisable labelClass" style="width:152px" tabindex="19"><span class="text-danger"></span>
+                                        </td>
+                                        <td class="td txtBoxBackgroundColor">
+                                            <input type="text" ID="txtMaterialShapeCom" maxlength="2" style="width:37px" class="csvDisable labelClass UpperCase CharOnly"
+                                                    tabindex="20"><span class="text-danger"></span>
+                                        </td>
+                                        @* <td class="td">
+                                        <input type="text" ID=""><span class="text-danger"></span>
+                                        </td>*@
+                                        <td class="td">
+                                            <input type="text" ID="txtMaterialDimMin" MaxLength="7"
+                                                   class="InActiveIMEMode labelClass FitSearchTextBox csvDisable"
+                                                   onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" style="width:65px" tabindex="21"><span class="text-danger"></span>
+
+
+                                        </td>
+                                        <td class="td">
+                                            <input type="text" ID="txtMaterialDimMax" MaxLength="7"
+                                                   class="InActiveIMEMode labelClass FitSearchTextBox csvDisable"
+                                                   onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" style="width:65px" tabindex="22"><span class="text-danger"></span>
+
+                                        </td>
+                                        <td class="td">
+                                            <input type="text" ID="txtMaterialDimWCom" class="csvDisable labelClass" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" style="width:93px" tabindex="23"><span class="text-danger"></span>
+                                        </td>
+                                        <td class="td">
+                                            <input type="text" ID="txtMaterialDimOtherCom" maxlength="10" class="csvDisable labelClass" style="width:105px" tabindex="24"><span class="text-danger"></span>
+                                        </td>
+                                        @*<td class="td">
+                                            <input type="text" ID="txtMaterialLengthCom" maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" style="width:65px"><span class="text-danger"></span>
+                                        </td>*@
+                                        <td class="td">
+                                            <input type="text" ID="txtMatlLengthMin" MaxLength="6"
+                                                    class="InActiveIMEMode labelClass FitSearchTextBox csvDisable"
+                                                   onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" style="width:65px" tabindex="25"><span class="text-danger"></span>
+                                        </td>
+                                        <td class="td">
+                                            <input type="text" ID="txtMatlLengthMax" MaxLength="6"
+                                                    class="InActiveIMEMode labelClass FitSearchTextBox csvDisable"
+                                                   onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" style="width:65px" tabindex="26"><span class="text-danger"></span>
+                                        </td>
+                                        <td class="td">
+                                            @*<input type="text" ID="" maxlength="20" style="width:90px"><span class="text-danger"></span>*@
+                                            <select ID="ddlMatlCondition" runat="server" class="dropListClass csvDisable" style="width:130px" tabindex="27">
+                                            </select>
+                                        </td>
+                                        <td class="td">
+                                            <input type="text" ID="txtChargeCom" maxlength="30" style="width:80px" class="csvDisable labelClass" tabindex="28"><span class="text-danger"></span>
+                                        </td>
+                                        @* <td class="td">
+                                        <input type="text" ID="txtActAllocDateCom"><span class="text-danger"></span>
+                                        </td>*@
+                                        <td class="td">
+                                            <input type="text" ID="txtAllocDateStart" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable" style="width:73px" tabindex="29"><span class="text-danger"></span>
+                                        </td>
+
+                                        <td class="td ">
+                                            <input type="text" ID="txtAllocDateEnd" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable" style="width:73px" tabindex="30"><span class="text-danger"></span>
+                                        </td>
+
+                                    </tr>
+                                </table>
+                            </td>
+                            <td>                               
+
+                                @*Heat Treatement Header Start *@
+                                <div id="titleHeatTreatment">
+                                    <table cellpadding="1" cellspacing="1" border="0" class="searchTextBox tdGridHeader">
+                                        <tr class="trTdH2">
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblLocationHT" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Location")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblMachineHT" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Machine_L")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblFurnaceNumHT" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblProcConditionHT" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcCondition")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblPatternNoHT" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_PatternNo_L")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceInDateTime(lbl_StartTime)")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_AssembleVerifyBy(Start)")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceVerifyByStart")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceOutDateTimeEnd")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceOperatorEnd")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceVerifyByEnd")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_MetallicLabel(lbl_RollMonth)")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlLableNo")</label>
+                                            </td>
+
+                                        </tr>
+                                        <tr class="trTdSearchContent">
+                                            <td class="td">
+                                                <input type="text" ID="txtLocationHT" maxlength="8" class="csvDisable labelClass" style="width:110px" tabindex="31"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtMachineHT" maxlength="20" class="csvDisable labelClass" style="width:110px" tabindex="32"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtFurnaceNumHT" maxlength="10" class="csvDisable labelClass" style="width:93px" tabindex="33"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                @*<input type="text" ID="txtProcConditionHT" maxlength="8"><span class="text-danger"></span>*@
+                                                <select ID="ddlProcConditionHT" runat="server" class="dropListClass csvDisable" style="width:115px" tabindex="34">
+                                                </select>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtPatternNoHT" maxlength="5" class="csvDisable labelClass" style="width:92px" tabindex="35"><span class="text-danger"></span>
+                                            </td>
+                                            @*<td class="td">
+                                                <input type="text" ID=""><span class="text-danger"></span>
+                                            </td>*@
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtFurnanceInStartDateTime" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="36"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtFurnanceInEndDateTime" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="37"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtSetUPConfByOperator" maxlength="8" style="width:148px" class="csvDisable labelClass" tabindex="38"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtLoadingConfByOperator" maxlength="8" style="width:148px" class="csvDisable labelClass" tabindex="39"><span class="text-danger"></span>
+                                            </td>
+                                           @* <td class="td">
+                                                <input type="text" ID=""><span class="text-danger"></span>
+                                            </td>*@
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtFurnanceOutStartDateTime" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="40"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtFurnanceOutEndDateTime" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="41"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtOffloadedByOperator" maxlength="8" class="csvDisable labelClass" style="width:148px" tabindex="42"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtOffloadConfByOperator" maxlength="8" class="csvDisable labelClass" style="width:148px" tabindex="43"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtMetallicLablNoRM" maxlength="5" class="csvDisable labelClass" style="width:148px" tabindex="44"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtMetallicLablNoCNo" maxlength="15" class="csvDisable labelClass" style="width:148px" tabindex="45"><span class="text-danger"></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                @*Heat Treatement Header End *@
+
+                                @*DRAWING D Header Start*@
+                                <div id="titleDrawingBarToBar" style="display:none">
+                                    <table cellpadding="1" cellspacing="1" border="0" class="searchTextBox tdGridHeader">
+                                        <tr class="trTdH2">
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblMachineDR" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Machine_L")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblLocationDR" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Location")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblStartDateTimeDR" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_StartDateTime")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblStartOperatorDR" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_StartOperator1")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblMetallicLabelNoDR" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_MetallicLabelNo")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblDieNoDR" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_DieNo")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblProcConditionDR" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcCondition")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblEndDateTimeDR" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_EndDateTime")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblEndOperatorDR" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_EndOperator1")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblChuubanSearch" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_DailyScreenDecision")</label>
+                                            </td>
+                                        </tr>
+                                        <tr class="trTdSearchContent">
+                                            <td class="td">
+                                                <input type="text" ID="txtMachineDR" maxlength="20" style="width:110px" class="csvDisable labelClass" tabindex="31"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtLocationDR" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="32" ><span class="text-danger"></span>
+                                            </td>                                            
+                                            <td class="td">
+                                                <input type="text" ID="txtStartDateTimeDR1" placeholder="YYYY/MM/DD" MaxLength="10" tabindex="33" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td ">
+                                                <input type="text" ID="txtStartDateTimeDR2" placeholder="YYYY/MM/DD" MaxLength="10" tabindex="34" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtStartOperatorDR" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="35"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtMetallicLabelNoDR" maxlength="10" style="width:93px" class="csvDisable labelClass" tabindex="36"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtDieNoDR" maxlength="20" style="width:110px" class="csvDisable labelClass" tabindex="37"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <select ID="ddlProcConditionDR" runat="server" class="dropListClass csvDisable labelClass" style="width:115px" tabindex="38">
+                                                </select>
+                                            </td>
+                                            @*<td class="td">
+                                                <input type="text" ID="txtEndDateTimeDR"><span class="text-danger"></span>
+                                            </td>*@
+                                             <td class="td">
+                                                <input type="text" ID="txtEndDateTimeDR1" placeholder="YYYY/MM/DD " MaxLength="10" tabindex="39" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td ">
+                                                <input type="text" ID="txtEndDateTimeDR2" placeholder="YYYY/MM/DD " MaxLength="10" tabindex="40" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtEndOperatorDR" class="csvDisable labelClass" maxlength="8" tabindex="41" style="width:110px"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <select ID="ddlDRDecision" runat="server" class="dropListClass csvDisable" style="width:115px" tabindex="42">
+                                                  
+                                                </select>
+                                            </td>
+
+                                        </tr>
+                                    </table>
+                                </div>
+                                @*DRAWING D Header End*@
+
+                                @*DRAWING Header Start*@
+                                <div id="titleDrawingCoilToBar" style="display:none">
+                                    <table cellpadding="1" cellspacing="1" border="0" class="searchTextBox tdGridHeader">
+                                        <tr class="trTdH2">
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblMachineDRA" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Machine_L")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblLocationDRA" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Location")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblStartDateTimeDRA" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_StartDateTime")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblStartOperatorDRA" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_StartOperator1")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblFurnaceNumDRA" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblMetallicLabelNoDRA" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_MetallicLabelNo")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblDieNoDRA" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_DieNo")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblEndDateTimeDRA" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_EndDateTime")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblEndOperatorDRA" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_EndOperator1")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblChuubanSearch" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_DailyScreenDecision")</label>
+                                            </td>
+                                        </tr>
+                                        <tr class="trTdSearchContent">
+                                            <td class="td">
+                                                <input type="text" ID="txtMachineDRA" maxlength="20" class="csvDisable labelClass" style="width:110px" tabindex="31"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtLocationDRA" maxlength="8" class="csvDisable labelClass" style="width:110px" tabindex="32"><span class="text-danger"></span>
+                                            </td>
+                                           @* <td class="td">
+                                                <input type="text" ID="txtStartDateTimeDRA"><span class="text-danger"></span>
+                                            </td>*@
+                                             <td class="td">
+                                                <input type="text" ID="txtStartDateTimeDRA1" placeholder="YYYY/MM/DD HH:mm" MaxLength="10" tabindex="33" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td ">
+                                                <input type="text" ID="txtStartDateTimeDRA2" placeholder="YYYY/MM/DD HH:mm" MaxLength="10" tabindex="34" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtStartOperatorDRA" class="csvDisable labelClass" maxlength="8" tabindex="35" style="width:110px"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtFurnaceNumDRA" maxlength="10" class="csvDisable labelClass" style="width:93px" tabindex="36"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtMetallicLabelNoDRA" maxlength="10" class="csvDisable labelClass" style="width:93px" tabindex="37"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtDieNoDRA" maxlength="20" class="csvDisable labelClass" style="width:110px" tabindex="38"><span class="text-danger"></span>
+                                            </td>
+                                           @* <td class="td">
+                                                <input type="text" ID="txtEndDateTimeDRA"><span class="text-danger"></span>
+                                            </td>*@
+                                             <td class="td">
+                                                <input type="text" ID="txtEndDateTimeDRA1" placeholder="YYYY/MM/DD HH:mm" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="39" ><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td ">
+                                                <input type="text" ID="txtEndDateTimeDRA2" placeholder="YYYY/MM/DD HH:mm" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="40"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtEndOperatorDRA" class="csvDisable labelClass" maxlength="8" style="width:110px" tabindex="41"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <select ID="ddlDRADecision" runat="server" class="dropListClass csvDisable" style="width:115px" tabindex="42">
+                                                   
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                @*DRAWING Header End*@
+
+                                @*DRAWING W Header Start*@
+                                <div id="titleDrawingCoilToCoil" style="display:none">
+                                    <table cellpadding="1" cellspacing="1" border="0" class="searchTextBox tdGridHeader">
+                                        <tr class="trTdH2">
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblMachineCodeDW" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Machine_L")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblLocationCodeDW" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Location")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblStartDateTimeDW" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_StartDateTime")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_StartOperator1")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblRollingNumberDW" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_MetallicLabelNo")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblFurnaceNumDW" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblDieNoDW" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_DieNo")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblEndDateTimeDW" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_EndDateTime")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblChuubanSearch" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_EndOperator1")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblChuubanSearch" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_DailyScreenDecision")</label>
+                                            </td>
+                                        </tr>
+                                        <tr class="trTdSearchContent">
+                                            <td class="td">
+                                                <input type="text" ID="txtMachineCodeDW" maxlength="20" class="csvDisable labelClass" style="width:110px" tabindex="31"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtLocationCodeDW" maxlength="8" class="csvDisable labelClass" style="width:110px" tabindex="32"><span class="text-danger"></span>
+                                            </td>
+                                            @*<td class="td">
+                                                <input type="text" ID="txtStartDateTimeDW"><span class="text-danger"></span>
+                                            </td>*@
+                                            <td class="td">
+                                                <input type="text" ID="txtStartDateTimeDW1" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="33"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td ">
+                                                <input type="text" ID="txtStartDateTimeDW2" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="34"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtStartOperatorDW" maxlength="8" class="csvDisable labelClass" style="width:110px" tabindex="35"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtRollingNumberDW" maxlength="20" class="csvDisable labelClass" style="width:110px" tabindex="36"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtFurnaceNumDW" maxlength="10" class="csvDisable labelClass" style="width:93px" tabindex="37"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtDieNoDW" maxlength="20" class="csvDisable labelClass" style="width:110px" tabindex="38"><span class="text-danger"></span>
+                                            </td>
+                                            @*<td class="td">
+                                                <input type="text" ID="txtEndDateTimeDW"><span class="text-danger"></span>
+                                            </td>*@
+                                             <td class="td">
+                                                <input type="text" ID="txtEndDateTimeDW1" placeholder="YYYY/MM/DD " MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="39"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td ">
+                                                <input type="text" ID="txtEndDateTimeDW2" placeholder="YYYY/MM/DD " MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="40"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtEndOperatorDW" maxlength="8" class="csvDisable labelClass" style="width:110px" tabindex="41"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <select ID="ddlDWDecision" runat="server" class="dropListClass csvDisable" style="width:115px" tabindex="42">
+                                                  
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                @*DRAWING W Header End*@
+
+                                @*STRAIGHTENING 1 Header Start*@
+                                <div id="titleStraightening1" style="display:none">
+                                    <table cellpadding="1" cellspacing="1" border="0" class="searchTextBox tdGridHeader">
+                                        <tr class="trTdH2">
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblMachineSTR" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Machine_L")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblLocationSTR" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Location")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblStartDateTimeSTR" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_StartDateTime")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblStartOperatorSTR" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_StartOperator1")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblMetallicLabelNoSTR" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_MetallicLabelNo")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblFurnaceNumSTR" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblEndDateTimeSTR" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_EndDateTime")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblEndOperatorSTR" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_EndOperator1")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblChuubanSearch" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_DailyScreenDecision")</label>
+                                            </td>
+                                        </tr>
+                                        <tr class="trTdSearchContent">
+                                            <td class="td">
+                                                <input type="text" ID="txtMachineSTR" maxlength="20" style="width:110px" class="csvDisable labelClass" tabindex="31"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtLocationSTR" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="32"><span class="text-danger"></span>
+                                            </td>                                           
+                                            <td class="td">
+                                                <input type="text" ID="txtStartDateTimeSTR1_1" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="33"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td ">
+                                                <input type="text" ID="txtStartDateTimeSTR1_2" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="34"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtStartOperatorSTR" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="35"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtMetallicLabelNoSTR" maxlength="10" style="width:93px" class="csvDisable labelClass" tabindex="36"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtFurnaceNumSTR" maxlength="10" style="width:93px" class="csvDisable labelClass" tabindex="37"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtEndDateTimeSTR1_1" placeholder="YYYY/MM/DD " MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="38"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td ">
+                                                <input type="text" ID="txtEndDateTimeSTR1_2" placeholder="YYYY/MM/DD " MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="39"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtEndOperatorSTR" maxlength="8" class="csvDisable labelClass" style="width:110px" tabindex="40"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <select ID="ddlSTR1Decision" runat="server" class="dropListClass csvDisable" style="width:115px" tabindex="41">
+                                                    
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                @*STRAIGHTENING 1 Header End*@
+
+                                @*STRAIGHTENING 2 Header Start*@
+                                <div id="titleStraightening2" style="display:none">
+                                    <table cellpa6dding="1" cellspacing="1" border="0" class="searchTextBox tdGridHeader">
+                                        <tr class="trTdH2">
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblMachineSTR2" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Machine_L")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblLocationSTR2" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Location")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblStartDateTimeSTR2" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_StartDateTime")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblStartOperatorSTR2" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_StartOperator1")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblMetallicLabelNoSTR2" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_MetallicLabelNo")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblFurnaceNumSTR2" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblEndDateTimeSTR2" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_EndDateTime")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblEndOperatorSTR2" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_EndOperator1")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblChuubanSearch" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_DailyScreenDecision")</label>
+                                            </td>
+                                        </tr>
+                                        <tr class="trTdSearchContent">
+                                            <td class="td">
+                                                <input type="text" ID="txtMachineSTR2" maxlength="20" style="width:110px" class="csvDisable labelClass" tabindex="31"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtLocationSTR2" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="32"><span class="text-danger"></span>
+                                            </td>                                           
+                                            <td class="td">
+                                                <input type="text" ID="txtStartDateTimeSTR2_1" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="33"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td ">
+                                                <input type="text" ID="txtStartDateTimeSTR2_2" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="34"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtStartOperatorSTR2" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="35"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtMetallicLabelNoSTR2" maxlength="10" style="width:93px" class="csvDisable labelClass" tabindex="36"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtFurnaceNumSTR2" maxlength="10" style="width:93px" class="csvDisable labelClass" tabindex="37"><span class="text-danger"></span>
+                                            </td>                                           
+                                             <td class="td">
+                                                <input type="text" ID="txtEndDateTimeSTR2_1" placeholder="YYYY/MM/DD " MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="38"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td ">
+                                                <input type="text" ID="txtEndDateTimeSTR2_2" placeholder="YYYY/MM/DD " MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="39"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtEndOperatorSTR2" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="40"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                @*<input type="text" ID="txtStampingDecision" style="width:80px" maxlength="10"><span class="text-danger"></span>*@
+                                                <select ID="ddlSTR2Decision" runat="server" class="dropListClass csvDisable" style="width:115px" tabindex="41">
+                                                   
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                @*STRAIGHTENING2 Header End*@
+
+                                @*CHAMFERING Header Start*@
+                                <div id="titleChamfer" style="display:none">
+                                    <table cellpadding="1" cellspacing="1" border="0" class="searchTextBox tdGridHeader">
+                                        <tr class="trTdH2">
+                                            <td id="tdChuuban" class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblMachineCHA" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Machine_L")</label>
+                                            </td>
+                                            <td id="tdChuuban" class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblLocationCHA" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Location")</label>
+                                            </td>
+                                            <td id="tdChuuban" class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblStartDateTimeCHA" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_StartDateTime")</label>
+                                            </td>
+                                            <td id="tdChuuban" class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblStartOperatorCHA" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_StartOperator1")</label>
+                                            </td>
+                                            <td id="tdChuuban" class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblMetallicLabelNoCHA" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_MetallicLabelNo")</label>
+                                            </td>
+                                            <td id="tdChuuban" class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblFurnaceNumCHA" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</label>
+                                            </td>
+                                            <td id="tdChuuban" class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblEndDateTimeCHA" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_EndDateTime")</label>
+                                            </td>
+                                            <td id="tdChuuban" class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblEndOperatorCHA" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_EndOperator1")</label>
+                                            </td>
+                                            <td id="tdChuuban" class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblChuubanSearch" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_DailyScreenDecision")</label>
+                                            </td>
+                                        </tr>
+                                        <tr class="trTdSearchContent">
+                                            <td class="td">
+                                                <input type="text" ID="txtMachineCHA" maxlength="20" style="width:110px" class="csvDisable labelClass" tabindex="31"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtLocationCHA" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="32"><span class="text-danger"></span>
+                                            </td>
+                                            @*                                            <td class="td">
+                                            <input type="text" ID="txtStartDateTimeCHA" ><span class="text-danger"></span>
+                                            </td>*@
+                                            <td class="td">
+                                                <input type="text" ID="txtStartDateTimeCHA1" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="33"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td ">
+                                                <input type="text" ID="txtStartDateTimeCHA2" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="34"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtStartOperatorCHA" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="35"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtMetallicLabelNoCHA" maxlength="10" style="width:93px" class="csvDisable labelClass" tabindex="36"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtFurnaceNumCHA" maxlength="10" style="width:93px" class="csvDisable labelClass" tabindex="37"><span class="text-danger"></span>
+                                            </td>
+                                            @*                                            <td class="td">
+                                            <input type="text" ID="txtEndDateTimeCHA"><span class="text-danger"></span>
+                                            </td>*@
+                                            <td class="td">
+                                                <input type="text" ID="txtEndDateTimeCHA1" placeholder="YYYY/MM/DD " MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="38"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td ">
+                                                <input type="text" ID="txtEndDateTimeCHA2" placeholder="YYYY/MM/DD " MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="39"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtEndOperatorCHA" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="40"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                @*<input type="text" ID="txtStampingDecision" style="width:80px" maxlength="10"><span class="text-danger"></span>*@
+                                                <select ID="ddlChamferDecision" runat="server" class="dropListClass csvDisable" style="width:115px" tabindex="41">
+                                                   
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                @*CHAMFERING Header End*@
+                                @*EC Header Start*@
+                                <div id="titleEC" style="display:none">
+                                    <table cellpadding="1" cellspacing="1" border="0" class="searchTextBox tdGridHeader">
+                                        <tr class="trTdH2">
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblMachineEC" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Machine_L")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblLocationEC" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Location")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblStartDateTimeEC" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_StartDateTime")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblStartOperatorEC" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_StartOperator1")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblMetallicLabelNoEC" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_MetallicLabelNo")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblFurnaceNumEC" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblEndDateTimeEC" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_EndDateTime")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblEndOperatorEC" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_EndOperator1")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_DailyScreenDecision")</label>
+                                            </td>
+                                        </tr>
+                                        <tr class="trTdSearchContent">
+                                            <td class="td">
+                                                <input type="text" ID="txtMachineEC" maxlength="20" style="width:110px" class="csvDisable labelClass" tabindex="31"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtLocationEC" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="32"><span class="text-danger"></span>
+                                            </td>
+                                            @*<td class="td">
+                                                <input type="text" ID="txtStartDateTimeEC"><span class="text-danger"></span>
+                                            </td>*@
+                                            <td class="td">
+                                                <input type="text" ID="txtStartDateTimeEC1" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="33"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td ">
+                                                <input type="text" ID="txtStartDateTimeEC2" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="34"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtStartOperatorEC" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="35"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtMetallicLabelNoEC" maxlength="10" style="width:93px" class="csvDisable labelClass" tabindex="36"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtFurnaceNumEC" maxlength="10" style="width:93px" class="csvDisable labelClass" tabindex="37"><span class="text-danger"></span>
+                                            </td>
+                                            @*<td class="td">
+                                                <input type="text" ID="txtEndDateTimeEC"><span class="text-danger"></span>
+                                            </td>*@
+                                            <td class="td">
+                                                <input type="text" ID="txtEndDateTimeEC1" placeholder="YYYY/MM/DD " MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="38"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td ">
+                                                <input type="text" ID="txtEndDateTimeEC2" placeholder="YYYY/MM/DD " MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="39"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtEndOperatorEC" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="40"><span class="text-danger"></span>
+                                            </td>
+                                            @*<td class="td">
+                                                <input type="text" ID=""><span class="text-danger"></span>
+                                            </td>*@
+                                             <td class="td">
+                                                @*<input type="text" ID="txtStampingDecision" style="width:80px" maxlength="10"><span class="text-danger"></span>*@
+                                                <select ID="ddlECDecision" runat="server" class="dropListClass csvDisable" style="width:115px" tabindex="41">
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                @*EC Header End*@
+                                @*STAMPING Header Start*@
+                                <div id="titleStamping" style="display:none">
+                                    <table cellpadding="1" cellspacing="1" border="0" class="searchTextBox tdGridHeader">
+                                        <tr class="trTdH2">
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblMachineST" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Machine_L")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblLocationST" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Location")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblStartDateTimeST" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_StartDateTime")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblStartOperatorST" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_StartOperator1")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblMetallicLabelNoST" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_MetallicLabelNo")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblEndDateTimeST" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_EndDateTime")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblEndOperatorST" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_EndOperator1")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblChuubanSearch" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_DailyScreenDecision")</label>
+                                            </td>
+                                        </tr>
+                                        <tr class="trTdSearchContent">
+                                            <td class="td">
+                                                <input type="text" ID="txtMachineST" maxlength="20" style="width:110px" class="csvDisable labelClass" tabindex="31"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtLocationST" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="32"><span class="text-danger"></span>
+                                            </td>
+                                           @* <td class="td">
+                                                <input type="text" ID="txtStartDateTimeST"><span class="text-danger"></span>
+                                            </td>*@
+                                            <td class="td">
+                                                <input type="text" ID="txtStartDateTimeST1" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="33"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td ">
+                                                <input type="text" ID="txtStartDateTimeST2" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="34"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtStartOperatorST" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="35"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtMetallicLabelNoST" maxlength="10" style="width:93px" class="csvDisable labelClass" tabindex="36"><span class="text-danger"></span>
+                                            </td>
+                                           @* <td class="td">
+                                                <input type="text" ID="txtEndDateTimeST"><span class="text-danger"></span>
+                                            </td>*@
+                                             <td class="td">
+                                                <input type="text" ID="txtEndDateTimeST1" placeholder="YYYY/MM/DD " MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="37"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td ">
+                                                <input type="text" ID="txtEndDateTimeST2" placeholder="YYYY/MM/DD " MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="38"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtEndOperatorST" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="39"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <select ID="ddlStamppingDecision" runat="server" class="dropListClass csvDisable" style="width:115px" tabindex="40">
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                @*STAMPING Header End*@
+                                @*HARDENING TEMPER Header Start*@
+                                <div id="titleHardnessTempering" style="display:none">
+                                    <table cellpadding="1" cellspacing="1" border="0" class="searchTextBox tdGridHeader">
+                                        <tr class="trTdH2">
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblLocationCodeHRD" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Location")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblFurnaceNumHRD" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_QuenchingMachine")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_TemperingMachine")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Operator(Quenching)")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceInDateTime(Quenching)")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceOutDateTime(Quenching)")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Operator(Tempering)")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceInDateTime(Tempering)")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblChubanSearch" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceOutDatetime(Tempering)")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblInspectionDateHRD" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_InspectionDate")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Inspector")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_InspectionDecesion")</label>
+                                            </td>
+                                        </tr>
+                                        <tr class="trTdSearchContent">
+                                            <td class="td">
+                                                <input type="text" ID="txtLocationCodeHRD" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="31"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtFurnaceNumHRD" maxlength="10" style="width:93px" class="csvDisable labelClass" tabindex="32"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtQuenchingMachine" maxlength="20" style="width:110px" class="csvDisable labelClass" tabindex="33"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtTemperingMachine" maxlength="20" style="width:110px" class="csvDisable labelClass" tabindex="34"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtOperatorQuenching" maxlength="8" style="width:148px" class="csvDisable labelClass" tabindex="35"><span class="text-danger"></span>
+                                            </td>                                            
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtFurnaceInStartDateTimeQ" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="36"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtFurnaceInEndDateTimeQ" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="37"><span class="text-danger"></span>
+                                            </td>                                            
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtFurnaceOutStartDateTimeQ" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="38"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtFurnaceOutEndDateTimeQ" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="39"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtOperatorTempering" maxlength="8" style="width:148px" class="csvDisable labelClass" tabindex="40"><span class="text-danger"></span>
+                                            </td>                                            
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtFurnaceInStartDateTimeT" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="41"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtFurnaceInEndDateTimeT" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="42"><span class="text-danger"></span>
+                                            </td>
+                                           <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtFurnaceOutStartDatetimeT" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="43"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtFurnaceOutEndDatetimeT" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="44"><span class="text-danger"></span>
+                                            </td>
+                                           @* <td class="td">
+                                                <input type="text" ID="txtInspectionDateHRD"><span class="text-danger"></span>
+                                            </td>*@
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtInspectionStartDate" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable" style="width:73px" tabindex="45"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtInspectionEndDate" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable" style="width:73px" tabindex="46"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtInspectorHRD" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="47"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <select ID="ddlInspectionDecesion" runat="server" class="dropListClass csvDisable" style="width:115px" tabindex="48">
+                                                                                                       
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                @*HARDENING TEMPER Header End*@
+
+                                @*INTERNAL_QUALITY Header Start*@
+                                <div id="titlePostHTHardness" style="display:none">
+                                    <table cellpadding="1" cellspacing="1" border="0" class="searchTextBox tdGridHeader">
+                                        <tr class="trTdH2">
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblMachineInter" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Machine_L")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblRptLocationInter" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Location")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblInspectionDateInter" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_InspectionDate")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblInspectorInter" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Inspector")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblProcConditionInter" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcCondition")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblPatternNoInter" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_PatternNo_L")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblFurnaceNumInter" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblChuubanSearch" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_DailyScreenDecision")</label>
+                                            </td>
+                                        </tr>
+                                        <tr class="trTdSearchContent">
+                                            <td class="td">
+                                                <input type="text" ID="txtMachineInter" maxlength="20" style="width:110px" class="csvDisable labelClass" tabindex="31"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtRptLocationInter" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="32"><span class="text-danger"></span>
+                                            </td>
+                                            @*<td class="td">
+                                                <input type="text" ID="txtInspectionDateInter"><span class="text-danger"></span>
+                                            </td>*@
+                                            <td class="td">
+                                                <input type="text" ID="txtInspectionStartDateInter" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable" style="width:73px" tabindex="33"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td ">
+                                                <input type="text" ID="txtInspectionEndDateInter" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable" style="width:73px" tabindex="34"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtInspectorInter" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="35"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                @*<input type="text" ID="txtProcConditionInter" maxlength="8"><span class="text-danger"></span>*@
+                                                <select ID="ddlProcConditionInter" runat="server" class="dropListClass csvDisable" style="width:115px" tabindex="36">
+                                                </select>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtPatternNoInter" maxlength="5" style="width:92px" class="csvDisable labelClass" tabindex="37"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtFurnaceNumInter" maxlength="10" style="width:80px" class="csvDisable labelClass" tabindex="38"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <select ID="ddlPostHTDecision" runat="server" class="dropListClass csvDisable" style="width:115px" tabindex="39">
+                                                   
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                @*INTERNAL_QUALITY Header End*@
+
+                                @*MI_HARDNESS Header Start*@
+                                <div id="titleMIHardness" style="display:none">
+                                    <table cellpadding="1" cellspacing="1" border="0" class="searchTextBox tdGridHeader">
+                                        <tr class="trTdH2">
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="LblRptLocation" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Location")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblInspectionDate" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_InspectionDate")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblInspector" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Inspector")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblFurnaceNum" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblChuubanSearch" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_DailyScreenDecision")</label>
+                                            </td>
+                                        </tr>
+                                        <tr class="trTdSearchContent">
+                                            <td class="td">
+                                                <input type="text" ID="txtRptLocationHard" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="31"><span class="text-danger"></span>
+                                            </td>
+                                           @* <td class="td">
+                                                <input type="text" ID="TxtInspectionDateHard"><span class="text-danger"></span>
+                                            </td>*@
+                                            <td class="td">
+                                                <input type="text" ID="txtInspectionStartDateHard" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable" style="width:73px" tabindex="32"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td ">
+                                                <input type="text" ID="txtInspectionEndDateHard" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable" style="width:73px" tabindex="33"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtInspectorHard" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="34"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtFurnaceNumHard" maxlength="10" style="width:80px" class="csvDisable labelClass" tabindex="35"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <select ID="ddlMIHardnessDecision" runat="server" class="dropListClass csvDisable" style="width:115px" tabindex="36">
+                                                    
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                @*MI_HARDNESS Header End*@
+                                @* MI_TENSILE_STRENGTH Header Start*@
+                                <div id="titleMechTensile" style="display:none">
+                                    <table cellpadding="1" cellspacing="1" border="0" class="searchTextBox tdGridHeader">
+                                        <tr class="trTdH2">
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="LblRptLocation" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Location")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblInspectionDate" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_InspectionDate")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblInspector" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Inspector")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblFurnaceNum" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblChuubanSearch" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_DailyScreenDecision")</label>
+                                            </td>
+                                        </tr>
+                                        <tr class="trTdSearchContent">
+                                            <td class="td">
+                                                <input type="text" ID="txtRptLocationTen" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="31"><span class="text-danger"></span>
+                                            </td>
+                                            @*<td class="td">
+                                                <input type="text" ID="txtInspectionDateTen"><span class="text-danger"></span>
+                                            </td>*@
+                                             <td class="td">
+                                                <input type="text" ID="txtInspectionStartDateTen" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable" style="width:73px" tabindex="32"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td ">
+                                                <input type="text" ID="txtInspectionEndDateTen" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable" style="width:73px" tabindex="33"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtInspectorTen" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="34"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtFurnaceNumTen" maxlength="10" style="width:80px" class="csvDisable labelClass" tabindex="35"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <select ID="ddlMITensileDecision" runat="server" class="dropListClass csvDisable" style="width:115px" tabindex="36">
+                                                   
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                @* MI_TENSILE_STRENGTH Header End*@
+
+                                @*FINAL INSPECTION  Header Start*@
+                                <div id="titleFinalInspection" style="display:none">
+                                    <table cellpadding="1" cellspacing="1" border="0" class="searchTextBox tdGridHeader">
+                                        <tr class="trTdH2">
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblLocationCode" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Location")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblInspectionDateFin" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_InspectionDate")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblInspectorFin" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Inspector")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblChuubanSearch" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_SparkFIDate")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblChuubanSearch" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_SparkFIOperator")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblCombinedDecision" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_CombinedDecision")</label>
+                                            </td>
+                                        </tr>
+                                        <tr class="trTdSearchContent">
+                                            <td class="td">
+                                                <input type="text" ID="txtLocationCode" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="31"><span class="text-danger"></span>
+                                            </td>
+                                            @*<td class="td">
+                                                <input type="text" ID="txtInspectionDate"><span class="text-danger"></span>
+                                            </td>*@
+                                             <td class="td">
+                                                <input type="text" ID="txtInspectionStartDateFI" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="32"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td ">
+                                                <input type="text" ID="txtInspectionEndDateFI" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="33"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtInspectorFI" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="34"><span class="text-danger"></span>
+                                            </td>
+                                            @*<td class="td">
+                                                <input type="text" ID=""><span class="text-danger"></span>
+                                            </td>*@
+                                             <td class="td">
+                                                <input type="text" ID="txtSparkFIStartDate" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="35"><span class="text-danger"></span>
+                                            </td>
+
+                                            <td class="td ">
+                                                <input type="text" ID="txtSparkFIEndDate" placeholder="YYYY/MM/DD" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="36"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtSparkFIOperator" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="37"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                               @* <input type="text" ID="txtCombinedDecision" maxlength="1"><span class="text-danger"></span>*@
+                                                <select ID="ddlFICombinedDecision" runat="server" class="dropListClass csvDisable" style="width:115px" tabindex="38">
+                                                    
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                @*FINAL INSPECTION  Header End*@
+
+                                @*Genearl Daily Process Header Start*@
+                                <div id="titleGeneralDailyProcess" style="display:none">
+                                    <table cellpadding="1" cellspacing="1" border="0" class="searchTextBox tdGridHeader">
+                                        <tr class="trTdH2">
+                                             <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblProcessKubun" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessKubun_L")</label>
+                                            </td>
+                                             <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblMachine" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Machine_L")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblLocationCode" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Location")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblInspectionDateFin" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_StartDateTime")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblInspectorFin" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_StartOperator1")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap" colspan="2">
+                                                <label ID="lblChuubanSearch" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_EndDateTime")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblChuubanSearch" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_EndOperator1")</label>
+                                            </td>
+                                            <td class="tdH2 tdPaddingLeftandRight tdNoWrap">
+                                                <label ID="lblCombinedDecision" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_DailyScreenDecision")</label>
+                                            </td>
+                                        </tr>
+                                        <tr class="trTdSearchContent">
+
+                                            <td class="td">                                               
+                                                <select ID="ddlGPProcessKubun" runat="server" class="dropListClass labelClass csvDisable" style="width:215px" tabindex="31">
+                                                </select>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtMachineGP" maxlength="20" style="width:110px" class="csvDisable labelClass" tabindex="32"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtLocationGP" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="33"><span class="text-danger"></span>
+                                            </td>                                                                                       
+                                             <td class="td">
+                                                <input type="text" ID="txtStartDateGP1" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="34"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td ">
+                                                <input type="text" ID="txtStartDateGP2" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="35"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                                <input type="text" ID="txtStartOperatorGP" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="36"><span class="text-danger"></span>
+                                            </td>                                            
+                                             <td class="td">
+                                                <input type="text" ID="txtEndDateGp1" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate" tabindex="37"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td ">
+                                                <input type="text" ID="txtEndDateGp2" MaxLength="10" class="InActiveIMEMode FitSearchTextBox labelClass csvDisable txtDate"  tabindex="38"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td txtBoxBackgroundColor">
+                                                <input type="text" ID="txtEndOperatorGP" maxlength="8" style="width:110px" class="csvDisable labelClass" tabindex="39"><span class="text-danger"></span>
+                                            </td>
+                                            <td class="td">
+                                               
+                                                <select ID="ddlDecisionGP" runat="server" class="dropListClass csvDisable" style="width:115px" tabindex="40">
+                                                   
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                @*Genearl Daily Process Header End*@
+
+                            </td>
+
+                        </tr>
+
+                    </table>
+                </div>
+
+            </td>
+
+        </tr>
+    </table>
+</div>
+
+
+<div style="background-color: #dad2cf;">
+
+   <div>       
+
+        <ul class="nav nav-pills" role="tablist" style="padding-left: 2px;" id="tabIndex">
+             <li class="nav-item">
+               <a class="nav-link active" id="tabHeatTreatment" data-title="titleHeatTreatment" data-toggle="pill" href="#divHeatTreatment">@LocalizationServices.GetLocalizedHtmlString("lbl_HeatTreatmentDailyReport")</a>
+            </li>
+             <li class="nav-item">
+                <a class="nav-link" id="tabDrawingBarToBar" data-title="titleDrawingBarToBar" data-toggle="pill" href="#divDrawingBarToBar">@LocalizationServices.GetLocalizedHtmlString("lbl_HikinukiBarToBarDailyReport")</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tabDrawingCoilToBar" data-title="titleDrawingCoilToBar" data-toggle="pill" href="#divDrawingCoilToBar">@LocalizationServices.GetLocalizedHtmlString("lbl_HikinukiCoilToBarDailyReport")</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tabDrawingCoilToCoil" data-title="titleDrawingCoilToCoil" data-toggle="pill" href="#divDrawingCoilToCoil">@LocalizationServices.GetLocalizedHtmlString("lbl_ColdDrawing(CoilToCoil)DailyReport")</a>
+            </li>           
+            <li class="nav-item">
+                <a class="nav-link" id="tabStraightening1" data-title="titleStraightening1" data-toggle="pill" href="#divStraightening1">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessROLLStrighening")</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tabStraightening2" data-title="titleStraightening2" data-toggle="pill" href="#divStraightening2">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessPRESSStrighening")</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tabChamfer" data-title="titleChamfer" data-toggle="pill" href="#divChamfer">@LocalizationServices.GetLocalizedHtmlString("lblChamfer24HoureMachineHeader")</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tabEC" data-title="titleEC" data-toggle="pill" href="#divEC">@LocalizationServices.GetLocalizedHtmlString("lbl_ECDailyScreenReport")</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " id="tabStamping" data-title="titleStamping" data-toggle="pill" href="#divStamping">@LocalizationServices.GetLocalizedHtmlString("lbl_StampingDailyReport")</a>
+            </li>
+             <li class="nav-item">
+                <a class="nav-link" id="tabHardnessTempering" data-title="titleHardnessTempering" data-toggle="pill" href="#divHardnessTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessTemperingDailyReport")</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tabPostHTHardness" data-title="titlePostHTHardness" data-toggle="pill" href="#divPostHTHardness">@LocalizationServices.GetLocalizedHtmlString("lbl_QualityInspectionHardness")</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tabMIHardness" data-title="titleMIHardness" data-toggle="pill" href="#divMIHardness">@LocalizationServices.GetLocalizedHtmlString("lbl_MechHardnessDailyReport")</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tabMechTensile" data-title="titleMechTensile" data-toggle="pill" href="#divMechTensile">@LocalizationServices.GetLocalizedHtmlString("lbl_MechTensileDailyReport")</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tabFinalInspection" data-title="titleFinalInspection" data-toggle="pill" href="#divFinalInspection">@LocalizationServices.GetLocalizedHtmlString("lbl_FinalInspectionDailyReport")</a>
+            </li>
+             <li class="nav-item">
+                <a class="nav-link" id="tabGeneralDailyProcess" data-title="titleGeneralDailyProcess" data-toggle="pill" href="#divGeneralDailyProcess">@LocalizationServices.GetLocalizedHtmlString("lbl_GeneralProcessDailyReport")</a>
+            </li>
+        </ul>
+		
+    </div>
+
+
+
+    <div class="tab-content" id="pills-tabContent">
+        
+
+        @*SearchResult Tab-1 HEAT_TREATMENT Start*@
+        <div class="tab-pane tableHeightWidth active" id="divHeatTreatment">
+            <div id="divHeatTreatmentDailyProcessGridMain">
+                @{
+                    @await Html.PartialAsync("HeatTreatmentDailyProcessGrid",Model)
+                    ;
+                }
+            </div>
+        </div>
+        @*SearchResult Tab-1 HEAT_TREATMENT End*@
+
+        @*SearchResult Tab-2 Drawing_D Start*@
+        <div class="tab-pane fade tableHeightWidth" id="divDrawingBarToBar">
+            <div id="divDailyProcessAnalysisDrawingDGridMain">
+                @{
+                    @await Html.PartialAsync("DailyProcessAnalysisHikinukiBarToBarGrid", Model)
+                    ;
+                }
+            </div>
+        </div>
+        @*SearchResult Tab-2 Drawing_D End*@
+
+        @*SearchResult Tab-3 DRAWING Start*@
+        <div class="tab-pane fade tableHeightWidth" id="divDrawingCoilToBar">
+            <div id="divHikinukiCoilToBarDailyProcessGridMain">
+                @{
+                    @await Html.PartialAsync("HikinukiCoilToBarDailyProcessGrid",Model)
+                    ;
+                }
+            </div>
+        </div>
+        @*SearchResult Tab-3 DRAWING End*@
+
+        @*SearchResult Tab-4 DRAWING_W Start*@
+        <div class="tab-pane fade tableHeightWidth" id="divDrawingCoilToCoil">
+            <div id="divDailyProcessAnalysisColdDrawingWGridMain">
+                @{
+                    @await Html.PartialAsync("DailyProcessAnalysisColdDrawingWireDrawingWGrid", Model)
+                    ;
+                }
+            </div>
+        </div>
+        @*SearchResult Tab-4 DRAWING_W End*@
+
+        @*SearchResult Tab-5 STRAIGHTENING-1 Start*@
+        <div class="tab-pane fade tableHeightWidth" id="divStraightening1">
+            <div id="divStraighteningDailyProcessGridMain">
+                @{
+                    @await Html.PartialAsync("StraighteningDailyProcessGrid",Model)
+                    ;
+                }
+            </div>
+        </div>
+        @*SearchResult Tab-5 STRAIGHTENING-1 End*@
+
+        @*SearchResult Tab-6 Straightening-2 Start*@
+        <div class="tab-pane fade tableHeightWidth" id="divStraightening2">
+            <div id="divStraighteningDailyProcessGridMain2">
+                @{
+                    @await Html.PartialAsync("StraighteningDailyProcessGrid2",Model)
+                    ;
+                }
+            </div>
+        </div>
+        @*SearchResult Tab-6 Straightening-2 End*@
+
+        @*SearchResult Tab-7 Chamfering Start*@
+        <div class="tab-pane fade tableHeightWidth" id="divChamfer">
+            <div id="divChamfferDailyProcessGridMain">
+                @{
+                    @await Html.PartialAsync("ChamfferDailyProcessGrid",Model)
+                    ;
+                }
+            </div>
+        </div>
+        @*SearchResult Tab-7 Chamfering End*@
+
+        @*SearchResult Tab-8 EC Start*@
+        <div class="tab-pane fade tableHeightWidth" id="divEC">
+            <div id="divDailyProcessAnalysisECGridMain">
+                @{
+                    @await Html.PartialAsync("DailyProcessAnalysisECDetailsGrid", Model)
+                    ;
+                }
+            </div>
+        </div>
+        @*SearchResult Tab-8 EC End*@
+
+        @*SearchResult Tab-9 Stamping Start*@
+        <div class="tab-pane fade tableHeightWidth" id="divStamping">
+            <div id="divDailyProcessAnalysisStamppingGridMain">
+                @{
+                    @await Html.PartialAsync("DailyProcessAnalysisStamppingGrid", Model)
+                    ;
+                }
+            </div>
+        </div>
+        @*SearchResult Tab-9 Stamping End*@
+
+        @*SearchResult Tab-10 HARDENING_TEMPER Start*@
+
+
+        <div class="tab-pane fade tableHeightWidth" id="divHardnessTempering">
+            <div id="divHardnessTemperingDailyProcessGridMain">
+                @{
+                    @await Html.PartialAsync("HardnessTemperingDailyProcessGrid",Model)
+                    ;
+                }
+            </div>
+        </div>
+
+
+        @*SearchResult Tab-10 HARDENING_TEMPER End*@
+
+        @*SearchResult Tab-11 INTERNAL_QUALITY Start*@
+        <div class="tab-pane fade tableHeightWidth" id="divPostHTHardness">
+            <div id="divQATestHardnessDailyProcessGridMain">
+                @{
+                    @await Html.PartialAsync("QATestHardnessDailyProcessGrid",Model)
+                    ;
+                }
+            </div>
+        </div>
+        @*SearchResult Tab-11 INTERNAL_QUALITY End*@
+
+        @*SearchResult Tab-12 MI_HARDNESS Start*@
+        <div class="tab-pane fade tableHeightWidth" id="divMIHardness">
+            <div id="divMiHardnessDailyProcessGridMain">
+                @{
+                    @await Html.PartialAsync("MiHardnessDailyProcessGrid",Model)
+                    ;
+                }
+            </div>
+        </div>
+        @*SearchResult Tab-12 MI_HARDNESS End*@
+
+        @*SearchResult Tab-13 MI_TENSILE_STRENGTH Start*@
+        <div class="tab-pane fade tableHeightWidth" id="divMechTensile">
+
+            <div id="divMechTensileDailyProcessGridMain">
+                @{
+                    @await Html.PartialAsync("TensileDailyProcessGrid",Model)
+                    ;
+                }
+            </div>
+        </div>
+        @*SearchResult Tab-13 End*@
+
+        @*SearchResult Tab-14 FINAL INSPECTION Start*@
+        <div class="tab-pane fade tableHeightWidth" id="divFinalInspection">
+            <div id="divFinalInspectionDailyProcessGridMain">
+                @{
+                    @await Html.PartialAsync("FinalInspectionDailyProcessGrid",Model)
+                    ;
+                }
+            </div>
+        </div>
+        @*SearchResult Tab-14 End*@
+
+        @*SearchResult Tab-15 General Process Start*@
+        <div class="tab-pane fade tableHeightWidth" id="divGeneralDailyProcess">
+            <div id="divGeneralProcessDailyProcessGridMain">
+                @{
+                    @await Html.PartialAsync("GeneralProcessDailyProcessGrid",Model)
+                    ;
+                }
+            </div>
+        </div>
+        @*SearchResult Tab-15 End*@
+
+    </div>
+
+    @* BOTTOM BUTTON START*@
+    <div>
+        <table>
+            <tr>
+                <td style="width: 110px; height: 57px; border-width: 0px; border-style: none;">
+                    <table border="0" cellpadding="0" cellspacing="0" frame="border" style="background-color:#5d0493; width: 110px; height: 100%;">
+                        <tr>
+                            <td align="center" valign="bottom">
+                                <label ID="lblInitialize" class="labelClass" style="color:white">@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center">
+                                <input type="button" value='@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")' ID="btnInitialize"
+                                       style="width:90px" class="_functionButtons"  />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+
+
+                <td style="width:1352px"></td>
+
+                <td align="center" rowspan="2" style="width: 150px; background-color: #fe0000;">
+                    <table cellpadding="2" cellspacing="2" style="height: 65px">
+                        <tr>
+                            <td align="center" colspan="2">
+                                <label ID="lblAuxiliaryFunctionSearchSort" class="labelClass" style="color:white">@LocalizationServices.GetLocalizedHtmlString("lbl_CSVExport")</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            @*<td>
+                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Display_L")" ID="btnSearch" class="_functionButtons" TabIndex="16" />
+                            </td>*@
+                            <td>
+                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_ExportCSV")" ID="btnExportCSV" class="_functionButtons" style="width: 126px;" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+
+                <td style="width: 180px; height: 57px; border-width: 0px; border-style: none;">
+                    <table border="0" cellpadding="0" cellspacing="0" frame="border" style="width:100%; height: 100%;">
+                        <tr>
+                            <td align="right" colspan="2" class="paddingtRight1">
+                                <label ID="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MaximumNoOfLines")</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom:1px;width:100px" class="padddingLeftRight">
+                                <input type="text" id="rowLimitValue" class="labelClass heightTextBox Mandatory" value="200" style="width:100%" maxlength="4" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"><span class="text-danger"></span>
+                            </td>
+                            <td class="paddingLeft1">
+                                <label ID="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Maximum"):@maxRowLimit</label>                              
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+
+                <td style="width: 100px; height: 57px; background-color: Navy; border-width: 0px; border-style: none;">
+                    <table bgcolor="Navy" border="0" cellpadding="0" cellspacing="0" frame="border" style="border-color: Navy; width: 100%; height: 100%;">
+                        <tr>
+                            <td align="center" valign="bottom">
+                                <label ID="lblClose" class="labelClass" style="color:white">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center">
+                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnClose" class="_functionButtons" OnClientClick="return Confirmation()" 
+                                       style="width:90px" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+    @* BOTTOM BUTTON END*@
+</div>
+<div id="divErrorMessages" class="Hidden">
+    <label id="lblErrorMessage_system_exception" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+    </label>
+    <label id="lblErrorMessage_DailyProcess_SearchField" class="Hidden">
+        <span ID="LiteralSearchField">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_EnterAtLeastOneSearchCondition")</span>
+    </label>
+    <label id="lblErrorMessage_DataNotFound" class="Hidden">
+        <span ID="LiteralDataNotFound">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_DataNotFound")</span>
+    </label>
+    <label id="lblErrorMessageE_DimDStartRequired" class="Hidden">
+        <span ID="LiteralDimDStartRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_DimDStartRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_LengthStartRequired" class="Hidden">
+        <span ID="LiteralLengthStartRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ProdLengthStartRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_MatlDimDStartRequired" class="Hidden">
+        <span ID="LiteralMatlDimDStartRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_MatlDimDStartRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_MatlLengthStartRequired" class="Hidden">
+        <span ID="LiteralMatlLengthStartRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_MatlLengthStartRequired")</span>
+    </label>
+    
+    <label id="lblErrorMessageE_ActAllocDateStartRequired" class="Hidden">
+        <span ID="LiteralActAllocDateStartRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_ActAllocDateStartRequired")</span>
+    </label>
+
+    <label id="lblErrorMessageE_ActAllocStartDateInvalid" class="Hidden">
+        <span ID="LiteralActAllocStartDateInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_ActAllocStartDateInvalid")</span>
+  </label>
+  <label id="lblErrorMessageE_ActAllocEndDateInvalid" class="Hidden">
+        <span ID="LiteralActAllocEndDateInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_ActAllocEndDateInvalid")</span>
+  </label>
+    <label id="lblErrorMessageE_ActAllocEndDateValidate" class="Hidden">
+        <span ID="LiteralActAllocEndDateValidate">@LocalizationServices.GetLocalizedHtmlString("valMsg_ActAllocEndDateValidate")</span>
+  </label>
+
+    <label id="lblErrorMessageE_ProcessBeginningStartDateRequired" class="Hidden">
+        <span ID="LiteralProcessBeginningStartDateRequired">@LocalizationServices.GetLocalizedHtmlString("ValMsg_ProcessBeginningStartDateRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_ProcessBeginningStartDateInvalid" class="Hidden">
+        <span ID="LiteralProcessBeginningStartDateInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_ProcessBeginningStartDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_ProcessBeginningEndDateInvalid" class="Hidden">
+        <span ID="LiteralProcessBeginningEndDateInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_ProcessBeginningEndDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_ProcessBeginningEndDateValidate" class="Hidden">
+        <span ID="LiteralProcessBeginningEndDateValidate">@LocalizationServices.GetLocalizedHtmlString("valMsg_ProcessBeginningEndDateValidate")</span>
+    </label>
+
+
+    <label id="lblErrorMessageE_ProcessEndStartDateRequired" class="Hidden">
+        <span ID="LiteralProcessBeginningStartDateRequired">@LocalizationServices.GetLocalizedHtmlString("ValMsg_ProcessEndStartDateRequired")</span>
+    </label>
+
+    <label id="lblErrorMessageE_ProcessEndStartDateInvalid" class="Hidden">
+        <span ID="LiteralProcessBeginningStartDateInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_ProcessEndStartDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_ProcessEndEndDateInvalid" class="Hidden">
+        <span ID="LiteralProcessBeginningEndDateInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_ProcessEndEndDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_ProcessEndEndDateValidate" class="Hidden">
+        <span ID="LiteralProcessBeginningEndDateValidate">@LocalizationServices.GetLocalizedHtmlString("valMsg_ProcessEndEndDateValidate")</span>
+    </label>
+
+     <label id="lblErrorMessageE_InspStartDate_Required" class="Hidden">
+        <span ID="LiteralInspStartDate_Required">@LocalizationServices.GetLocalizedHtmlString("valMsg_InspStartDate_Required")</span>
+    </label>
+    <label id="lblErrorMessageE_InspStartDate_Invalid" class="Hidden">
+        <span ID="LiteralInspStartDate_Invalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_InspStartDate_Invalid")</span>
+    </label>
+    <label id="lblErrorMessageE_InspEndDate_Invalid" class="Hidden">
+        <span ID="LiteralInspEndDate_Invalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_InspEndDate_Invalid")</span>
+    </label>
+    <label id="lblErrorMessageE_InspEndDateValidate" class="Hidden">
+        <span ID="LiteralInspEndDateValidate">@LocalizationServices.GetLocalizedHtmlString("valMsg_InspEndDateValidate")</span>
+    </label>
+
+    <label id="lblErrorMessageE_InspStartDateTimeRequired" class="Hidden">
+        <span ID="LiteralInspStartDateTimeRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_InspStartDateTimeRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_InspStartDateTimeInvalid" class="Hidden">
+        <span ID="LiteralInspStartDateTimeInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_InspStartDateTimeInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_InspEndDateTimeInvalid" class="Hidden">
+        <span ID="LiteralInspEndDateTimeInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_InspEndDateTimeInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_InspEndDateTimeValidate" class="Hidden">
+        <span ID="LiteralInspEndDateTimeValidate">@LocalizationServices.GetLocalizedHtmlString("valMsg_InspEndDateTimeValidate")</span>
+    </label>
+
+
+    <label id="lblErrorMessageE_FISparkStartDate_Required" class="Hidden">
+        <span ID="LiteralFISparkStartDate_Required">@LocalizationServices.GetLocalizedHtmlString("valMsg_FISparkStartDateRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_FISparkStartDate_Invalid" class="Hidden">
+        <span ID="LiteralFISparkStartDate_Invalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_FISparkStartDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_FISparkEndDate_Invalid" class="Hidden">
+        <span ID="LiteralFISparkEndDate_Invalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_FISparkEndDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_FISparkEndDate_Validate" class="Hidden">
+        <span ID="LiteralFISparkEndDate_Validate">@LocalizationServices.GetLocalizedHtmlString("valMsg_FISparkEndDateValidate")</span>
+    </label>
+
+
+
+
+    <label id="lblErrorMessageE_FurnaceInStartDateTime_Required" class="Hidden">
+        <span ID="LiteralFurnaceInStartDateTime_Required">@LocalizationServices.GetLocalizedHtmlString("valMsg_FurnaceInStartDateTimeRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_FurnaceInStartDate_Invalid" class="Hidden">
+        <span ID="LiteralFurnaceInStartDate_Invalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_FurnaceInStartDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_FurnaceInEndDate_Invalid" class="Hidden">
+        <span ID="LiteralFurnaceInEndDate_Invalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_FurnaceInEndDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_FurnaceInEndDate_Validate" class="Hidden">
+        <span ID="LiteralFurnaceInEndDate_Validate">@LocalizationServices.GetLocalizedHtmlString("valMsg_FurnaceInEndDateValidate")</span>
+    </label>
+
+
+    <label id="lblErrorMessageE_FurnaceOutStartDateTime_Required" class="Hidden">
+        <span ID="LiteralFurnaceOutStartDateTime_Required">@LocalizationServices.GetLocalizedHtmlString("valMsg_FurnaceOutStartDateTimeRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_FurnaceOutStartDate_Invalid" class="Hidden">
+        <span ID="LiteralFurnaceOutStartDate_Invalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_FurnaceOutStartDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_FurnaceOutEndDate_Invalid" class="Hidden">
+        <span ID="LiteralFurnaceOutEndDate_Invalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_FurnaceOutEndDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_FurnaceOutEndDate_Validate" class="Hidden">
+        <span ID="LiteralFurnaceOutEndDate_Validate">@LocalizationServices.GetLocalizedHtmlString("valMsg_FurnaceOutEndDateValidate")</span>
+    </label>
+
+
+    <label id="lblErrorMessageE_QFurnaceInDateStart_Required" class="Hidden">
+        <span ID="LiteralQFurnaceInDateStart_Required">@LocalizationServices.GetLocalizedHtmlString("valMsg_QFurnaceInDateStartRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_QFurnaceInStartDate_Invalid" class="Hidden">
+        <span ID="LiteralQFurnaceInStartDate_Invalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_QFurnaceInStartDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_QFurnaceInEndDate_Invalid" class="Hidden">
+        <span ID="LiteralQFurnaceInEndDate_Invalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_QFurnaceInEndDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_QFurnaceInEndDate_Validate" class="Hidden">
+        <span ID="LiteralQFurnaceInEndDate_Validate">@LocalizationServices.GetLocalizedHtmlString("valMsg_QFurnaceInEndDateValidate")</span>
+    </label>
+
+
+    <label id="lblErrorMessageE_QFurnaceOutDateStart_Required" class="Hidden">
+        <span ID="LiteralQFurnaceInDateStart_Required">@LocalizationServices.GetLocalizedHtmlString("valMsg_QFurnaceOutDateStartRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_QFurnaceOutStartDate_Invalid" class="Hidden">
+        <span ID="LiteralQFurnaceOutStartDate_Invalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_QFurnaceOutStartDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_QFurnaceOutEndDate_Invalid" class="Hidden">
+        <span ID="LiteralQFurnaceOutEndDate_Invalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_QFurnaceOutEndDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_QFurnaceOutEndDate_Validate" class="Hidden">
+        <span ID="LiteralQFurnaceOutEndDate_Validate">@LocalizationServices.GetLocalizedHtmlString("valMsg_QFurnaceOutEndDateValidate")</span>
+    </label>
+
+
+    <label id="lblErrorMessageE_TFurnaceInDateStart_Required" class="Hidden">
+        <span ID="LiteralTFurnaceInDateStart_Required">@LocalizationServices.GetLocalizedHtmlString("valMsg_TFurnaceInDateStartRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_TFurnaceInStartDate_Invalid" class="Hidden">
+        <span ID="LiteralTFurnaceInStartDate_Invalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_TFurnaceInStartDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_TFurnaceInEndDate_Invalid" class="Hidden">
+        <span ID="LiteralTFurnaceInEndDate_Invalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_TFurnaceInEndDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_TFurnaceInEndDate_Validate" class="Hidden">
+        <span ID="LiteralTFurnaceInEndDate_Validate">@LocalizationServices.GetLocalizedHtmlString("valMsg_TFurnaceInEndDateValidate")</span>
+    </label>
+
+    <label id="lblErrorMessageE_TFurnaceOutDateStart_Required" class="Hidden">
+        <span ID="LiteralTFurnaceOutDateStart_Required">@LocalizationServices.GetLocalizedHtmlString("valMsg_TFurnaceOutDateStartRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_TFurnaceOutStartDate_Invalid" class="Hidden">
+        <span ID="LiteralTFurnaceOutStartDate_Invalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_TFurnaceOutStartDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_TFurnaceOutEndDate_Invalid" class="Hidden">
+        <span ID="LiteralTFurnaceOutEndDate_Invalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_TFurnaceOutEndDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_TFurnaceOutEndDate_Validate" class="Hidden">
+        <span ID="LiteralTFurnaceOutEndDate_Validate">@LocalizationServices.GetLocalizedHtmlString("valMsg_TFurnaceOutEndDateValidate")</span>
+    </label>
+
+    <label id="valMsgDataRowsMaxLimitExceed" class="Hidden">
+        <span ID="LiteralLimitExceed">@LocalizationServices.GetLocalizedHtmlString("valMsg_DataRowsMaxLimitExceed")</span>
+    </label>
+    <label id="valMsgMaxRowRequired" class="Hidden">
+        <span ID="LiteralMaxRowRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_MaxRowRequired")</span>
+    </label>
+    <label id="valMsgMoreDataRowsAvailableInSystem" class="Hidden">
+        <span ID="LiteralMoreDataAvailable">@LocalizationServices.GetLocalizedHtmlString("valMsg_MoreDataRowsAvailableInSystem")</span>
+    </label>
+</div>
+<input type="hidden" id="activeTabID" />
+<input type="hidden" id="maxLimit" value="@maxRowLimit"/>
+
+<div id="LoadingImage" style="display: none">
+    <img id="loadImage" src="~/images/loading.gif" height="60px" width="60px" />
+</div>
+
+    
+   
+
+

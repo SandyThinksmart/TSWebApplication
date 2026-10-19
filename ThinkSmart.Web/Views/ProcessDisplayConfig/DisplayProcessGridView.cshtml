@@ -1,0 +1,59 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<ProcessDisplayConfigDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+}
+
+<link href="~/css/Common_Styles.css" rel="stylesheet" />
+
+
+<div>
+    <table>
+        <tr>
+            <td style="vertical-align: top;">
+                <br />
+                <div id="DivProcess" class="tab-pane">
+                    <table class="GridLines" id="tr1ItemGrdvProcessDisplayConfigDetails">
+                        <thead>
+                            <tr class="GridHeader GridLinesHeaderThinBlack thHeaderClass freez">
+                                <th class="tdCenter">
+                                    <label ID="lblShowProcess" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ShowProcess")</label>
+                                </th>
+                                <th class="tdCenter" style="width:30px">
+                                    <label ID="lblDisplayOrder" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_DisplayOrder")</label>
+                                </th>
+                                <th class="tdCenter">
+                                    <label ID="lblNextProcess" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_NextProcess")</label>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Count > 0)
+                            {
+                                int i = 0;
+                                @foreach (var item in Model)
+                                {
+                                    i = i + 1;
+                                    <tr class="GridNormalRow">
+                                        <td class="labelClass GridCenter"><input type="checkbox" ID=@("chkShow" + i) class="labelClass" /></td>
+                                        <td class="labelClass ">
+                                            <input type="text" ID=@("txtPriority" + i) class="labelClass GridRight" style="width:100%;height:22px; border: hidden;" maxlength="3"
+                                                   onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                                        </td>
+                                        <td class="labelClass GridLeft"><input name="pname" type="hidden" ID=@("hdfProcessName" + i) value="@item.KUBUN_ID" />@item.PP_PROCESS_NAME</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+@section Scripts{
+    <script src="~/static/js/ProcessDisplayConfiguration.js"></script>
+}

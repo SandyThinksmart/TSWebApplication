@@ -1,0 +1,92 @@
+﻿
+.titleBar {
+    border-color: #FFFFFF;
+    border-style: solid none solid none;
+    border-width: 3px 0px 3px 0px;
+    background-color: #336699;
+}
+    .titleBar table {
+        height: 15px;
+        table-layout: fixed;
+        width: 100%;
+    }
+
+        .titleBar table tr {
+            min-width: 126px;
+        }
+._upperContainer {
+    /*width:99%;*/
+    height: 10%;
+    /*border-left:1px solid Silver;
+ border-bottom:1px solid Silver;*/
+
+    background-color: #336699;
+}
+
+._functionTable {
+    width: 100%;
+    height: 36px;
+}
+
+._functionEditButton {
+    background-color: ButtonFace;
+    Height: 22px;
+    Width: 60px;
+    font-family: @MS Gothic;
+    font-size: 12px;
+    text-align: center;
+    top: 0px;
+    vertical-align: bottom;
+    border: 1px inset Silver;
+    margin-left: 0px;
+}
+
+._functionButtons {
+    background-color: ButtonFace;
+    Height: 25px;
+    border: 1px inset Silver;
+    font-size: 12px;
+    width: 80px;
+    /*background-color:ButtonFace;
+Width:95px;
+ font-family:@MS Gothic;
+ 
+  text-align:center;
+  top:0px;
+  vertical-align:bottom;
+ 
+	margin-left: 0px;*/
+}
+
+._popUpfunctionButtons {
+    border: 1px inset Silver;
+    font-size: 12px;
+    /*background-color:ButtonFace;
+Width:95px;
+ font-family:@MS Gothic;
+ 
+  text-align:center;
+  top:0px;
+  vertical-align:bottom;
+ 
+	margin-left: 0px;*/
+}
+
+.SearchButtonClass {
+    background-color: #336600;
+    Height: 22px;
+    Width: 80px;
+    border-style: outset;
+    Color: White;
+    font-family: @MS Gothic;
+    font-size: 14px;
+}
+
+.searchBar {
+    overflow: auto;
+    height: auto;
+    font-family: MS Gothic;
+    font-size: 13px;
+    font-weight: 400;
+    text-align: center;
+}

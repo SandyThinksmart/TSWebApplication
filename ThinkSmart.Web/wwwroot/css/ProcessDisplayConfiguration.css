@@ -1,0 +1,63 @@
+﻿#tblBody {
+    border-style: none;
+    visibility: visible;    
+    
+    margin-left: 5px;
+    border-bottom: hidden;
+}
+#tblGrid {
+    border-style: none;
+    visibility: visible;    
+    
+    margin-left: 5px;
+}
+#DivCloseButton {
+    background-color: Navy;
+    text-align: center;
+    border: 1px inset gray;
+    width: 115px;
+}
+#tblBasicOperation {
+    width: 180px;
+    height: 60px;
+    background-color: #C00000;
+}
+#lblProcess {
+    padding-left:5px;
+}
+#ddlProcess {
+    width: 160px;
+    margin-left: 33px
+}
+#DivProcess {
+    visibility: visible;
+    height: 510px;
+    overflow-y: scroll;
+    scrollbar-width: auto;
+    min-width: 222px;
+    max-width: 324px;
+}
+.disabled {
+    background-color: #EEEEEE !important;
+    /* background-color: #f2f2f2 !important;*/
+    pointer-events: none;
+}
+.freez > th {
+    position: sticky !important;
+    background-color: #7291D2;
+    border-color: white;
+    top: 0.2px;
+    height: 20px;
+    box-shadow: 0 0 0px 0.5px White;
+}
+#tblmsgTitle {
+    border-style: none;
+    visibility: visible;
+   padding-top:6px;
+    width: 375px;
+    height:25px;
+    margin-left: 5px;
+    text-align: center;
+    background-color: #336699;
+    color: white;
+}

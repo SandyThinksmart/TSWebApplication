@@ -1,0 +1,297 @@
+﻿@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+   
+}
+
+<style type="text/css">
+    table {
+        border-collapse: revert;
+    }
+</style>
+<link href="~/css/MenuStyle.css" rel="stylesheet" />
+
+@section Scripts{
+    <script src="~/Static/js/MenuScreen.js"></script>
+
+    <script src="~/Static/lib/jquery/jquery-1.11.1.min.js"></script>
+    <script src="~/Static/lib/jquery/jquery-2.1.1.min.js"></script>
+
+    <script type="text/javascript">
+       
+
+    </script>
+
+}
+<br />
+<br />
+
+<br />
+
+
+<div class="container-fluid">
+    <div class="row" id="Val">
+        <div class="col-sm-4 col-md-4 col-lg-4">
+
+        </div>
+          <div class="col-sm-4 col-md-4 col-lg-4">
+               <div style="width:100%">
+
+                    <table>
+                        <tr>
+                            <td align="left" style="border-style:none">
+                            <input type="button" style="color:#007bff;border-style:none;font-size:15px;margin-left:-8px;" value="@LocalizationServices.GetLocalizedHtmlString("lbl_MainMenu")" OnClick="lnkmainmenuMobile_Click()"
+                                  TabIndex="16" class="labelClass" />
+                               
+                            </td>
+                        </tr>
+                    </table>
+                    <div id="menuHeader" style="padding-top:7px;text-align:left">
+                       
+                        
+                        <table width="100%" cellpadding="1" cellspacing="1">
+                              <tr>
+                                <td align="left" style="border-style:none">
+                                    <label id="lblworkstation" class="labelClass" style="color:white;margin-left:5px;">@LocalizationServices.GetLocalizedHtmlString("lbl_workstation"):</label>
+                                    <label id="lblusername" class="labelClass" style="color:white;"></label>
+                                </td>
+                              
+                            </tr>
+
+                        </table>
+
+
+                    </div>
+
+            
+           @* <table style="width: 100%;" cellspacing="1" cellpadding="1">
+                <tr>
+                    <td class="mainMenu" valign="top" style="border-bottom-style: inset; border-bottom-width: 3px; border-bottom-color: #C0C0C0; width: 340px;">*@
+                        <table class="MenuTable" style="text-align:center" border="1" cellpadding="1" cellspacing="1">
+
+                             <tr class="tdclass ">
+                                <td class="style1">
+                            <div class="MenuHeight">
+                                           @*<a href="/GeneralDailyProcessEntry/GeneralDailyProcessEntry" target="GeneralDailyProcessEntry" onClick="javascript:open('/GeneralDailyProcessEntry/GeneralDailyProcessEntry', 'GeneralDailyProcessEntry', 'height=700px,width=480px,resizable=no')">*@
+                                        <Label ID="lnkGeneralProcessEntry" runat="server"
+                                           Class="linkFormat menuSpace">
+                                           汎用 日報 作業開始（登録） <br />   General Daily Process Start (Entry) 
+                                          @* @LocalizationServices.GetLocalizedHtmlString("lbl_menuFactoryOffice")*@
+                                           </Label>
+                                          @* </a>*@
+                                           </div>
+
+                                </td>
+                            </tr>
+
+                             <tr class="tdclass ">
+                                <td class="style1">
+                            <div class="MenuHeight">
+                                          @* <a href="/GeneralDailyProcessEnd/GeneralDailyProcessEnd" target="GeneralDailyProcessEnd" onClick="javascript:open('/GeneralDailyProcessEnd/GeneralDailyProcessEnd', 'GeneralDailyProcessEnd', 'height=700px,width=480px,resizable=no')">*@
+                                        <Label ID="lnkGeneralProcessEnd" runat="server"
+                                           Class="linkFormat menuSpace">
+                                           汎用 日報 作業終了（登録）<br />  General Daily Process End (Entry) 
+                                          @* @LocalizationServices.GetLocalizedHtmlString("lbl_menuFactoryOffice")*@
+                                           </Label>
+                                           @*</a>*@
+                                           </div>
+
+                                </td>
+                            </tr>
+                             <tr class="tdclass ">
+                                <td class="style1">
+                            <div class="MenuHeight">
+                                          @*<a href="/GeneralDailyProcessStartEnd/GeneralDailyProcessStartEnd" target="GeneralDailyProcessStartEnd" onClick="javascript:open('/GeneralDailyProcessStartEnd/GeneralDailyProcessStartEnd', 'GeneralDailyProcessStartEnd', 'height=700px,width=480px,resizable=no')">*@
+                                        <Label ID="lnkGeneralProcessStartEnd" runat="server"
+                                           Class="linkFormat menuSpace">
+                                    汎用 日報の登録（開始・終了）         <br />  General Daily Process StartEnd (Entry)
+                                          @* @LocalizationServices.GetLocalizedHtmlString("lbl_menuFactoryOffice")*@
+                                           </Label>
+                                           @*</a>*@
+                                           </div>
+
+                                </td>
+                            </tr>
+
+                              <tr class="tdclass ">
+                                <td class="style1">
+                            <div class="MenuHeight">
+                                          @*<a href="/GeneralDailyProcessCancel/GeneralDailyProcessCancel" target="GeneralDailyProcessCancel" onClick="javascript:open('/GeneralDailyProcessCancel/GeneralDailyProcessCancel', 'GeneralDailyProcessCancel', 'height=700px,width=480px,resizable=no')">*@
+                                        <Label ID="lnkGeneralProcessCancel" runat="server"
+                                           Class="linkFormat menuSpace">
+                                          汎用 日報（取消）    <br />  General Daily Process Cancel 
+                                          @* @LocalizationServices.GetLocalizedHtmlString("lbl_menuFactoryOffice")*@
+                                           </Label>
+                                          @* </a>*@
+                                           </div>
+
+                                </td>
+                            </tr>
+
+                            <tr id="Tr1" runat="server" class="tdclass1">
+                                <td class="style1">
+                                </td>
+                            </tr>
+                  
+                         @* <tr class="tdclass">
+                                <td class="style1">
+                                     <div>
+                                  
+                                        <Label ID="lnkFinalInspectionWithoutNyuko" runat="server" Class="linkFormat menuSpace">
+                                            最終検査（登録）入庫機能無し <br /> Final Inspection WithOut Nyuko(Entry)
+                                        </Label>
+                                   </div>
+                                </td>
+                            </tr>*@
+                           <tr class="tdclass">
+                                <td class="style1">
+                            <div class="MenuHeight">
+                                  
+                                        <Label ID="lnkFinalInspectionWIPtagSplit" runat="server" Class="linkFormat menuSpace">
+                                           仕掛束の分割（登録）<br /> WIP Tag Split (Entry)
+                                        
+                                        </Label>
+                                   </div>
+                                </td>
+                            </tr>
+
+                             <tr class="tdclass">
+                                <td class="style1">
+                            <div class="MenuHeight">
+                                  
+                                        <Label ID="lnkFinalInspectionWIPtagCombining" runat="server" Class="linkFormat menuSpace">
+                                           仕掛束の結合（登録）<br /> WIP Tag Combining (Entry)
+                                        
+                                        </Label>
+                                   </div>
+                                </td>
+                            </tr>
+                              <tr id="Tr1" runat="server" class="tdclass1">
+                                <td class="style1">
+                                </td>
+                            </tr>
+
+                            <tr class="tdclass">
+                                <td class="style1">
+                            <div class="MenuHeight">
+                                         <Label id="lnkFinalInspectionBulk"  runat="server" class="linkFormat menuSpace" >
+                                                      最終検査（一括登録）入庫機能無し
+                                                    <br />
+                                                   Final Inspection Bulk (Entry)</Label>
+                                    </div>
+                                </td>
+                            </tr>
+                               <tr class="tdclass">
+                                        <td class="style1">
+                            <div class="MenuHeight">
+                                            <Label ID="lnkFinalInspectionWithoutNyuko" runat="server" Class="linkFormat menuSpace">
+                                                 最終検査（登録）入庫機能無し<br /> Final Inspection (Entry)
+                                               </Label>
+                                             </div>
+                                        </td>
+                                    </tr>
+
+
+                            @*  <tr class="tdclass">
+                                        <td class="style2">
+                                            <Label class="linkFormat menuSpace" tabindex="-1" onclick="javascript: ShowUnderDevMessage(); return false;">
+                                                     最終検査（修正）
+                                                    <br />
+                                                    Final Inspection (Edit)</Label>
+                                        </td>
+                                    </tr>*@
+                         
+                            <tr class="tdclass">
+                                <td class="style1">
+                            <div class="MenuHeight">
+                                         
+                                        <Label ID="lnkFinalInspectionDelete" runat="server" Class="linkFormat menuSpace">
+                                            最終検査（削除）入庫機能無し <br />  Final Inspection WithOut Nyuko(Delete)
+                                        </Label>
+                                   </div>
+                                </td>
+                            </tr>
+                            <tr class="tdclass">
+                                <td class="style1">
+                                     <div>
+                                  
+                                        <Label ID="lnkFinalInspectionSpark" runat="server" Class="linkFormat menuSpace">
+                                            最終検査（火花検査のみ）（登録・修正）<br />  Final Inspection(Spark Entry)
+                                        
+                                        </Label>
+                                   </div>
+                                </td>
+                            </tr>
+                          
+                           <tr id="Tr1" runat="server" class="tdclass ">
+                                <td class="style1">
+                                </td>
+                            </tr>
+
+                    <tr class="tdclass ">
+                        <td class="style1">
+                            <div class="MenuHeight">
+                                <Label ID="lnkWIPTensouEntryEditDelete" runat="server"
+                                       Class="linkFormat menuSpace">
+                                    仕掛品（登録・修正・削除） <br />  WIP Transfer(Entry・Edit・Delete)
+                                </Label>
+                            </div>
+                        </td>
+                    </tr>
+
+                   @*  <tr id="Tr1" runat="server" class="tdclass1">
+                        <td class="style1">
+                        </td>
+                    </tr> *@
+                    <tr class="tdclass ">
+                        <td class="style1">
+                            <div class="MenuHeight">
+                                <Label ID="lnkWIPTensouAcceptanceEntryDelete" runat="server"
+                                       Class="linkFormat menuSpace">
+                                    仕掛品転送受入（登録・取消) <br />  WIP Transfer Acceptance (Entry・Edit.Cancel)
+                                </Label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr id="Tr1" runat="server" class="tdclass1">
+                        <td class="style1">
+                        </td>
+                    </tr>
+                          
+
+                        </table>
+                  @*  </td>
+
+
+                </tr>
+            </table>*@
+
+
+             <input type="hidden" id="TxtUnderConstruction" value="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_UnderDevelopment")" name="hdUnderConstruction" />
+
+        </div>
+        </div>
+          <div class="col-4 col-md-4 col-lg-4">
+
+        </div>
+  
+       
+
+
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+ 
+ 

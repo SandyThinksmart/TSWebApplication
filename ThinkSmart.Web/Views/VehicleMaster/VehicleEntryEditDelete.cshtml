@@ -1,0 +1,340 @@
+﻿@using TSWebApplication.Domain.Resources
+@using TSWebApplication.Domain.Model
+@inject LocalizationServices LocalizationServices
+@model List<MakerMaterialDetails>
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_VehicleMaster").Value.Replace("</br>", "");
+    Layout = "~/Views/Shared/_LayoutMainMasterTemplate.cshtml";
+
+}
+<link href="~/css/Common_Styles.css" rel="stylesheet" />
+<link href="~/css/Configuration.css" rel="stylesheet" />
+<link href="~/css/MasterTemplate.css" rel="stylesheet" />
+<link href="~/css/masterStyles.css" rel="stylesheet" />
+<link href="~/css/VehicleEntryEditDelete.css" rel="stylesheet" />
+
+<style>
+    /* Popup container - can be anything you want */
+    .popup {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+        /* The actual popup */
+        .popup .popuptext {
+            visibility: hidden;
+            width: 240px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            /*   border-radius: 6px; */
+            padding: 8px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -80px;
+            border: 1px solid gray;
+        }
+
+            /* Popup arrow */
+            .popup .popuptext::after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                left: 40%;
+                margin-left: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: #555 transparent transparent transparent;
+            }
+
+        /* Toggle this class - hide and show the popup */
+        .popup .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 1s;
+            animation: fadeIn 1s;
+        }
+
+    /* Add animation (fade in the popup) */
+    -webkit-keyframes fadeIn {
+        from
+
+    {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+    }
+
+    keyframes fadeIn {
+        from
+
+    {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+    }
+</style>
+
+
+<div style="Width:100%;overflow:auto">
+    @* id="pnlProductDetails" *@
+
+    <table cellspacing="0" cellspadding="0" width="99.05%" height="250px">
+        @* style="border: inset;" *@
+
+        <tr>
+            <td>
+                <label ID="lblVehicleCode" align="center" class="labelClass1 paddingLeft">
+
+                    @LocalizationServices.GetLocalizedHtmlString("lbl_VehicleOode")
+                </label>
+
+
+            </td>
+            <td>
+                <input type="text" id="txtVehicleCode" class="TextFieldsClass form-control WeightWidth only-number"  autocomplete="off" disabled="disabled">
+
+            </td>
+
+            <td></td>
+        </tr>
+        <tr>
+            <td>
+                <label ID="lblVehicleName"
+                       align="center" class="labelClass1 paddingLeft">@LocalizationServices.GetLocalizedHtmlString("lbl_VehicleName")</label>
+
+
+            </td>
+            <td>
+                <input type="text" id="txtVehicleName" class="TextFieldsClass Mandatory form-control nameWidth" tabindex="1" maxlength="15" autocomplete="off" errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_VehicleName_Required")">
+
+            </td>
+            <td></td>
+            <td>
+                <label ID="lblShortName"
+                       align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_ShortName")</label>
+
+            </td>
+            <td>
+                <input type="text" id="txtShortName" class="TextFieldsClass Mandatory form-control ShortWidth" tabindex="2" maxlength="10" autocomplete="off" errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ShortNameRequired")">
+
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <label ID="lblYobigana"
+                       align="center" class="labelClass1 paddingLeft">@LocalizationServices.GetLocalizedHtmlString("lbl_Yobigana_L")</label>
+
+            </td>
+            <td>
+                <input type="text" id="txtYobigana" class="TextFieldsClass Mandatory form-control nameWidth" maxlength="30" tabindex="3" autocomplete="off" errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_YobiganaRequired")">
+
+            </td>
+            <td></td>
+            <td>
+                <label ID="lblYobina"
+                       align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Yobina")</label>
+
+            </td>
+            <td>
+                <input type="text" id="txtYobina" class="TextFieldsClass Mandatory form-control ShortWidth " maxlength="10" tabindex="4" autocomplete="off" errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_YobinaRequired")">
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label ID="lblDriverName"
+                       align="center" class="labelClass1 paddingLeft">@LocalizationServices.GetLocalizedHtmlString("lbl_DriverName")</label>
+
+            </td>
+            <td>
+                <input type="text" id="txtDriverName" class="TextFieldsClass form-control yobiganaWidth" maxlength="20" tabindex="5" autocomplete="off">
+
+            </td>
+            <td></td>
+            <td>
+                <label ID="lblTelphoneNumber"
+                       align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_TelphoneNumber")</label>
+
+            </td>
+            <td colspan="2">
+                <input type="text" id="txtTelphoneNumber" class="TextFieldsClass form-control telephoneWidth only-number" maxlength="20" tabindex="6" autocomplete="off" 　style="ime-mode: disabled;">
+
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label ID="lblVehicleNumber"
+                       align="center" class="labelClass1 paddingLeft">@LocalizationServices.GetLocalizedHtmlString("lbl_VehicleNumber")</label>
+
+            </td>
+            <td>
+                <input type="text" id="txtVehicleNumber" class="TextFieldsClass Mandatory form-control yobiganaWidth" maxlength="20" tabindex="7" autocomplete="off" errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_VehicleNumber_Required")">
+
+            </td>
+            <td></td>
+            <td>
+                <label ID="lblDisplacement"
+                       align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Displacement")</label>
+
+            </td>
+            <td>
+                <input type="text" id="txtDisplacement" class="TextFieldsClass form-control WeightWidth only-number" maxlength="5" tabindex="8" autocomplete="off" inputmode="numeric">
+
+            </td>
+            @* <td class="empty-col"></td> *@
+            <td>
+                <label ID="lblVhclMaxLoad"
+                       align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_VhclMaxLoad")</label>
+
+            </td>
+            <td>
+                <input type="text" id="txtVhclMaxLoad" class="TextFieldsClass Mandatory form-control ShortWidth only-number " maxlength="6" tabindex="9" autocomplete="off" inputmode="numeric" errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_VhclMaxLoad_Required")">
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label ID="lblVhclTransportCompany"
+                       align="center" class="labelClass1 paddingLeft">@LocalizationServices.GetLocalizedHtmlString("lbl_VhclTransportCompany")</label>
+
+            </td>
+            <td>
+                <input type="text" id="txtVhclTransportCompany" class="TextFieldsClass Mandatory form-control yobiganaWidth" maxlength="20" tabindex="10" autocomplete="off" errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_VhclTransportCompany_Required")">
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label ID="lblRemark"
+                       align="center" class="labelClass1 paddingLeft">@LocalizationServices.GetLocalizedHtmlString("lbl_Remark")</label>
+
+            </td>
+            <td colspan="3">
+                <input type="text" id="txtRemark" class="TextFieldsClass form-control" maxlength="100" tabindex="11" autocomplete="off">
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label ID="lblCreatedDate"
+                       align="center" class="labelClass1 paddingLeft">@LocalizationServices.GetLocalizedHtmlString("lbl_CreatedDate_L")</label>
+
+            </td>
+            <td>
+                <input type="text" id="txtCreatedDate" class="TextFieldsClass form-control ShortWidth" tabindex="2" autocomplete="off" disabled="disabled">
+
+            </td>
+            <td class="empty-col"></td>
+            <td>
+                <label ID="lblUpdatedDate"
+                       align="center" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_UpdatedDate_L")</label>
+
+            </td>
+            @*  <td>
+                <label ID="txtReceiver" class="ReceiverMasterEntryReadOnlyTextBox1 IpWidth" style="Width:149px"></label>
+
+            </td> *@
+            <td>
+                <input type="text" id="txtUpdatedDate" class="TextFieldsClass form-control ShortWidth" tabindex="2" autocomplete="off" disabled="disabled">
+
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+
+<input type="hidden" id="hdfGroupNo" name="hdfGroupNo" />
+<div id="divPageTitleMessages" class="Hidden">
+    <label id="lblTitle_MakerMaterial_001" class="Hidden">
+        <span ID="LiteralMasterMakerMaterialRate">@LocalizationServices.GetLocalizedHtmlString("lbl_VehicleMaster")</span>
+    </label>
+</div>
+<div id="divErrorMessages" class="Hidden">
+    <label id="lblErrorMessageE_vehicle_Entry_001" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+    </label>
+
+</div>
+<div id="divSuccessMessages" class="Hidden">
+    <label id="lblSuccessMessage_VehicleEntry_001" class="Hidden">
+        <span ID="LiteralDataSaved">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataSaved")</span>
+    </label>
+    <label id="lblSuccessMessageS_VehicleUpdateEntry_002" class="Hidden">
+        <span ID="LiteralDataUpdated">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataUpdated")</span>
+    </label>
+    <label id="lblSuccessMessageS_VehicleDelete" class="Hidden">
+        <span ID="LiteralDataDeleted">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataDeleted")</span>
+    </label>
+    <label id="lbl_Inactive" class="Hidden">
+        <span ID="LiteralInactive">@LocalizationServices.GetLocalizedHtmlString("lbl_UnUse1")</span>
+    </label>
+    <label id="lbl_Active" class="Hidden">
+        <span ID="LiteralActive">@LocalizationServices.GetLocalizedHtmlString("lbl_InUse1")</span>
+    </label>
+    <label id="lbl_ConfMsg_COM_MasterEdit" class="Hidden">
+        <span ID="LiteralConfMsg">@LocalizationServices.GetLocalizedHtmlString("confMsg_COM_MasterEdit")</span>
+    </label>
+    <label id="lbl_ConfMsg_COM_MasterDelete" class="Hidden">
+        <span ID="LiteralConfMsg">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ConfirmDelete")</span>
+    </label>
+    <label id="lbl_ConfMsg_COM_DeleteNotAllowedAlreadyInuse" class="Hidden">
+        <span ID="LiteralConfMsg">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_DeleteNotAllowedAlreadyInuse")</span>
+    </label>
+</div>
+@*   <div id="divMaterialProcessing">
+                    @{
+                        @await Html.PartialAsync("MakerMaterialRateList", Model)
+                        ;
+                    }
+        </div> *@
+<div id="SortPopUpModalMain">
+    @{
+        @await Html.PartialAsync("~/Views/Shared/SortPopUp.cshtml")
+        ;
+    }
+</div>
+
+<script>
+     function myFunction() {
+      var popup = document.getElementById("myPopup");
+      popup.classList.toggle("show");
+    }
+</script>
+
+<script src="~/static/js/VehicleEntryEditDelete.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        var vehicleId = '@ViewBag.VehicleId';
+
+        if (vehicleId && vehicleId != '0') {
+            loadVehicleDetails(vehicleId);
+             enableCopyButtons();
+        enableEditButtons();
+        enableDeleteButtons();
+        enableUnUseButtons();
+        disableSaveButtons();
+        enableSelectButtons();
+        }
+    });
+</script>

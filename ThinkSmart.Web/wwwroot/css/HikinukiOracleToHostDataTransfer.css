@@ -1,0 +1,65 @@
+﻿#lblHikinukiDailyReport
+{
+    width:85px;
+   /* white-space:nowrap;*/
+}
+#tblmain{
+    margin-top:5%;
+}
+.Mandatory {
+    background-color: #C1FFFF;
+}
+.labelClass {
+    height: 17px;    
+    font-family: MS Gothic;
+    font-size: 13px;
+}
+#tblButtonList{
+    padding-top:5%;
+    margin-top:10px;
+}
+#tblTransfer {
+    height: 66px;
+    width:115px;
+    padding:5px;
+  
+   
+}
+#lblHostTransfer, #lblReprint_L, #lblCloseWindow {
+    color: white;
+}
+#divTransfer {
+    background-color: #ff0000;
+    height:70px;
+    vertical-align:middle;
+   
+}
+#btnTransfer, #btnReprint, #btnClose {
+    height: 25px;
+    width:80px;
+}
+#tblReprint {
+    height: 66px;
+    width: 115px;
+    padding: 5px;
+}
+#divReprint {
+    background-color: #f79642;
+    height: 70px;
+    vertical-align: middle;
+}
+#tblClose {
+    height: 66px;
+    width: 115px;
+    padding: 5px;
+}
+
+#divClose {
+    background-color: Navy;
+    height: 70px;
+    vertical-align: middle;
+}
+.disabled {
+    background-color: #EEEEEE !important;
+    color: black;
+}

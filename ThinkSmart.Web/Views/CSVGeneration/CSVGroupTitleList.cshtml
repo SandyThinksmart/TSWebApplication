@@ -1,0 +1,57 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<OutputCSVDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_CSV_Output").Value;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/css/CSVGeneration.css" rel="stylesheet" asp-append-version="true" />
+
+<table>
+    <tr>
+        <td align="left" valign="top">
+            <div id="pnlCSVGroupTitle">
+                <div id="divCSVGroupTitleGrid">
+                    @{
+                        @await Html.PartialAsync("CSVGroupTitleGrid", Model)
+                        ;
+                    }
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="right" valign="top">
+            <div id="divClose">
+                <table id="tblClose">
+                    <tr>
+                        <td align="center" valign="bottom">
+                            <label ID="lblCloseWindow" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <input type="button" id="btnClose" class="_functionButtons labelClass" tabindex="12"
+                                   value='@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")' />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+
+</table>
+
+
+
+
+
+<div id="divErrorMessages" class="Hidden">
+    <label id="lblErrorMessageE_CSV_001" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+    </label>
+</div>
+
+<script src="~/Static/js/CSVGroupTitle.js" asp-append-version="true"> </script>

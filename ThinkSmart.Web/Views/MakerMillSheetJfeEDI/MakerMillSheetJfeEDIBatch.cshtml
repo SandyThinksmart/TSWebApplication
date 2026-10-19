@@ -1,0 +1,166 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<OutputCSVDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_MakerMillSheetJfeEDIBatch").Value.Replace("</br>", "");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/css/masterStyles.css" rel="stylesheet" />
+<link href="~/css/MakerMillSheetEDI.css" rel="stylesheet" />
+<link href="~/css/Common_Styles.css" rel="stylesheet" />
+
+
+
+<
+<table id="tblMain" cellpadding="0" cellspacing="0" style="margin-top:20px; width:100%; max-width:100%; /* background-color:#d4d0c8; */ border:2px solid #969696; table-layout:fixed;">
+
+    <tr style="height:110px;border:2px solid #969696;">
+        <td>
+
+            <table cellpadding="0" cellspacing="0" style="/* background-color:#d4d0c8; */ height: 100%;margin-bottom: 22px;margin-left: 2px;">
+                <tr>
+                    <td colspan="6" align="center" valign="middle" class="tdH1" style="padding:3px;">
+                        <span class="labelClass1" style="color:white">
+                            @LocalizationServices.GetLocalizedHtmlString("lbl_MakerMillSheetJfeEDIBatch")
+                        </span>
+                    </td>
+                </tr>
+                               
+                <tr>
+                    <td style="height:45px;min-width:185px;max-width:185px">
+                        <label id="BrowselblTitle" class="labelClass" style="margin-left: 10px;">@LocalizationServices.GetLocalizedHtmlString("lbl_SeibunEDIFile")</label>  @* lbl_SeibunEDIFile *@
+                    </td>
+
+                    <td colspan="4">
+                        <input type="text" ID="selectSeibunCSVFile" class="ProcessEntryReadOnlyTextBox1 " style="width: 300px;" disabled>
+                        <input type="file" id="hiddenSeibunCSVFile" accept=".csv" style="display:none;" />
+                        @* label ID="selectTextFile" class="ProcessEntryReadOnlyTextBox1" style="Width:300px;"></label>  *@
+                    </td>
+                    
+                    <td>
+                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Select")" ID="btnChooseSeibunCSVFile" class="_functionButtons" TabIndex="1"
+                               style="Width:90px;height:22px;margin-left: 5px;" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="height:45px;min-width:185px;max-width:185px">
+                        <label id="BrowselblTitle" class="labelClass" style="margin-left: 10px;">@LocalizationServices.GetLocalizedHtmlString("lbl_OrderEDIFile")</label>  @* lbl_OrderEDIFile *@
+                    </td>
+
+                    <td colspan="4">
+                        <input type="text" ID="selectOrderCSVFile" class="ProcessEntryReadOnlyTextBox1 " style="width: 300px;" disabled>
+                        <input type="file" id="hiddenOrderCSVFile" accept=".csv" style="display:none;" />
+                        @* label ID="selectTextFile" class="ProcessEntryReadOnlyTextBox1" style="Width:300px;"></label>  *@
+                    </td>
+
+                    <td>
+                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Select")" ID="btnChooseOrderCSVFile" class="_functionButtons" TabIndex="2"
+                               style="Width:90px;height:22px;margin-left: 5px;" />
+                    </td>
+                </tr>
+                <tr style="height: 20px;">
+                    <td style="height:20px;min-width:95px;max-width:95px"></td>
+                    <td colspan="5" align="left" style="height:25px;">
+                        <label style="white-space: pre-line;font-size: 12px;">@LocalizationServices.GetLocalizedHtmlString("lbl_JfeEDIFileSelectNote")</label><br />
+                    </td>
+                </tr>
+
+            </table>
+
+        </td>
+    </tr>
+
+    <tr style="height:72px">
+        <td colspan="3"></td>
+
+        <td colspan="3">
+            <table>
+                <tr>
+
+                    <td style="height: 70px;/* border:2px solid #969696; */ width: 148px;">
+
+                        <table cellpadding="0" cellspacing="0" style="background-color:#ff8200; width: 100%; height: 100%;">
+                            <tr>
+                                <td align="center" valign="bottom">
+                                    <label ID="lblImport" class="labelClass" style="color:white">@LocalizationServices.GetLocalizedHtmlString("lbl_EDIImport")</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <input type="button" value='@LocalizationServices.GetLocalizedHtmlString("lbl_Import")' ID="btnImport"
+                                           style="width:90px" class="_functionButtons" TabIndex="3" />
+                                </td>
+                            </tr>
+                        </table>
+
+                    </td>
+
+                    <td style="height:70px; width:148px">
+                        <table bgcolor="Navy" border="0" cellpadding="0" cellspacing="0" frame="border" style=" width: 100%; height: 100%;">
+                            <tr>
+                                <td align="center" valign="bottom">
+                                    <label ID="lblClose" class="labelClass" style="color:white">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnClose" class="_functionButtons" OnClientClick="return Confirmation()" TabIndex="4"
+                                           style="width:90px" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+            </table>
+
+        </td>
+
+    </tr>
+
+</table>
+
+<div id="divSuccessMessages" class="Hidden">
+    <label id="lblSuccessMessageS_Maker_MillSheet_001" class="Hidden">
+        <span ID="Literal1" style="margin-left:5px">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_JFEEDIDataSaved")</span>
+    </label>
+</div>
+<div id="divErrorMessages" class="Hidden">
+    <label id="lblErrorMessageE_Maker_MillSheet_001" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+    </label>
+    <label id="lblErrorMessageE_Maker_MillSheet_002" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_MatlMakerRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_Maker_MillSheet_003" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_SelectFile")</span> 
+    </label>
+    <label id="lblErrorMessageE_Maker_MillSheet_004" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_SelectSeibunCSVFile")</span>
+    </label>
+    <label id="lblErrorMessageE_Maker_MillSheet_005" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_SelectOrderCSVFile")</span>
+    </label>
+    <label id="lblErrorMessageE_Maker_MillSheet_006" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_SelectCorrectSeibunCSVFile")</span>
+    </label>
+    <label id="lblErrorMessageE_Maker_MillSheet_007" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_SelectCorrectOrderCSVFile")</span>
+    </label>
+    <label id="lblErrorMessageE_Maker_MillSheet_008" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_SelectMatchingSeibun&OrderCSVFile")</span>
+    </label>
+    <label id="lblErrorMessageE_Maker_MillSheet_009" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_EmptySeibunCSVFile")</span>
+    </label>
+    <label id="lblErrorMessageE_Maker_MillSheet_010" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_EmptyOrderCSVFile")</span>
+    </label>
+</div>
+<input type="hidden" id="hdfCultureName" value="@ViewBag.CultureName" />
+<script src="~/Static/js/MakerMillSheetJfeEDI.js"></script>
+

@@ -1,0 +1,52 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<ProcessPlanForSalesProductionStatusDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+}
+
+<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/salesproductionstatussearch.css" rel="stylesheet" asp-append-version="true" />
+
+<div>
+    <table>
+        <tr>
+            <td style="vertical-align: top">
+                <div id="DivProcessPlan" class="tab-pane" >
+                    <table class="GridLines" id="tr1ItemGrdvSalesProdStatusProcessPlan">
+                        <thead>
+                            <tr class="GridHeader GridLinesHeaderThinBlack thHeaderClass freez">
+                                <th class="tdCenter">
+                                    <label ID="lblProcess" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_NormalWorkProcess_L")</label>
+                                </th>
+                                <th class="tdCenter">
+                                    <label ID="lblProdPoint" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdPointDetailsT4")</label>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Count > 0)
+                            {
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="GridNormalRow">
+                                        <td class="labelClass GridLeft">@item.PP_PROCESS_NAME</td>
+                                        <td class="labelClass GridLeft">@item.PROCESS_PROD_POINT</td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr class="GridNormalRow">
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </td>           
+        </tr>
+    </table>
+</div>

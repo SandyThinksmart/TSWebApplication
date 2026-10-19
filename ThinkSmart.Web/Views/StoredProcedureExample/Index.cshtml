@@ -1,0 +1,43 @@
+﻿@using TSWebApplication.Domain.Resources;
+@inject LocalizationServices LocalizationServices;
+
+<style type="text/css">
+    #btnSave {
+        position: absolute;
+        top: 10%;
+        transform: translateY(-50%);
+        left:40%;
+    }
+</style>
+<table style="margin-top:3%;">
+    <tr>
+        <td>
+            <div class="class" style="padding-left:20px;">
+                <br />
+                <input type="button" id="btnExport1" class="_functionButtons" value="Example1" style="width:100px;height:50px;" />
+            </div>
+        </td>
+        <td>
+
+            <div class="class" style="padding-left:20px;">
+
+                <br />
+                <input type="button" id="btnExport2" class="_functionButtons" value="Example2" style="width:100px;height:50px;" />
+            </div>
+        </td>
+        <td>
+            <div class="class" style="padding-left:20px;">
+
+                <br />
+                <input type="button" id="btnExport3" class="_functionButtons" value="Example3" style="width:100px;height:50px;" />
+            </div>
+        </td>
+    </tr>
+</table>
+
+
+
+@section Scripts{
+    <script src="~/Static/js/StoredProcedure.js"></script>
+
+  }

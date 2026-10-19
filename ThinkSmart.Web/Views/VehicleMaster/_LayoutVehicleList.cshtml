@@ -1,0 +1,103 @@
+﻿@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/Common.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/Configuration.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/MasterTemplate.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/masterStyles.css" rel="stylesheet" asp-append-version="true" />
+
+
+<form id="frmMasterTemplate" clientidmode="Static" autocomplete="off">
+    <asp:ScriptManager ID="ScriptManager1"></asp:ScriptManager>
+    <div id="divMasterMain" class="MasterMainDiv">
+        <div>
+            <table id="tblMainMenu" cellspacing="2" cellpadding="2">
+                <tr id="mainRow1">
+                    <td align="center" valign="middle" id="tdMasterName" colspan="2">
+
+                        <label ID="lblMasterName" class="labelClass">
+                            @LocalizationServices.GetLocalizedHtmlString("lbl_VehicleList")
+
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                </tr>
+                <tr id="mainRow3">
+                    <td align="left" valign="top">
+                        <table id="tblButtons">
+                            <tr>
+                               @*  <td align="left" valign="top" id="tdbtnInitialize">
+                                    <input type="button" id="btnInitialize" class="_functionButtons"
+                                           value='@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")' onclick="btnInitialize_Click()" />
+                                </td> *@
+                                <td align="left" valign="top" id="tdbtnExtract">
+                                    <input type="button" id="btnExtractGrid" class="_functionButtons"
+                                           value='@LocalizationServices.GetLocalizedHtmlString("lbl_Extract")' onclick="btnExtract_Click()" TabIndex="7" />
+                                    
+                                </td>
+                               @*  <td align="left" valign="top" id="tdbtnRegister">
+                                    <input type="button" id="btnRegister" class="_functionButtons"
+                                           value='@LocalizationServices.GetLocalizedHtmlString("lbl_Register")' onclick="btnRegister_Click()" />
+                                </td> *@
+                                <td align="left" valign="top" id="tdbtnSort">
+                                    <input type="button" id="btnSort" class="_functionButtons"
+                                           value='@LocalizationServices.GetLocalizedHtmlString("btn_Sort")' onclick="btnSort_Click()" TabIndex="8" />
+                                </td>
+                                @* <td align="left" valign="top" id="tdbtnUpdate">
+                                    <input type="button" id="btnUpdate" class="_functionButtons"
+                                           value='@LocalizationServices.GetLocalizedHtmlString("btn_Edit")' onclick="btnUpdate_Click()" />
+                                </td>
+                                <td align="left" valign="top" id="tdbtnDelete">
+                                    <input type="button" id="btnDelete" class="_functionButtons"
+                                           value='@LocalizationServices.GetLocalizedHtmlString("lbl_Delete")' onclick="btnDelete_Click()" />
+                                </td>
+                                <td align="left" valign="top" id="tdbtnUnUse">
+                                    <input type="button" id="btnUnUse" class="_functionButtons"
+                                           value='@LocalizationServices.GetLocalizedHtmlString("lbl_UnUse1")' onclick="btnActiveInactive_Click()" /> 
+                                </td> *@
+                            </tr>
+                        </table>
+                    </td>
+                    <td align="right" valign="top">
+                        <input type="button" id="btnCloseMaster" class="_functionButtons"
+                               value='@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")' onclick="btnCloseMaster_Click()" TabIndex="9" />
+                    </td>
+                </tr>
+                <tr>
+                    <td id="tdMasterBottom">
+                    </td>
+                </tr>
+                @*  <tr>
+                    <td id="tdPMSMasterDetails">
+                        <div id="MasterData">
+                            @RenderSection("cphMasterDetails", required: false)
+                        </div>
+                    </td>
+                </tr> *@
+            </table>
+        </div>
+        <div id="dialog" title="Dialog" class="Hidden">
+            <table>
+                <tr>
+                    <td id="dialogMessageIcon">
+                        <img id="imgWarning" src="~/images/warning.png" style="height: 25px; width: 25px;" alt="" />
+                        <img id="imgError" src="~/images/error.png" style="height: 25px; width: 25px;" alt="" />
+                        <img id="imgSuccess" src="~/images/sucess.png" style="height: 25px; width: 25px;" alt="" />
+                    </td>
+                    <td id="dialogMessageText"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</form>
+@RenderBody()
+@section Scripts {
+    <script src="~/Scripts/CommonScript.js" asp-append-version="true"></script>
+    <script src="~/Scripts/common.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+}

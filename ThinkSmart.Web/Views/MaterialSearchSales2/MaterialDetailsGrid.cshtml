@@ -1,0 +1,141 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+
+}
+<link href="~/css/common_styles.css" rel="stylesheet" />
+<link href="~/css/common.css" rel="stylesheet" />
+
+<div style="overflow: auto; width: 1189px; height: 96px;margin-top:13px;">
+    <table bgcolor="#7291D2" border="0" cellpadding="0" cellspacing="0"  ID="grdvScreen2MaterialDetails">
+
+        <tr id="tr1HdrGrdvMaterialDetails" >
+            <td colspan="13" class="tdH1" align="center" style="padding-top: 2px;">
+                <Label ID="lblMaterialGridHeader" 
+                       CssClass="labelClass1" style="color:white">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialDetails")</Label>
+            </td>
+        </tr>
+        <tr id="tr2HdrGrdvMaterialDetails" class="trTdH2">
+            <th class="tdHeaderClass labelClass GridCenter" colspan="2">
+                <Label ID="lblMatlNameMaker" 
+                       CssClass="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lblMaterialNameMaker(lbl_Internal)")</Label>
+            </th>
+
+            <th class="tdHeaderClass labelClass GridCenter" colspan="2">
+                <Label ID="lblMaterialNameInternal" 
+                       CssClass="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialNameMaker")</Label>
+            </th>
+
+            <th class="tdHeaderClass labelClass GridCenter">
+                <Label ID="lblDimDShape"
+                       CssClass="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD_Shape")</Label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <Label ID="lblLength"
+                       CssClass="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</Label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <Label ID="lblCondition" 
+                       CssClass="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_Condition")</Label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter" colspan="2">
+                <Label ID="lblMochikomisaki" 
+                       CssClass="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_Mochikomisaki")</Label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter" colspan="2">
+                <Label ID="lblFutou"
+                       CssClass="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_Pier_L")</Label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter" colspan="2">
+                <Label ID="lblShousha" 
+                       CssClass="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_Shousha")</Label>
+            </th>
+
+        </tr>
+        <tr id="tr3HdrGrdvMaterialDetails" clientidmode="Static" class="trGrdHeader">
+            <th class="tdHeaderClass labelClass GridCenter">
+                <Label ID="lblKouban" 
+                       CssClass="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_Kouban")</Label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <Label ID="lblPONumber" 
+                       CssClass="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_PONumber")</Label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <Label ID="lblYearRChance" 
+                       CssClass="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_YRC")</Label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <Label ID="lblDeliveryDate" 
+                       CssClass="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_DeliveryDate")</Label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <Label ID="lblMukesaki" 
+                       CssClass="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_Mukesaki")</Label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter" width="90px">
+                <Label ID="lblPOQuantity"
+                       CssClass="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_POWieghtRemainingWight")</Label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <Label ID="lblConfirmedQuantity" 
+                       CssClass="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_ConfirmedQuantity")</Label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <Label ID="lblNyukoQuentity" 
+                       CssClass="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_NyukoQuentity")</Label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <Label ID="lblKoubanRemainingQty" 
+                       CssClass="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_KoubanRemainingQty")</Label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <Label ID="lblWareHouseStock" 
+                       CssClass="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_WareHouseStock")</Label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <Label ID="lblHSKFactoryStock" 
+                       CssClass="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_HSKFactoryStock")</Label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <Label ID="lblTempAllocQty" 
+                       CssClass="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_TempAllocQty")</Label>
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter">
+                <Label ID="lblActAllocQty" 
+                       CssClass="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocWeight")</Label>
+            </th>
+        </tr>
+
+            <tr id="tr1ItmGrdvMaterialDetails" clientidmode="Static" class="ItemGrdvMaterialDetails trGridDetail ">
+                <td colspan="2" class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td colspan="2" class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td  class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td  class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td  class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td colspan="2" class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td colspan="2" class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td colspan="2" class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            </tr>
+            <tr>
+                <td  class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td  class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td  class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td  class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td  class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td  class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td  class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td  class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td  class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td  class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td  class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td  class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            </tr>
+       
+
+
+    </table>
+</div>

@@ -1,0 +1,600 @@
+﻿#grdvHikinukiMachine tr:not(#tr1HdrGrdvHikinukiMachine):not(#tr2HdrGrdvHikinukiMachine):not(#tr3HdrGrdvHikinukiMachine):not(#tr4HdrGrdvHikinukiMachine):not(#tr1ItemGrdvHikinukiMachine):not(#tr2ItemGrdvHikinukiMachine):not(#tr3ItemGrdvHikinukiMachine)
+ {
+     display: none;
+ }
+ 
+#grdvHistory .th
+        {
+            border-width: thin;
+            border-style: solid;
+            text-align: center;
+            height: 15px;
+            border-color: #FF9900;
+            vertical-align: middle;
+        }
+
+/* Styles for Start Data Grid */
+
+#tblProcessStartData
+{
+    table-layout: fixed;
+}
+
+
+
+#tdlblStartDateTime,#lblGridDimD,#lblGridLength,#lblGridWeight4,
+#txtGridTabaNo,#txtGridBendStatus,#lblGridEcDesicision,#lblGridMagnetism,#txtGridShikiiValue,
+#txtGridTabaNo3
+{
+    width: 85px;
+}
+
+#tdlblStartDateTime
+{
+    width: 80px;
+}
+
+
+#tdlblStartDateTimeECEDIT
+{
+    width: 85px;
+}
+#tdtxtStartDateTime
+{
+    width: 190px;
+}
+
+#tdtxtStartDateTimeEC
+{
+    width: 200px;
+}
+
+#tdtxtEndDateTime
+{
+    width: 225px;
+}
+#tdtxtEndDateTimeEcEntry
+{
+    width: 205px;
+}
+#tdtxtAEdgeDistortion3{
+    width:100px;
+}
+#tdtxtNoOfCoils
+{
+    width: 225px;
+}
+
+#tdEmptyRow1Col6,#lblGridBend
+{
+    width: 40px;
+}
+
+#ddl1
+{
+     width: 150px;
+     height:18px
+}
+#td1
+{
+    width:50px;
+}
+#tdEmptyRow1Col12,#txtGridFinishedBars,#txtGridExtSurf,#txtGridEcNgBarTotal
+{
+    width: 45px;
+}
+
+#tdlblStartOperator
+{
+    width: 67px;
+}
+#tdlblStartOperatorECEntry
+{
+    width: 112px;
+}
+#txtGridMsgContent
+{
+    width: 70px;
+}
+
+#tdtxtStartOperator
+{
+    width: 200px;
+}
+#tdtxtStartOperatorEntry
+{
+    width: 174px;
+}
+#txtEndOperator
+{
+    width: 130px;
+}
+
+#txtStartOperator
+{
+    width: 160px;
+}
+#txtInspectionCoilSize, #txtInspectionCoilShape, #txtUpperLowerRollerAngle1, 
+#txtUpperLowerRollerAngle2, #txtCoilQuantity, #txtUpperRoleElevation,
+#txtNoOfCoils, #txtDieDim, #lblShikii, #txtShikii, #txtDrawDim2, 
+#txtCompressionTonnage, #txtIsOK,#lblGridWeight2,#lblGridWeight1,#lblGridTabaNo
+{
+    width: 50px;
+}
+
+#txtDieNo{
+    width: 45px;
+}
+
+#txtDrawDim1
+{
+    width: 150px;    
+}
+
+#tdlblFurnaceNumEntry
+{
+    width: 70px;
+}
+
+
+#tdlblFurnaceNum1
+{
+    width: 33px;
+}
+
+#tdlblFurnaceNumNew
+{
+    width: 35px;
+}
+
+#tdlblFurnaceECEDitDe
+{
+    width: 70px;
+}
+
+#lblActualDim{
+    width:100px;
+}
+
+#txtActAllocLength1,#txtActAllocLength2,#txtActAllocLength3
+{
+    width: 30px;
+}
+
+#txtFurnaceNum
+{
+    width: 72px;
+}
+
+#txtMn
+{
+    width: 20px;
+}
+
+#tdActAllocDim1,#tdActAllocDim2,#tdActAllocDim3,#tdActAllocDim4,#tdActAllocDim5,#tdActAllocDim6,
+#tdActAllocLength1,#tdActAllocLength2,#tdActAllocLength3
+{
+    width: 30px;
+}
+
+#tdtxtC
+{
+    width: 50px;
+}
+
+#txtStartDateTime
+{
+    width: 155px;
+}   
+        
+        
+#tdbtnStartDateTime
+{
+    width: 40px;
+}
+
+#btnStartDateTime
+{
+    width: 40px;
+}
+        
+        #txtHexR
+        {
+             width:50px;
+             
+            }
+            
+               
+                    
+#ddlDieShape
+{
+    width:55px;
+}
+ 
+#tdTPTest
+{
+    text-align: center !important;
+    width: 130px;
+}
+
+#tdTPTest1
+{
+    text-align: right !important;
+    width: 125px;
+}
+#tdtxtFurnaceNum
+{
+    width: 127px;
+}     
+
+#tdtxtFurnaceNumNew
+{
+    width: 80px;
+} 
+
+#ddlTPTest
+{
+    width: 70px;
+}              
+                       
+    #lblDrawDim,#lblUpperRoleElevation
+        {
+       width:80px;
+        }
+                            
+#txtMetallicLabelNo
+{
+     width: 110px;
+}
+   
+  #txtC
+         {
+            width:25px;
+            }
+  #lblMn{
+      float: right;
+  }
+                                        
+                                        
+      #lblCompressionTonnage
+            {width:65px;
+            }
+             #lblTPTest0
+          {
+            text-align:right;
+           }
+           
+#lblGridCustomerName
+{
+    width: 59px;
+}
+#lblGridChubanNo,#lblGridSpecification
+{
+    width: 67px;
+}
+#lblGridExtText
+{
+    width: 38px;
+}
+#txtGridDecisionColor
+{
+    width: 5px;
+}
+#txtGridCustomerName
+{
+    width: 73px;
+}
+#txtGridChuban
+{
+    width: 83px;
+}
+#txtGridMagnetism
+{
+    width: 75px;
+}
+#btnStartDateTime,#btnEndDateTime
+{
+    width: 45px;
+}
+#txtActualDim1,#txtActualDim2,#txtActualLength4,#txtActualLength2,#txtActualLength3
+{
+    width: 60px;
+}
+#txtGridMetallicPlateCode
+{
+    width: 97px;
+}
+#txtGridNoOfCoils
+{
+    width: 39px;
+}
+#txtGridQuantity,#lblGridNgBars
+{
+    width: 38px;
+}
+#txtActAllocDim1,#txtActAllocDim2,#txtActAllocDim3,#txtActAllocDim4,#txtActAllocDim5,#txtActAllocDim6
+{
+    width: 25px;
+}
+#txtGridFinishedQty
+{
+    width: 47px;
+}
+#txtGridProdNameCust
+{
+   width: 63px;
+}
+
+#lblGridMetallicLabelNo,#lblGridMetallicCharge,#lblGridMetallicCharge
+{
+   width: 79px;
+}
+#lblGridWeight,#tdGridMetallicDim,#tdGridMaterialDimD
+{
+   width: 32px;
+}
+#lblGridInzu
+{
+   width: 31px;
+}
+#lblGridDimD1,#lblGridDimD2,#lblGridDimD3,#lblGridDimD4,#lblGridDimD5,#lblGridDimD6,#lblGrig4,#lblGrig5,#lblGrig6
+
+{
+   width: 20px; 
+} 
+#lblGridWeight3,#lblGridQty
+{
+   width: 35px; 
+}
+#lblGridShikki
+{
+   width: 48px;
+}
+#txtGridSpecification
+{
+   width: 82px;
+}
+#txtGridCharge
+{
+   width: 92px;
+}
+#tdGridDimDLength
+{
+	 width: 65px;
+}
+#tdGridDimDDie
+{
+	 width: 65px;
+}
+
+#ddlDecision
+{
+    width: 85px;
+}
+
+#ddlNextProcess
+{
+    width: 98px;
+    height:23px
+}
+
+#dialogMessageIcon{
+    width: 45px;
+}
+#dialogMessageText{
+    width: 480px;
+}
+
+#grdvMessage .GridNormalRow
+{
+    background-color: #E0E0F8;
+}
+
+/*****************************************************************************/
+/* IE Specific CSS */
+         
+/* IE9 and Lower CSS styles go here */
+.ie #txtShikii
+{
+    margin-left: 4px;
+    width: 46px;
+}
+    
+.ie #txtFurnaceNum
+{
+    width: 72px;
+}
+    
+.ie #txtMn
+{
+    width: 20px;
+}
+
+.DropdownListClass 
+{
+ border-style:inset;  
+ font-family:MS Gothic;
+ height:23px; 
+ color:black;     
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+/* IE10+ CSS styles go here */
+    #txtShikii
+    {
+        margin-left: 4px;
+        width: 46px;
+    }
+    
+    #txtFurnaceNum
+    {
+        width: 72px;
+    }
+    
+    #txtMn
+    {
+        width: 20px;
+    }
+    
+    
+}
+
+/* End of IE Specific CSS */
+/*****************************************************************************/
+
+.Mandatory 
+{
+    background-color: #C1FFFF;    
+}
+
+.Hidden
+{
+    display: none;
+}
+
+
+/** Jquery Override CSS */
+
+.ui-widget-header {
+    background: #225AD9;
+    border-style: none;
+    height: 5px;
+}
+
+.ui-dialog-title {
+    display: none;
+}
+
+.ui-dialog-titlebar-close {
+    display: none;
+}
+
+.ui-dialog{
+    border-style: solid;
+    border-color: #225AD9;
+    border-width: 2px;
+    border-radius: 0px;
+    background-color: white;
+}
+.ui-dialog div, .ui-dialog button {
+    border-radius: 0px;
+}
+
+.ui-dialog-buttonpane {
+    border: none;
+    text-align: center !important;
+}
+.ui-dialog-buttonset{
+    float: none !important;
+}
+.ui-button{
+    Height: 25px;
+    border: 1px inset Silver;
+    font-size: 12px;
+    width: 80px;
+}
+.ui-button-text{
+    padding:0 !important;
+    color: black;
+    font-size: 12px;
+}
+.ui-state-hover{
+    border: 1px solid #ccc;
+    background: #f6f6f6 url(images/ui-bg_glass_100_f6f6f6_1x400.png) 50% 50% repeat-x;
+    font-weight: bold;
+    color: #1c94c4;
+}
+.ui-dialog-content.ui-widget-content{
+    font-family: MS Gothic;
+    font-weight: 400;
+    font-size: 13px;
+    background-color: white;
+}
+.ui-dialog .ui-dialog-buttonpane{
+    padding:0;
+}
+.ui-dialog-buttonpane{
+    background-color: white;
+}
+.ui-widget-content {
+    background: white;
+    color: #333;
+}
+
+/*Added by Sagar b content 21/8/2017*/
+#GridNGDetails
+{
+    width: 950px;
+}
+
+ #GridFurnaceNum
+{
+    width: 142px;
+}
+
+ #GridDecision
+{
+    width: 75px;
+}
+
+  #ddlNGReason1, #ddlNGReason2, #ddlNGReason3{
+     width: 160px;
+ }
+
+#tdDdlNGReason1, #tdDdlNGReason2, #tdDdlNGReason3{
+     width: 160px;
+ }
+
+#ddlNGReason5,#ddlNGReason6{
+     width: 80px;
+     height:24px
+ }
+
+#tdddlNGReason5,#tdddlNGReason6{
+     width: 80px;
+ }
+#tdDdlDecision
+{
+    width:120px;
+}
+
+#ddlR
+{
+    width:40px;
+    height:18px;
+}
+
+#tblProcessStartData{
+    width:115px;
+    height:18px;
+}
+/* Bottom Styles*/
+#tblProcessBottomData
+{
+    table-layout: fixed;
+}
+#tdddlddlDim
+{
+    width:100px;
+    height:20px;
+}
+.freez > th {
+    position: sticky !important;
+    background-color: #7291D2;
+    border-color: white;
+    top: 0.2px;
+    height: 20px;
+    box-shadow: 0 0 0px 0.5px White;
+}
+.headerPadding {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+.tableWidth
+{
+    min-width:1801px;
+}
+#tblSearchGridTbl
+{
+    width:1200px;
+}

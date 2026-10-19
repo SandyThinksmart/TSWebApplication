@@ -44,7 +44,7 @@ namespace TSWebApplication.Infrastructure.IRepositories
         bool IsMillSheetFileNameAlreadyExist(MakerMillSheetDetails request);
         bool IsMillSheetMultipleRecordsExist(MakerMillSheetDetails request);
         bool IsEDIAllDataValid(int runCD);
-        public void SaveHSKMillSheetDetails(HSKMillSheetDetails request);
+       
 
     }
 }

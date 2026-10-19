@@ -1,5 +1,5 @@
-/ThinkSmart.API/bin/
-/ThinkSmart.API/obj/
+/ThinkSmart.API/TSWebApplication.API/bin/
+/ThinkSmart.API/TSWebApplication.API/obj/
 /ThinkSmart.API.csproj.user
 /ThinkSmart.Web/bin/
 /ThinkSmart.Web/obj/
@@ -12,4 +12,6 @@
 /ThinkSmart.Infrastructure/bin/
 /ThinkSmart.Infrastructure/obj/
 .github/
+**/bin/
+**/obj/
 .vs/

@@ -1,0 +1,32 @@
+﻿.GridPOQuantity {
+    width: 75px;
+}
+
+.GridConfirmedQuantity {
+    width: 75px;
+}
+
+.GridNyukoQuantity {
+    width: 75px;
+}
+
+.GridKoubanRemainingQuantity {
+    width: 75px;
+}
+
+.GridOrgDate {
+    width: 75px;
+}
+
+.GridMandatoryTextBoxtd /* editable field White background */ {
+    background-color: #C1FFFF !important;
+}
+
+._functionButtons {
+    background-color: ButtonFace;
+    Height: 25px;
+    border: 1px inset Silver;
+    font-size: 12px;
+    font-family: MS Gothic;
+    width: 80px;
+}

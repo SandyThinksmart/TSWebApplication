@@ -1,0 +1,10 @@
+﻿Prod Type,ProdName,Dia,Shp,Width,Other,Len,Magari・Bend,Condition,3M(ActualShukka),4M(ActualShukka),5M(ActualShukka),Avg,5R(Estimated Amount),6R(Estimated Amount),7R(Estimated Amount),8R(Estimated Amount),ProdSpecNo,Raw Matl.,Internal,DimTol,LenTol,OrNo Rem Stock,Prod Stock,Message,Reviewed,Material Reply,Maker
+1,S45C,33,R,,,,2,DB,,,,0,30,20,10,30,ｼﾞ-554,S45C-A,SCR415,"33 "," ",,,,,po done,Ｊ条
+,,,,,,,,,,,,0,,,,,,,," "," ",,,,6/4/2025 12:00:00 AM,,
+1,S45C,17.3,R,,,,2,,,,,0,90,4,5,9,ｵｶﾍ-500,S45C-A,SCR415,"17.3 "," ",,,,,,
+,,,,,,,,,,,,0,12,465,90,,,,," "," ",,,,6/4/2025 12:00:00 AM,RMK,
+1,S45C,33,R,,,,2,DB,10,20,30,20,30,20,10,30,ｼﾞ-554,S45C-A,SCR415,"33 "," ",,,,,,Ｊ条
+1,S45C,33,R,,,,2,DB,20,30,40,30,10,299,301,30,ｼﾞ-554,S45C-A,SCR415,"33 "," ",,,,,,Ｊ条
+,,,,,,,,,,,,0,,,,,,,," "," ",,,,6/4/2025 12:00:00 AM,,
+1,S45C,33,R,,,,2,DB,20,30,40,30,20,30,40,50,ｼﾞ-554,S45C-A,SCR415,"33 "," ",,,,,,Ｊ条
+1,S45C,33,R,,,,2,DB,20,30,40,30,20,30,40,50,ｼﾞ-554,S45C-A,SCR415,"33 "," ",,,,,,Ｊ条

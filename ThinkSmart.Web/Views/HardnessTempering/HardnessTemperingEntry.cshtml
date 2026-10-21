@@ -1,0 +1,891 @@
+﻿@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_TemperingEntry").Value.Replace("</br>", "");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int unitType = ViewBag.UnitType;
+
+}
+<style>
+    .th {
+        text-align: center;
+    }
+
+    .btnSize {
+        width: 100px;
+    }
+
+    table {
+        cellspacing: 0;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .borderStyle {
+        border: 1px solid black;
+        height: 25px;
+    }
+
+    .divColor {
+        background-color: #cde4eb;
+        text-align: center;
+    }
+
+    .smallBox {
+        width: 75.2px;
+    }
+
+</style>
+
+<link href="~/css/Common.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/HardnessTempering.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/masterStyles.css" rel="stylesheet" asp-append-version="true" />
+
+<input type="hidden" id="hdfScreenName" value="Hardness_Templering_ Entry" />
+
+<asp:ScriptManager ID="ScriptManager1"></asp:ScriptManager>
+
+<table style="width: 100%; height: 100%; margin-top:16px;" cellpadding="0" cellspacing="0">
+    <tr>
+        <td style="width: 265px;">
+            <div id="DivInit">
+                <table style="height: 78px; border-radius: 4px; width: 100%; background-color: #C00000;">
+                    <tr>
+                        <td colspan="5" align="center" valign="bottom">
+                            <label ID="lblBasicOperations" class="labelClass" style="color:white;">@LocalizationServices.GetLocalizedHtmlString("lbl_BasicOperations")</label>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="btnSize" style="padding-left: 4px">
+                            <input type="button" id="btnInitialize" tabindex="68" class="_functionButtons" value='@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")' />
+                        </td>
+
+                        <td class="btnSize">
+                            <input type="button" id="btnSaveTemp" disabled="disabled" class="_functionButtons" value="@LocalizationServices.GetLocalizedHtmlString("btn_Temp_Save")" tabindex="69" />
+                        </td>
+
+                        <td class="btnSize">
+                            <input type="button" id="btnSave" disabled="disabled" class="_functionButtons" value="@LocalizationServices.GetLocalizedHtmlString("btn_Final_Save")" tabindex="70" />
+                        </td>
+
+                    </tr>
+                </table>
+
+            </div>
+        </td>
+
+
+        <td style="width: 1060px;">
+            <div id="divRowOperation" visible="True">
+                <table class="tblRowOperation">
+                    <tr>
+                        <td colspan="5">
+                            <label ID="lblRowOperation" class="labelClass" ForeColor="Black"
+                                   Style="height: 100%; font-size: 28px; margin-top: 30px;">@LocalizationServices.GetLocalizedHtmlString("lbl_Hardness_TemperingCoil")</label>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </td>
+
+        <td align="left">
+            <div id="DivCloseButton" style="height:80px;width:93px;">
+
+                <table style="width:100%;">
+                    <tr>
+                        <td style="height:40px;">
+
+                            <label ID="lblClose" class="labelClass" style="color:white;">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnClose" class="_functionButtons"
+                                   OnClientClick="return Confirmation()"
+                                   TabIndex="71" CausesValidation="false" />
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+
+
+
+<div id="R1Data">
+    
+    
+    <table>
+        <tr>
+            <td class="text-center borderStyle divColor">
+                <input type="radio" name="rdSection" value="R1" id="rdoButton1" checked="checked" />
+            </td>
+            <td>
+                <table>
+                    <tr id="headerRow" class="" style="text-align:center; background-color:#ebf1de">
+                        <th class=" borderStyle" style="width:360px"> <label id="lblPrcoessPlan1" style="font-weight:normal">@LocalizationServices.GetLocalizedHtmlString("lbl_PrcoessPlan")</label></th>
+                        <th class=" borderStyle" style="width:279px"><label id="lbltemperaturesetting2" style="font-weight:normal">@LocalizationServices.GetLocalizedHtmlString("lbl_LiquidTemperature")</label>	</th>
+                        <th class=" borderStyle" style="width:200px" align="right">
+                            <table width="100%">
+                                <tr>
+                                    <td align="center" valign="middle">
+                                        <label id="lblnew1" style="font-weight:normal">@LocalizationServices.GetLocalizedHtmlString("lbl_QuenchingSetting")</label>
+                            </td>
+                                    <td align="right" valign="middle">
+                                        <label id="lblnew2" style="margin-right:3px;font-weight:normal;width:77px;">@LocalizationServices.GetLocalizedHtmlString("lbl_MachineNo")</label>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                        </th>
+                        <th class=" borderStyle" style="width:176px">
+                            @* <select ID="ddlMachineNumber1_1" runat="server" class="MandatoryText1 form-control" tabindex="18"
+                                    style="padding-bottom:2px;font-family:'MS Gothic'; Height:25px; Width:173px; border-style:none;font-size:small;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_QuenchingMachineRequired")">
+                                <option value="" selected></option>
+                              
+                            </select> *@
+                            <input type="text" ID="txtHardnessMachine1" class="MandatoryText1" style="text-transform:uppercase;border-style:none;width:100%;"
+                                   TabIndex="18" MaxLength="7" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_QuenchingMachineRequired")">
+                            <input type="hidden" id="hdfHardnessMachine1" />
+                        </th>
+                        <th class=" borderStyle" style="width:200px" align="right">
+                            <table width="100%">
+                                <tr>
+                                    <td align="center" valign="middle">
+                            <label id="lblnew3" style="font-weight:normal">@LocalizationServices.GetLocalizedHtmlString("lbl_TemperingSetting")</label>
+                            </td>
+                                    <td align="right" valign="middle">
+                            <label id="lblnew4" style="margin-right:3px;font-weight:normal;width:77px;">@LocalizationServices.GetLocalizedHtmlString("lbl_MachineNo")</label>
+                            </td>
+                            </tr>
+                            </table>
+                        </th>
+                        <th class=" borderStyle" style="width:176px">
+                            @* <select ID="ddlMachineNumber1_2" runat="server" class="MandatoryText1 form-control" tabindex="26"
+                                    style="padding-bottom:2px;font-family:'MS Gothic'; Height:25px; Width:173px;border-style:none;font-size:small;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TemperingMachineRequired")">
+                                <option value="" selected></option>
+                              
+                            </select> *@
+                            <input type="text" ID="txtTemperingMachine1" class="MandatoryText1" style="text-transform:uppercase;border-style:none;width:100%"
+                                   TabIndex="26" MaxLength="7" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TemperingMachineRequired")">
+                            <input type="hidden" id="hdfTemperingMachine1" />
+                        </th>
+                    </tr>
+                </table>
+
+                <table>
+
+                    <tr id="dataRow1" class="">
+                        <td class="borderStyle divColor" colspan="3" style="width:90px; text-align:left !important;"><label id="lblFurnaceNum1" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</label></td>
+                        <td class="borderStyle" colspan="4" style="text-align:left; background-color:#C1FFFF">
+
+                            <input type="text" id="txtFuranceNum1" tabindex="1" maxlength="10" class="MandatoryText1 UpperCase" style="width:150px;border-style:none" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_FurnaceNumRequired")" />
+                         
+                        </td>
+                        <td class="borderStyle" colspan="3">
+                            <table style="width:100%">
+                                <tr>
+
+                                    <td align="left" valign="middle">
+                                        <label ID="lblThabaNo1" align="left" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_bundleno")</label>
+                                    </td>
+                                    <td align="left" valign="top">
+                                        <input type="text" ID="txtThaba1" class="IsNumber TextFieldsClass form-control heightTextBox" style="width:43px"
+                                               onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                                               MaxLength="3" TabIndex="2">
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="borderStyle" colspan="2" style="width:60px"></td>
+                        <td class="borderStyle divColor" colspan="2" style="width:60px;text-align:center"><label id="labelnew2" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceTemperature")</label></td>
+                        <td class="borderStyle" colspan="4" style="width:120px; text-align:left;background-color:#C1FFFF;"><input type="text" tabindex="9" id="txtTemprature1" maxlength="3" class="MandatoryText1" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" style="width:115px;text-align:right;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TemperatureRequired")" /></td>
+                        <td class="borderStyle" style="width:30px" align="center"><label id="lblNewC2" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("℃")</label></td>
+                        <td class="borderStyle divColor" colspan="4" style="width:140px; text-align:left !important"><label id="lblOperatornew1" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_Operator")</label></td>
+                        <td class="borderStyle" colspan="6" style="background-color:#C1FFFF; width:220px">
+
+                           @*  <div id="divQuenchOpertor">
+
+                                @{
+                                    var tupleObject = Tuple.Create("txtInputSearch1", "btnYobinaStartOpeartorSearch1", "ddlHardnessOperator1", "valMsg_QuenchingOperatorRequired", 19);
+                                    @Html.Partial("~/Views/SearchComboEmployee/SearchComboEmployee.cshtml", tupleObject)
+
+                                }
+                            </div> *@
+                            <input type="text" ID="txtHardnessOperator1" class="MandatoryText1" style="border-style:none;width:100%"
+                                   TabIndex="19" MaxLength="20" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_QuenchingOperatorRequired")">
+                            <input type="hidden" id="hdfldHardnessOperator1" />
+                        </td>
+                        <td class="borderStyle divColor" colspan="4" style="width:140px; text-align:left !important"><label id="lblOperatornew2" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_Operator")</label></td>
+                        <td class="borderStyle" colspan="6" style="background-color:#C1FFFF; width:220px">
+                           @*  <div id="divQuenchOpertor">
+
+                                @{
+                                    var tupleObject1 = Tuple.Create("txtInputSearch2", "btnYobinaStartOpeartorSearch2", "ddlTemperingOperator1", "valMsg_TemperingOperatorRequired", 27);
+                                    @Html.Partial("~/Views/SearchComboEmployee/SearchComboEmployee.cshtml", tupleObject1)
+
+                                }
+                            </div> *@
+                            <input type="text" ID="txtTemperingOperator1" class="MandatoryText1" style="border-style:none;width:100%"
+                                   TabIndex="27" MaxLength="20" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TemperingOperatorRequired")">
+                            <input type="hidden" id="hdfldTemperingOperator1" />
+                        </td>
+                    </tr>
+
+                    <tr id="dataRow2" class="">
+                        <td class="borderStyle divColor" colspan="3" style="width:90px; text-align:left !important;"><label id="lblChuuban1" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</label></td>
+                        <td colspan="3" style="width:145px; background-color:#C1FFFF">
+                            <input type="hidden" id="hdfldProcessPlanCD1" />
+                            <input type="hidden" id="hdfldHardeningCD1" />
+                            
+                            <input type="text" id="txtChuubanNum1" tabindex="2" maxlength="10" class="MandatoryText1" style="width:142px;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ChubanRequired")" />
+                        </td>
+                        <td> <label id="lbldash1" style="background-color:white;vertical-align:middle;font-size:large"> - </label></td>
+                        <td style="background-color:#C1FFFF">
+                            <input type="text" id="txtgyoubanNum1" tabindex="3" maxlength="2" class="MandatoryText1" style="width:40px;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_GyoubanRequired")" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                        </td>
+                        <td class="borderStyle" colspan="2" style="width:70px">
+                            <input id="btn_extract1" tabindex="4" style="width: 67px; height: 25px" type="button" class="_functionButtons"
+                                   value='@LocalizationServices.GetLocalizedHtmlString("lbl_Extract")' />
+                        </td>
+                        <td class="borderStyle" colspan="2" style="text-align:center; background-color:#C1FFFF">
+                            <select ID="ddltempType1" runat="server" class=" form-control MandatoryText1" tabindex="8"
+                                    style=" padding-bottom:2px;font-family:'MS Gothic'; Height:25px; Width:57px; border-style:none;font-size:small;border-style:none;color:black">
+                                
+                               
+                                
+                            </select>
+                        </td>
+                        <td class="borderStyle divColor" colspan="2" style="width:60px;text-align:center"><label id="labelnew3" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceConcentration")</label></td>
+                        <td class="borderStyle" colspan="4" style="text-align:left"><input type="text" tabindex="10" id="txtConcentration1" class="TextBoxhard1" style="width:115px;text-align:right;" maxlength="3" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" /></td>
+                        <td class="borderStyle" align="center">
+                            <label id="lblPercentageSymbol1">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label>
+                        </td>
+                        <td class="borderStyle divColor" colspan="4" style="width:120px; text-align:left !important"><label id="labelnew36" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceInOutDateTime")</label></td>
+                        <td class="borderStyle divColor" colspan="3" style="text-align:center; background-color:#C1FFFF"><input type="text" id="txtHardeningFuranceInDate1" tabindex="22" class="MandatoryText1" style="width:115px;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_QuenchingDateTimeInRequired")" /></td>
+                        <td class="borderStyle divColor" colspan="3" style="text-align:center; background-color:#C1FFFF"><input type="text" id="txtHardeningFuranceOutDate1" tabindex="23" class="MandatoryText1" style="width:115px;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_QuenchingDateTimeOutRequired")" /></td>
+                        <td class="borderStyle divColor" colspan="4" style="width:120px; text-align:left !important"><label id="labelnew37" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceInOutDateTime")</label></td>
+                        <td class="borderStyle divColor" colspan="3" style="text-align:center; background-color:#C1FFFF"><input type="text" id="txtTemperingFuranceInDate1" tabindex="30" class="MandatoryText1" style="width:115px;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TemperingDateTimeInRequired")" /></td>
+                        <td class="borderStyle divColor" colspan="3" style="text-align:center; background-color:#C1FFFF"><input type="text" id="txtTemperingFuranceOutDate1" tabindex="31" class="MandatoryText1" style="width:115px;"  errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TemperingDateTimeOutRequired")"/></td>
+                    </tr>
+
+                    <tr id="dataRow3" class="">
+                        <td class="borderStyle divColor" colspan="3" style="width:90px; text-align:left !important;"><label id="lblCustomer1" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</label></td>
+                        <td class="borderStyle disabled" colspan="7" style="width:270px"><input type="text" id="txtcustomer1" class="TextBoxhard1 disabled" style="width:266px;" disabled="disabled"/></td>
+                        <td class="borderStyle" colspan="2"></td>
+                        <td class="borderStyle divColor" colspan="2" style="width:60px;text-align:center"><label id="labelnew4" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceFrequncy")</label></td>
+                        <td class="borderStyle" colspan="4" style="text-align:left"><input type="text" id="txtfrequency1" tabindex="11" class="TextBoxhard1" style="width:115px;text-align:right;" maxlength="5" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" /></td>
+                        <td class="borderStyle" align="center">
+                            <label id="label38">@LocalizationServices.GetLocalizedHtmlString("Hz")</label>
+                        </td>
+                        <td class="borderStyle divColor" colspan="4" style="width:120px; text-align:left !important"><label id="labelnew5" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_TemperatureIntoTime")</label></td>
+                        <td class="borderStyle" colspan="3" style="text-align:left; background-color:#C1FFFF"><input type="text" id="txtTemperatureHardening1" tabindex="24" class="MandatoryText1" maxlength="4" style="width:91px;text-align:right;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_QuenchingTemperatureRequired")" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" /><label id="labelnew6">@LocalizationServices.GetLocalizedHtmlString("℃")</label></td>
+                        <td class="borderStyle" colspan="3" style="text-align:left; background-color:#C1FFFF"><input type="text" id="txtTimeHardening1" tabindex="25" class="MandatoryText1" maxlength="4" style="width:91px;text-align:right;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_QuenchingMinuteRequired")" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" /><label id="labelnew7">@LocalizationServices.GetLocalizedHtmlString("lbl_Minute")</label></td>
+                        <td class="borderStyle divColor" colspan="4" style="width:120px; text-align:left !important"><label id="label8" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_TemperatureIntoTime")</label></td>
+                        <td class="borderStyle" colspan="3" style="text-align:left; background-color:#C1FFFF"><input type="text" id="txtTemperatureTempering1" tabindex="32" class="MandatoryText1" maxlength="4" style="width:91px;text-align:right;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TemperingTemperatureRequired")" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"/><label id="labelnew9">@LocalizationServices.GetLocalizedHtmlString("℃")</label></td>
+                        <td class="borderStyle" colspan="3" style="text-align:left; background-color:#C1FFFF"><input type="text" id="txtTimeTempering1" tabindex="33" class="MandatoryText1" maxlength="4" style="width:91px;text-align:right;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TemperingMinuteRequired")" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" /><label id="labelnew10">@LocalizationServices.GetLocalizedHtmlString("lbl_Minute")</label></td>
+                    </tr>
+
+                    <tr id="dataRow4" class="" style="text-align:center">
+                        <td class="borderStyle divColor" colspan="3" style="width:90px; text-align:left !important;"><label id="lblProdNameCust1" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</label></td>
+                        <td class="borderStyle disabled" colspan="7" style="width:270px"><input type="text" disabled="disabled" id="txtProdName1" class="TextBoxhard1 disabled" style="width:266px;" /></td>
+                        <td class="borderStyle" colspan="4">
+                            <table style="border:hidden; height:108%">
+                                <tr>
+                                <td style="width:20px" class="divColor"><label id="lblUnitType3OF3_1">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitType3OF3")</label></td>
+                                    <td style="width:38px" class="borderStyle" align="right"><input type="text" class="TextBoxhard1" tabindex="12" maxlength="3" id="txtC_FURNACE1" style="width:28px;text-align:right;" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" /><label id="lblPercentageSymbol_1">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label></td>
+                                <td style="width:29px" class="divColor"><label id="lblManganese">@LocalizationServices.GetLocalizedHtmlString("lbl_Manganese")</label></td>
+                                    <td style="width:39px; border-left: solid 1px" align="right"><input type="text" class="TextBoxhard1" tabindex="13" maxlength="3" id="txtMN_FURNACE1" style="width:29px;text-align:right;" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" /><label id="lblPercentageSymbol1_2">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="borderStyle " colspan="5">
+                            <table style="border:hidden; height:108%">
+                                <tr>
+                                <td style="width:34px" class="divColor borderStyle"><label id="labelnew12">@LocalizationServices.GetLocalizedHtmlString("Cr")</label></td>
+                                    <td style="width:39px" align="right"><input type="text" class="TextBoxhard1" tabindex="14" style="width:28px;text-align:right;" maxlength="3" id="txtCR_FURNACE1" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" /><label id="lblPercentageSymbol3_4">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label></td>
+                                    <td style="width:34px" class="divColor borderStyle"><label id="labelnew11">@LocalizationServices.GetLocalizedHtmlString("Mo")</label></td>
+                                    <td style="width:39px" align="right"><input type="text" class="TextBoxhard1" tabindex="15" style="width:28px;text-align:right;" maxlength="3" id="txtMO_FURNACE1" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" /><label id="lblPercentageSymbol2_3">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label></td>
+                                </tr>
+                            </table>
+                        </td>
+
+                        <td class="borderStyle" colspan="10" style="background-color:#ebf1de"><label id="labelnew13">@LocalizationServices.GetLocalizedHtmlString("lbl_HRCHardness")</label></td>
+                        <td class="borderStyle" colspan="10" style="background-color:#ebf1de"><label id="labelnew14">@LocalizationServices.GetLocalizedHtmlString("lbl_HRCHardness")</label></td>
+                    </tr>
+
+                </table>
+
+                <table style="border-top:hidden; border-bottom:hidden">
+                    <tr id="dataRow5" class="">
+                        <td class="borderStyle divColor" colspan="3" style="width:90px; text-align:left !important;"><label id="lblCharge_1" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</label></td>
+                        <td class="borderStyle disabled" colspan="7" style="width:270px"><input type="text" id="txtCharge1" class="TextBoxhard1 disabled" style="width:266px;" disabled="disabled" /></td>
+                        <td class="borderStyle divColor" colspan="4" style="width:120px; text-align:left !important"><label id="labelnew15" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessSpecified")</label></td>
+                        <td class="borderStyle disabled" colspan="6" style="width:159px; text-align:center">
+                            <input type="text" id="txtRange1_1" class="TextBoxhard1 disabled" style="width:58px;border-style:none;text-align:right" disabled="disabled"/>
+                            <label id="lblSymbolRange5_1" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_SymbolRange")</label>
+                            <input type="text" id="txtRange1_2" class="TextBoxhard1 disabled" style="width:58px;border-style:none;text-align:right" disabled="disabled" />
+                        </td>
+                        <td class="borderStyle smallBox divColor" colspan="2"></td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew16">@LocalizationServices.GetLocalizedHtmlString("①")</label>	</td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew17">@LocalizationServices.GetLocalizedHtmlString("②")</label>	</td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew18">@LocalizationServices.GetLocalizedHtmlString("③")</label>	</td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew19">@LocalizationServices.GetLocalizedHtmlString("lbl_Center")</label></td>
+                        <td class="borderStyle smallBox divColor" colspan="2"></td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew20">@LocalizationServices.GetLocalizedHtmlString("①")</label>	</td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew21">@LocalizationServices.GetLocalizedHtmlString("②")</label>	</td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew22">@LocalizationServices.GetLocalizedHtmlString("③")</label>	</td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew23">@LocalizationServices.GetLocalizedHtmlString("lbl_Center")</label></td>
+                    </tr>
+                </table>
+
+                <table>
+
+                    <tr id="dataRow6" class="">
+                        <td class="borderStyle divColor" colspan="6" style="width:200px; text-align:left !important;"><label id="labelnew24" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlDimProdDim")</label>	</td>
+                        <td class="borderStyle disabled" colspan="2" style="width:80px"><input type="text" id="txtMaterialDim1" class="TextBoxhard1 disabled" style="width:75px;text-align:right;" disabled="disabled"/></td>
+                        <td class="borderStyle disabled" colspan="2" style="width:80px"><input type="text" id="txtProductDim1" class="TextBoxhard1 disabled" style="width:75px;text-align:right;" disabled="disabled" /></td>
+                        <td class="borderStyle divColor" colspan="4" style="width:120px; text-align:left"><label id="labelnew25" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessTarget")</label>	</td>
+                        <td class="borderStyle" colspan="6" style="width:150px; text-align:center">
+                            <table style="border:hidden; height:108%">
+                                <tr>
+                                    <td style="background-color:#C1FFFF; width:67px"><input type="text" tabindex="16" id="txtHardnessMin1" maxlength="4" class="MandatoryText1" style="width:67px;text-align:right;" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TargetHardnessStartRequired")"/></td>
+                                    <td class="borderStyle" style="width:30px"><label id="lblSymbolRange2_2">@LocalizationServices.GetLocalizedHtmlString("lbl_SymbolRange")</label></td>
+                                    <td style="background-color:#C1FFFF; width:67px"><input type="text" tabindex="17" id="txtHardnessMax1" maxlength="4" class="MandatoryText1" style="width:67px;text-align:right;" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TargetHardnessEndRequired")" /></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew26">@LocalizationServices.GetLocalizedHtmlString("lbl_NorthUp")</label>	</td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_NorthSideUp1_1" tabindex="34" class="TextBoxhard1"   maxlength="6"  style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_NorthSideUp1_2" tabindex="35" class="TextBoxhard1"   maxlength="6"  style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_NorthSideUp1_3" tabindex="36" class="TextBoxhard1"   maxlength="6"  style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_NorthSideUpCent1" tabindex="37" class="TextBoxhard1" maxlength="6"  style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="label27">@LocalizationServices.GetLocalizedHtmlString("lbl_NorthUp")</label>	</td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_NorthSideUp1_1" tabindex="50" class="TextBoxhard1"   maxlength="6"  style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_NorthSideUp1_2" tabindex="51" class="TextBoxhard1"   maxlength="6"  style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_NorthSideUp1_3" tabindex="52" class="TextBoxhard1"   maxlength="6"  style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_NorthSideUpCent1" tabindex="53" class="TextBoxhard1" maxlength="6"  style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                    </tr>
+                </table>
+
+                <table style="border-top:hidden; border-bottom:hidden">
+                    <tr id="dataRow7" class="">
+                        <td class="borderStyle divColor" colspan="4" style="width:140px; text-align:left !important;"><label id="lblMetallicLabelNo_1" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_MetallicLabelNo")</label>	</td>
+                        <td class="borderStyle" colspan="6" style="width:220px; background-color: #C1FFFF"><input type="text" id="txtMetallicLabelNo1" tabindex="5" class="MandatoryText1" style="width:215px" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_MetalicNoRequired")" maxlength="15" /></td>
+                        <td class="borderStyle divColor" colspan="2" valign="middle" style="width:50px;text-align:left" rowspan="2">
+                            <label id="lblDelivery1" class="paddingleftTempering labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Delivery1")</label>
+                            <label id="lblRemark_1" class="paddingleftTempering labelClass" style="padding-top:3px;">@LocalizationServices.GetLocalizedHtmlString("lbl_Remark")</label>
+                            </td>
+                        <td class="borderStyle" colspan="8" rowspan="2" style="width:220px">
+                            <textarea ID="txtRemark1" runat="server" CssClass="ReadOnlyLabelhard labelClass" maxlength="100"
+                                      Style="border-left: 0px solid gray; border-top: 0px solid gray; Width:226px; Height:48px;border-style:none;" TabIndex="66"></textarea>
+                        </td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew28">@LocalizationServices.GetLocalizedHtmlString("lbl_NorthDown")</label>	</td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_NorthSideDown1_1" maxlength="6"  class="TextBoxhard1" tabindex="38"   style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_NorthSideDown1_2" maxlength="6"  class="TextBoxhard1" tabindex="39"  style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_NorthSideDown1_3" maxlength="6"  class="TextBoxhard1" tabindex="40"  style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_NorthSideDownCent1" maxlength="6" class="TextBoxhard1" tabindex="41" style="width:100%;text-align:right;" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" /></td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew29">@LocalizationServices.GetLocalizedHtmlString("lbl_NorthDown")</label>	</td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_NorthSideDown1_1" maxlength="6"  tabindex="54" class="TextBoxhard1"   style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_NorthSideDown1_2" maxlength="6"  tabindex="55" class="TextBoxhard1"   style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_NorthSideDown1_3" maxlength="6"  tabindex="56" class="TextBoxhard1"   style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_NorthSideDownCent1" maxlength="6" tabindex="57" class="TextBoxhard1" style="width:100%;text-align:right;" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" /></td>
+                    </tr>
+                    <tr id="dataRow8" class="">
+                        <td class="borderStyle divColor" colspan="4" style="width:140px; text-align:left !important;"><label id="labelnew30" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocUnitsWt")</label>	</td>
+                        <td class="borderStyle disabled" colspan="3" style="width:110px; text-align:right"><input type="text" id="txtquantity1" class="TextBoxhard1 disabled" style="width:100px;text-align:right;" disabled="disabled"/><label id="lblUnitType3OF3_New">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitType3OF3")</label></td>
+                        <td class="borderStyle disabled" colspan="3" style="width:110px"><input type="text" id="txtweight1" class="TextBoxhard1 disabled MandatoryText1" style="width:105px;text-align:right;" disabled="disabled" /></td>
+
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew31">@LocalizationServices.GetLocalizedHtmlString("lbl_SouthUp")</label>	</td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_SouthSideUp1_1" maxlength="6" tabindex="42" class="TextBoxhard1"   style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_SouthSideUp1_2" maxlength="6" tabindex="43" class="TextBoxhard1"   style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_SouthSideUp1_3" maxlength="6" tabindex="44" class="TextBoxhard1"   style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_SouthSideUpCent1" maxlength="6" tabindex="45" class="TextBoxhard1" style="width:100%;text-align:right;" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" /></td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew32">@LocalizationServices.GetLocalizedHtmlString("lbl_SouthUp")</label></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_SouthSideUp1_1" maxlength="6" tabindex="58" class="TextBoxhard1"   style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_SouthSideUp1_2" maxlength="6" tabindex="59" class="TextBoxhard1"   style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_SouthSideUp1_3" maxlength="6" tabindex="60" class="TextBoxhard1"   style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_SouthSideUpCent1" maxlength="6" tabindex="61" class="TextBoxhard1" style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                    </tr>
+                </table>
+
+                <table>
+
+
+                    <tr id="dataRow9" class="">
+                        <td class="borderStyle divColor" colspan="4" style="width:140px; text-align:left !important;"><label id="labelnew33" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitsWeight")</label>	</td>
+                        
+                        <td class="borderStyle" colspan="3" style="width:110px; background-color:#C1FFFF; text-align:left"><input type="text" id="txtunit_1" tabindex="6" class="MandatoryText1" maxlength="8" style="width:100px;text-align:right;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_UnitNoRequired")" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" /><label id="lblUnitType3OF3_new">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitType3OF3")</label></td>
+                        <td class="borderStyle" colspan="3" style="width:110px; background-color:#C1FFFF"><input type="text" id="txtweight_1" tabindex="7" maxlength="10" class="MandatoryText1" style="width:105px;text-align:right;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_InputWeightRequired")" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" /></td>
+                        <td class="borderStyle divColor" colspan="5" style="width:120px;text-align:left"><label id="lblNextProcess_1" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lblNextProcess")</label></td>
+                        <td class="borderStyle" colspan="5" style="width:150px;background-color:#C1FFFF;">
+                            <select ID="ddlNextProcess1" runat="server" class="MandatoryText1 form-control" tabindex="67"
+                                    style="padding-bottom:2px;font-family:'MS Gothic'; Height:25px; Width:156px; border-style:none;font-size:small" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_NextProcessRequired")">
+                               @* <option value="0" selected></option>*@
+                            </select>
+                        </td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew34">@LocalizationServices.GetLocalizedHtmlString("lbl_SouthDown")</label></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_SouthSideDown1_1" maxlength="6" tabindex="46" class="TextBoxhard1"   style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_SouthSideDown1_2" maxlength="6" tabindex="47" class="TextBoxhard1"   style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_SouthSideDown1_3" maxlength="6" tabindex="48" class="TextBoxhard1"   style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_SouthSideDownCent1" maxlength="6" tabindex="49" class="TextBoxhard1" style="width:100%;text-align:right;" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" /></td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew35">@LocalizationServices.GetLocalizedHtmlString("lbl_SouthDown")</label>	</td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_SouthSideDown1_1" maxlength="6" tabindex="62" class="TextBoxhard1"   style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_SouthSideDown1_2" maxlength="6" tabindex="63" class="TextBoxhard1"   style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_SouthSideDown1_3" maxlength="6" tabindex="64" class="TextBoxhard1"   style="width:100%;text-align:right;"  onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_SouthSideDownCent1" maxlength="6" tabindex="65" class="TextBoxhard1" style="width:100%;text-align:right;" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" /></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+
+</div>
+
+<br />
+<div id="R2Data">
+        
+    <table>
+        <tr>
+            <td class="text-center borderStyle divColor">
+                <input type="radio" name="rdSection" value="R2" id="rdoButton2"/>
+            </td>
+            <td>
+                <table>
+                    <tr id="headerRow" class="" style="text-align:center; background-color:#ebf1de">
+                        <th class=" borderStyle" style="width:360px"> <label id="lblPrcoessPlan1" style="font-weight:normal">@LocalizationServices.GetLocalizedHtmlString("lbl_PrcoessPlan")</label></th>
+                        <th class=" borderStyle" style="width:279px"><label id="lbltemperaturesetting2" style="font-weight:normal">@LocalizationServices.GetLocalizedHtmlString("lbl_LiquidTemperature")</label>	</th>
+                        <th class=" borderStyle" style="width:200px" align="right">
+                            <table width="100%">
+                                <tr>
+                                    <td align="center" valign="middle">
+                            <label id="lblnew1" style="font-weight:normal;">@LocalizationServices.GetLocalizedHtmlString("lbl_QuenchingSetting")</label>
+                            </td>
+                                    <td align="right" valign="middle">
+                            <label id="lblnew2" style="margin-right:3px;font-weight:normal;width:77px;">@LocalizationServices.GetLocalizedHtmlString("lbl_MachineNo")</label>
+                            </td>
+                            </tr>
+                            </table>
+                        </th>
+                        <th class=" borderStyle" style="width:176px">
+                            @* <select ID="ddlMachineNumber2_1" runat="server" class="MandatoryText2 form-control" tabindex="89"
+                                    style="padding-bottom:2px;font-family:'MS Gothic'; Height:25px; Width:173px; border-style:none;font-size:small;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_QuenchingMachineRequired")">
+                                <option value="" selected></option>
+                            
+                            </select> *@
+                            <input type="text" ID="txtHardnessMachine2" class="MandatoryText2" style="text-transform:uppercase;border-style:none;width:100%"
+                                   TabIndex="89" MaxLength="7" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_QuenchingMachineRequired")">
+                            <input type="hidden" id="hdfHardnessMachine2" />
+                        </th>
+                        <th class=" borderStyle" style="width:200px" align="right">
+                            <table width="100%">
+                                <tr>
+                                    <td align="center" valign="middle">
+                                        <label id="lblnew3" style="font-weight:normal">@LocalizationServices.GetLocalizedHtmlString("lbl_TemperingSetting")</label>
+                                    </td>
+                                    <td align="right" valign="middle">
+                                        <label id="lblnew4" style="margin-right:3px;font-weight:normal;width:77px;">@LocalizationServices.GetLocalizedHtmlString("lbl_MachineNo")</label>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+
+                            
+                        </th>
+                        <th class=" borderStyle" style="width:176px">
+                           @*  <select ID="ddlMachineNumber2_2" runat="server" class="MandatoryText2 form-control" tabindex="97"
+                                    style="padding-bottom:2px;font-family:'MS Gothic'; Height:25px; Width:173px;border-style:none;font-size:small;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TemperingMachineRequired")">
+                                <option value="" selected></option>
+                             
+                            </select> *@
+                            <input type="text" ID="txtTemperingMachine2" class="MandatoryText2" style="text-transform:uppercase;border-style:none;width:100%"
+                                   TabIndex="97" MaxLength="7" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TemperingMachineRequired")">
+                            <input type="hidden" id="hdfTemperingMachine2"/>
+                        </th>
+                    </tr>
+                </table>
+
+                <table>
+
+                    <tr id="dataRow1" class="">
+                        <td class="borderStyle divColor" colspan="3" style="width:90px; text-align:left !important;"><label id="lblFurnaceNum1" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</label></td>
+                        <td class="borderStyle" colspan="4" style="text-align:left; background-color:#C1FFFF">
+                            <input type="text" id="txtFuranceNum2" tabindex="72" maxlength="10" class="MandatoryText2 UpperCase" style="width:150px;border-style:none" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_FurnaceNumRequired")" />
+
+                        </td>
+                        <td class="borderStyle" colspan="3">
+                            <table style="width:100%">
+                                <tr>
+
+                                    <td align="left" valign="middle">
+                                        <label ID="lblThabaNo2" align="left" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_bundleno")</label>
+                                    </td>
+                                    <td align="left" valign="top">
+                                        <input type="text" ID="txtThaba2" class="IsNumber TextFieldsClass form-control heightTextBox" style="width:43px"
+                                               onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                                               MaxLength="3" TabIndex="72">
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="borderStyle" colspan="2" style="width:60px"></td>
+                        <td class="borderStyle divColor" colspan="2" style="width:60px;text-align:center"><label id="labelnew2" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceTemperature")</label></td>
+                        <td class="borderStyle" colspan="4" style="width:120px; text-align:left;background-color:#C1FFFF;"><input type="text" id="txtTemprature2" tabindex="80" maxlength="3" class="MandatoryText2" style="width:115px;text-align:right;" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TemperatureRequired")" /></td>
+                        <td class="borderStyle" style="width:30px" align="center"><label id="lblNewC2" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("℃")</label></td>
+                        <td class="borderStyle divColor" colspan="4" style="width:140px; text-align:left !important"><label id="lblOperatornew1" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_Operator")</label></td>
+                        <td class="borderStyle" colspan="6" style="background-color:#C1FFFF; width:220px">
+                          @*   <div id="divHardnessOpertor2">
+
+                                @{
+                                    var tupleObject2 = Tuple.Create("txtInputSearch3", "btnYobinaStartOpeartorSearch3", "ddlHardnessOperator2", "valMsg_QuenchingOperatorRequired", 90);
+                                    @Html.Partial("~/Views/SearchComboEmployee/SearchComboEmployee.cshtml", tupleObject2)
+
+                                }
+                            </div> *@
+                            <input type="text" ID="txtHardnessOperator2" class="MandatoryText2" style="border-style:none;width:100%"
+                                   TabIndex="90" MaxLength="20" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_QuenchingOperatorRequired")">
+                            <input type="hidden" id="hdfldHardnessOperator2" />
+                        </td>
+                        <td class="borderStyle divColor" colspan="4" style="width:140px; text-align:left !important"><label id="lblOperatornew2" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_Operator")</label></td>
+                        <td class="borderStyle" colspan="6" style="background-color:#C1FFFF; width:220px">
+                            @* <div id="divHardnessOpertor2">
+
+                                @{
+                                    var tupleObject3 = Tuple.Create("txtInputSearch4", "btnYobinaStartOpeartorSearch4", "ddlTemperingOperator2", "valMsg_TemperingOperatorRequired", 98);
+                                    @Html.Partial("~/Views/SearchComboEmployee/SearchComboEmployee.cshtml", tupleObject3)
+
+                                }
+                            </div> *@
+                            <input type="text" ID="txtTemperingOperator2" class="MandatoryText2" style="border-style:none;width:100%"
+                                   TabIndex="98" MaxLength="20" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TemperingOperatorRequired")">
+                            <input type="hidden" id="hdfldTemperingOperator2" />
+                        </td>
+                    </tr>
+
+                    <tr id="dataRow2" class="">
+                        <td class="borderStyle divColor" colspan="3" style="width:90px; text-align:left !important;"><label id="lblChuuban1" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</label></td>
+                        <td colspan="3" style="width:145px; background-color:#C1FFFF">
+                            <input type="hidden" id="hdfldProcessPlanCD2" />
+                            <input type="hidden" id="hdfldHardeningCD2" />
+                            
+                            <input type="text" id="txtChuubanNum2" tabindex="73" maxlength="10" class="MandatoryText2" style="width:142px;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ChubanRequired")" />
+                        </td>
+                        <td> <label id="lbldash1" style="background-color:white;vertical-align:middle;font-size:large"> - </label></td>
+                        <td style="background-color:#C1FFFF">
+                            <input type="text" id="txtgyoubanNum2" tabindex="74" maxlength="2" class="MandatoryText2" style="width:40px;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_GyoubanRequired")" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                        </td>
+                        <td class="borderStyle" colspan="2" style="width:70px">
+                            <input id="btn_extract2" tabindex="75" style="width: 67px; height: 25px" type="button" class="_functionButtons" 
+                                   value='@LocalizationServices.GetLocalizedHtmlString("lbl_Extract")' />
+                        </td>
+                        <td class="borderStyle" colspan="2" style="text-align:center; background-color:#C1FFFF">
+                            <select ID="ddltempType2" runat="server" class="MandatoryText2 form-control" tabindex="79"
+                                    style=" padding-bottom:2px;font-family:'MS Gothic'; Height:25px; Width:57px; background-color:#C1FFFF;border-style:none;font-size:small;border-style:none;color:black">
+                                
+                                
+                               
+                            </select>
+                        </td>
+                        <td class="borderStyle divColor" colspan="2" style="width:60px;text-align:center"><label id="labelnew3" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceConcentration")</label></td>
+                        <td class="borderStyle" colspan="4" style="text-align:left"><input type="text" id="txtConcentration2" tabindex="81" class="TextBoxhard1" style="width:115px;text-align:right;" maxlength="3" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" /></td>
+                        <td class="borderStyle" align="center">
+                            <label id="lblPercentageSymbol1">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label>
+                        </td>
+                        <td class="borderStyle divColor" colspan="4" style="width:120px; text-align:left !important"><label id="labelnew36" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceInOutDateTime")</label></td>
+                        <td class="borderStyle divColor" colspan="3" style="text-align:center; background-color:#C1FFFF"><input type="text" id="txtHardeningFuranceInDate2" tabindex="93" class="MandatoryText2" style="width:115px;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_QuenchingDateTimeInRequired")" /></td>
+                        <td class="borderStyle divColor" colspan="3" style="text-align:center; background-color:#C1FFFF"><input type="text" id="txtHardeningFuranceOutDate2" tabindex="94" class="MandatoryText2" style="width:115px;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_QuenchingDateTimeOutRequired")" /></td>
+                        <td class="borderStyle divColor" colspan="4" style="width:120px; text-align:left !important"><label id="labelnew37" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceInOutDateTime")</label></td>
+                        <td class="borderStyle divColor" colspan="3" style="text-align:center; background-color:#C1FFFF"><input type="text" id="txtTemperingFuranceInDate2" tabindex="101" class="MandatoryText2" style="width:115px;"  errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TemperingDateTimeInRequired")"/></td>
+                        <td class="borderStyle divColor" colspan="3" style="text-align:center; background-color:#C1FFFF"><input type="text" id="txtTemperingFuranceOutDate2" tabindex="102" class="MandatoryText2" style="width:115px;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TemperingDateTimeOutRequired")"/></td>
+                    </tr>
+
+                    <tr id="dataRow3" class="">
+                        <td class="borderStyle divColor" colspan="3" style="width:90px; text-align:left !important;"><label id="lblCustomer1" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</label></td>
+                        <td class="borderStyle disabled" colspan="7" style="width:270px"><input type="text" id="txtcustomer2" class="TextBoxhard1 disabled" style="width:266px;" disabled="disabled"/></td>
+                        <td class="borderStyle" colspan="2"></td>
+                        <td class="borderStyle divColor" colspan="2" style="width:60px;text-align:center"><label id="labelnew4" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceFrequncy")</label></td>
+                        <td class="borderStyle" colspan="4" style="text-align:left"><input type="text" id="txtfrequency2" tabindex="82" class="TextBoxhard1" style="width:115px;text-align:right;" maxlength="5" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" /></td>
+                        <td class="borderStyle" align="center">
+                            <label id="label38">@LocalizationServices.GetLocalizedHtmlString("Hz")</label>
+                        </td>
+                        <td class="borderStyle divColor" colspan="4" style="width:120px; text-align:left !important"><label id="labelnew5" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_TemperatureIntoTime")</label></td>
+                        <td class="borderStyle" colspan="3" style="text-align:left; background-color:#C1FFFF"><input type="text" id="txtTemperatureHardening2" tabindex="95" maxlength="4" class="MandatoryText2" style="width:91px;text-align:right;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_QuenchingTemperatureRequired")" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" /><label id="labelnew6">@LocalizationServices.GetLocalizedHtmlString("℃")</label></td>
+                        <td class="borderStyle" colspan="3" style="text-align:left; background-color:#C1FFFF"><input type="text" id="txtTimeHardening2" maxlength="4" tabindex="96" class="MandatoryText2" style="width:91px;text-align:right;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_QuenchingMinuteRequired")" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" /><label id="labelnew7">@LocalizationServices.GetLocalizedHtmlString("lbl_Minute")</label></td>
+                        <td class="borderStyle divColor" colspan="4" style="width:120px; text-align:left !important"><label id="label8" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_TemperatureIntoTime")</label></td>
+                        <td class="borderStyle" colspan="3" style="text-align:left; background-color:#C1FFFF"><input type="text" id="txtTemperatureTempering2" maxlength="4" tabindex="103" class="MandatoryText2" style="width:91px;text-align:right;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TemperingTemperatureRequired")" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" /><label id="labelnew9">@LocalizationServices.GetLocalizedHtmlString("℃")</label></td>
+                        <td class="borderStyle" colspan="3" style="text-align:left; background-color:#C1FFFF"><input type="text" id="txtTimeTempering2" maxlength="4" tabindex="104" class="MandatoryText2" style="width:91px;text-align:right;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TemperingMinuteRequired")" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" /><label id="labelnew10">@LocalizationServices.GetLocalizedHtmlString("lbl_Minute")</label></td>
+                    </tr>
+
+                    <tr id="dataRow4" class="" style="text-align:center">
+                        <td class="borderStyle divColor" colspan="3" style="width:90px; text-align:left !important;"><label id="lblProdNameCust1" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</label></td>
+                        <td class="borderStyle disabled" colspan="7" style="width:270px"><input type="text" id="txtProdName2" class="TextBoxhard1 disabled" style="width:266px;" disabled="disabled" /></td>
+                        <td class="borderStyle" colspan="4">
+                            <table style="border:hidden; height:108%">
+                                <tr>
+                                <td style="width:20px" class="divColor"><label id="lblUnitType3OF3_1">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitType3OF3")</label></td>
+                                    <td style="width:38px" class="borderStyle" align="right"><input type="text" tabindex="83" class="TextBoxhard1" maxlength="3" id="txtC_FURNACE2" style="width:28px;text-align:right;" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" /><label id="lblPercentageSymbol_1">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label></td>
+                                <td style="width:29px" class="divColor"><label id="lblManganese">@LocalizationServices.GetLocalizedHtmlString("lbl_Manganese")</label></td>
+                                    <td style="width:39px; border-left: solid 1px" align="right"><input type="text" tabindex="84" class="TextBoxhard1" maxlength="3" id="txtMN_FURNACE2" style="width:29px;text-align:right;" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" /><label id="lblPercentageSymbol1_2">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="borderStyle " colspan="5">
+                            <table style="border:hidden; height:108%">
+                                <tr>
+                                <td style="width:34px" class="divColor borderStyle"><label id="labelnew12">@LocalizationServices.GetLocalizedHtmlString("Cr")</label></td>
+                                    <td style="width:39px" align="right"><input type="text" class="TextBoxhard1" style="width:28px;text-align:right;" tabindex="85" maxlength="3" id="txtCR_FURNACE2" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" /><label id="lblPercentageSymbol3_4">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label></td>
+                                    <td style="width:34px" class="divColor borderStyle"><label id="labelnew11">@LocalizationServices.GetLocalizedHtmlString("Mo")</label></td>
+                                    <td style="width:39px" align="right"><input type="text" class="TextBoxhard1" style="width:28px;text-align:right;" tabindex="86" maxlength="3" id="txtMO_FURNACE2" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" /><label id="lblPercentageSymbol2_3">@LocalizationServices.GetLocalizedHtmlString("lbl_PercentageSymbol")</label></td>
+                                </tr>
+                            </table>
+                        </td>
+
+                        <td class="borderStyle" colspan="10" style="background-color:#ebf1de"><label id="labelnew13">@LocalizationServices.GetLocalizedHtmlString("lbl_HRCHardness")</label></td>
+                        <td class="borderStyle" colspan="10" style="background-color:#ebf1de"><label id="labelnew14">@LocalizationServices.GetLocalizedHtmlString("lbl_HRCHardness")</label></td>
+                    </tr>
+
+                </table>
+
+                <table style="border-top:hidden; border-bottom:hidden">
+                    <tr id="dataRow5" class="">
+                        <td class="borderStyle divColor" colspan="3" style="width:90px; text-align:left !important;"><label id="lblCharge_1" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</label></td>
+                        <td class="borderStyle disabled" colspan="7" style="width:270px"><input type="text" id="txtCharge2" class="TextBoxhard1 disabled" style="width:266px;" disabled="disabled" /></td>
+                        <td class="borderStyle divColor" colspan="4" style="width:120px; text-align:left !important"><label id="labelnew15" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessSpecified")</label></td>
+                        <td class="borderStyle disabled" colspan="6" style="width:159px; text-align:center">
+                            <input type="text" id="txtRange2_1" class="TextBoxhard1 disabled" style="width:58px;border-style:none;text-align:right" disabled="disabled"/>
+                            <label id="lblSymbolRange5_1" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_SymbolRange")</label>
+                            <input type="text" id="txtRange2_2" class="TextBoxhard1 disabled" style="width:58px;border-style:none;text-align:right" disabled="disabled" />
+                        </td>
+                        <td class="borderStyle smallBox divColor" colspan="2"></td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew16">@LocalizationServices.GetLocalizedHtmlString("①")</label>	</td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew17">@LocalizationServices.GetLocalizedHtmlString("②")</label>	</td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew18">@LocalizationServices.GetLocalizedHtmlString("③")</label>	</td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew19">@LocalizationServices.GetLocalizedHtmlString("lbl_Center")</label></td>
+                        <td class="borderStyle smallBox divColor" colspan="2"></td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew20">@LocalizationServices.GetLocalizedHtmlString("①")</label>	</td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew21">@LocalizationServices.GetLocalizedHtmlString("②")</label>	</td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew22">@LocalizationServices.GetLocalizedHtmlString("③")</label>	</td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew23">@LocalizationServices.GetLocalizedHtmlString("lbl_Center")</label></td>
+                    </tr>
+                </table>
+
+                <table>
+
+                    <tr id="dataRow6" class="">
+                        <td class="borderStyle divColor" colspan="6" style="width:200px; text-align:left !important;"><label id="labelnew24" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlDimProdDim")</label>	</td>
+                        <td class="borderStyle disabled" colspan="2" style="width:80px"><input type="text" id="txtMaterialDim2" class="TextBoxhard1 disabled" style="width:75px;text-align:right;" disabled="disabled"/></td>
+                        <td class="borderStyle disabled" colspan="2" style="width:80px"><input type="text" id="txtProductDim2" class="TextBoxhard1 disabled" style="width:75px;text-align:right;" disabled="disabled" /></td>
+                        <td class="borderStyle divColor" colspan="4" style="width:120px; text-align:left"><label id="labelnew25" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessTarget")</label>	</td>
+                        <td class="borderStyle" colspan="6" style="width:150px; text-align:center">
+                            <table style="border:hidden; height:108%">
+                                <tr>
+                                    <td style="background-color:#C1FFFF; width:67px"><input type="text" id="txtHardnessMin2" tabindex="87" class="MandatoryText2" maxlength="4" style="width:67px;text-align:right;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TargetHardnessStartRequired")" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"/></td>
+                                    <td class="borderStyle" style="width:30px"><label id="lblSymbolRange2_2">@LocalizationServices.GetLocalizedHtmlString("lbl_SymbolRange")</label></td>
+                                    <td style="background-color:#C1FFFF; width:67px"><input type="text" id="txtHardnessMax2" tabindex="88" class="MandatoryText2" maxlength="4" style="width:67px;text-align:right;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TargetHardnessEndRequired")" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" /></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew26">@LocalizationServices.GetLocalizedHtmlString("lbl_NorthUp")</label>	</td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_NorthSideUp2_1" class="TextBoxhard1"   maxlength="6" style="width:100%;text-align:right;" tabindex="105" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_NorthSideUp2_2" class="TextBoxhard1"   maxlength="6" style="width:100%;text-align:right;" tabindex="106" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_NorthSideUp2_3" class="TextBoxhard1"   maxlength="6" style="width:100%;text-align:right;" tabindex="107" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_NorthSideUpCent2" class="TextBoxhard1" maxlength="6" style="width:100%;text-align:right;" tabindex="108" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="label27">@LocalizationServices.GetLocalizedHtmlString("lbl_NorthUp")</label>	</td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_NorthSideUp2_1" class="TextBoxhard1"   maxlength="6" style="width:100%;text-align:right;" tabindex="121" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_NorthSideUp2_2" class="TextBoxhard1"   maxlength="6" style="width:100%;text-align:right;" tabindex="122" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_NorthSideUp2_3" class="TextBoxhard1"   maxlength="6" style="width:100%;text-align:right;" tabindex="123" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_NorthSideUpCent2" class="TextBoxhard1" maxlength="6" style="width:100%;text-align:right;" tabindex="124" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                    </tr>
+                </table>
+
+                <table style="border-top:hidden; border-bottom:hidden">
+                    <tr id="dataRow7" class="">
+                        <td class="borderStyle divColor" colspan="4" style="width:140px; text-align:left !important;"><label id="lblMetallicLabelNo_1" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_MetallicLabelNo")</label>	</td>
+                        <td class="borderStyle" colspan="6" style="width:220px; background-color: #C1FFFF"><input type="text" id="txtMetallicLabelNo2" tabindex="76" class="MandatoryText2" style="width:215px" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_MetalicNoRequired")" maxlength="15" /></td>
+                        <td class="borderStyle divColor" valign="middle" colspan="2" style="width:50px;text-align:left" rowspan="2">
+                            <label id="lblDelivery2" class="paddingleftTempering labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Delivery1")</label>
+                            <label id="lblRemark_1" class="paddingleftTempering labelClass" style="padding-top:3px;">@LocalizationServices.GetLocalizedHtmlString("lbl_Remark")</label>
+                            </td>
+                        <td class="borderStyle" colspan="8" rowspan="2" style="width:220px">
+                            <textarea ID="txtRemark2" runat="server" CssClass="ReadOnlyLabelhard labelClass" maxlength="100"
+                                      Style="border-left: 0px solid gray; border-top: 0px solid gray; Width:226px; Height:48px;border-style:none;" TabIndex="137"></textarea>
+                        </td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew28">@LocalizationServices.GetLocalizedHtmlString("lbl_NorthDown")</label>	</td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_NorthSideDown2_1" class="TextBoxhard1"   maxlength="6" style="width:100%;text-align:right;" tabindex="109" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_NorthSideDown2_2" class="TextBoxhard1"   maxlength="6" style="width:100%;text-align:right;" tabindex="110" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_NorthSideDown2_3" class="TextBoxhard1"   maxlength="6" style="width:100%;text-align:right;" tabindex="111" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_NorthSideDownCent2" class="TextBoxhard1" maxlength="6" style="width:100%;text-align:right;" tabindex="112" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew29">@LocalizationServices.GetLocalizedHtmlString("lbl_NorthDown")</label>	</td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_NorthSideDown2_1" class="TextBoxhard1"   maxlength="6" style="width:100%;text-align:right;" tabindex="125" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_NorthSideDown2_2" class="TextBoxhard1"   maxlength="6" style="width:100%;text-align:right;" tabindex="126" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_NorthSideDown2_3" class="TextBoxhard1"   maxlength="6" style="width:100%;text-align:right;" tabindex="127" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_NorthSideDownCent2" class="TextBoxhard1" maxlength="6" style="width:100%;text-align:right;" tabindex="128" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                    </tr>
+                    <tr id="dataRow8" class="">
+                        <td class="borderStyle divColor" colspan="4" style="width:140px; text-align:left !important;"><label id="labelnew30" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocUnitsWt")</label>	</td>
+                        <td class="borderStyle disabled" colspan="3" style="width:110px; text-align:right"><input type="text" id="txtquantity2" class="TextBoxhard1 disabled" style="width:100px;text-align:right;" disabled="disabled"/><label id="lblUnitType3OF3_New">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitType3OF3")</label></td>
+                        <td class="borderStyle disabled" colspan="3" style="width:110px"><input type="text" id="txtweight2" class="TextBoxhard1 disabled" style="width:105px;text-align:right;" disabled="disabled" /></td>
+                        
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew31">@LocalizationServices.GetLocalizedHtmlString("lbl_SouthUp")</label>	</td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_SouthSideUp2_1" class="TextBoxhard1"   maxlength="6" style="width:100%;text-align:right;" tabindex="113" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_SouthSideUp2_2" class="TextBoxhard1"   maxlength="6" style="width:100%;text-align:right;" tabindex="114" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_SouthSideUp2_3" class="TextBoxhard1"   maxlength="6" style="width:100%;text-align:right;" tabindex="115" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_SouthSideUpCent2" class="TextBoxhard1" maxlength="6" style="width:100%;text-align:right;" tabindex="116" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew32">@LocalizationServices.GetLocalizedHtmlString("lbl_SouthUp")</label></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_SouthSideUp2_1" class="TextBoxhard1"   maxlength="6" style="width:100%;text-align:right;" tabindex="129" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_SouthSideUp2_2" class="TextBoxhard1"   maxlength="6" style="width:100%;text-align:right;" tabindex="130" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_SouthSideUp2_3" class="TextBoxhard1"   maxlength="6" style="width:100%;text-align:right;" tabindex="131" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_SouthSideUpCent2" class="TextBoxhard1" maxlength="6" style="width:100%;text-align:right;" tabindex="132" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                    </tr>
+                </table>
+
+                <table>
+
+
+                    <tr id="dataRow9" class="">
+                        <td class="borderStyle divColor" colspan="4" style="width:140px; text-align:left !important;"><label id="labelnew33" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitsWeight")</label>	</td>
+                        <td class="borderStyle" colspan="3" style="width:110px; background-color:#C1FFFF; text-align:left"><input type="text" tabindex="77" id="txtunit_2" class="MandatoryText2" maxlength="8" style="width:100px;text-align:right;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_UnitNoRequired")" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/><label id="lblUnitType3OF3_new">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitType3OF3")</label></td>
+                        <td class="borderStyle" colspan="3" style="width:110px; background-color:#C1FFFF"><input type="text" id="txtweight_2" tabindex="78" class="MandatoryText2" maxlength="10" style="width:105px;text-align:right;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_InputWeightRequired")" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" /></td>
+                        <td class="borderStyle divColor" colspan="5" style="width:120px;text-align:left"><label id="lblNextProcess_1" class="paddingleftTempering">@LocalizationServices.GetLocalizedHtmlString("lblNextProcess")</label></td>
+                        <td class="borderStyle" colspan="5" style="width:150px;background-color:#C1FFFF;">
+                            <select ID="ddlNextProcess2" runat="server" class=" form-control MandatoryText2" tabindex="138"
+                                    style="padding-bottom:2px;font-family:'MS Gothic'; Height:25px; Width:156px; background-color:#C1FFFF;border-style:none;font-size:small;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_NextProcessRequired")">
+                            </select>
+                        </td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew34">@LocalizationServices.GetLocalizedHtmlString("lbl_SouthDown")</label></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_SouthSideDown2_1" class="TextBoxhard1"   maxlength="6" style="width:100%;text-align:right;" tabindex="117" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_SouthSideDown2_2" class="TextBoxhard1"   maxlength="6" style="width:100%;text-align:right;" tabindex="118" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_SouthSideDown2_3" class="TextBoxhard1"   maxlength="6" style="width:100%;text-align:right;" tabindex="119" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_h_SouthSideDownCent2" class="TextBoxhard1" maxlength="6" style="width:100%;text-align:right;" tabindex="120" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox divColor" colspan="2"><label id="labelnew35">@LocalizationServices.GetLocalizedHtmlString("lbl_SouthDown")</label>	</td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_SouthSideDown2_1" class="TextBoxhard1"   maxlength="6" style="width:100%;text-align:right;" tabindex="133" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_SouthSideDown2_2" class="TextBoxhard1"   maxlength="6" style="width:100%;text-align:right;" tabindex="134" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_SouthSideDown2_3" class="TextBoxhard1"   maxlength="6" style="width:100%;text-align:right;" tabindex="135" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                        <td class="borderStyle smallBox" colspan="2"><input type="text" id="txt_t_SouthSideDownCent2" class="TextBoxhard1" maxlength="6" style="width:100%;text-align:right;" tabindex="136" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <label ID="lblOperator" style="display:none;" >@LocalizationServices.GetLocalizedHtmlString("lbl_Operator")</label>
+    <label ID="lblMachine" style="display:none;">@LocalizationServices.GetLocalizedHtmlString("lbl_Machine_L")</label>
+     <div id="divErrorMessages" class="Hidden">
+          <label id="lblErrorMessageE_HARDNESS_TEMP_001" class="Hidden">
+            <span ID="LiteralSystemException">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+        </label>
+
+
+        <label id="lblErrorMessageE_HARDNESS_TEMP_002" class="Hidden">
+            <span ID="LiteralChuubanNotFound">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ChuubanNotFound")</span>
+        </label>
+       
+        <label id="lblErrorMessageE_HARDNESS_TEMP_004" class="Hidden">
+            <span ID="LiteralInvalidQuenchingDateTimeIn">@LocalizationServices.GetLocalizedHtmlString("valMsg_InvalidQuenchingDateTimeIn")</span>
+        </label>
+
+         <label id="lblErrorMessageE_HARDNESS_TEMP_005" class="Hidden">
+            <span ID="LiteralInvalidQuenchingDateTimeOut">@LocalizationServices.GetLocalizedHtmlString("valMsg_InvalidQuenchingDateTimeOut")</span>
+        </label>
+
+        <label id="lblErrorMessageE_HARDNESS_TEMP_006" class="Hidden">
+            <span ID="LiteralInvalidHardnessDateTimeIn">@LocalizationServices.GetLocalizedHtmlString("valMsg_InvalidTemperingDateTimeIn")</span>
+        </label>
+
+        <label id="lblErrorMessageE_HARDNESS_TEMP_007" class="Hidden">
+            <span ID="LiteralInvalidHardnessDateTimeOut">@LocalizationServices.GetLocalizedHtmlString("valMsg_InvalidTemperingDateTimeOut")</span>
+        </label>
+        
+        <label id="lblErrorMessageE_HARDNESS_TEMP_008" class="Hidden">
+            <span ID="LiteralFurnaceNoAlreadyExist">@LocalizationServices.GetLocalizedHtmlString("valMsg_FurnaceNoAlreadyExist")</span>
+        </label>
+
+        <label id="lblErrorMessageE_HARDNESS_TEMP_009" class="Hidden">
+            <span ID="LiteralFurnaceNoAlreadyExist">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ChuubanMarkedAsCompleted")</span>
+        </label>
+
+        <label id="lblErrorMessageE_HARDNESS_TEMP_010" class="Hidden">
+            <span ID="LiteralHardnessDateTimeInDifferentFromCurrentDateTime">@LocalizationServices.GetLocalizedHtmlString("valMsg_HardnessDateTimeInDifferentFromCurrentDateTime")</span>
+        </label>
+
+        <label id="lblErrorMessageE_HARDNESS_TEMP_011" class="Hidden">
+            <span ID="LiteralHardnessDateTimeOutDifferentFromCurrentDateTime">@LocalizationServices.GetLocalizedHtmlString("valMsg_HardnessDateTimeOutDifferentFromCurrentDateTime")</span>
+        </label>
+
+          <label id="lblErrorMessageE_HARDNESS_TEMP_012" class="Hidden">
+            <span ID="LiteralTemperingDateTimeInDifferentFromCurrentDateTime">@LocalizationServices.GetLocalizedHtmlString("valMsg_TemperingDateTimeInDifferentFromCurrentDateTime")</span>
+        </label>
+
+         <label id="lblErrorMessageE_HARDNESS_TEMP_013" class="Hidden">
+            <span ID="LiteralTemperingDateTimeOutDifferentFromCurrentDateTime">@LocalizationServices.GetLocalizedHtmlString("valMsg_TemperingDateTimeOutDifferentFromCurrentDateTime")</span>
+        </label>
+
+         <label id="lblErrorMessageE_HARDNESS_TEMP_014" class="Hidden">
+            <span ID="LiteralTemperingInDateGreaterThanOut">@LocalizationServices.GetLocalizedHtmlString("valMsg_TemperingInDateGreaterThanOut")</span>
+        </label>
+
+         <label id="lblErrorMessageE_HARDNESS_TEMP_015" class="Hidden">
+            <span ID="LiteralQuenchingInDateGreaterThanOut">@LocalizationServices.GetLocalizedHtmlString("valMsg_QuenchingInDateGreaterThanOut")</span>
+        </label>
+
+        <label id="lblErrorMessageE_HARDNESS_TEMP_016" class="Hidden">
+            <span ID="LiteralOrNoNotStartedFromHandOver">@LocalizationServices.GetLocalizedHtmlString("valMsg_OrNoNotStartedFromHandOver")</span>
+        </label>
+
+        <label id="lblErrorMessageE_HARDNESS_TEMP_017" class="Hidden">
+            <span ID="LiteralPlusMinus">@LocalizationServices.GetLocalizedHtmlString("lbl_PlusMinus")</span>
+        </label>
+        <label id="lblErrorMessageE_HARDNESS_TEMP_018" class="Hidden">
+            <span ID="LiteralTemperingThabaDuplicate">@LocalizationServices.GetLocalizedHtmlString("valMsg_TemperingThabaDuplicate")</span>
+        </label>
+        <label id="lblErrorMessageE_HARDNESS_TEMP_019" class="Hidden">
+            <span ID="LiteralBarcodeIncorrect">@LocalizationServices.GetLocalizedHtmlString("valMsg_BarcodeIncorrect")</span>
+        </label>
+
+        <label id="lblErrorMessageE_HARDNESS_TEMP_020" class="Hidden">
+            <span ID="LiteralBarcodeNotFound">@LocalizationServices.GetLocalizedHtmlString("valMsg_BarcodeNotFound")</span>
+        </label>
+        <label id="lblErrorMessageE_HARDNESS_TEMP_021" class="Hidden">
+            <span ID="LiteralScanOperatorBarcode">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ScanOperatorBarcode")</span>
+        </label>
+        <label id="lblErrorMessageE_HARDNESS_TEMP_022" class="Hidden">
+            <span ID="LiteralEmployeeInactive">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_EmployeeInactive")</span>
+        </label>
+        <label id="lblErrorMessageE_HARDNESS_ScanMachineRequired" class="Hidden">
+            <span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ScanMachineRequired")</span>
+        </label>
+        <label id="lblErrorMessageE_HARDNESS_TEMP_023" class="Hidden">
+            <span ID="Literal12">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_PMSMachineNotFound")</span>
+        </label>
+        <label id="lblErrorMessage_HARDNESS_TEMP_024" class="Hidden">
+            <span ID="LiteralBarcodeNotFound">@LocalizationServices.GetLocalizedHtmlString("valMsg_BarcodeNotFound")</span>
+        </label>
+        <label id="lblErrorMessageE_HARDNESS_TEMP_025" class="Hidden">
+            <span ID="Literal3">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_InactiveMachine")</span>
+        </label>
+
+    </div>
+            <div id="divSuccessMessages" class="Hidden">
+                <label id="lblSuccessMessageS_HARDNESS_TEMP_001" class="Hidden">
+            <span ID="LiteralDataSaved" style="margin-left:5px">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataSaved")</span>
+        </label>
+
+        <label id="lblSuccessMessageS_HARDNESS_TEMP_002" class="Hidden">
+            <span ID="LiteralTempDataSaved" style="margin-left:5px">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_TempDataSaved")</span>
+        </label>
+
+        
+            </div>
+    
+
+</div>
+<input type="hidden" id="hdfUnitType" value="@unitType"/>
+@section Scripts{
+    <script src="/Static/js/HardnessTemperingEntry.js" asp-append-version="true"></script>
+}

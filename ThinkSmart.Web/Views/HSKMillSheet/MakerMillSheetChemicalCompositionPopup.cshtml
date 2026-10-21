@@ -1,0 +1,27 @@
+﻿@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_HSKMillSheetSave").Value.Replace("</br>", "");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    DateTime fromDate = DateTime.Now;
+    fromDate = fromDate.AddMonths(-3);
+
+    DateTime toDate = DateTime.Now;
+}
+
+<link href="~/css/Common_Styles.css" rel="stylesheet" />
+
+
+<link href="~/css/Common.css" rel="stylesheet" />
+<link href="~/css/masterStyles.css" rel="stylesheet" />
+
+
+
+
+
+
+@section Scripts {
+    <script src="~/static/js/MakerMillSheetChemicalCompositionPopup.js"></script>
+
+
+}

@@ -1,0 +1,131 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<MatlNameWiseOrderQtyDetails>
+@inject LocalizationServices LocalizationServices
+
+<style type="text/css">
+    .backgroundColor {
+        background-color: white
+    }
+
+    .freezMatlNameWiseOrderGrid1 > th {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 20px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezMatlNameWiseOrderGrid1 {
+        border-color: white;
+    }
+</style>
+<table bgcolor="#7291D2" border="0" cellpadding="0" cellspacing="0" id="tblMatlNameWiseOrderQtyList" class="GridLines" style="overflow:auto;width:440px">
+    <tr class="">
+        <th class="tdHeaderClass labelClass GridCenter">
+            <label id="lblOrderQtyInfo" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_InternalName")</label>
+        </th>
+        <th class="tdHeaderClass labelClass GridCenter">
+            <label id="lblOrderQtyInfo" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_CoilBarKurokawa_L")</label>
+        </th>
+        <th class="tdHeaderClass labelClass GridCenter">
+            <label id="lblLastRoll3" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll") </label><br />
+        </th>
+        <th class="tdHeaderClass labelClass GridCenter">
+            <label id="lblLastRoll2" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll") </label><br />
+        </th>
+        <th class="tdHeaderClass labelClass GridCenter">
+            <label id="lblLastRoll1" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll") </label><br />
+        </th>
+        <th class="tdHeaderClass labelClass GridCenter">
+            <label id="lblCurrentRoll" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll") </label><br />
+        </th>
+        <th class="tdHeaderClass labelClass GridCenter">
+            <label id="lblNextRoll" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll") </label><br />
+        </th>
+        <th class="tdHeaderClass labelClass GridCenter">
+            <label id="lblOrderQtyInfo" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Total")</label>
+
+        </th>
+    </tr>
+    @if (Model != null && Model.Count > 0)
+    {
+        foreach (var item in Model.GroupBy(x => x.INTERNAL_NAME_STRING))
+        {
+            var i = item.Count();
+
+            @foreach (var plan1 in item)
+            {
+
+                <tr class="GridNormalRow">
+
+                    @if (i == 1)
+                    {
+                        <td  style="background-color:lightblue !important;" class="labelClass padddingLeft tdNoWrap CharactFieldsClass backgroundColor"></td>
+                    }
+
+                    @if (i == 2)
+                    {
+                        <td rowspan="2" style="background-color:lightblue !important;" class="labelClass padddingLeft tdNoWrap CharactFieldsClass backgroundColor">@plan1.INTERNAL_NAME_STRING</td>
+                    }
+                    @if (i == 3)
+                    {
+                        <td rowspan="3" style="background-color:lightblue !important;" class="labelClass padddingLeft tdNoWrap CharactFieldsClass backgroundColor">@plan1.INTERNAL_NAME_STRING</td>
+                    }
+                    @if (i == 4)
+                    {
+                        <td rowspan="4" style="background-color:lightblue !important;" class="labelClass padddingLeft tdNoWrap CharactFieldsClass backgroundColor">@plan1.INTERNAL_NAME_STRING</td>
+                    }
+                    @if(@plan1.INTERNAL_NAME_STRING == null){
+                    <td style="background-color:#FDFBD4;" class="labelClass padddingLeft tdNoWrap CharactFieldsClass backgroundColor"><label class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Sum_L")</label></td>
+                        <td style="background-color:#FDFBD4;" class="labelClass padddingRight tdNoWrap NumericFieldsClass">@plan1.PLAN_QTY_1MONTH_AHEAD</td>
+                        <td style="background-color:#FDFBD4;" class="labelClass padddingRight tdNoWrap NumericFieldsClass">@plan1.PLAN_QTY_2MONTH_AHEAD</td>
+                        <td style="background-color:#FDFBD4;" class="labelClass padddingRight tdNoWrap NumericFieldsClass">@plan1.PLAN_QTY_3MONTH_AHEAD</td>
+                        <td style="background-color:#FDFBD4;" class="labelClass padddingRight tdNoWrap NumericFieldsClass">@plan1.PLAN_QTY_THIS_MONTH</td>
+                        <td style="background-color:#FDFBD4;" class="labelClass padddingRight tdNoWrap NumericFieldsClass">@plan1.PLAN_QTY_4MONTH_AHEAD</td>
+                        <td style="background-color:#FDFBD4;" class="labelClass padddingRight tdNoWrap NumericFieldsClass">@plan1.TOTALQTY</td>
+                    }
+                    else if (@plan1.MATL_KUBUN_NAME == "計")
+                    {
+                        <td style="background-color:#FDFBD4;" class="labelClass padddingLeft tdNoWrap CharactFieldsClass backgroundColor"><label class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Total")</label></td>
+                        <td style="background-color:#FDFBD4;" class="labelClass padddingRight tdNoWrap NumericFieldsClass">@plan1.PLAN_QTY_1MONTH_AHEAD</td>
+                        <td style="background-color:#FDFBD4;" class="labelClass padddingRight tdNoWrap NumericFieldsClass">@plan1.PLAN_QTY_2MONTH_AHEAD</td>
+                        <td style="background-color:#FDFBD4;" class="labelClass padddingRight tdNoWrap NumericFieldsClass">@plan1.PLAN_QTY_3MONTH_AHEAD</td>
+                        <td style="background-color:#FDFBD4;" class="labelClass padddingRight tdNoWrap NumericFieldsClass">@plan1.PLAN_QTY_THIS_MONTH</td>
+                        <td style="background-color:#FDFBD4;" class="labelClass padddingRight tdNoWrap NumericFieldsClass">@plan1.PLAN_QTY_4MONTH_AHEAD</td>
+                        <td style="background-color:#FDFBD4;" class="labelClass padddingRight tdNoWrap NumericFieldsClass">@plan1.TOTALQTY</td>
+                    }
+                    else
+                    {
+                        <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@plan1.MATL_KUBUN_NAME</td>
+                        <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@plan1.PLAN_QTY_1MONTH_AHEAD</td>
+                        <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@plan1.PLAN_QTY_2MONTH_AHEAD</td>
+                        <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@plan1.PLAN_QTY_3MONTH_AHEAD</td>
+                        <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@plan1.PLAN_QTY_THIS_MONTH</td>
+                        <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@plan1.PLAN_QTY_4MONTH_AHEAD</td>
+                        <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@plan1.TOTALQTY</td>
+                    }
+                   
+                    
+                    
+                    
+
+                </tr>
+                i = 0;
+            }
+
+        
+           
+        }
+      
+    }
+</table>
+@section Scripts {
+
+    <link href="~/css/Common.css" rel="stylesheet" />
+    <link href="~/css/MatlNamWiseOrderQtyPopUp.css" rel="stylesheet" />
+    <link href="~/css/Common_Styles.css" rel="stylesheet" />
+    <link href="~/css/masterStyles.css" rel="stylesheet" />
+    <script src="~/static/js/MatlNameWiseOrderQtyPopUp.js"></script>
+
+}

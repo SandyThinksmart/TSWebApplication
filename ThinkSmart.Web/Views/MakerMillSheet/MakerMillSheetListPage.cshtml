@@ -1,0 +1,259 @@
+﻿@using TSWebApplication.Domain.Resources
+@using TSWebApplication.Domain.Model
+@inject LocalizationServices LocalizationServices
+@model List<MakerMillSheetDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_MakerMillSheet").Value.Replace("</br>", "");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    DateTime fromDate = DateTime.Now;
+    fromDate = fromDate.AddMonths(-3);
+
+    DateTime toDate = DateTime.Now;
+}
+
+
+<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/MakerMillSheetListPage.css" rel="stylesheet" asp-append-version="true" />
+
+<link href="~/css/Common.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/masterStyles.css" rel="stylesheet" asp-append-version="true" />
+
+<style type="text/css">
+    .hide {
+        display: none;
+    }
+
+    .header {
+        padding-left: 3px;
+    }
+
+    .freez > th {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 0.2px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .HeaderPadding {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+</style>
+<style type="text/css">
+   
+
+    .freez > td {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 0.2px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .HeaderPadding {
+        padding-left: 10px;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+
+    .rightPadding {
+        padding-right: 2px;
+    }
+
+    .disabled {
+        background-color: #EEEEEE !important;
+        color: black;
+    }
+</style>
+
+
+
+<br />
+<br />
+<tsSortPopUp:SortPopup ID="tsSortPopup" OnSortOKClick="tsSortPopup_OKClick" />
+
+<table>
+    <tr>
+        <td>
+            <table class="BorderInset">
+                <tr class="td1 GridLines12 textboxheight">
+                    <td colspan="17" class="labelClass labelClassWhite textboxheighttextboxheight">
+                        <label ID="lblchemicalComponant">@LocalizationServices.GetLocalizedHtmlString("抽出条件")</label>
+                    </td>
+                </tr>
+                <tr class="GridHeader1 GridLines12 textboxheight">
+                    <td style="width:60px">
+                        <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MakerMaster")</label>
+                    </td>
+                    <td style="width:80px">
+                        <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_TypeOfSteel")</label>
+                    </td>
+                   
+                   
+                    <td style="width:100px" colspan="2">
+                        <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</label>
+                    </td>
+                    <td style="width:80px">
+                        <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</label>
+                    </td>
+                    <td style="width:60px">
+                        <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Kouban")</label>
+                    </td>
+                    <td style="width:80px" colspan="2">
+                        <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_SaveDateTime")</label>
+                    </td>
+                   
+                  
+                    <td style="width:100px" colspan="2">
+                        <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_UpdateDateTime")</label>
+                    </td>
+                  
+                </tr>
+
+                <tr class=" GridLines13 ">
+                    <td align="left" valign="top">
+                        @* <input type="text" ID="txtMakerName" class="textboxheight  labelClass  tdNoWrap" style="width: 100%" maxlength="20"> *@
+                        <select ID="ddlMakerName" runat="server" class="DropdownListClass bordernone textboxheight dropListClass" TabIndex="1" style="font-family:'MS Gothic'; Height:22px;Width:180px;"
+                                errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_MakerRequired")">
+                        </select>
+                    </td>
+                    <td align="left" valign="top">
+                        <input type="text" ID="txtTypeofSteel" class="textboxheight  labelClass  tdNoWrap txtSteel" maxlength="30" TabIndex="2">
+                    </td>
+                   
+                   
+                    <td align="left" valign="top">
+                        <input type="text" ID="txtDim1" class="textboxheight  labelClass  tdNoWrap txtDimD" maxlength="6" TabIndex="3"
+                               onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                    </td>
+                    <td align="left" valign="top">
+                        <input type="text" ID="txtDim2" class="textboxheight  labelClass  tdNoWrap txtDimD" maxlength="6" TabIndex="4"
+                               onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                    </td>
+                    <td align="left" valign="top">
+                        <input type="text" ID="txtcharge" class="textboxheight  labelClass  tdNoWrap txtCharge" TabIndex="5" maxlength="15">
+                    </td>
+                    <td align="left" valign="top">
+                        <input type="text" ID="txtkouban" class="textboxheight  labelClass  tdNoWrap txtKouban" TabIndex="6" maxlength="40">
+                    </td>
+                    <td align="left" valign="top">
+                        <input type="text" ID="txSaveDateStart" class="textboxheight  labelClass  tdNoWrap txtDate" TabIndex="7">
+                    </td>
+                    <td align="left" valign="top">
+                        <input type="text" ID="txSaveDateEnd" class="textboxheight  labelClass  tdNoWrap txtDate" TabIndex="8">
+                    </td>
+                   
+                   
+                    <td align="left" valign="top">
+                        <input type="text" ID="txUpdateDateStart" class="textboxheight  labelClass  tdNoWrap txtDate" TabIndex="9">
+                    </td>
+                    <td align="left" valign="top">
+                        <input type="text" ID="txUpdateDateEnd" class="textboxheight  labelClass  tdNoWrap txtDate" TabIndex="10">
+                    </td>
+                   
+
+                </tr>
+
+            </table>
+        </td>
+        <td class="MachineInspectionClass ">
+
+            <table id="tblMachineInspection" align="center">
+                <tr>
+                    <td colspan="2">
+                        <label ID="lblchemicalComponant" class="labelClass labelClassWhite ">@LocalizationServices.GetLocalizedHtmlString("補助機能(抽出·並替)")</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Extract")" ID="btnSearch" class="_functionButtons" TabIndex="11" Style="width: 86px;"
+                               ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" onclick="btnSearch_Click()" />
+                    </td>
+                    <td>
+                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Sort_L")" ID="btnSort" class="_functionButtons" TabIndex="12" Style="width: 86px;"
+                               ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" />
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    </table>
+   
+    <div id="divMakerMillSheetList">
+        @{
+            @await Html.PartialAsync("MakerMillSheetListGrid", Model)
+            ;
+        }
+    </div>
+
+    <table id="tblBottom">
+    <tr>
+        <td align="right">
+            <table>
+                <tr>
+                   
+                    <td class="Close">
+                        <table id="tblprint" align="center">
+                            <tr>
+                                <td align="center">
+                                    <label ID="lblchemicalComponant" class="labelClass labelClassWhite">@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnClose_W" class="_functionButtons" TabIndex="13" Style="width: 86px;"
+                                          ClientIDMode="Static" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<div id="divErrorMessages" class="Hidden">
+    <label id="lblErrorMessageE_MAKERMILLSHEET_LIST_001" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+    </label>
+    <label id="lblErrorMessageE_MAKERMILLSHEET_LIST_002" class="Hidden">
+        <span ID="LiteralSave_StartDateTimeInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_Save_StartDateTimeInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_MAKERMILLSHEET_LIST_003" class="Hidden">
+        <span ID="LiteralSave_EndDateTimeInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_Save_EndDateTimeInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_MAKERMILLSHEET_LIST_004" class="Hidden">
+        <span ID="LiteralUpdate_StartDateTimeInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_Update_StartDateTimeInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_MAKERMILLSHEET_LIST_005" class="Hidden">
+        <span ID="LiteralUpdate_EndDateTimeInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_Update_EndDateTimeInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_MAKERMILLSHEET_LIST_06" class="Hidden">
+        <span ID="LiteralSave_StartDateGreaterThanEndDate">@LocalizationServices.GetLocalizedHtmlString("valMsg_Save_StartDateGreaterThanEndDate")</span>
+    </label>
+    <label id="lblErrorMessageE_MAKERMILLSHEET_LIST_07" class="Hidden">
+        <span ID="LiteralUpdate_StartDateGreaterThanEndDate">@LocalizationServices.GetLocalizedHtmlString("valMsg_Update_StartDateGreaterThanEndDate")</span>
+    </label>
+    <label id="lblErrorMessageE_MAKERMILLSHEET_LIST_08" class="Hidden">
+        <span ID="LiteralSave_EndDateGreaterByAtLeastOneMinute">@LocalizationServices.GetLocalizedHtmlString("valMsg_Save_EndDateGreaterByAtLeastOneMinute")</span>
+    </label>
+    <label id="lblErrorMessageE_MAKERMILLSHEET_LIST_09" class="Hidden">
+        <span ID="LiteralUpdate_EndDateGreaterByAtLeastOneMinute">@LocalizationServices.GetLocalizedHtmlString("valMsg_Update_EndDateGreaterByAtLeastOneMinute")</span>
+    </label>
+    
+
+    </div>
+<div id="SortPopUpModalMain">
+    @{
+        @await Html.PartialAsync("~/Views/Shared/SortPopUp.cshtml")
+        ;
+    }
+</div>
+@section Scripts {
+
+    <script src="~/static/js/MakerMilSheetListPage.js" asp-append-version="true"></script>
+    <script src="~/Scripts/SortPopUpAddRemove.js" asp-append-version="true"></script>
+}

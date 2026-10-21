@@ -1,0 +1,314 @@
+﻿@using TSWebApplication.Domain.Utility
+@using TSWebApplication.Domain.Resources
+@using TSWebApplication.Domain.Model
+@* @model List<GridSearchFields> *@
+@model List<RollSalesForecastDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lbl_Menu_RollPoForecast").Value.Replace("<br>", "");
+
+}
+
+<style type="text/css">
+    .hide {
+        display: none;
+    }
+
+    .header {
+        padding-left: 3px;
+    }
+
+    .freez > th {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 0.2px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freez2 > th {
+        position: sticky !important;
+        background-color: #B2C3E6;
+        top: 21px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freez3 > th {
+        position: sticky !important;
+        background-color: #B2C3E6;
+        top: 41.5px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freez4 > th {
+        position: sticky !important;
+        background-color: #B2C3E6;
+        top: 62px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freez5 > th {
+        position: sticky !important;
+        background-color: #B2C3E6;
+        top: 83.5px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+</style>
+
+
+
+<table border="0" cellpadding="0" cellspacing="0" width="1300px" id="tblMain" style="margin-top:20px;">
+    <tr>
+        <td>
+            <div id="pnlHeader">
+                <table>
+
+                    <tr>
+                        <td>
+                            <div id="div1">
+                                <table cellpadding="5">
+                                    <tr>
+                                        <td align="left" valign="middle">
+
+                                            <label id="lblRequestedDate" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_RequestedDate")</label>
+                                        </td>
+                                        <td align="left" valign="top">
+
+                                            <input type="text" ID="txtDate" class="TextFieldsClass form-control InActiveIMEMode disabled" disabled="disabled">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" valign="middle" colspan="1">
+                                            <label id="lblRequestedDate" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_SalesIncharge_L")</label>
+                                        </td>
+                                        <td align="left" valign="middle" colspan="2">
+                                            <input type="text" ID="txtBreakTime" class="TextFieldsClass form-control InActiveIMEMode disabled" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Break")" disabled="disabled">
+                                        </td>
+                                    </tr>
+                                    @*  <tr>
+                                    <td align="left" valign="middle" colspan="2">
+                                            <input type="text" ID="txtBreakTime" class="TextFieldsClass form-control InActiveIMEMode disabled" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Break")" disabled="disabled">
+                                    </td>
+                                    </tr> *@
+                                </table>
+                            </div>
+                        </td>
+                        <td align="left" valign="top">
+                            <div id="pnlSearch">
+                                <table bgcolor="#7291D2" border="0" cellpadding="0" cellspacing="0" id="tblSearch1">
+
+
+                                    <tr>
+                                        <th align="center">
+                                            <label id="lblCustomerName" style="padding-top:4px;" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_CustomerName")</label>
+
+                                        </th>
+                                        <th align="center" style="border-top:2px Inset white;border-bottom:2px Inset Lightgray;border-left:1px solid white;">
+
+                                            <label id="lblRollPoYear" style="padding-top:4px;" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_RollPoYear")</label>
+
+                                        </th>
+                                        <th align="center" style="border-top:2px Inset white;border-bottom:2px Inset Lightgray;border-left:1px solid white;">
+
+                                            <label id="lblRollPoNumber" style="padding-top:4px;" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_RollR")</label>
+
+                                        </th>
+                                    </tr>
+                                    <tr style="background-color: white;">
+                                        @* <td align="center">
+
+                                            <select ID="ddlCustomerName" TabIndex="16" class="MandatoryDropdown Mandatory DropdownListClass dropListClass">
+                                                <option value="0" selected="selected"></option>
+                                            </select>
+
+                                        </td> *@
+                                        <td>
+                                            <div id="divCustomer" class="notMandatory">
+
+                                                @{
+                                                    var data = Tuple.Create("txtCustomer", "btnCustomerSearch", "ddlCustomerName","",3);
+                                                    @Html.Partial("~/Views/SearchComboCustomer/SearchComboCustomer.cshtml", data)
+
+                                                }
+                                            </div>
+                                        </td>
+                                        <td align="center">
+
+                                            <input style="width:91px; height:24px!important" TabIndex="4" type="text" ID="txtForecastYear" class="TextFieldsClass form-control Mandatory" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                                                   MaxLength="4" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_PPYearRequired")" />
+
+                                        </td>
+                                        <td align="center">
+
+                                            <input style="width:91px; height:24px!important" TabIndex="5" type="text" ID="txtForecastRoll" class="TextFieldsClass form-control Mandatory" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                                                   MaxLength="2" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_PPRollRequired")" />
+
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </td>
+                        <td align="left" valign="top">
+
+                            <table id="tblFilter" style="height: 75px;background-color: #034f57;">
+                                <tr>
+                                    <td align="center" colspan="2">
+
+                                        <label id="lblFilterCondition" class="lableClass" style="color:white;margin-left:8px;">@LocalizationServices.GetLocalizedHtmlString("lbl_FilterCondition")</label>
+
+
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+                                    <td align="center">
+                                        <br />
+                                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Extract")" ID="btnExtract" class="_functionButtons" TabIndex="6" />
+
+
+                                    </td>
+                                    <td align="center">
+                                        <br />
+                                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Sort_L")" ID="btnSort" class="_functionButtons" TabIndex="7" />
+
+
+                                    </td>
+
+                                </tr>
+                            </table>
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" valign="top">
+            <div id="pnlProductGrid">
+                @* @{
+                    @await Html.PartialAsync("~/Views/RollPoForecast/RollPoProductGrid.cshtml")
+                    ;
+                } *@
+                @{
+                    @await Html.PartialAsync("RollPoProductGrid", Model)
+                    ;
+                }
+
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" valign="top">
+            <div id="pnlMaterialGrid">
+                @*  @{
+                    @await Html.PartialAsync("~/Views/RollPoForecast/RollPoMaterialGrid.cshtml")
+                    ;
+                } *@
+                @{
+                    @await Html.PartialAsync("RollPoMaterialGrid", Model)
+                    ;
+                }
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" valign="top">
+            <div id="pnlBottom">
+                <table>
+                    <tr>
+                        <td align="left" valign="top" style="background-color:green;">
+                            <table style="margin-top:12px;" id="tblExport">
+                                <tr>
+                                    <td align="center" valign="middle">
+
+                                        <label id="lblAuxiliaryFunctionCSVExcel" class="lableClass">@LocalizationServices.GetLocalizedHtmlString("lbl_AuxiliaryFunctionCSV")</label>
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+                                    <td align="center" valign="middle">
+                                        <br />
+                                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_CSV_L")" ID="btnCSV" class="_functionButtons" TabIndex="8" />
+
+                                        @*  <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Excel_L")" ID="btnExcel" class="_functionButtons" TabIndex="9" /> *@
+
+
+                                    </td>
+
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width:3px;"></td>
+                        <td align="left" valign="top" style="background-color:#C00000">
+                            <table style="margin-top:12px;" id="tblInitialize">
+                                <tr>
+                                    <td align="center" valign="middle">
+
+                                        <label id="lbl_Initialize" class="lableClass" style="color:white;margin-left:8px;">@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")</label>
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+                                    <td align="center" valign="middle">
+                                        <br />
+                                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")" ID="btnInitialize" class="_functionButtons" TabIndex="9" />
+
+                                    </td>
+
+                                </tr>
+                            </table>
+                        </td>
+                        <td align="left" valign="middle" width="927px">
+                            <label id="lblRollPoForecastInstruction" class="lableClass" style="color:red;padding-left:200px;">@LocalizationServices.GetLocalizedHtmlString("lbl_RollPoForecast_Instruction")</label>
+                        </td>
+                        <td align="left" valign="top" style="background-color: Navy;">
+                            <table id="tblClose">
+                                <tr>
+                                    <td align="center" valign="middle">
+                                        <label ID="lblClose" class="labelClass" style="color:White;padding-top:12px">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" valign="middle">
+                                        <br />
+                                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnClose" class="_functionButtons" OnClientClick="return Confirmation()" TabIndex="10" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<label ID="valMsgForSearchCondition" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_EnterAtLeastOneSearchCondition")</label>
+<label ID="lblProductDataNotFOund" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_ProductDataNotFound")</label>
+<label ID="lblMaterialDataNotFOund" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_MaterialDataNotFound")</label>
+<label ID="valMsgCOMSystemException" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</label>
+
+<div id="SortPopUpModalMain">
+    @{
+        @await Html.PartialAsync("~/Views/Shared/SortPopUp.cshtml")
+        ;
+    }
+</div>
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script type="text/javascript" src="~/Static/js/RollPoForecast.js"></script>
+    <link href="~/css/Common.css" rel="stylesheet" />
+    <link href="~/css/RollPoForecast.css" rel="stylesheet" />
+    <link href="~/css/Common_Styles.css" rel="stylesheet" />
+    <link href="~/css/masterStyles.css" rel="stylesheet" />
+
+
+}

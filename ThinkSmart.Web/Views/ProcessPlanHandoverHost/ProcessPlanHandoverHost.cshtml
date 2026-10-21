@@ -1,0 +1,551 @@
+﻿@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_ProcessPlanHandoverHost");
+}
+
+<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/Common.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/ProcessPlanHandover.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/masterStyles.css" rel="stylesheet" asp-append-version="true" />
+<style type="text/css">
+    .hide {
+        display: none;
+    }
+
+    .header {
+        padding-left: 3px;
+    }
+
+    .freez > th {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 0.2px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freez2 > th {
+        position: sticky !important;
+        background-color: #B2C3E6;
+        top: 21px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freez3 > th {
+        position: sticky !important;
+        background-color: #B2C3E6;
+        top: 41.5px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freez4 > th {
+        position: sticky !important;
+        background-color: #B2C3E6;
+        top: 62px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freez5 > th {
+        position: sticky !important;
+        background-color: #B2C3E6;
+        top: 83.5px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+</style>
+
+<table width="1380px">
+    <tr>
+        <td align="left">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border:2px inset lightgrey">
+                <tr>
+                    <td>
+
+                    <td style="width: 7%; height: 57px; background-color: #C00000; border-width: 0px; border-style: none;">
+                        <br />
+                        <table border="0" cellpadding="0" cellspacing="0"
+                               style="width: 100%; height: 65px;">
+                            <tr>
+                                <td align="center" colspan="4" valign="bottom">
+                                    <label ID="Label3" class="labelClass" style="color:white;margin-top: 4px;">@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")" ID="btnInitialize" class="_functionButtons" TabIndex="9" style="margin-bottom: 6px;" />
+                                </td>
+
+                            </tr>
+                        </table>
+
+                    </td>
+
+                    <td align="left" style="white-space:nowrap;width:312px">
+
+                        <table height="55px">
+                            <tr>
+
+                                <td align="left">
+                                    <input type="radio" name="radioBtnGroup"  onchange="clickOnBeforeEntryChange()" id="rdoPrcessPlanSearchBeforeEntry" value='@LocalizationServices.GetLocalizedHtmlString("lbl_PrcessPlanSearchBeforeEntry")' TabIndex="10" >
+                                    <label for="rdoPrcessPlanSearchBeforeEntry" id="lblPrcessPlanSearchBeforeEntry">@LocalizationServices.GetLocalizedHtmlString("lbl_PrcessPlanSearchBeforeEntry")</label>
+
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <td align="left">
+
+                                    <input type="radio" name="radioBtnGroup" onchange="clickOnAfterEntryChange()" id="rdoPrcessPlanSearchAfterEntry" value='@LocalizationServices.GetLocalizedHtmlString("lbl_PrcessPlanSearchAfterEntry")' TabIndex="10" >
+                                    <label for="rdoPrcessPlanSearchAfterEntry" id="lblPrcessPlanSearchAfterEntry">@LocalizationServices.GetLocalizedHtmlString("lbl_PrcessPlanSearchAfterEntry")</label>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td style="background-color:#02a04b;width:160px;">
+                        <br />
+                        <table style="height:52px;width:160px">
+                            <tr>
+
+                                <td align="center" valign="bottom">
+
+                                    <label id="lblPrcessPlanSearch" class="labelClass" style="color:white;">@LocalizationServices.GetLocalizedHtmlString("lbl_PrcessPlanSearch")</label>
+
+
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" width="180px">
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_OrderNoSrNoSearch")" ID="btnOrderNoSrNoSearch" class="_functionButtons" TabIndex="2"
+                                           style="Width:150px;" />
+                                </td>
+                            </tr>
+
+                        </table>
+                    </td>
+                    <td width="18px"></td>
+                    <td style="background-color:#d66001;width:235px;">
+                        <br />
+                        <table height="52px" width="329px">
+                            <tr>
+                                <td valign="bottom" align="center">
+                                    <label style="color:white;" id="lblProcessEntryCancel">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessEntryCancel")</label>
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_AddNew")" ID="btnAddNew" class="_functionButtons" TabIndex="4" />
+                                            </td>
+                                            <td>
+                                                <input type="button" style="width: 150px;" value="@LocalizationServices.GetLocalizedHtmlString("lbl_OverwriteUpdate")" ID="btnUpdate" class="_functionButtons" TabIndex="5" />
+                                            </td>
+                                            <td>
+                                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Cancel")" ID="btnCancel" class="_functionButtons" TabIndex="6" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    
+                                   
+
+
+                                   
+
+                                </td>
+
+                            </tr>
+
+                        </table>
+
+
+                    </td>
+                    <td style="width:470px;"></td>
+                    
+                   @*  <td align="center" width="180px" style="padding-top: 30px;">
+                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_DeleteRow_L")" ID="btnDeleteRow" class="_functionButtons" TabIndex="30"
+                               style="Width:129px;background-color:#d66001;color: white;height: 44px;border-radius: 8px;" />
+                    </td> *@
+                    <td style="background-color:#c35214;">
+                        <br />
+                        <table style="height:52px;width:120px">
+                            <tr>
+
+                                <td align="center" valign="bottom">
+
+                                    <label id="lblSetFirstProcess" class="labelClass" style="color:white;">@LocalizationServices.GetLocalizedHtmlString("btn_DeleteRow_L")</label>
+
+
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" width="180px">
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_DeleteRow_L")" ID="btnDeleteRow" class="_functionButtons" TabIndex="12"
+                                           style="Width:85px;" />
+                                </td>
+                            </tr>
+
+                        </table>
+                    </td>
+                    <td width="10px"></td>
+                    <td style="background-color:#621291;width:200px;">
+                        <br />
+                        <table style="height:52px;width:200px">
+                            <tr>
+
+                                <td align="center" valign="bottom">
+
+                                    <label id="lblSetFirstProcess" class="labelClass" style="color:white;">@LocalizationServices.GetLocalizedHtmlString("lbl_SetFirstProcess")</label>
+
+
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" width="180px">
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_SetProcess")" ID="btnSetProcess" class="_functionButtons" TabIndex="7"
+                                           style="Width:150px;" />
+                                </td>
+                            </tr>
+
+                        </table>
+                    </td>
+                    <td style="width: 5%; height: 57px; border-width: 0px; border-style: none;">
+                        <table bgcolor="Navy" border="0" cellpadding="0" cellspacing="0" frame="border" style="border-color: Navy; width: 100px; height: 100%;margin-left:2px;">
+                            <tr>
+                                <td align="center">
+                                    <label ID="lblClose" class="labelClass" style="color:White;padding-top:18px">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnClose" class="_functionButtons" OnClientClick="return Confirmation()" TabIndex="8" style="margin-bottom: 7px;" />
+                                </td>
+                            </tr>
+                        </table>
+
+
+                    </td>
+                </tr>
+
+
+
+            </table>
+        </td>
+    </tr>
+    <tr>
+
+        <td align="left">
+
+            <table cellpadding="0" cellspacing="0" border="0" frame="border" style="width: 1830px; border-collapse: collapse" id="tblProcessPlanHandover">
+                <tr>
+                    <td align="center" valign="middle" style="background-color: #4E6CAB;">
+                        <label ID="lblprocessplanGridHeader"
+                               class="labelClass1" Width="100%" Height="15px" BackColor="#4E6CAB"
+                               Style="margin-top: 3px; margin-bottom: 0px;color:white">@LocalizationServices.GetLocalizedHtmlString("lbl_PrcoessPlan")</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+
+                        <div id="pnlProcess" style="height:820px;width:1855px;overflow:auto;">
+                            <div>
+
+                                <table class="GridLines GridLayout" cellpadding="0" cellspacing="0" border="1" id="grdvProcessPlanHandoverList" style="border-collapse:collapse;text-align: left">
+
+                                    <thead>
+                                        <tr class="GridHeader GridViewScrollHeader freez GridHeaderPadding" id="grdvProcessPlanHandoverDetails" style="border-collapse:collapse;text-align: left">
+
+                                            @*<th></th>
+                                            <th></th>*@
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;">@LocalizationServices.GetLocalizedHtmlString("lbl_SelectRow")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;width: 129px;">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_InternalName")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</th>
+
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</th>
+
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_DimW")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_DimOther")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_DimTolerance")</th>
+
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</th>
+                                            @*                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_LengthTolerance")</th>
+*@
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_Condition_L1")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocNoOfUnits")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocQty1")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocDate1")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductSpecNo")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;width:330px;">@LocalizationServices.GetLocalizedHtmlString("lbl_Remark")</th>
+                                            <th class="padding-top-bottom headerPadding labelClass tdH2" style="text-align:center;white-space:nowrap;width:141px;">@LocalizationServices.GetLocalizedHtmlString("lbl_DdlNextProcess")</th>
+                                           
+                                            
+
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for (Int32 i = 1; i <= 30; i++)
+                                        {
+
+                                            <tr class="GridNormalRow" style="text-align:center">
+                                                <td>
+                                                    <input type="checkbox" ID="@("selectRow" + i)" data-id="@i" TabIndex="11" />
+                                                </td>
+                                                <td class="labelClass" align="left" style="padding-left:0px;">
+                                                    <input type="text"  ID="@("txtchuuban" + i)" data-id="@i" data-orderno="yes" tabindex="1" style="width: 129px" class=" TextBoxClass Mandatory okToReset InActiveIMEMode TextFieldsClass form-control" maxlength="12" errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_OrNoIsRequired")" autofocus />
+                                                </td>
+                                                <td id="@("txtCustomer" + i)" data-id="@i" class="labelClass disabled CharactFieldsClass padddingLeft" style="text-align:left"><label type="text" ID="@("txtCustomer" + i)" data-id="@i"></label></td>
+                                                <td id="@("txtProdName" + i)" data-id="@i" class="labelClass disabled CharactFieldsClass padddingLeft" style="text-align:left"><label type="text" ID="@("txtProdName" + i)" data-id="@i"></label></td>
+                                                <td id="@("txtIntName" + i)" data-id="@i" class="labelClass disabled CharactFieldsClass padddingLeft" style="text-align:left"><label type="text" ID="@("txtIntName" + i)" data-id="@i"></label></td>
+                                                <td id="@("txtShape" + i)" data-id="@i" class="labelClass disabled" style="text-align:center"><label type="text" ID="@("txtShape" + i)" data-id="@i"></label></td>
+                                                <td id="@("txtDia" + i)" data-id="@i" class="labelClass disabled NumericFieldsClass padddingRight" style="text-align:right"><label type="text" ID="@("txtDia" + i)" data-id="@i"></label></td>
+                                                <td id="@("txtDiaW" + i)" data-id="@i" class="labelClass disabled NumericFieldsClass padddingRight" style="text-align:right"><label type="text" ID="@("txtDiaW" + i)" data-id="@i"></label></td>
+                                                <td id="@("txtOther" + i)" data-id="@i" class="labelClass disabled NumericFieldsClass padddingRight" style="text-align:right"><label type="text" ID="@("txtOther" + i)" data-id="@i"></label></td>
+                                                <td id="@("txtDimTol" + i)" data-id="@i" class="labelClass disabled CharactFieldsClass padddingLeft" style="text-align:left"><label type="text" ID="@("txtDimTol" + i)" data-id="@i"></label></td>
+
+                                                <td id="@("txtLen" + i)" data-id="@i" class="labelClass disabled NumericFieldsClass padddingRight" style="text-align:right"><label type="text" ID="@("txtLen" + i)" data-id="@i"></label></td>
+                                               
+
+                                                <td id="@("txtCondition" + i)" data-id="@i" class="labelClass disabled CharactFieldsClass padddingLeft" style="text-align:left"><label type="text" ID="@("txtCondition" + i)" data-id="@i"></label></td>
+                                                <td id="@("txtCharge" + i)" data-id="@i" class="labelClass disabled CharactFieldsClass padddingLeft" style="text-align:left"><label type="text" ID="@("txtCharge" + i)" data-id="@i"></label></td>
+                                                <td id="@("txtActAllPiec" + i)" data-id="@i" class="labelClass disabled NumericFieldsClass padddingRight" style="text-align:right"><label type="text" ID="@("txtActAllPiec" + i)" data-id="@i"></label></td>
+                                                <td id="@("txtActAllWt" + i)" data-id="@i" class="labelClass disabled NumericFieldsClass padddingRight" style="text-align:right"><label type="text" ID="@("txtActAllWt" + i)" data-id="@i"></label></td>
+                                                <td id="@("txtActAllDt" + i)" data-id="@i" class="labelClass disabled padddingRight padddingLeft" style="text-align:center"><label type="text" ID="@("txtActAllDt" + i)" data-id="@i"></label></td>
+                                                <td id="@("txtProdSpecNo" + i)" data-id="@i" class="labelClass disabled " style="text-align:center"><label type="text" ID="@("txtProdSpecNo" + i)" data-id="@i"></label></td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("txtProcessPlanCd" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("txtLocationCd" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("txtActAllPiecesUnit" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("txtActAllPieces" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("txtActAllWt" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("ddlNextProcessCD" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfCustCode" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfInchargeCode" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfMakerCode" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfMatlMakerName" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfReceiverName" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfProdSpecNo1" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfProdSpecNo2" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfDeptCode" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfPackingName" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfProcessNameA" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfProcessNameB" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfProcessNameC" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfProcessNameD" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfProcessNameE" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfProcessNameF" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfProcessNameG" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfProcessNameH" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfProcessNameI" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfProcessNameJ" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfProcessNameK" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfProcessNameL" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfProcessNameM" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfChuubanGyouban" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfMakerName" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfBendTol" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfMagariSpan" + i)" data-id="@i" style="display:none;"></label>
+
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfDimTolMinSplit" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfDimTolMaxSplit" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfDimTolMin" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfDimTolMax" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfDimTolMinChar" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfDimTolMaxChar" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfLenTolMinSplit" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfLenTolMaxSplit" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfLenTolMin" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfLenTolMax" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfLenTolMinChar" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfLenTolMaxChar" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td style="display:none;">
+                                                    <label type="text" ID="@("hdfFuhenNo" + i)" data-id="@i" style="display:none;"></label>
+                                                </td>
+                                                <td class="labelClass" align="left">
+                                                    <input type="text" class="TextFieldsClass" style="width:330px;border:none" ID="@("txtRemark" + i)" data-id="@i" />
+                                                </td>
+                                                <td class="labelClass" align="left" style="padding-left:0px;width:141px;">
+                                                    <select id="@("ddlNextProcess" + i)" data-id="@i" name="ddlNextProcess" class="TextBoxClass DropdownListClass TextFieldsClass Mandatory form-control"
+                                                            tabindex="3">
+                                                    </select>
+                                                    <label ID="lblOrNoIsRequired" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_OrNoIsRequired")</label>
+                                                    <label ID="lblFollowingOrNoNotFound" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_FollowingOrNoNotFound")</label>
+                                                    <label ID="lblFollowingOrNoAlredyCompleted" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_FollowingOrNoAlredyCompleted")</label>
+                                                    <label ID="lblProcessStarted" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("successMsg_ProcessStarted")</label>
+                                                    <label ID="successMsg_ProcessPlanUpdated" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("successMsg_ProcessPlanUpdated")</label>
+
+                                                    <label ID="lblProcessCancelled" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("successMsg_ProcessCancelled")</label>
+                                                    <label ID="lblFollowingOrNoProcessStarted" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_FollowingOrNoProcessStarted")</label>
+                                                    <label ID="lblInRowProcessIsRequired" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_InRowProcessIsRequired")</label>
+                                                    <label ID="lblMultipleOrNoFound" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_MultipleOrNoFound")</label>
+                                                    <label ID="lblFollowingOrNoProcessAlreadyStarted" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_FollowingOrNoProcessAlreadyStarted")</label>
+                                                    <label ID="lblFollowingOrNoProcessNotStarted" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_FollowingOrNoProcessNotStarted")</label>
+                                                    <label ID="lblSystemException" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</label>
+                                                    <label ID="valMsgFollowingOrNoIsDuplicate" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_FollowingOrNoIsDuplicate")</label>
+                                                    <label ID="lblNifudaNoNotFound" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_NifudaNoNotFound")</label>
+                                                    <label ID="lblUnitCoil" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitType4Of4_L")</label>
+                                                    <label ID="lblUnitBar" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("lbl_Hone")</label>
+                                                    <label ID="lblUnitBundle" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("lbl_Thaba_L")</label>
+                                                    <label ID="lblUnitPieces" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("lbl_Pieces_L")</label>
+                                                    <label ID="valMsgCustomerNotFoundInMaster" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_CustomerNotFoundInMaster")</label>
+                                                 @*    <label ID="valMsgIntNameNotFoundInMaster" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_IntNameNotFoundInMaster")</label> *@
+                                                    <label ID="valMsgMaterialDetailsNotFount" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_MaterialDetailsNotFount")</label>
+                                                    
+                                                    <label ID="valMsgReceiverNotFoundInMaster" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_ReceiverNotFoundInMaster")</label>
+                                                    <label ID="valMsgEmployeeNameNotFoundInMaster" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_EmployeeNameNotFoundInMaster")</label>
+                                                    <label ID="valMsgProcessNameNotFoundInMaster" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_ProcessNameNotFoundInMaster")</label>
+                                                    <label ID="valMsgOrderNoNotExist" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_OrderNoNotExist")</label>
+                                                    <label ID="valMsgOrderNoAlreadyExist" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("val_MsgOrderNoAlreadyExist")</label>
+                                                    <label ID="valMsgCOMSelectAtLeastOne" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SelectAtLeastOne")</label>
+                                                    <label ID="valMsgMakerNotFoundInMaster" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_MakerNotFoundInMaster")</label>
+                                                    <label ID="valMsgMissMatchBendAndSpanSpecification" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_MissMatchBendAndSpanSpecification")</label>
+                                                    <label ID="valMsgMissMatchDimAndLenTolSpecification" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_MissMatchDimAndLenTolSpecification")</label>
+                                                    
+                                                </td>
+                                               
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+
+
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table>
+                <tr>
+                    <td align="left" valign="top">
+                        <label style="color:black;padding-left: 12px;" id="lblProcessEntryCancel">@LocalizationServices.GetLocalizedHtmlString("lbl_Note_M")</label>
+                    </td>
+                    <td align="left" valign="top">
+                        <label style="color:black;" id="lblProcessEntryCancel">@LocalizationServices.GetLocalizedHtmlString("lblNote1_ProcessPlanHandoverHost")</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" valign="top">
+                        </td>
+                    <td align="left" valign="top">
+                        <label style="color:black;" id="lblProcessEntryCancel">@LocalizationServices.GetLocalizedHtmlString("lblNote2_ProcessPlanHandoverHost")</label>
+                    </td>
+                    </tr>
+            </table>
+          
+        </td>
+    </tr>
+
+</table>
+
+@section Scripts {
+    <script src="/Static/js/ProcessPlanHandoverHost.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,107 @@
+﻿@using TSWebApplication.Domain.Resources
+@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Utility
+@inject LocalizationServices LocalizationServices
+@model List<HSKMillSheetDetails>
+@{
+    Layout = null;
+}
+
+<div style="height:630px; overflow: scroll;width: 1195px;">
+    <table class="BorderInset" style="width:99%">
+        <tr class="td1 GridLines12 textboxheight">
+            <td colspan="20" class="labelClass labelClassWhite ">
+                <label ID="lblchemicalComponant">@LocalizationServices.GetLocalizedHtmlString("製造指示書　一覧")</label>
+            </td>
+        </tr>
+
+        <tr class="GridHeader1 GridLines12 textboxheight">
+            <td>
+            </td>
+            <td style="display:none;">
+            </td>
+            <td>
+                <label ID="lblChuuban" class="labelClass tdpaddingleftandright">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</label>
+            </td>
+            <td>
+                <label ID="lblcustomer" class="labelClass tdpaddingleftandright">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</label>
+            </td>
+            <td>
+                <label ID="lblProdNameCust" class="labelClass tdpaddingleftandright">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</label>
+            </td>
+            <td>
+                <label ID="lblShap" class="labelClass tdpaddingleftandright">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</label>
+            </td>
+            <td>
+                <label ID="lblDimd" class="labelClass tdpaddingleftandright">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</label>
+            </td>
+
+            <td>
+                <label ID="lblLength" class="labelClass tdpaddingleftandright">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</label>
+            </td>
+            <td>
+                <label ID="lblCondition" class="labelClass tdpaddingleftandright">@LocalizationServices.GetLocalizedHtmlString("lbl_Condition")</label>
+            </td>
+            <td>
+                <label ID="lblDeliveryDate" class="labelClass tdpaddingleftandright">@LocalizationServices.GetLocalizedHtmlString("lbl_DeliveryDate")</label>
+            </td>
+            <td>
+                <label ID="lblActAllDate" class="labelClass tdpaddingleftandright">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocDate")</label>
+            </td>
+            <td>
+                <label ID="lblCharge" class="labelClass tdpaddingleftandright">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</label>
+            </td>
+            <td>
+                <label ID="lblMakerMaster" class="labelClass tdpaddingleftandright">@LocalizationServices.GetLocalizedHtmlString("lbl_MakerMaster")</label>
+            </td>
+           
+
+            @*  <td colspan="2">
+            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ManufacturingSpecificationNo")</label>
+            </td>
+            *@
+
+        </tr>
+        @if (Model != null && Model.Count > 0)
+        {
+            @foreach (var item in Model)
+            {
+                <tr class=" GridLines13 " data-lblProcessPlanCD="@item.PROCESS_PLAN_CD">
+                    <td>
+                        <input type="button" id="" ID="lnkEdit" onclick="OnEditClick($(this))" class="btnArrow" style="height:22px" CausesValidation="false" />
+                    </td>
+                    <td style="display:none;">
+                        <label type="text" ID="@("PROCESS_PLAN_CD" + item)"  data-id="@item">@item.PROCESS_PLAN_CD</label>
+                    </td>
+                    <td class="textboxheight text-right tdpaddingleftandright" style="text-wrap-mode: nowrap;">@item.PP_CHUUBAN_GYOUBAN</td>
+                    <td class="textboxheight text-left tdpaddingleftandright" style="text-wrap-mode: nowrap;">@item.PP_CUSTOMER_NAME</td>
+                    <td class="textboxheight text-left tdpaddingleftandright" style="text-wrap-mode: nowrap;">@item.PROD_NAME_CUST</td>
+                    <td class="textboxheight text-center tdpaddingleftandright" style="text-wrap-mode: nowrap;">@item.PROD_SHAPE</td>
+                    <td class="textboxheight text-right tdpaddingleftandright" style="text-wrap-mode: nowrap;">@item.PROD_DIM_D</td>
+                    <td class="textboxheight text-right tdpaddingleftandright" style="text-wrap-mode: nowrap;">@item.PROD_LENGTH</td>
+                    <td class="textboxheight text-left tdpaddingleftandright" style="text-wrap-mode: nowrap;">@item.PP_PROD_CONDITION_DESCRIPTION</td>
+                    <td class="textboxheight text-center tdpaddingleftandright" style="text-wrap-mode: nowrap;">@item.DELIVERY_DATE</td>
+                    <td class="textboxheight text-center tdpaddingleftandright" style="text-wrap-mode: nowrap;">@item.PP_ACT_ALLOC_DATE_STRING</td>
+                    <td class="textboxheight text-left tdpaddingleftandright" style="text-wrap-mode: nowrap;">@item.PP_CHARGE</td>
+                    <td class="textboxheight text-left tdpaddingleftandright" style="text-wrap-mode: nowrap;">@item.PP_MAKER_NAME_SHORT</td>
+                  
+                   
+                    @* <td class="textboxheight text-right" style="text-wrap-mode: nowrap;">@item.WEIGHT</td>
+            <td class="textboxheight text-right" style="text-wrap-mode: nowrap;">@item.UNIT</td>
+            <td class="textboxheight text-center" style="text-wrap-mode: nowrap;">@item.CREATED_DATE</td>
+            <td class="textboxheight text-center" style="text-wrap-mode: nowrap;">@item.UPDATED_DATE</td> *@
+                </tr>
+
+
+               
+
+            }
+        }
+        else
+        {
+            <tr style="height:20px;">
+                <td colspan="18" align="left" style="padding-left:5px;"><label ID="lbldatanotavailable" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_NoRecordFound_L")</label></td>
+            </tr>
+        }
+    </table>
+</div>

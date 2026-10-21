@@ -1,0 +1,71 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<HSKMillSheetDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+}
+                                     
+<link href="~/css/Common_Styles.css" rel="stylesheet" />
+<link href="~/css/HSKMillSheetPostHTInspection.css" rel="stylesheet" />
+<link href="~/css/Common.css" rel="stylesheet" />
+<link href="~/css/masterStyles.css" rel="stylesheet" />
+
+<div>
+    <table>
+        <tr>
+            <td>
+                <table style="width:400px">
+                    <thead>
+                    <tr class="td1 GridLines12 textboxheight">
+                        <td colspan="17" class="labelClass labelClassWhite textboxheighttextboxheight">
+                            <label ID="lblchemicalComponant">@LocalizationServices.GetLocalizedHtmlString("lbl_PostHTDetails")</label>
+                        </td>
+                    </tr>
+                    <tr class="GridHeader1 GridLines12 textboxheight">
+                        <td style="width:20px">
+                        </td>
+                        <td style="width:60px">
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_InspectionDate")</label>
+                        </td>
+                        <td style="width:80px">
+                            <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("DM-F")</label>
+                        </td>
+                        <td style="width:80px">
+                            <label ID="lblchemicalComponant" class="labelClass">DM-T @LocalizationServices.GetLocalizedHtmlString("lbl_Average")</label>
+                        </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                  @if (Model != null && Model.Count > 0)
+                  {
+                    int i = 0;
+                    foreach (var item in Model)
+                    {
+                      i = i + 1;
+                      <tr class="trTdSearchContent">
+                      <td class="labelClass padddingLeft padddingRight">
+
+                       <input type="radio" ID=@("selectRow" + i) data-id="@i" class="labelClass" name="radiobtn" />
+                      </td>
+                      <td style="display:none;">
+                      <label type="text" ID="@("internal_quality_CD"+i)" data-id="@i">@item.INTERNAL_QUALITY_CD</label>
+                      </td>
+                       <td style="width:60px;" class="text-center">
+                        <label ID="lblchemicalComponant" class="labelClass tdNoWrap">@item.INT_QLTY_TEST_DATE</label>
+                        </td>
+                                    <td style="width:80px" class="text-right">
+                        <label ID="lblchemicalComponant" class="labelClass">@item.ACT_DM_F</label>
+                        </td>
+                         <td style="width:80px" class="text-right">
+                         <label ID="lblchemicalComponant" class="labelClass">@item.ACT_DM_T_AVG</label>
+                        </td>
+                      </tr>
+                      }
+                    }
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>

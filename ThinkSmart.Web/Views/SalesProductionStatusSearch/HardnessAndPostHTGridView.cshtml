@@ -1,0 +1,156 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<ProcessPlanForSalesProductionStatusDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+}
+
+<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/salesproductionstatussearch.css" rel="stylesheet" asp-append-version="true" />
+<table >
+    <tr>
+        <td>
+            <div id="TbPMSHardnessAndPostHT">
+                <table class="GridLines GridNormalRows" >
+                    <tr>
+                        <th colspan="22" class="Hard-Tens-Grid-Title">
+                            <label ID="lblMechanicalInspResult" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MechanicalInspResult")</label>
+                        </th>
+                    </tr>
+                    <tr class=" thHeaderClass freez">
+                        <th>
+                            <label ID="lblSplitNo" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_SplitNo")</label>
+                        </th>
+                        <th>
+                            <label ID="lblProcessName" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductTestStandard")</label>
+                        </th>
+                        <th>
+                            <label ID="lblProcessEndDate" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_Tensile")</label>
+                        </th>
+                        <th>
+                            <label ID="lblMachine" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualVal")</label>
+                        </th>
+                        <th>
+                            <label ID="lblTabaNo" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_Yield")</label>
+                        </th>
+                        <th>
+                            <label ID="lblFinishedBarCount" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_Elong")</label>
+                        </th>
+                        <th>
+                            <label ID="lblFinishQty" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualVal")</label>
+                        </th>
+                        <th>
+                            <label ID="lblDecision" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_Reduction")</label>
+                        </th>
+                        <th>
+                            <label ID="lblColor" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualVal")</label>
+                        </th>
+                        <th>
+                            <label ID="lblChamferShort" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_GuageDist")</label>
+                        </th>
+                        <th>
+                            <label ID="lblSpark" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_MaxLoad")</label>
+                        </th>
+                        <th>
+                            <label ID="lblChamferCondition" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_CuttingElongation")</label>
+                        </th>
+                        <th>
+                            <label ID="lblExternalSurfaceCondition" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_CutDim")</label>
+                        </th>
+                        <th>
+                            <label ID="lblEC" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessStd")</label>
+                        </th>
+                        <th>
+                            <label ID="lblECNGBars" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_MAX")</label>
+                        </th>
+                        <th>
+                            <label ID="lblDeliveryRemarks" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_MIN")</label>
+                        </th>
+                        <th>
+                            <label ID="lblEndOperator1" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_DAverage")</label>
+                        </th>
+                        <th>
+                            <label ID="lblEndOperator1" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_Center")</label>
+                        </th>
+                        <th>
+                            <label ID="lblExternalSurfaceCondition" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_D_4")</label>
+                        </th>
+                        <th>
+                            <label ID="lblEC" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_D_4")</label>
+                        </th>
+                        <th>
+                            <label ID="lblECNGBars" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_D_4")</label>
+                        </th>
+                        <th>
+                            <label ID="lblDeliveryRemarks" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_D_4")</label>
+                        </th>
+                       
+                    </tr>
+                    <tbody>
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            @foreach (var item in Model)
+                            {
+                                <tr class="GridNormalRow" data-lblProcessPlanCD="@item.PP_PROCESS_PLAN_CD">
+                                    <td class="GridRight">@item.DETAIL_NO</td>
+                                    <td class="GridLeft">@item.TEST_SPECIMEN</td>
+                                    <td class="GridCenter">@item.TENSILE_STRN_STRING</td>
+                                    <td class="GridRight">@if(!string.IsNullOrEmpty(@item.TENSILE_STRENGTH_FORMAT)){@item.TENSILE_STRENGTH_FORMAT}</td>
+                                    <td class="GridRight">@if (@item.YIELD_POINT != 0){@item.YIELD_POINT}</td>
+                                    <td class="GridCenter">@item.ELONGATION_PATTERN1_STRING</td>
+                                <td class="GridRight">@if (!string.IsNullOrEmpty(@item.ELONGATION_STRING)){@item.ELONGATION_STRING}</td>
+                                    <td class="GridCenter"> @item.PRESS_PATTERN1_STRING</td>
+                            <td class="GridRight">@if (!string.IsNullOrEmpty(@item.REDUCTION_STRING)){
+                            @item.REDUCTION_STRING
+                                                        }
+</td>
+                            <td class="GridRight">@if (!string.IsNullOrEmpty(@item.GAUGE_LENGTH_STRING)){@item.GAUGE_LENGTH_STRING}</td>
+                            <td class="GridRight">@if (!string.IsNullOrEmpty(@item.MAX_LOAD_STRING)){@item.MAX_LOAD_STRING}</td>
+                            <td class="GridRight">@if (!string.IsNullOrEmpty(@item.CUTTING_ELONGATION_STRING)){ @item.CUTTING_ELONGATION_STRING }</td>
+                            <td class="GridRight">@if (!string.IsNullOrEmpty(@item.FRACTURE_DIM_STRING)){@item.FRACTURE_DIM_STRING}</td>
+                                    <td class="GridCenter">@item.STD_HARDNESS_STRING</td>
+                                    <td class="GridRight">@item.HARDNESS_MAX</td>
+                            <td class="GridRight">@item.HARDNESS_MIN</td> @* item.HARD_MIN_MAX_STRING && item.HARDNESS_PATTERN1 *@
+                            <td class="GridRight">@if(!string.IsNullOrEmpty(@item.D4_AVG_STRING)){@item.D4_AVG_STRING}</td>
+                            <td class="GridRight">@if(!string.IsNullOrEmpty(@item.CENTER_STRING)){@item.CENTER_STRING}</td>
+                            <td class="GridRight">@if(!string.IsNullOrEmpty(@item.D4_1_STRING)){@item.D4_1_STRING}</td>
+                            <td class="GridRight">@if(!string.IsNullOrEmpty(@item.D4_2_STRING)){@item.D4_2_STRING }</td>
+                            <td class="GridRight">@if(!string.IsNullOrEmpty(@item.D4_3_STRING)){@item.D4_3_STRING }</td>
+                            <td class="GridRight">@if(!string.IsNullOrEmpty(@item.D4_4_STRING)){@item.D4_4_STRING}</td>
+                                   
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr class="GridNormalRow">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        }
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>

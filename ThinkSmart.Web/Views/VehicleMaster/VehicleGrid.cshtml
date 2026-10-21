@@ -1,0 +1,76 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<VehicleDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+}
+
+<link href="~/css/Common_Styles.css" rel="stylesheet" />
+<link href="~/css/YieldSearch.css" rel="stylesheet" />
+<div>
+
+    <table class="GridLines GridLayout" cellpadding="0" cellspacing="0" border="1">
+        <thead>
+            <tr class="GridHeader GridViewScrollHeader freez GridHeaderPadding" style="border-collapse:collapse;text-align: left">
+                <th class="tdHeaderClass labelClass GridCenter"></th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_VehicleOode")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_VehicleName")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_ShortName")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_Yobigana_L")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_Yobina")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_VhclMaxLoad")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_Displacement")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_VehicleNumber")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_VhclTransportCompany")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_DriverName")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_TelphoneNumber")</th>
+                <th class="tdHeaderClass labelClass GridCenter"></th>  @* @LocalizationServices.GetLocalizedHtmlString("lbl_InUse1") *@
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_CreatedDate_L")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_UpdatedDate_L")</th>
+
+            </tr>
+                     
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                @foreach (var item in Model)
+                {
+                    <tr class="GridNormalRow" data-lblVehicleCD="@item.VEHICLE_CD">
+                          <td>
+                            <input type="button" class="btnEdit" data-id="@item.VEHICLE_CD" value='@LocalizationServices.GetLocalizedHtmlString("lbl_EditDelete")' Width="95%" Font-Size="Large" Font-Bold="True" onclick="OnEditClick($(this))" TabIndex="9" />
+                           
+                        </td>
+
+                        <td class="labelClass GridLeft">@item.VEHICLE_CD.ToString("D3")</td>
+                        <td class="labelClass GridLeft">@item.VEHICLE_NAME</td>
+                        <td class="labelClass GridLeft">@item.SHORT_NAME</td>
+                        <td class="labelClass GridLeft">@item.YOBIGANA</td>
+                        <td class="labelClass GridLeft">@item.YOBINA</td>
+                        <td class="labelClass GridRight">@item.MAX_LOAD</td>
+                        <td class="labelClass GridRight">@item.DISPLACEMENT</td>
+                        <td class="labelClass GridCenter">@item.VEHICLE_NUMBER</td>
+                        <td class="labelClass GridLeft">@item.TRANSPORT_COMPANY_NAME</td>
+                        <td class="labelClass GridLeft">@item.DRIVER_NAME</td>
+                        <td class="labelClass GridCenter">@item.TELEPHONE_NO</td>
+                        <td class="labelClass GridCenter">
+                            @(item.UN_USE_FLAG == 1 ? LocalizationServices.GetLocalizedHtmlString("lbl_UnUse1") : Html.Raw("&nbsp;"))
+                        </td>
+                        <td class="labelClass GridCenter">@item.CREATED_DATE_STRING</td>
+                        <td class="labelClass GridCenter">@item.UPDATED_DATE_STRING</td>
+                                                                     
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="15" style="text-align:left">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_DataNotFound")</td>
+                </tr>
+            }
+            
+        </tbody>
+    </table>
+</div>
+<script src="~/Scripts/CommonScript.js"></script>

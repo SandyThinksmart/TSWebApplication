@@ -1,0 +1,119 @@
+﻿@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = "Login Page";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/Common.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/masterStyles.css" rel="stylesheet" asp-append-version="true" />
+
+
+<style type="text/css">
+    .Hidden
+    {
+        display: none;
+    }
+</style>
+
+@section Scripts{
+    <script type="text/javascript" src="~/Static/js/LoginPage.js" asp-append-version="true"></script>
+    @*   <script type="text/javascript">
+        function ValidateUser() {
+            debugger;
+            var url = '@Url.Action("ValidateUser", "LoginPage")';
+            var username = $('#txtUserName').val();
+            var password = $('#txtPassword').val();
+            window.location.href = url + '/?UserName=' + username + '&&Password=' + password;
+        }
+    </script>*@
+       
+}
+
+
+<form id="form1" >
+        <div style="text-align: center; width: 100%;margin-top:20px">
+            <table align="center" cellpadding="1" cellspacing="1" frame="box" bgcolor="#EFEFEF">
+                <tr>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table align="center">
+                            <tr>
+                                <td style="text-align: center;">
+                                    <table cellpadding="0" style="height: 140px; width: 250px;">
+                                        <tr>
+                                            <td align="left" bgcolor="#336699" colspan="2" style="text-align: center" class="style6">
+                                               
+                                                <label ID="lblLogin" class="labelClass1" style="color:white;" >@LocalizationServices.GetLocalizedHtmlString("lbl_LogIn")</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="left" class="style5">
+
+                                                <label ID="lblworkstation" class="labelClass1" >@LocalizationServices.GetLocalizedHtmlString("lbl_workstation")</label>
+                                            </td>
+                                            <td class="style5">
+                                              
+                                                <input type="text" ID="txtUserName" TabIndex="1"
+                                                   style="width:150px;height:22px;" MaxLength="25" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_WorkstationPasswordIncorrect")">
+                                                <span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_WorkstationPasswordIncorrect")</span>
+                                            </td>
+                                            <td>
+                                               
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="left" class="style5">
+                                                <label ID="lblpassword" class="labelClass1" style="width:150px">@LocalizationServices.GetLocalizedHtmlString("lbl_Password")</label>
+                                            </td>
+                                            <td class="style5">
+                                                
+                                                <input type="text" ID="txtPassword" TabIndex="1"
+                                                   style="width:150px;height:22px;" MaxLength="25"><span class="text-danger"></span>
+
+                                            </td>
+                                            <td>
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center" colspan="2" style="color: Red;">
+                                                
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td align="center" colspan="2">
+                                                
+                                                
+                                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_LogIn")" ID="LoginButton"
+                                                   style="width:100px" TabIndex="16" class="_functionButtons" onclick="ValidateUser()" />
+                                                @*onclick="location.href='@Url.Action("ValidateUser", "LoginPage")?id='"*@
+
+                                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_CancelKatakana")" ID="btnCancel"
+                                                   style="width:100px" TabIndex="16" class="_functionButtons" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                               
+
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="divErrorMessages" class="Hidden" >
+            <label id="lblErrorMessageE_LoginUserName" class="Hidden">
+                <span ID="LiteralExceptionOccured" style="margin-left:5px">@LocalizationServices.GetLocalizedHtmlString("valMsg_WorkstationPasswordIncorrect")</span>
+            </label>
+
+        </div>
+       
+    </form>

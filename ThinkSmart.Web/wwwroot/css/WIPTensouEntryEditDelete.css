@@ -1,0 +1,42 @@
+﻿        .hide {
+            display: none;
+        }
+
+        .header {
+            padding-left: 3px;
+        }
+
+        .freez > th {
+            position: sticky !important;
+            background-color: #7291D2;
+            top: 0.2px;
+            height: 20px;
+            box-shadow: 0 0 0px 0.5px White;
+        }
+        
+        .MandatoryTextBox {
+            font-family: MS Gothic;
+            font-weight: 400;
+            font-size: 13px;
+            background-color: #C1FFFF;
+        }
+         .GridMandatoryTextBox {
+            font-family: MS Gothic;
+            font-weight: 400;
+            font-size: 13px;
+            background-color: #C1FFFF;
+            border:none;
+            height:18px;
+        }
+         .RightAlignTextBox {
+            text-align: right;
+        }
+         ._functionButtons
+{
+ background-color: ButtonFace;
+Height:25px;
+border:1px inset Silver;
+font-size:12px;
+/*width:80px;*/
+
+}

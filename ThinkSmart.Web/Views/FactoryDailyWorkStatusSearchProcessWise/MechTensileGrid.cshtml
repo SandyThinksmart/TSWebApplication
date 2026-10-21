@@ -1,0 +1,184 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<TensileDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+
+}
+<style>
+    .freezMechTensileDailyGrid > th {
+        position: sticky !important;
+        background-color: #4e6cab;
+        top: 0.0px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezMechTensileDailyGrid {
+        border-color: white;
+    }
+
+        .freezMechTensileDailyGrid1 > th {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 20px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezMechTensileDailyGrid1 {
+        border-color: white;
+    }
+
+    .freezMechTensileDailyGrid2 > th {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 41px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezMechTensileDailyGrid2 {
+        border-color: white;
+    }
+
+    
+</style>
+
+<table class="GridLinesTable GridLayout GridColumnLeftPadding" cellpadding="0" cellspacing="0" border="1" id="tblMechanicalTensileReport">
+    <thead>
+        <tr class="freezMechTensileDailyGrid">
+
+            <th id="MechTSHeader" colspan="21" style="color:white;" class="GridHeader GridViewScrollHeader labelClass1 tdH1 sticky-header">@LocalizationServices.GetLocalizedHtmlString("lbl_MechTensile")</th>
+        </tr>
+        <tr class="GridHeader GridViewScrollHeader freezMechTensileDailyGrid1 GridHeaderPadding">
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter sticky-header" rowspan="2">
+
+            </th>
+            <th id="MechTSInspectionLoc" rowspan="2" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_InspectionLoc")</th>
+            <th id="MechTSInspectionDate"  class="headerPadding labelClass tdNoWrap" style="width:80px">@LocalizationServices.GetLocalizedHtmlString("lbl_InspectionDate")</th>
+            <th id="MechTSCustomer" rowspan="2" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</th>
+            <th id="MechTSChuuban" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</th>
+            <th id="MechTSSplit" rowspan="2" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Split")</th>
+            <th id="MechTSProdNameCust" rowspan="2" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</th>
+            <th id="MechTSCharge" rowspan="2" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</th>
+            <th id="MechTSActualDia" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualDia")</th>
+            <th id="MechTSLength" rowspan="2" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</th>
+            <th id="MechTSFurnaceNum" colspan="2" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</th>
+            <th id="MechTSActualDim_S" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualDim_S")</th>
+            <th id="MechTSTestDim" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_TestDim")</th>
+            <th id="MechTSGuageDistance_L" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_GuageDistance_L")</th>
+            <th id="MechTSCuttingElongation_L" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_CuttingElongation_L")</th>
+            <th id="MechTSRemark" colspan="3" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Remark")</th>
+            <th id="MechTSDecision" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Decision")</th>
+
+
+
+        </tr>
+
+        <tr class="GridHeader GridViewScrollHeader freezMechTensileDailyGrid2 GridHeaderPadding">
+            <th id="TensileOperator" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Inspector")</th>
+            <th id="MechTSManufacturingSpecificationNo" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ManufacturingSpecificationNo")</th>
+            <th id="MechTSDia" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Dia")</th>
+            <th id="MechTSMaxLoadN" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_MaxLoadN")</th>
+            <th id="MechTSYieldLoadN" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_YieldLoadN")</th>
+            <th id="MechTSFractureDimension_L" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_FractureDimension_L")</th>
+            <th id="MechTS2" colspan="3" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_TestImpact")</th>
+            <th id="MechTSTensileStrengthWithTs" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_TensileStrengthWithTs")</th>
+            <th id="MechTS3" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_YeildStrength")</th>
+            <th id="MechTSElongationWithEL" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ElongationWithEL")</th>
+            <th id="MechTSReductionWithRA" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ReductionWithRA")</th>
+
+
+
+        </tr>
+
+    </thead>
+    <tbody>
+         @if (Model != null && Model.Count > 0)
+
+            {
+                foreach (var item in Model)
+                {
+                <tr class="GridNormalRow" data-lblProcessPlanCD="@item.PP_PROCESS_PLAN_CD">
+                    <td rowspan="2" class="sticky-col1">
+                        <input type="button" id="" ID="lnkEdit" class="btnArrow" onclick="OnEditClick($(this))" style="height:42px" CausesValidation="false" />
+                    </td>
+
+                    <td rowspan="2" class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.INSPECTION_LOCATION_NAME</td>
+                   <td  class="labelClass centerAlign">@item.TS_TEST_DATE_STRING</td>
+                    <td rowspan="2" class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.PP_CUSTOMER_NAME</td>
+                    <td class="labelClass tdNoWrap centerAlign">@item.PP_CHUUBAN</td>
+                    <td rowspan="2" class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.DETAIL_NO</td>
+                    <td rowspan="2" class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.PP_PROD_NAME_CUST</td>
+                    <td rowspan="2" class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.PP_CHARGE</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.PP_MATL_DIM_D_STRING</td>
+                    <td rowspan="2" class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.PP_PROD_LENGTH_STRING</td>
+                    <td colspan="2" class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.TS_FURNACE_NO</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.TS_ACT_DIM</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.TS_TEST_SPECIMEN_DIM</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.TS_GAUGE_LENGTH</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.TS_EXTENDED_LENGTH</td>
+                    <td colspan="3" class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.REMARKS</td>
+                    <td class="labelClass tdNoWrap centerAlign">@item.TS_DECISION_STRING</td>
+
+                   
+                </tr>
+                <tr class="GridNormalRow">
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.OPERATOR_NAME</td>
+                    <td class="labelClass tdNoWrap centerAlign">@item.PP_PROD_SPEC_NO</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.PP_PROD_DIM_D_STRING</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.TS_MAX_LOAD_N</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.TS_YIELD_LOAD_N</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.TS_CUT_DIM</td>
+                    <td colspan="3" class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.TS_TEST_IMPACT_1_2_3</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.TS_TENSILE</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.TS_YIELD_STRENGTH</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.TS_ELONGATION</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.TS_REDUCTION</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr class="GridNormalRow">
+
+                <td class="labelClass padddingLeft padddingRight " rowspan="2" style=" white-space:nowrap">
+                    <input type="button" class="btnArrow" style="height:42px;float: right;" />
+                </td>
+                <td rowspan="2" class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td  class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td rowspan="2" class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td rowspan="2" class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td rowspan="2" class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td rowspan="2" class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td rowspan="2" class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td colspan="2" class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap" ></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td colspan="3" class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+
+
+            </tr>
+            <tr class="GridNormalRow">
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td colspan="3" class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+            </tr>
+        }
+    </tbody>
+</table>

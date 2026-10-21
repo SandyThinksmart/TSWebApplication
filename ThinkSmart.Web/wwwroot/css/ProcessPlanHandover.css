@@ -1,0 +1,11 @@
+﻿
+#ddlNextProcess {
+    width: 140px;
+}
+.Mandatory {
+    background-color: #C1FFFF;
+}
+.disabled {
+    background-color: #EEEEEE !important;
+    color: black;
+}

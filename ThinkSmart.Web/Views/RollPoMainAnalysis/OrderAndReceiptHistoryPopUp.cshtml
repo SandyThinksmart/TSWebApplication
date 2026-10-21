@@ -1,0 +1,107 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<PoAndReceiptPopupDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lbl_OrderQty").Value.Replace("</br>", ""); 
+
+}
+<style type="text/css">
+    .backgroundColor {
+        background-color: white
+    }
+
+    .freezMatlNameWiseOrderGrid1 > th {
+        position: sticky !important;
+        top: 20px;
+        height: 20px;
+       
+    }
+
+</style>
+
+<div style="margin-top:30px;margin-left:4px;border: 1px solid gray;width:1150px;height:475px;overflow:auto">
+    <table border="0" cellpadding="0" cellspacing="0" id="tblOrderReciptPopUp" class="GridLines" >
+       
+        <tr class="">
+            <th style="vertical-align: top;">
+
+                <div id="divMakerWisePurchaseOrderQtyList">
+                    @{
+                        @await Html.PartialAsync("MakerWisePurchaseOrderQtyList", Model)
+                        ;
+                    }
+                </div>
+
+            </th>
+        </tr>
+</table>
+</div>
+<div style="margin-top:3px;margin-left:4px;border: 1px solid gray;width:1150px;height:242px;overflow:auto">
+    <table border="0" cellpadding="0" cellspacing="0" id="tblOrderReciptPopUp" class="GridLines">
+        <tr>
+            <th style="vertical-align: top;">
+
+                <div id="divVendorWisePurchaseOrderQtyList">
+                    @{
+                        @await Html.PartialAsync("VendorWisePurchaseOrderQtyList", Model)
+                        ;
+                    }
+                </div>
+
+            </th>
+        </tr>
+        </table>
+   </div>
+<div style="margin-top:3px;margin-left:4px;border: 1px solid gray;width:1150px;height:76px">
+    <table style="margin:2px;width:1150px">
+        <tr>
+            <td colspan="6" style="width:900px"></td>
+            <td>
+
+                <table id="tblRefresh">
+                    <tr>
+                        <td align="center" valign="middle">
+                            <label ID="lblClose" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_RefreshData")</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" valign="middle">
+
+                            <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Recalculate")" ID="btnRefreshData" class="_functionButtons" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width:5px"></td>
+            <td id="tdBtnClose">
+                <table id="tblClose">
+                    <tr>
+                        <td align="center" valign="middle">
+                            <label ID="lblClose" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" valign="middle">
+
+                            <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnClose" class="_functionButtons" OnClientClick="return Confirmation()" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width:5px"></td>
+        </tr>
+    </table>
+</div>
+
+
+@section Scripts{
+
+    <link href="~/css/Common.css" rel="stylesheet" />
+    <link href="~/css/MatlNamWiseOrderQtyPopUp.css" rel="stylesheet" />
+    <link href="~/css/Common_Styles.css" rel="stylesheet" />
+    <link href="~/css/masterStyles.css" rel="stylesheet" />
+    <link href="~/css/OrderAndReceiptHistoryPopup.css" rel="stylesheet" />
+    <script src="~/static/js/PoAndReceiptHistoryPopUp.js"></script>
+}

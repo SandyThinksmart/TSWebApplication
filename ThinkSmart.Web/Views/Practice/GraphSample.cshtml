@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<br />
+
+<div>
+    <canvas id="myChart" style="max-height:130px;max-width:900px;"></canvas>
+</div>
+<script src="~/Static/js/Chart.js"></script>
+<script>
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+               
+                borderWidth: 1
+            },
+            {
+                label: '# of Votes',
+                data: [15, 10, 2, 1, 6, 2],
+
+                borderWidth: 1
+            }]
+
+        },
+
+
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+             
+        }
+    });
+</script>
+

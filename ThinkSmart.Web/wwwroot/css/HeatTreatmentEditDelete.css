@@ -1,0 +1,59 @@
+﻿body {
+}
+
+.hide {
+    display: none;
+}
+
+.GridTextBoxM {
+    font-family: MS Gothic;
+    font-weight: 400;
+    font-size: 13px;
+    /*background-color: #C1FFFF;*/
+    border : 0px;
+
+    height: 23px;
+
+    color: black;
+}
+
+
+.GridTextBox {
+    height: 23px;
+    border: 0px;
+    width: 100%;
+    background-color: white;
+}
+
+.GridROColumn {
+    background-color: #E2E2E2;
+}
+
+.freez1 > th {
+    position: sticky !important;
+    background-color: #7291D2;
+    top: 0.2px;
+    height: 20px;
+    white-space:nowrap;
+}
+
+
+
+.freez2 > th {
+    position: sticky !important;
+    background-color: #B2C3E6;
+    top: 21px;
+    height: 20px;
+    box-shadow: 0 0 0px 0.5px White;
+    white-space: nowrap;
+}
+#pnlButtonSection 
+{
+    Width: 1560px;
+    Height: 80px;
+    border-width: 1px;
+    border-style: solid;
+    margin-top: 16px;
+}
+
+.

@@ -1,0 +1,727 @@
+﻿
+
+#frmEditDeleteTemplate
+{
+    /*height: 760px;*/
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+#DivFunctionButtons
+{
+    border: 1px solid gray;
+    /*height: 88px;*/
+}
+
+#DivInitRegister, #DivThabaDetails, #DivDecisionLegends, #DivReference
+{
+    float: left;
+    height: 86px;
+}
+
+#DivCloseButton
+{
+    float: left;
+    height: 90px;
+}
+
+#DivInitRegister
+{
+    background-color: DarkRed;
+    width: 280px;
+    text-align: center;
+    border: 1px solid gray;
+}
+
+.tblInitRegister {
+    background-color: #C00000;
+    width: 280px;
+    text-align: center;
+    border: 1px solid gray;
+    height: 60px;
+}
+
+.tblRowOperation
+{
+    background-color: darkviolet;
+    width: 190px;
+    text-align: center;
+    border: 1px solid gray;
+    height:60px;
+}
+
+
+#DivReference
+{
+    background-color: Green;
+    width: 100px;
+    text-align: center;
+    border: 1px solid gray;
+    height:60px;
+}
+
+
+#divLblClose, #divBtnClose
+{
+    height: 43px;
+    /*line-height: 60px;*/
+}
+
+#lblClose
+{
+    /*display: block;*/
+    vertical-align: middle;
+    height: 100%;
+    /*line-height: 60px;*/
+    font-size: 12px;
+}
+
+#DivCloseButton
+{
+    float: right;
+    background-color: Navy;
+    text-align: center;
+    border: 1px solid gray;
+    width: 100px;
+}
+
+.tblCloseButton
+{
+   
+    background-color: Navy;
+    text-align: center;
+    border: 1px solid gray;
+    width: 100px;
+    height:60px;
+}
+
+/***********   Tab Css  **********/
+
+#TbPMSEditDelTab2
+{
+    border: 1px solid;
+    }
+
+
+#DivTab
+{
+}
+#panSearch
+{
+    width: 100%;
+}
+#tblSearch.#pnlModel
+{
+    width: 980px;
+    border-collapse: collapse;
+}
+#TbPMSEditDelTab2 #pnlModel, #TbPMSEditDelTab2  #pnlProductDetails, #TbPMSEditDelTab2 ,#pnlProcessStartData, #TbPMSEditDelTab2 ,#pnlProcessEndData
+{
+    border: 2px Inset lightgrey;
+}
+
+#TbPMSEditDelTab2  #pnlProcessEndData #tblPnlProcessEndData
+{
+     table-layout: fixed;
+    width: 980px;
+}
+
+
+#lblKoubanSearchGridHeader, #lblSearchResult, #pnlHeading
+{
+    width: 100%;
+    height: 15px;
+    color: White;
+}
+.trTdH2 td {
+    border-width: thin;
+    border-style: solid;
+    background-color: #7291D2;
+    height: 20px;
+    border-color: White;
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 2px;
+}
+
+.trTdSearchContent td
+{
+    border-color: orange;
+    border-style: solid;
+    border-width: thin;
+    background: white;
+    height: 26px;
+    vertical-align:top;
+}
+
+#divSearch
+{
+    float: left;
+    height: 86px;
+}
+
+#divBtnSearch
+{
+    float: right; /*height: 86px;*/
+}
+
+
+#tabSearchSort
+{
+    width: 100%;
+    height: auto;
+}
+
+#tdSearchSort, #tabSearchSort
+{
+    background-color: Green;
+}
+
+
+
+#pnlSearch
+{
+   /* width: 1200px;*/
+}
+
+#pnlGrid
+{
+    width: 1200px;
+    background-color: #7291D2;
+}
+#TabContainerPMS
+{
+    width: 100%;
+    /*height: 650px;*/
+    margin-left:7px;
+}
+
+
+/* Search_Grid coloum size */
+#tdChuuban {
+    width: 103px;
+}
+/*#tdCustomerName, #tdProdNameCust, #tdProdNameInt, #tdOperationDateStart, #tdOperationDateEnd, #tdOperator {
+    width: 195px;
+}*/
+#tdTabaNo, #tdDimD, #tdLength
+{
+    width: 90px;
+}
+
+#tdTabaNo
+{
+    width: 50px;
+}
+
+.tdShap
+{
+    width: 25px;
+}
+
+#txtChuubanSearch, #txtCustomerName, #txtShap, #txtProdNameCust, #txtProdNameInt, #txtDimD, #txtLengthSearch, #txtOperationDateStart, #txtOperationDateEnd, #ddlOperator, #txtDimDMin, #txtDimDMax, #txtLengthSearchMax, #txtLengthSearchMin {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+#txtInspectionDateFrom, #txtInspectionDateTo{
+border-style: none;
+font-family:'MS Gothic';
+Width:96%;
+Height:22px;
+}
+/* Tab 2 */
+#txtCreatedDate, #txtUpdatedDate {
+    display: inline-block;
+    width: 135px;
+}
+
+
+#tblProductDetails
+{
+    width: 1025px;
+}
+
+/* Style for Chuuban Details */
+#divProdSpecNumberT1
+{
+    width: 202px;
+    float: right;
+}
+
+#spantxtProductSpecNoT1
+{
+    display: inline-block;
+}
+
+#spanlblProductSpecNoT1
+{
+     min-width: 88px;
+    display: inline-block;
+}
+
+
+#TbPrductEntry 
+{
+width: 875px; 
+border: 1px inset lightgrey;
+}
+ 
+#pnlSearch, #pnlProductDetails
+{ 
+    width: 100%;
+    border: 2px inset lightgrey;
+}
+ 
+#TabContainerPMS_header 
+{
+font-size: 12px;    
+}
+ 
+#TabContainerPMS_body 
+{
+padding: 0;    
+}
+ 
+#pnlProductDetails span
+{
+    display: inline-block;
+}
+ 
+#txtProductSpecNoT1
+{
+    width: 112px;
+}
+
+#txtChuubanT1, #txtChargeT1, #txtProdDimOtherT1, #txtConditionT1 {
+    width: 110px;
+    text-align: left;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+#txtChamferT1 {
+    width: 74px;
+    text-align: left;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+#txtStampT1, #txtNoOfUnitsT1 {
+    width: 70px;
+    text-align: left;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+ 
+#txtLengthToleranceT1, #txtLengthToleranceT4
+{
+    width: 80px;
+    text-align: left;
+}
+
+#txtDeliveryDateT1, #txtReceiverT1, #txtCustomerT1, #txtMaterialNameMakerT1, #txtProdNameCustomerT1 {
+    width: 140px;
+    text-align: left;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+#txtCustomerInchargeT1 {
+    width: 100%;
+    text-align: left;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+#txtDimToleranceT1, #txtDimToleranceT4 {
+    width: 140px;
+    text-align: left;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+ 
+#tdtxtMatlShapeT1
+{
+    width: 55px;
+}
+
+#tdlblMatlDimT1 {
+    min-width: 30px;
+    max-width: 30px;
+}
+
+#txtMatlShapeT1, #txtProdShapeT1 {
+    width: 45px;
+    text-align: left;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+#txtMatlDimT1, #txtProdDimT1, #txtMatlDimT4, #txtProdDimT4 {
+    width: 49px;
+    text-align: right;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+ 
+#txtUnitWtT4   
+{
+    width: 50px;
+    text-align:right;
+}
+
+#txtUnitWtT1 {
+    width: 89px;
+    text-align: right;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+#txtQuantityT1, #txtQuantityT4 {
+    width: 61px;
+    text-align: right;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+#txtLengthT1, #txtLengthT4 {
+    width: 61px;
+    text-align: right;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+#txtStdDeliveryDateT1, #txtColorT1 {
+    width: 106px;
+    text-align: left;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+ 
+#tdtxtBendStandardT1
+{
+    width: 183px;
+}
+
+#txtBendStandardT1, #txtExtTextureT1, #txtDisplayT1, #txtPackingT1
+{
+    width: 183px;
+}
+ 
+ #txtIntDiaMinT1, #txtExtDiaMaxT1
+ {
+     width: 73px;
+     background-color: lightgrey;
+ }
+#txtWindingDirectionT1 {
+    width: 73px;
+    background-color: lightgrey;
+    text-align: left;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+ #txtKakouiraiRemarksT1
+ {
+     width: 385px;
+ }
+ #txtProdOrderRemarkT1
+  {
+     /*width: 369px;*/
+     width: 438px;
+ }
+ #txtProductionProcessT1
+ {
+     width: 860px;
+ }
+ 
+ .gridProcessHistory table span
+ {
+ 	font-size: 11.5px !important;
+ 	}
+ 	
+
+#tdlblChuubanT1
+{
+    width: 50px;
+}
+
+#tdtxtChuubanT1
+{
+    width: 200px;
+}
+
+#tdlblDeliveryDateT1
+{
+    width: 60px;
+}
+
+#tdtxtDeliveryDateT1
+{
+    width: 150px;
+}
+
+#tdlblCustomerInchargeT1 {
+    min-width: 77px;
+    max-width: 77px
+}
+
+#tdtxtCustomerInchargeT1
+{
+    width: 125px;
+}
+
+#tdEmptyRow2Col7
+{
+    width: 50px;
+}
+
+#tdlblStdDeliveryDateT1
+{
+    width: 83px;
+}
+
+#tdtxtStdDeliveryDateT1
+{
+    width: 71px;
+}
+
+#spantxtKakouiraiRemarksT1
+{
+    width: 380px;
+}
+#spanlblKakouiraiRemarksT1
+{
+   min-width: 90px;
+   max-width:90px;
+}
+#spanlblProductionProcessT1
+{
+    width: 90px;
+}
+
+#tdlblUnitWtT1
+{
+    text-align:center;
+    width: 60px;
+}
+
+#tdtxtUnitWtT1
+{
+    width: 65px;
+}
+
+#spanCoilDetailsT1
+{
+    background-color: lightgrey;
+    width: 100%
+}
+
+/* End style for Chuuban Details */
+
+
+/* Style for Start Data */
+#tblProcessStartData
+{
+    width: 1025px;
+}
+
+/*****************************************************************************/
+/****************************** Chrome Hacks **************************/
+/* Style for Chuuban Details */
+
+.webkit #txtProductSpecNoT1 {
+    width: 109px;
+    text-align: left;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.webkit #txtIntDiaMinT1, .webkit #txtExtDiaMaxT1 {
+    min-width: 79px;
+    text-align: right;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.webkit #txtWindingDirectionT1
+{
+    width: 76px;
+}
+
+.webkit #txtProdOrderRemarkT1 {
+    width: 418px;
+    text-align: left;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.webkit #txtProductionProcessT1
+{
+    width: 917px;
+}
+
+.webkit #txtBendStandardT1, .webkit #txtExtTextureT1, .webkit #txtDisplayT1, .webkit #txtPackingT1 {
+    width: 189px;
+    text-align: left;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+/* End style for Chuuban Details */
+/******************************** IE Hacks ****************************/
+
+/********************************  < IE9 ****************************/
+
+/* Style for Chuuban Details */
+
+.ie #txtIntDiaMinT1, .ie #txtExtDiaMaxT1
+{
+    width: 80px;
+    background-color: lightgrey;
+}
+    
+.ie #txtStdDeliveryDateT1, .ie #txtColorT1
+{
+    width: 79px;
+}
+ 
+.ie #txtProductSpecNoT1
+{
+    width: 116px;
+}
+    
+.ie #txtProdOrderRemarkT1
+{
+    width: 430px;
+}
+    
+.ie #txtProductionProcessT1
+{
+    width: 920px;
+}
+
+.ie #txtBendStandardT1, .ie #txtExtTextureT1, .ie #txtDisplayT1, .ie #txtPackingT1
+{
+    width: 180px;
+}
+
+.ie #txtWindingDirectionT1
+{
+    width: 78px;
+}
+
+/* End style for Chuuban Details */
+
+/********************************  = IE7 ****************************/
+
+/* Style for Chuuban Details */
+
+.ie7 #txtProductSpecNoT1
+{
+    width: 118px;
+}
+
+.ie7 #txtWindingDirectionT1
+{
+    width: 68px;
+    background-color: lightgrey;
+}
+
+.ie7  #txtDisplayT1, .ie7 #txtPackingT1
+{
+    width: 177px;
+}
+
+/* End style for Chuuban Details */
+
+/********************************  = IE8 ****************************/
+.ie8 #divProdSpecNumberT1, .ie8 #divProdSpecNumberT4
+{
+    width: 205px;
+}
+
+.ie8 #txtWindingDirectionT1, .ie8 #txtwindingdirectiont4,
+.ie8 #txtIntDiaMinT1, .ie8 #txtExtDiaMaxT1, 
+.ie8 #txtIntDiaMinT4, .ie8 #txtExtDiaMaxT4
+{
+    width: 70px;
+}
+
+.ie8 #txtProdOrderRemarkT1, .ie8 #txtProdOrderRemarkT4
+{
+    width: 369px;
+}
+
+.ie8 #txtProductionProcessT1, .ie8 #txtProductionProcessT4
+{
+    width: 860px;
+}
+
+ /*.webkit #txtDimDMin, .webkit #txtDimDMax {
+        width:50px;
+        border : none;
+    } 
+    .webkit #txtLengthSearchMax, .webkit #txtLengthSearchMin
+    {
+        width:50px;
+        border : none;
+    }*/
+
+  
+
+/******************************** End = IE8 ****************************/
+
+/********************************  >= IE10 ****************************/
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+
+    /* Style for Chuuban Details */
+
+    #txtIntDiaMinT1, #txtExtDiaMaxT1 {
+        width: 80px;
+        background-color: lightgrey;
+    }
+
+    #txtStdDeliveryDateT1, #txtColorT1 {
+        width: 79px;
+        
+    }
+
+    #txtProductSpecNoT1 {
+        width: 118px;
+    }
+
+    #txtProdOrderRemarkT1 {
+        width: 381px;
+    }
+
+    #txtProductionProcessT1 {
+        width: 931px;
+        margin-left: -5px;
+        overflow-y: scroll;
+        text-align: left;
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+
+    #txtBendStandardT1, #txtExtTextureT1, #txtDisplayT1, #txtPackingT1 {
+        width: 180px;
+    }
+
+    #txtWindingDirectionT1 {
+        width: 78px;
+    }
+
+    /* End style for Chuuban Details */
+
+}
+#txt_HostName {
+    width: 140px;
+    text-align: right;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+#lblCT1, #lblCT4 {
+    vertical-align: middle;
+}

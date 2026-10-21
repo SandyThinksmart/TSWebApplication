@@ -1,0 +1,42 @@
+﻿#tblBody {
+    border-style: none;
+    visibility: visible;
+    margin-left: 5px;
+    border-bottom: hidden;
+}
+
+#tblGrid {
+    border-style: none;
+    visibility: visible;
+    margin-left: 5px;
+}
+#ddlProcess {
+    width: 160px;
+    margin-left: 33px
+}
+#tblBasicOperation {
+    width: 185px;
+    height: 60px;
+    background-color: #C00000;
+}
+#tblmsgTitle {
+    border-style: none;
+    visibility: visible;
+    padding-top: 6px;
+    width: 328px;
+    height: 25px;
+    margin-left: 5px;
+    text-align: center;
+    background-color: #336699;
+    color: white;
+}
+#DivCloseButton {
+    background-color: Navy;
+    text-align: center;
+    border: 1px inset gray;
+    width: 115px;
+}
+#txtRemark{
+    height:160px;
+    width:325px;
+}

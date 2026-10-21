@@ -1,0 +1,110 @@
+﻿body {
+    font-size: 15px;
+}
+
+.btnPrint {
+    width: 100px;
+    height: 60px;
+    background-color: #cb0000;
+}
+
+.BtnPrintValue {
+    width: 100px;
+    height: 60px;
+    background-color: #cb0000;
+}
+
+.lblPrint {
+    Color: White;
+}
+
+.tblClose {
+    width: 100px;
+    height: 60px;
+    background-color: #003399;
+}
+
+.lblClose {
+    Color: White;
+}
+
+.btntield {
+    background-color: white;
+    border: none;
+    font-size: 20px
+}
+
+.tblIssuingInvoice {
+    width: 200px;
+    height: 60px;
+    margin-left: 5px;
+    background-color: #31859C
+}
+
+.lblIssuingInvoice {
+    color: White;
+}
+
+.lblCloserDate {
+    Width: 140px;
+}
+
+.txtClosureDate {
+    width: 60px;
+    height: 24px;
+    text-align: right;
+}
+
+.lblDelStartDate {
+    Width: 140px;
+}
+
+.txtDelStartDate {
+    text-align: left;
+    Height: 24px;
+    Width: 87px;
+}
+
+.txtDelDateEnd {
+    text-align: left;
+    Height: 24px;
+    Width: 87px;
+}
+
+.TxtValue {
+    Height: 24px;
+    Width: 50px;
+}
+
+.labelClass {
+    font-family: MS Gothic;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+._functionButtons {
+    background-color: ButtonFace;
+    Height: 25px;
+    border: 1px inset Silver;
+    font-size: 14px;
+    width: 80px;
+}
+
+.Mandatory {
+    font-family: MS Gothic;
+    font-weight: 400;
+    font-size: 13px;
+    background-color: #C1FFFF;
+    border-style: inset;
+    color: black;
+    border: 1px solid #ced4da;
+    border-style: inset;
+}
+
+
+
+.disabled {
+    background-color: #EEEEEE !important;
+    color: black;
+}
+

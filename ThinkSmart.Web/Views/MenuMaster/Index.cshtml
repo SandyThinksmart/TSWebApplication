@@ -1,0 +1,1581 @@
+﻿@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+   
+}
+
+<link href="~/css/MenuStyle.css" rel="stylesheet" />
+
+@section Scripts{
+    <script src="~/Static/js/MenuScreen.js"></script>
+
+    <script src="~/Static/lib/jquery/jquery-1.11.1.min.js"></script>
+    <script src="~/Static/lib/jquery/jquery-2.1.1.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+         $('#divMaster').show();
+           $('#divFactoryOfc').hide();
+                $('#divFactoryWorkshop').hide();
+                 $('#divHandyTerminal').hide();
+                   $('#divCSVList1').hide();
+                $('#divCSVList2').hide();
+            $('#lnkMaster').click(function () {
+                $('#divMaster').show();
+                 $('#divFactoryOfc').hide();
+                $('#divFactoryWorkshop').hide();
+                 $('#divHandyTerminal').hide();
+                   $('#divCSVList1').hide();
+                $('#divCSVList2').hide();
+            });
+             $('#lnkFactoryOfc').click(function () {
+                $('#divFactoryOfc').show();
+                $('#divFactoryWorkshop').hide();
+                 $('#divHandyTerminal').hide();
+                 $('#divMaster').hide();
+                   $('#divCSVList1').hide();
+                $('#divCSVList2').hide();
+            });
+            $('#lnkFactoryWorkshop').click(function () {
+            
+                $('#divFactoryWorkshop').show();
+                $('#divMaster').hide();
+                 $('#divFactoryOfc').hide();
+                 $('#divHandyTerminal').hide();
+                   $('#divCSVList1').hide();
+                $('#divCSVList2').hide();
+            });
+             $('#lnkHandyTerminal').click(function () {
+                $('#divHandyTerminal').show();
+                $('#divFactoryOfc').hide();
+                $('#divFactoryWorkshop').hide();
+                $('#divMaster').hide();
+                $('#divCSVList1').hide();
+                $('#divCSVList2').hide();
+            });
+
+             $('#lnkCSVList1').click(function () {
+                $('#divHandyTerminal').hide();
+                $('#divFactoryOfc').hide();
+                $('#divFactoryWorkshop').hide();
+                $('#divMaster').hide();
+                 $('#divCSVList2').hide();
+                $('#divCSVList1').show();
+            });
+             $('#lnkCSVList2').click(function () {
+                $('#divHandyTerminal').hide();
+                $('#divFactoryOfc').hide();
+                $('#divFactoryWorkshop').hide();
+                $('#divMaster').hide();
+                  $('#divCSVList1').hide();
+                 $('#divCSVList2').show();
+            });
+          
+        });
+
+    </script>
+   <script>
+function toggleRows(parentId, iconElement) {
+
+    const rows = document.querySelectorAll(
+        'tr[data-parent="' + parentId + '"]'
+    );
+
+    const expand = [...rows].every(row =>
+        row.classList.contains('hidden')
+    );
+
+    rows.forEach(row => {
+
+        if (expand) {
+            row.classList.remove('hidden');
+        } else {
+            hideRecursive(row);
+        }
+    });
+
+    if (iconElement) {
+        iconElement.textContent = expand ? '−' : '+';
+    }
+}
+
+function hideRecursive(row) {
+
+    row.classList.add('hidden');
+
+    const childId = row.dataset.id;
+
+    if (childId) {
+
+        const icon = row.querySelector('.icon');
+        if (icon) icon.textContent = '+';
+
+        document
+            .querySelectorAll('tr[data-parent="' + childId + '"]')
+            .forEach(hideRecursive);
+    }
+}
+
+document.querySelectorAll('.menu, .sub').forEach(row => {
+
+    row.addEventListener('click', function () {
+
+        toggleRows(
+            this.dataset.id,
+            this.querySelector('.icon')
+        );
+    });
+});
+</script>
+}
+<br />
+<br />
+
+<br />
+
+
+<div class="container-fluid">
+    <div class="row" id="Val">
+  
+        <div id="menuWrapper">
+
+             <span class="navbar-toggler-icon">
+                       
+                            <Button ID="lnkmainmunu" runat="server" Class="labelClass" style="width:110px;color:blue"
+                                            OnClick="lnkmainmenu_Click()">@LocalizationServices.GetLocalizedHtmlString("lbl_MenuPage")
+                       
+                </button>
+                 </span>
+                 <br />
+
+            <table style="width: 100%;" cellspacing="1" cellpadding="1">
+                <tr>
+                    <td class="mainMenu" valign="top" style="border-bottom-style: inset; border-bottom-width: 3px; border-bottom-color: #C0C0C0; width: 340px;">
+                        <table class="MenuTable" border="1" cellpadding="1" cellspacing="1">
+
+                             <tr class="tdclass ">
+                                <td class="style1">
+                                    <div style="width:200px">
+                                        <Label ID="lnkMaster" runat="server"
+                                           Class="linkFormat menuSpace">
+                                           マスター <br />   Masters
+                                          @* @LocalizationServices.GetLocalizedHtmlString("lbl_menuFactoryOffice")*@
+                                           </Label>
+                                           </div>
+
+                                </td>
+                            </tr>
+
+                            <tr id="Tr1" runat="server" class="tdclass ">
+                                <td class="style1">
+                                </td>
+                            </tr>
+
+                            <tr class="tdclass ">
+                                <td class="style1">
+                                    <div style="width:200px">
+                                        <Label ID="lnkFactoryOfc" runat="server"
+                                           Class="linkFormat menuSpace">
+                                            工場 (ホスト接続用）<br />  Factory Office(Host)
+                                          @* @LocalizationServices.GetLocalizedHtmlString("lbl_menuFactoryOffice")*@
+                                           </Label>
+                                           </div>
+
+                                </td>
+                            </tr>
+
+                            <tr id="Tr1" runat="server" class="tdclass ">
+                                <td class="style1">
+                                </td>
+                            </tr>
+                            
+                            <tr class="tdclass">
+
+                                <td class="style1">
+                                     <div style="width:200px">
+                                    <Label ID="lnkFactoryWorkshop" runat="server" Class="linkFormat menuSpace">
+                                        工場現場（ホスト接続用）<br /> Factory Workshop(Host)
+                                       @* @LocalizationServices.GetLocalizedHtmlString("lbl_menuFactoryWorkShop")*@
+                                    </Label>
+                                    </div>
+                                </td>
+                            </tr>
+                           
+                            <tr id="Tr1" runat="server" class="tdclass ">
+                                <td class="style1">
+                                </td>
+                            </tr>
+
+                            <tr class="tdclass">
+                                <td class="style1">
+                                     <div style="width:340px">
+                                  
+                                        <Label ID="lnkHandyTerminal" runat="server" Class="linkFormat menuSpace">
+                                            ハンディーターミナル（工場用）（ホスト接続用）<br />  Handy Terminal (Factory)
+                                         @* @LocalizationServices.GetLocalizedHtmlString("lbl_menuFactoryHandyTerminal")*@
+                                        </Label>
+                                   </div>
+                                </td>
+                            </tr>
+                          <tr id="Tr1" runat="server" class="tdclass ">
+                                <td class="style1">
+                                </td>
+                            </tr>
+
+                             <tr class="menu tdclass" data-id="m1">
+                                <td class="style1">
+                                     <div style="width:340px">
+                         
+                              <Label ID="lnkCSV_PDFReport" runat="server" Class="linkFormat menuSpace">
+                                 CSV/PDFレポートの生成 <br /> 
+                                 CSV/PDF Report Generate
+                              </Label>
+                         
+                         </div>
+                                 
+                                </td>
+                            </tr>
+                              <tr class="tdclass sub hidden" data-parent="m1" data-id="s1">
+                                <td class="style1">
+                                     <div style="width:340px">
+                                         
+@* <span class="icon">+</span> *@
+                                                 
+                                                       <Label ID="lnkCSVList1" runat="server" Class="linkFormat menuSpace">
+                                 栃木野木工場 <br />
+                                 Nogi (Factory)
+                              </Label>
+                                                
+                         </div>
+                                 
+                                </td>
+                            </tr>
+                             
+                             <tr class="tdclass sub hidden" data-parent="m1" data-id="s2">
+                                <td class="style1">
+                                     <div style="width:340px">
+                         
+                             
+@* <span class="icon">+</span> *@
+                                               
+                                                       <Label ID="lnkCSVList2" runat="server" Class="linkFormat menuSpace">
+                                 製造指示書 <br />
+                                Process Plan (Factory)
+                              </Label>
+                                               
+                         
+                         </div>
+                                 
+                                </td>
+                            </tr>
+                            
+                        </table>
+                    </td>
+
+                    <td valign="top" style="border-bottom-style: inset; border-bottom-width: 3px; width: 400px; border-bottom-color: #C0C0C0" colspan="3">
+                        <Panel ID="pnlSubMenu" runat="server" Class="subMenu">
+
+                            <div id="divMaster" class="uppercontainer divDefault" runat="server" style="position: relative;overflow:scroll; display: block; width: 100%; height: 740px; top: -1px; left: -1px;">
+                                <table class="MenuTable" border="1" cellpadding="1" cellspacing="1" style="position: relative; width: 100%; height: 22%; top: 0px; left: 0px;">
+                                    <tr class="tdclass">
+                                        <td class="style2">
+                                             <Label ID="lblMachineGroup" runat="server" 
+                                                   Class="linkFormat menuSpace">
+                                                   機種グループマスター<br /> Machine Group Master
+                                                
+                                            </Label>
+                                           
+                                        </td>
+                                     </tr>
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                        
+                                            <Label ID="lblMachineEntry" runat="server" 
+                                                   Class="linkFormat menuSpace">
+                                                   機種マスター <br /> Machine Master
+                                                
+                                            </Label>
+                                            <lable id="getCookies" enable="false"> </lable>
+                                            
+                                        </td>
+                                    </tr>
+                                      <tr class="tdclass">
+                                        <td class="style2">
+                                             <Label ID="lblEmployeeEntry" runat="server" 
+                                                   Class="linkFormat menuSpace">
+                                                   社員マスター <br /> Employee Master
+                                                
+                                            </Label>
+
+                                      
+                                        </td>
+                                    </tr>
+                                    
+                                    @* <tr class="tdclass">
+                                        <td class="style2">
+                                             <Label ID="lblProcessEntry" runat="server" 
+                                                   Class="linkFormat menuSpace">
+                                                   工程マスター <br /> Process Master
+                                                
+                                            </Label>
+
+                                            
+                                        </td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                             <Label ID="lblChemicalCompositionMaster" runat="server" 
+                                                   Class="linkFormat menuSpace">
+                                                    化学成分社内規格マスター<br /> Chemical Composition Master
+                                                
+                                            </Label>
+
+                                            
+                                        </td>
+                                    </tr>*@
+                                      <tr class="tdclass">
+                                        <td class="style2">
+                                             <Label ID="lblProcessDefectMaster" runat="server" 
+                                                   Class="linkFormat menuSpace">
+                                                   工程不良内容マスター<br /> Process Defect Master
+                                                
+                                            </Label>
+
+                                            
+                                        </td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                       <td style="width: 303px;padding:5px">
+                                           <a href="/ProcessTypeRemarkUpdation/ProcessTypeRemarkUpdationScreen" target="ProcessTypeRemarkUpdationScreen" onClick="javascript:open('/ProcessTypeRemarkUpdation/ProcessTypeRemarkUpdationScreen', 'ProcessTypeRemarkUpdationScreen', 'height=1150px,width=1310px,resizable=no')">
+                                               <label Class="linkFormat">工程日報補足事項項目テンプレートマスター <br />Process Type Remark Updation</label>
+                                           </a>
+                                       </td>
+                                   </tr>
+                                        <tr class="tdclass">
+                                       <td style="width: 303px;padding:5px">
+                                           <a href="/ProcessDisplayConfig/ProcessDisplayConfiguration" target="ProcessDisplayConfiguration" onClick="javascript:open('/ProcessDisplayConfig/ProcessDisplayConfiguration', 'ProcessDisplayConfiguration', 'height=1150px,width=1310px,resizable=no')">
+                                               <label Class="linkFormat">（次工程項目）<br />Process Display Configuration</label>
+                                           </a>
+                                       </td>
+                                   </tr>
+                                      <tr class="tdclass">
+                                        <td class="style2">
+                                             <a href="/MakerMaterial/MakerMaterialRateEntry" target="MakerMaterialRateEntry" onClick="javascript:open('/MakerMaterial/MakerMaterialRateEntry', 'MakerMaterialRateEntry', 'height=880px,width=1200px,resizable=no')">
+                                             <Label ID="lblMachineGroup" runat="server" Class="linkFormat menuSpace">メーカー鋼種単価 <br /> Maker Material Rate Entry
+
+                                            </Label>
+                                            </a>
+                                           
+                                        </td>
+                                     </tr>
+                                      <tr class="tdclass">
+                                        <td class="style2">
+                                             <a href="/VehicleMaster/VehicleEntryEditDelete" target="VehicleEntryEditDelete" onClick="javascript:open('/VehicleMaster/VehicleEntryEditDelete', 'VehicleEntryEditDelete', 'height=380px,width=900px,resizable=no')">
+                                             <Label ID="lblVehicle" runat="server" Class="linkFormat menuSpace">配車マスター <br />Vehicle Master
+
+                                            </Label>
+                                            </a>
+                                           
+                                        </td>
+                                     </tr>
+ 
+                                </table>
+                            </div>
+
+                            <div id="divFactoryOfc" class="uppercontainer" runat="server" style="position: relative;overflow:scroll; display: block; width: 100%; height: 740px; top: -1px; left: -1px;">
+                                <table class="MenuTable" border="1" cellpadding="1" cellspacing="1" style="position: relative; width: 100%; height: 22%; top: 0px; left: 0px;">
+
+                                    <tr class="tdclass">
+                                        <td class="style2">
+                                            <a href="/SalesProductionStatusSearch/SalesProductionStatusSearch1" target="SalesProductionStatusSearch1" onClick="javascript:open('/SalesProductionStatusSearch/SalesProductionStatusSearch1', 'SalesProductionStatusSearch1', 'height=1150px,width=1990px,resizable=no')">
+                                               @* <label Class="linkFormat"> 製造工程進捗状況問合せ <br />SalesProductionStatusSearch</label>*@
+                                           
+                                            <Label ID="lblBankEntry" runat="server" 
+                                                   Class="linkFormat menuSpace">
+                                                   製造工程進捗状況問合せ <br /> Sales Production Status Search
+                                                  @*  @LocalizationServices.GetLocalizedHtmlString("lbl_menuSalesProductionStatusSearch")*@
+                                              
+                                               </Label>
+                                                </a>
+                                        </td>
+                                    </tr>
+
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                             <a href="/NextPrcessWaitingStatusSearch/NextPrcessWaitingStatusSearch" target="NextPrcessWaitingStatusSearch" onClick="javascript:open('/NextPrcessWaitingStatusSearch/NextPrcessWaitingStatusSearch', 'NextPrcessWaitingStatusSearch', 'height=985px,width=1905px,resizable=no')">
+                                                @*<label Class="linkFormat">  次工程待ち状況問合せ（工程負荷状況）<br />Next Prcess Waiting Status Search</label>*@
+                                           
+                                            <Label ID="lblmenuNextProcessWaitingStatusSearch" runat="server" 
+                                                   Class="linkFormat menuSpace">
+
+                                                   次工程待ち状況問合せ（工程負荷状況）<br /> Next Process Waiting Status Search
+                                                   @* @LocalizationServices.GetLocalizedHtmlString("lbl_menuNextProcessWaitingStatusSearch")*@
+                                              
+                                               </Label>
+                                                </a>
+                                        </td>
+                                    </tr>
+
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                              <a href="/FactoryDailyWorkStatusSearchProcessWise/FactoryDailyWorkStatusSearchProcessWise" target="FactoryDailyWorkStatusSearchProcessWise" onClick="javascript:open('/FactoryDailyWorkStatusSearchProcessWise/FactoryDailyWorkStatusSearchProcessWise', 'FactoryDailyWorkStatusSearchProcessWise', 'height=1150px,width=1990px,resizable=no')">
+                                               @* <label Class="linkFormat">作業日報問合せ（工程別作業実績）<br /> Factory Daily Work Status Search (Process-Wise)</label>*@
+                                           
+
+                                            <Label ID="lblmenuFactoryDailyWorkStatusSearch" runat="server" 
+                                                   Class="linkFormat menuSpace">
+                                                   作業日報問合せ（工程別作業実績）<br />  Factory Daily Work Status Search (Process-wise)
+                                                   @* @LocalizationServices.GetLocalizedHtmlString("lbl_menuFactoryDailyWorkStatusSearch")*@
+                                              
+                                               </Label>
+                                                </a>
+                                        </td>
+                                    </tr>
+
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                             <a href="/DailyProcessAnalysisWithCSV/DailyProcessAnalysis" target="DailyProcessAnalysisWithCSV" onClick="javascript:open('/DailyProcessAnalysisWithCSV/DailyProcessAnalysis', 'DailyProcessAnalysisWithCSV', 'height=949px,width=1990px,resizable=no')">
+                                              @*  <label Class="linkFormat">作業日報⇒分析用情報の作成（CSV出力）<br /> Daily Process ⇒ Analysis(CSV Export)</label>*@
+                                           
+                                            <Label ID="lblmenuDailyProcessAnalysisCSV" runat="server" 
+                                                   Class="linkFormat menuSpace">
+                                                   作業日報⇒分析用情報の作成（CSV出力）<br /> Daily Process Analysis(CSV Export)
+                                                   @* @LocalizationServices.GetLocalizedHtmlString("lbl_menuDailyProcessAnalysisCSV")*@
+                                              
+                                               </Label>
+                                                </a>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="tdclass">
+     <td class="style2">
+         <a href="/YieldSearch/YieldSearch" target="YieldSearch" onClick="javascript:open('/YieldSearch/YieldSearch', 'YieldSearch', 'height=1150px,width=1960px,resizable=no')">
+            @* <label Class="linkFormat"> 製造工程進捗状況問合せ <br />SalesProductionStatusSearch</label>*@
+        
+         <Label ID="lblYieldSearch" runat="server" 
+                Class="linkFormat menuSpace">
+                注番別歩留問合せ <br /> Order Yield Status Search
+               @*  @LocalizationServices.GetLocalizedHtmlString("lbl_menuSalesProductionStatusSearch")*@
+           
+            </Label>
+             </a>
+     </td>
+ </tr>
+
+
+                                    <tr class="tdclass">
+                                        <td class="style3">&nbsp; </td>
+                                    </tr>
+
+                                      <tr class="tdclass">
+                                        <td class="style2">
+                                            <a href="/FinalInspection/FinalInspectionReport" target="FinalInspectionReport1" onClick="javascript:open('/FinalInspection/FinalInspectionReport', 'FinalInspectionReport1', 'height=970px,width=1500px,resizable=no')">
+                                                <label ID="lblMenu_FinalInspection" runat="server"  Class="linkFormat menuSpace"> 最終検査の印刷 <br /> Final Inspection Report Print</label>
+                                            </a>
+                                          
+                                        </td>
+                                    </tr>
+
+                                   <tr class="tdclass">
+                                        <td class="style3">&nbsp; </td>
+                                    </tr>
+
+                                   
+                                 <tr class="tdclass">
+                                        <td class="style2">
+                                              <a href="/ProcessPlanHandoverHost/ProcessPlanHandoverHost" target="ProcessPlanHandoverHost" onClick="javascript:open('/ProcessPlanHandoverHost/ProcessPlanHandoverHost', 'ProcessPlanHandoverHost', 'height=970px,width=1500px,resizable=no')">
+                                               @* <label Class="linkFormat"> 製造指示書を現場へ工程投入・工程投入の取消（製造工程の開始）<br />ProcessPlanHandoverHost(Entry・Cancel)</label>*@
+                                          
+                                            <Label ID="lblMenu_ProcessPlanHandover" runat="server" 
+                                                   Class="linkFormat menuSpace">
+                                                   製造指示書を現場へ工程投入・工程投入の取消（製造工程の開始）<br /> Host ProcessPlanHandover(Entry・Cancel) 
+                                                    @*@LocalizationServices.GetLocalizedHtmlString("lbl_menuHostProcessPlanHandover").ToString()*@
+                                                    
+                                              
+                                               </Label>
+                                             
+                                                </a>
+                                        </td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td class="style2">
+                                              <a href="/CopyTagFromHostToOracleScreen/CopyTagFromHostToOracleScreen" target="CopyTagFromHostToOracleScreen" onClick="javascript:open('/CopyTagFromHostToOracleScreen/CopyTagFromHostToOracleScreen', 'CopyTagFromHostToOracleScreen', 'height=970px,width=1500px,resizable=no')">
+                                               @* <label Class="linkFormat"> 製造指示書を現場へ工程投入・工程投入の取消（製造工程の開始）<br />ProcessPlanHandoverHost(Entry・Cancel)</label>*@
+                                          
+                                            <Label ID="lbl_menuHostCopyTagHostOracle" runat="server" 
+                                                   Class="linkFormat menuSpace">
+                                                  @*  製品荷札情報をホストシステムから取得のラフドキュメント・画面デザイン Copy Tag Host Oracle(Entry・Cancel) *@
+                                                  追加発行の製品荷札を現場へ工程投入・工程投入の取消（製造工程の開始）<br />Copy  Extra Tag from Host to Oracle
+                                                    @*@LocalizationServices.GetLocalizedHtmlString("lbl_menuHostProcessPlanHandover").ToString()*@
+                                                    
+                                              
+                                               </Label>
+                                             
+                                                </a>
+                                        </td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                              <a href="/GeneralDailyProcessEntry/GeneralDailyProcessEntry" target="GeneralDailyProcessEntry" onClick="javascript:open('/GeneralDailyProcessEntry/GeneralDailyProcessEntry', 'GeneralDailyProcessEntry', 'height=700px,width=480px,resizable=no')">
+                                               @* <label Class="linkFormat"> 製造指示書を現場へ工程投入・工程投入の取消（製造工程の開始）<br />ProcessPlanHandoverHost(Entry・Cancel)</label>*@
+                                          
+                                            <Label ID="lblMenu_GeneralDailyProcessEntry" runat="server" 
+                                                   Class="linkFormat menuSpace">
+                                                   GeneralDailyProcessEntry
+                                                    @*@LocalizationServices.GetLocalizedHtmlString("lbl_menuHostProcessPlanHandover").ToString()*@
+                                                    
+                                              
+                                               </Label>
+                                             
+                                                </a>
+                                        </td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                              <a href="/GeneralDailyProcessEnd/GeneralDailyProcessEnd" target="GeneralDailyProcessEnd" onClick="javascript:open('/GeneralDailyProcessEnd/GeneralDailyProcessEnd', 'GeneralDailyProcessEnd', 'height=700px,width=480px,resizable=no')">
+                                               @* <label Class="linkFormat"> 製造指示書を現場へ工程投入・工程投入の取消（製造工程の開始）<br />ProcessPlanHandoverHost(Entry・Cancel)</label>*@
+                                          
+                                            <Label ID="lblMenu_GeneralDailyProcessEnd" runat="server" 
+                                                   Class="linkFormat menuSpace">
+                                                   GeneralDailyProcessEnd
+                                                    @*@LocalizationServices.GetLocalizedHtmlString("lbl_menuHostProcessPlanHandover").ToString()*@
+                                                    
+                                              
+                                               </Label>
+                                             
+                                                </a>
+                                        </td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                              <a href="/GeneralDailyProcessStartEnd/GeneralDailyProcessStartEnd" target="GeneralDailyProcessStartEnd" onClick="javascript:open('/GeneralDailyProcessStartEnd/GeneralDailyProcessStartEnd', 'GeneralDailyProcessStartEnd', 'height=700px,width=480px,resizable=no')">
+                                               @* <label Class="linkFormat"> 製造指示書を現場へ工程投入・工程投入の取消（製造工程の開始）<br />ProcessPlanHandoverHost(Entry・Cancel)</label>*@
+                                          
+                                            <Label ID="lblMenu_GeneralDailyProcessStartEnd" runat="server" 
+                                                   Class="linkFormat menuSpace">
+                                                   GeneralDailyProcessStartEnd
+                                                    @*@LocalizationServices.GetLocalizedHtmlString("lbl_menuHostProcessPlanHandover").ToString()*@
+                                                    
+                                              
+                                               </Label>
+                                             
+                                                </a>
+                                        </td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                              <a href="/GeneralDailyProcessCancel/GeneralDailyProcessCancel" target="GeneralDailyProcessCancel" onClick="javascript:open('/GeneralDailyProcessCancel/GeneralDailyProcessCancel', 'GeneralDailyProcessCancel', 'height=700px,width=480px,resizable=no')">
+                                               @* <label Class="linkFormat"> 製造指示書を現場へ工程投入・工程投入の取消（製造工程の開始）<br />ProcessPlanHandoverHost(Entry・Cancel)</label>*@
+                                          
+                                            <Label ID="lblMenu_GeneralDailyProcessCancel" runat="server" 
+                                                   Class="linkFormat menuSpace">
+                                                   GeneralDailyProcessCancel
+                                                    @*@LocalizationServices.GetLocalizedHtmlString("lbl_menuHostProcessPlanHandover").ToString()*@
+                                                    
+                                              
+                                               </Label>
+                                             
+                                                </a>
+                                        </td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td class="style2">
+
+                                            <Label ID="lblMenuProcessPlanCompletion" runat="server" 
+                                                   Class="linkFormat menuSpace">
+                                                   製造指示書消込（生産完了・消込済みの再使用）<br /> Process Plan Completion・Reuse
+                                                  @*  @LocalizationServices.GetLocalizedHtmlString("lbl_menuProcessPlanCompletion")*@
+                                              
+                                               </Label>
+                                        </td>
+                                    </tr>
+                                  
+                                    <tr class="tdclass">
+                                        <td class="style3">&nbsp; </td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                             <a href="/WIPTensou/WIPTensouEntryEditDelete" target="WIPTensouEntryEditDelete" onClick="javascript:open('/WIPTensou/WIPTensouEntryEditDelete', 'WIPTensouEntryEditDelete', 'height=795px,width=1067px,resizable=no')">
+                                               @* <label Class="linkFormat"> 仕掛転送（登録・修正・削除） <br /> WIP Transfer(Entry・Edit・Delete)</label>*@
+                                          
+                                            <Label ID="lblMenuWipTransfer" runat="server" 
+                                                   Class="linkFormat menuSpace">
+                                                   仕掛品転送（登録・修正・削除）<br /> WIP Transfer(Entry・Edit・Delete)
+                                                 @*   @LocalizationServices.GetLocalizedHtmlString("lbl_menuWipTransfer")*@
+                                              
+                                               </Label>
+                                                 </a>
+                                        </td>
+                                    </tr>
+                                      <tr class="tdclass">
+                                        <td class="style2">
+                                             <a href="/ProductTensou/ProductTensou" target="ProductTensou" onClick="javascript:open('/ProductTensou/ProductTensou', 'ProductTensou', 'height=795px,width=1067px,resizable=no')">
+                                               @* <label Class="linkFormat"> 仕掛転送（登録・修正・削除） <br /> WIP Transfer(Entry・Edit・Delete)</label>*@
+                                          
+                                            <Label ID="lblMenuProductTransfer" runat="server" 
+                                                   Class="linkFormat menuSpace">
+                                                   品転送（登録・修正・削除）<br /> Product Transfer(Entry・Edit・Delete)
+                                                 @*   @LocalizationServices.GetLocalizedHtmlString("lbl_menuWipTransfer")*@
+                                              
+                                               </Label>
+                                                 </a>
+                                        </td>
+                                    </tr>
+                                      <tr class="tdclass">
+                                        <td class="style2">
+                                             <a href="/WIPTensou/WIPTensouReportPrint?ScreenName=WIPTensouRequest" target="WIPTensouReportPrint" onClick="javascript:open('/WIPTensou/WIPTensouReportPrint', 'WIPTensouReportPrint', 'height=220px,width=460px,resizable=no')">
+                                              @*  <label Class="linkFormat">仕掛製品転送明細の印刷  <br /> WIP Transfer Request ListPrint</label>*@
+                                           
+                                            <Label ID="lblMenuWipTransferRequestListPrint" runat="server" 
+                                                   Class="linkFormat menuSpace">
+                                                   仕掛品転送明細の印刷 <br />  WIP Transfer Request ListPrint
+                                                   @* @LocalizationServices.GetLocalizedHtmlString("lbl_menuWipTransferRequestListPrint")*@
+                                              
+                                               </Label>
+                                                </a>
+                                        </td>
+                                    </tr>
+                                      <tr class="tdclass">
+                                        <td class="style2">
+                                            
+                                             <a href="/WIPTensouAcceptance/WIPTensouAcceptanceEntryEditDelete" target="WIPTensouAcceptanceEntryEditDelete" onClick="javascript:open('/WIPTensouAcceptance/WIPTensouAcceptanceEntryEditDelete', 'WIPTensouAcceptanceEntryEditDelete', 'height=600px,width=1160px,resizable=no')">
+                                           
+                                            <Label ID="lblMenuWipTraAcceptanceEntry" runat="server" 
+                                                   Class="linkFormat menuSpace">
+                                                   仕掛品転送受入（登録・取消) <br />  WIP Transfer Acceptance (Entry・Edit.Cancel)
+                                                
+                                               </Label>
+                                                </a>
+                                        </td>
+                                    </tr>
+                                      <tr class="tdclass">
+                                        <td class="style2">
+                                             <a href="/WIPTensou/WIPTensouReportPrint?ScreenName=WIPTensouAcceptance" target="WIPTensouReportPrint" onClick="javascript:open('/WIPTensou/WIPTensouReportPrint', 'WIPTensouReportPrint', 'height=220px,width=460px,resizable=no')">
+                                           
+                                            <Label ID="lblMenuWipTransferRequestListPrint" runat="server" 
+                                                   Class="linkFormat menuSpace">
+                                                    仕掛品転送受入予定明細の印刷 <br /> WIP TransferAcceptance ListPrint
+                                            </Label>
+                                              </a>
+
+                                        </td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td class="style2">
+                                             <a href="/PrintReportScreen/PrintReportScreen" target="PrintReportScreen" onClick="javascript:open('/PrintReportScreen/PrintReportScreen', 'PrintReportScreen', 'height=250px,width=440px,resizable=no')">
+                                               @* <label Class="linkFormat">	仕掛仕掛転送受入（登録・取消)  <br /> WIP Transfer acceptance (Entry・Edit.Cancel)</label>*@
+                                           
+                                            <Label ID="lblMenuWipProductStatusReport" runat="server" 
+                                                   Class="linkFormat">
+                                                   仕掛品在庫一覧表  <br />  WIP Product Process Report
+                                                   @* @LocalizationServices.GetLocalizedHtmlString("lbl_menuWipTransferAcceptanceEntryEditDelete")*@
+                                              
+                                               </Label>
+                                                </a>
+                                        </td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td class="style3">&nbsp; </td>
+                                    </tr>
+                                      <tr class="tdclass">
+                                        <td class="style2">
+                                             <a href="/RollPoForecast/RollSalesForecast" target="RollSalesForecast" onClick="javascript:open('/RollPoForecast/RollSalesForecast', 'RollSalesForecast', 'height=9820px,width=1150px,resizable=no')">
+                                                                                          
+                                            <Label ID="lblMenuRollSalesForecast" runat="server" 
+                                                   Class="linkFormat">@Html.Raw(@LocalizationServices.GetLocalizedHtmlString("lblMenu_RollSalesForecast").ToString().Replace("</br>", "<br>")) </Label>
+
+                                                   
+                                                </a>
+                                        </td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                             <a href="/RollPoForecast/RollPoForecast" target="RollPoForecast" onClick="javascript:open('/RollPoForecast/RollPoForecast', 'RollPoForecast', 'height=1000px,width=1310px,resizable=no')">
+                                                                                          
+                                            <Label ID="lblMenuRollPOForecast" runat="server" 
+                                                   Class="linkFormat">@Html.Raw(@LocalizationServices.GetLocalizedHtmlString("lbl_Menu_RollPoForecast").ToString().Replace("</br>", "<br>")) </Label>
+
+                                                   
+                                                </a>
+                                        </td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                             <a href="/RollPoMainAnalysis/RollPoMainAnalysis" target="RollPoMainAnalysis" onClick="javascript:open('/RollPoMainAnalysis/RollPoMainAnalysis', 'RollPoMainAnalysis', 'height=1000px,width=1250px,resizable=no')">
+                                                                                          
+                                            <Label ID="lblMenuRollPoMainAnalysis" runat="server" 
+                                                   Class="linkFormat">@Html.Raw(@LocalizationServices.GetLocalizedHtmlString("lbl_Menu_RollPoMainAnalysis").ToString().Replace("</br>", "<br>")) </Label>
+
+                                                   
+                                                </a>
+                                        </td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td class="style2">
+                                             <a href="/RollPoMainAnalysis/ProdSpecWiseSalesStatus" target="ProdSpecWiseSalesStatus" onClick="javascript:open('/RollPoMainAnalysis/ProdSpecWiseSalesStatus', 'ProdSpecWiseSalesStatus', 'height=1100px,width=1040px,resizable=no')">
+                                                                                          
+                                            <Label ID="lblMenuRollPoMainAnalysis" runat="server" 
+                                                   Class="linkFormat">@Html.Raw(@LocalizationServices.GetLocalizedHtmlString("lbl_ProdSpecWiseSalesStatus").ToString().Replace("</br>", "<br>")) </Label>
+
+                                                   
+                                                </a>
+                                        </td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                             <a href="/RollPoMainAnalysis/CustomerWiseProdStockShukkaDetails" target="CustomerWiseProdStockShukkaDetails" onClick="javascript:open('/RollPoMainAnalysis/CustomerWiseProdStockShukkaDetails', 'CustomerWiseProdStockShukkaDetails', 'height=1100px,width=830px,resizable=no')">
+                                                                                          
+                                            <Label ID="lblMenuRollPoMainAnalysis" runat="server"  
+                                                   Class="linkFormat">@Html.Raw(@LocalizationServices.GetLocalizedHtmlString("lbl_CustomerWiseProdStockShukkaDetails").ToString().Replace("</br>", "<br>")) </Label>
+
+                                                   
+                                                </a>
+                                        </td>
+                                    </tr>
+
+                                     <tr class="tdclass">
+                                        <td class="style3">&nbsp; </td>
+                                    </tr>
+
+                                      <tr class="tdclass">
+                                        <td class="style2">
+                                            <a href="/HikinukiCoilToBar/HikinukiOracleToHostDataTransfer" target="HikinukiOracleToHostDataTransfer" onClick="javascript:open('/HikinukiCoilToBar/HikinukiOracleToHostDataTransfer', 'HikinukiOracleToHostDataTransfer', 'height=210px,width=500px,resizable=no')">
+                                                <label ID="lblHikinukiOracleToHostDataTransfer" runat="server"  Class="linkFormat menuSpace">@Html.Raw(@LocalizationServices.GetLocalizedHtmlString("lblHikinuki_DataTransferOracleToHost").ToString().Replace("</br>", "<br>"))</label>
+                                            </a>
+                                          
+                                        </td>
+                                    </tr>
+
+                                     <tr class="tdclass">
+                                        <td class="style3">&nbsp; </td>
+                                    </tr>
+
+                                      <tr class="tdclass">
+                                        <td class="style2">
+                                            <a href="/Practice/PdfToText" target="PdfToText" onClick="javascript:open('/Practice/PdfToText', 'PdfToText', 'height=510px,width=1800px,resizable=no')">
+                                                <label ID="lblHikinukiOracleToHostDataTransfer" runat="server"  Class="linkFormat menuSpace">Pdf To Text Conversion Demo</label>
+                                            </a>
+                                          
+                                        </td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                            <a href="/MakerMillSheet/MakerMillSheetPDFConfiguration" target="MakerMillSheetPDFConfiguration" onClick="javascript:open('/MakerMillSheet/MakerMillSheetPDFConfiguration', 'MakerMillSheetPDFConfiguration', 'height=1020px,width=1750px,resizable=no')">
+                                                <label ID="lblHikinukiOracleToHostDataTransfer" runat="server"  Class="linkFormat menuSpace">Maker Millsheet PDF Settings</label>
+                                            </a>
+                                          
+                                        </td>
+                                    </tr>
+                                      <tr class="tdclass">
+                                        <td class="style2">
+                                            <a href="/CSVGeneration/CSVGroupTitleList" target="CSVGroupTitleList" onClick="javascript:open('/CSVGeneration/CSVGroupTitleList', 'CSVGroupTitleList', 'height=880px,width=850px,resizable=no')">
+                                                <label ID="lblHikinukiOracleToHostDataTransfer" runat="server"  Class="linkFormat menuSpace">CSV Generation</label>
+                                            </a>
+                                          
+                                        </td>
+                                      <tr class="tdclass">
+                                        <td class="style2">
+                                            <a href="/MakerMillSheetEDI/MakerMillSheetEDIBatch" target="MakerMillSheetEDIBatch" onClick="javascript:open('/MakerMillSheetEDI/MakerMillSheetEDIBatch', 'MakerMillSheetEDIBatch', 'height=217px,width=575px,resizable=no')">
+                                                <label ID="lblMakerMillSheetEDIBatch" runat="server"  Class="linkFormat menuSpace"> 大同ミルーシートＥＤＩファイルの取込 <br /> Maker Millsheet Daido EDI Batch</label>
+                                            </a>
+                                          
+                                        </td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                            <a href="/MakerMillSheetJfeEDI/MakerMillSheetJfeEDIBatch" target="MakerMillSheetJfeEDIBatch" onClick="javascript:open('/MakerMillSheetJfeEDI/MakerMillSheetJfeEDIBatch', 'MakerMillSheetJfeEDIBatch', 'height=266px,width=590px,resizable=no')">
+                                                <label ID="lblMakerMillSheetJfeEDIBatch" runat="server"  Class="linkFormat menuSpace"> ＪＦＥミルシートＥＤＩファイルの取込  <br /> Maker Millsheet JFE EDI Batch </label>
+                                            </a>
+                                          
+                                        </td>
+                                    </tr>
+                                    <tr class="tdclass">
+    <td class="style2">
+         <a href="/RollPoMainAnalysis/RollPoMainAnalysis" target="RollPoMainAnalysis" onClick="javascript:open('/RollPoMainAnalysis/RollPoMainAnalysis', 'RollPoMainAnalysis', 'height=1000px,width=1250px,resizable=no')">
+                                                      
+        <Label ID="lblMenuRollPoMainAnalysis" runat="server" 
+               Class="linkFormat">@Html.Raw(@LocalizationServices.GetLocalizedHtmlString("lbl_Menu_RollPoMainAnalysis").ToString().Replace("</br>", "<br>")) </Label>
+
+               
+            </a>
+    </td>
+</tr>
+
+
+
+                                   @*<tr class="tdclass">
+                                        <td class="style2">
+                                             <a href="/RollPoMainAnalysis/ForecastStatusPopUp" target="ForecastStatusPopUp" onClick="javascript:open('/RollPoMainAnalysis/ForecastStatusPopUp', 'ForecastStatusPopUp', 'height=1000px,width=800px,resizable=no')">
+                                                                                          
+                                            <Label ID="lblMenuRollPoMainAnalysis" runat="server" 
+                                                   Class="linkFormat">@Html.Raw(@LocalizationServices.GetLocalizedHtmlString("lbl_Menu_RollPoMainAnalysis").ToString().Replace("</br>", "<br>")) </Label>
+
+                                                   
+                                                </a>
+                                        </td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td class="style2">
+                                             <a href="/RollPoMainAnalysis/MatlNameWiseOrderQtyPopUp" target="MatlNameWiseOrderQtyPopUp" onClick="javascript:open('/RollPoMainAnalysis/MatlNameWiseOrderQtyPopUp', 'MatlNameWiseOrderQtyPopUp', 'height=1000px,width=800px,resizable=no')">
+                                                                                          
+                                            <Label ID="lblMenuRollPoMainAnalysis" runat="server" 
+                                                   Class="linkFormat">@Html.Raw(@LocalizationServices.GetLocalizedHtmlString("lbl_Menu_RollPoMainAnalysis").ToString().Replace("</br>", "<br>")) </Label>
+
+                                                   
+                                                </a>
+                                        </td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                             <a href="/RollPoMainAnalysis/OrderAndReceiptHistoryPopUp" target="OrderAndReceiptHistoryPopUp" onClick="javascript:open('/RollPoMainAnalysis/OrderAndReceiptHistoryPopUp', 'OrderAndReceiptHistoryPopUp', 'height=1000px,width=800px,resizable=no')">
+                                                                                          
+                                            <Label ID="lblMenuRollPoMainAnalysis" runat="server" 
+                                                   Class="linkFormat">@Html.Raw(@LocalizationServices.GetLocalizedHtmlString("lbl_Menu_RollPoMainAnalysis").ToString().Replace("</br>", "<br>")) </Label>
+
+                                                   
+                                                </a>
+                                        </td>
+                                    </tr>*@
+                                </table>
+                            </div>
+
+                            <div id="divFactoryWorkshop" class="uppercontainer" runat="server" style="position: relative; display: block;overflow:scroll; width: 100%; height: 740px; top: 0px; left: 0px;">
+                                <table class="MenuTable" border="1" cellpadding="1" cellspacing="1" style="position: relative; width: 100%; height: 22%; top: 0px; left: 0px;">
+
+                                 @*  <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <a href="/SalesProductionStatusSearch/SalesProductionStatusSearch2" target="SalesProductionStatusSearch2" onClick="javascript:open('/SalesProductionStatusSearch/SalesProductionStatusSearch2', 'SalesProductionStatusSearch2', 'height=1150px,width=1920px,resizable=no')">
+                                                <label Class="linkFormat"> 製造工程進捗状況問合せ <br />SalesProductionStatusSearch</label>
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                   
+                                   *@
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+
+                                            <a href="/HeatTreatment/HeatTreatmentEntry" target="HeatTreatmentEntry" onClick="javascript:open('/HeatTreatment/HeatTreatmentEntry', 'HeatTreatmentEntry', 'height=1000px,width=1800px,resizable=no')">
+                                                <label Class="linkFormat"> 工程　機械検査（硬さ）（登録）<br /> Heat  Treatment  (Entry)</label>
+                                            </a>
+
+
+                                            @*   <button class="underDev" tabindex="-1" onclick="javascript: ShowUnderDevMessage(); return false;">
+                                            埠頭・メーカー倉庫から外注転送（登録・修正・削除）<br />
+                                            Heat Treatment ( Entry )
+                                            </button>*@
+                                        </td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <a href="/HeatTreatment/HeatTreatmentEditDelete" target="HeatTreatmentEditDelete" onClick="javascript:open('/HeatTreatment/HeatTreatmentEditDelete', 'HeatTreatmentEditDelete', 'height=700px,width=1330px,resizable=no')">
+                                                <label Class="linkFormat"> 工程　熱処理（修正・削除）<br /> Heat Treatment ( Edit・Delete) </label>
+                                            </a>
+
+                                            @* <button class="underDev" tabindex="-1" onclick="javascript: ShowUnderDevMessage(); return false;">
+                                            埠頭・メーカー倉庫から外注転送（登録・修正・削除）<br />
+                                            Heat Treatment ( Edit・Delete )
+                                            </button>*@
+                                        </td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                    </tr>
+
+                                      <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <a href="/HardnessTempering/HardnessTemperingEntry" target="HardnessTemperingEntry" onClick="javascript:open('/HardnessTempering/HardnessTemperingEntry', 'HardnessTemperingEntry', 'height=690px,width=1380px,resizable=no')">
+                                                <label Class="linkFormat">
+                                                    工程　調質検査（登録）<br />Hardness Tempering Inspection(Entry)
+                                                </label>
+                                            </a>
+                                        </td>
+                                    </tr>
+
+
+                                     <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <a href="/HardnessTempering/HardnessTemperingEditDelete" target="HardnessTemperingEditDelete" onClick="javascript:open('/HardnessTempering/HardnessTemperingEditDelete', 'HardnessTemperingEditDelete', 'height=410px,width=1390px,resizable=no')">
+                                                <label Class="linkFormat"> 
+                                                    工程　調質検査（修正・削除）<br />Hardness Tempering Inspection(Edit・Delete)
+                                                    </label>
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                  
+                                    
+                                     <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px"></td>
+                                    </tr>
+
+                                   
+
+                                     <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <a href="/HikinukiBarToBar/HikinukiBarToBarEntry" target="HikinukiBarToBarEntry" onClick="javascript:open('/HikinukiBarToBar/HikinukiBarToBar', 'HikinukiBarToBarEntry', 'height=960,width=1910,resizable=no')">
+                                                <label Class="linkFormat"> 工程　引抜（ドローベンチ）（登録） <br /> Cold Drawing (DRAW BENCH) Process (Entry)</label>
+                                            </a>
+                                            @* <button class="underDev" tabindex="-1" onclick="javascript: ShowUnderDevMessage(); return false;">
+                                            埠頭・メーカー倉庫から外注転送（登録・修正・削除）<br />
+                                            Cold Drawing (DRAW BENCH) Process (Entry)
+                                            </button>*@
+                                        </td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <a href="/HikinukiBarToBar/HikinukiBarToBarEditDelete" target="HikinukiBarToBarEditDelete" onClick="javascript:open('/HikinukiBarToBar/HikinukiBarToBarEditDelete', 'HikinukiBarToBarEditDelete', 'height=790,width=1070,resizable=no')">
+                                                <label Class="linkFormat"> 工程　引抜（ドローベンチ）（修正・削除）<br /> Cold Drawing  (DRAW BENCH)  Process (Edit・Delete)</label>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px"></td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+
+                                            <a href="/HikinukiCoilToBar/HikinukiCoilToBarEntry" target="HikinukiCoilToBarEntry" onClick="javascript:open('/HikinukiCoilToBar/HikinukiCoilToBarEntry', 'HikinukiCoilToBarEntry', 'height=760px,width=1820px,resizable=no')">
+                                                <label Class="linkFormat"> 工程　引抜（コンバイン）（登録）<br />Cold Drawing (COMBINED) Process (Entry)
+                                                    </label>
+                                            </a>
+
+                                            @* <Label ID="Label23" runat="server" url="Transaction/HikinukiEntryScreen.aspx" Text="<%$ Resources: GlobalResources, lblMenu_ColdDrawingHikinukiProcessEntry%>"
+                                            Class="linkFormat"></Label>*@
+                                        </td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <a href="/HikinukiCoilToBar/HikinukiEditDelete" target="HikinukiEditDelete" onClick="javascript:open('/HikinukiCoilToBar/HikinukiEditDelete', 'HikinukiEditDelete', 'height=790,width=1070,resizable=no')">
+                                                <label Class="linkFormat"> 
+                                                    工程　引抜（コンバイン）（修正・削除）<br />Cold Drawing (COMBINED) Process (Edit・Delete)
+                                                    </label>
+                                            </a>
+                                            @*  <Label ID="Label24" runat="server" url="Transaction/HikinukiEditDeleteScreen.aspx" Text="<%$ Resources: GlobalResources, lblMenu_ColdDrawingHikinukiProcessEditDelete%>"
+                                            Class="linkFormat"></Label>*@
+                                        </td>
+                                    </tr>
+                                   
+
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px"></td>
+                                    </tr>
+
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <a href="/ColdDrawingWIREDRAWING/ColdDrawingWIREDRAWINGEntry" target="ColdDrawingWIREDRAWINGEntry" onClick="javascript:open('/ColdDrawingWIREDRAWING/ColdDrawingWIREDRAWINGEntry', 'ColdDrawingWIREDRAWINGEntry', 'height=1020px,width=1920px,resizable=no')">
+                                                <label Class="linkFormat"> 工程　引抜（伸線）（登録）<br /> Cold Drawing  (WIRE DRAWING)  Process (Entry)</label>
+                                            </a>
+                                            @* <button class="underDev" tabindex="-1" onclick="javascript: ShowUnderDevMessage(); return false;">
+                                            埠頭・メーカー倉庫から外注転送（登録・修正・削除）<br />
+                                            Cold Drawing (DRAW BENCH) Process (Entry)
+                                            </button>*@
+                                        </td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <a href="/ColdDrawingWIREDRAWING/ColdDrawingWIREDRAWINGEditDelete" target="ColdDrawingWIREDRAWINGEditDelete" onClick="javascript:open('/ColdDrawingWIREDRAWING/ColdDrawingWIREDRAWINGEditDelete', 'ColdDrawingWIREDRAWINGEDitDelete', 'height=785px,width=1080px,resizable=no')">
+                                                <label Class="linkFormat"> 工程　引抜（伸線）（修正・削除）<br /> Cold Drawing  (WIRE DRAWING)  Process (Edit・Delete)</label>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td style="width: 303px"></td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+
+                                            <a href="/Straightening/StraighteningEntry" target="StraighteningEntry" onClick="javascript:open('/Straightening/StraighteningEntry', 'StraighteningEntry',  'height=1080px,width=1950px','resizable=no')">
+                                                <label Class="linkFormat">工程　矯正（登録 ）<br />Straightening (Kyousei) Process Entry </label>
+                                            </a>
+                                           @* @LocalizationServices.GetLocalizedHtmlString("lblMenu_StraighteningKyouseiProcessEntry")
+*@
+
+                                            @* <Label ID="Label25" runat="server" url="Transaction/StraighteningEntryScreen.aspx" Text="<%$ Resources: GlobalResources, lblMenu_StraighteningKyouseiProcessEntry%>"
+                                            Class="linkFormat"></Label>*@
+                                        </td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <a href="/Straightening/StraighteningEditDelete" target="StraighteningEditDelete" onClick="javascript:open('/Straightening/StraighteningEditDelete', 'StraighteningEditDelete',  'height=810px,width=1060px,resizable=no')">
+                                                <label Class="linkFormat">@* @LocalizationServices.GetLocalizedHtmlString("lblMenu_StraighteningKyouseiProcessEditDelete")*@
+                                                工程　矯正（修正・削除）<br /> Straightening (Kyousei) Process (Edit・Delete)
+                                                </label>
+                                            </a>
+
+                                            @*  <Label ID="Label27" runat="server" url="Transaction/StraighteningEditDeleteScreen.aspx" Text="<%$ Resources: GlobalResources, lblMenu_StraighteningKyouseiProcessEditDelete%>"
+                                            Class="linkFormat"></Label>*@
+                                        </td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td style="width: 303px"></td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+
+                                            <a href="/Straightening2/StraighteningEntry2" target="StraighteningEntry2" onClick="javascript:open('/Straightening2/StraighteningEntry2', 'StraighteningEntry2',  'height=1080px,width=1930px,resizable=no')">
+                                                <label Class="linkFormat"> 工程　矯正（登録）② <br /> Straightening (Kyousei) Process ② Entry</label>
+                                            </a>
+
+
+
+                                            @* <Label ID="Label25" runat="server" url="Transaction/StraighteningEntryScreen.aspx" Text="<%$ Resources: GlobalResources, lblMenu_StraighteningKyouseiProcessEntry%>"
+                                            Class="linkFormat"></Label>*@
+                                        </td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <a href="/Straightening2/StraighteningEditDelete2" target="StraighteningEditDelete2" onClick="javascript:open('/Straightening2/StraighteningEditDelete2', 'StraighteningEditDelete2',  'height=810px,width=1060px,resizable=no')">
+                                                <label Class="linkFormat"> 
+                                                    工程　矯正②（修正・削除）<br />Straightening (Kyousei) Process② (Edit・Delete)
+                                                    </label>
+                                            </a>
+
+                                            @*  <Label ID="Label27" runat="server" url="Transaction/StraighteningEditDeleteScreen.aspx" Text="<%$ Resources: GlobalResources, lblMenu_StraighteningKyouseiProcessEditDelete%>"
+                                            Class="linkFormat"></Label>*@
+                                        </td>
+                                    </tr>
+
+                                    <tr class="tdclass">
+                                        <td style="width: 303px"></td>
+                                    </tr>
+                                   
+                                  
+
+
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+
+                                            <a href="/Chamffer/ChamfferEntry" target="ChamfferEntry" onClick="javascript:open('/Chamffer/ChamfferEntry', 'ChamfferEntry', 'height=960,width=1910,resizable=no')">
+                                                <label Class="linkFormat"> 工程　面取り（登録） <br /> Chamfer (Entry)</label>
+                                            </a>
+                                        
+                                        </td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+
+                                            <a href="/Chamffer/ChamfferEditDelete" target="ChamfferEditDelete" onClick="javascript:open('/Chamffer/ChamfferEditDelete', 'ChamfferEditDelete', 'height=790,width=1070,resizable=no')">
+                                                <label Class="linkFormat"> 工程　面取り（修正・削除） <br /> Chamfer (Edit・Delete)</label>
+                                            </a>
+                                          
+                                        </td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px"></td>
+                                    </tr>
+
+
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <a href="/ECEntry/EcEntry" target="EcEntry" onClick="javascript:open('/EcEntry/EcEntry', 'EcEntry', 'height=1020px,width=1920px,resizable=no')">
+                                                <label Class="linkFormat"> ＥＣ日報（登録） <br /> EC (Entry)</label>
+                                            </a>
+
+                                        
+                                        </td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <a href="/ECEntry/ECEditDelete" target="ECEditDelete" onClick="javascript:open('/ECEntry/ECEditDelete', 'ECEditDelete', 'height=870,width=1040','resizable=no')">
+                                                <label Class="linkFormat"> ＥＣ日報（登録） <br /> EC (Edit・Delete)</label>
+                                            </a>
+                                         
+                                        </td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px"></td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+
+                                            <a href="/Stampping/StamppingEntry" target="StamppingEntry" onClick="javascript:open('/Stampping/StamppingEntry', 'StamppingEntry', 'height=1080px,width=2000px','resizable=no')">
+                                                <label Class="linkFormat">
+                                                    工程　刻印（登録）<br />
+                                                    Stamping (Entry)
+                                                </label>
+                                            </a>
+                                         
+                                        </td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+
+                                            <a href="/Stampping/StamppingEditDelete" target="StamppingEditDelete" onClick="javascript:open('/Stampping/StamppingEditDelete', 'StamppingEditDelete', 'height=830,width=1080','resizable=no')">
+                                                <label Class="linkFormat">
+                                                    工程　刻印（修正・削除）<br />
+                                                    Stamping (Edit・Delete)
+                                                </label>
+                                            </a>
+                                         
+                                        </td>
+                                    </tr>
+
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px"></td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <a href="/HardnessTempering/HardnessTemperingEntryEditDelete" target="HardnessTemperingEntryEditDelete" onClick="javascript:open('/HardnessTempering/HardnessTemperingEntryEditDelete', 'HardnessTemperingEntryEditDelete', 'height=490px,width=1370px,resizable=no')">
+                                                <label Class="linkFormat"> 工程　調質検査判定（登録・修正・削除） <br /> Hardness Tempering Judgement(Entry・Edit・Delete)</label>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px"></td>
+                                    </tr>
+
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+
+                                            <a href="/PostHTInspection/PostHTInspectionEntryEditDelete" target="PostHTInspectionEntryEditDelete" onClick="javascript:open('/PostHTInspection/PostHTInspectionEntryEditDelete', 'PostHTInspectionEntryEditDelete', 'height=800px,width=1280px,resizable=no')">
+                                                <label Class="linkFormat"> 工程　内質検査（硬さ）（登録・修正・削除） <br /> PostHT Inspection (Entry・Edit・Delete)</label>
+                                            </a>
+                                          
+                                        </td>
+                                    </tr>
+                                   
+                                   
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px"></td>
+                                    </tr>
+
+
+                                     <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <a href="/Hardness/HardnessEntry" target="HardnessEntry" onClick="javascript:open('/Hardness/HardnessEntry', 'HardnessEntry', 'height=900px,width=1180px,resizable=no')">
+                                                <label Class="linkFormat"> 工程　機械検査（硬さ）（登録） <br /> Machine Inspection ( Hardness) (Entry)</label>
+                                            </a>
+
+                                        </td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+
+                                            <a href="/Hardness/HardnessEditDelete" target="HardnessEditDelete" onClick="javascript:open('/Hardness/HardnessEditDelete', 'HardnessEditDelete', 'height=785px,width=1080px,resizable=no')">
+                                                <label Class="linkFormat"> 工程　機械検査（硬さ）（修正・削除） <br />  Machine Inspection (Hardness) (Edit・Delete)</label>
+                                            </a>
+                                           
+                                        </td>
+                                    </tr>
+
+                                     <tr class="tdclass">
+                                        <td style="width: 303px"></td>
+                                    </tr>
+
+
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <a href="/Tensile/TensileEntry" target="TensileEntry" onClick="javascript:open('/Tensile/TensileEntry', 'TensileEntry', 'height=920,width=1220,resizable=no')">
+                                                <label Class="linkFormat"> 工程　機械検査（引張）（登録）</br> Tensile (Tension) (Entry)</label>
+                                            </a>
+                                           
+                                        </td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <a href="/Tensile/TensileEditDelete" target="TensileEditDelete" onClick="javascript:open('/Tensile/TensileEditDelete', 'TensileEditDelete', 'height=800,width=1060,resizable=no')">
+                                                <label Class="linkFormat">工程　機械検査（引張）（修正・削除） <br/>Tensile (Tension) (Edit・Delete)</label>
+                                            </a>
+                                        
+                                        </td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px"></td>
+                                    </tr>
+
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <a href="/HSKMillSheet/HSKMillSheetSaveEdit" target="HSKMillSheetSaveEdit" onClick="javascript:open('/HSKMillSheet/HSKMillSheetSaveEdit', 'HSKMillSheetSaveEdit', 'height=950px,width=1880px,resizable=no')">
+                                                <label Class="linkFormat"> HSKMillSheetSaveEdit</label>
+                                            </a>
+                                           
+                                        </td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <a href="/MakerMillsheet/MakerMillsheetSaveEdit" target="MakerMillsheetSaveEdit" onClick="javascript:open('/MakerMillsheet/MakerMillsheetSaveEdit', 'MakerMillsheetSaveEdit', 'height=970px,width=1930px')">
+                                                <label Class="linkFormat"> MakerMillsheetSaveEdit</label>
+                                            </a>
+                                           
+                                        </td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+
+                                            <a Class="linkFormat" href="/ProcessPlanPrintReport/ProcessPlanPrintReport" target="ProcessPlanPrintReport" onClick="javascript:open('/ProcessPlanPrintReport/ProcessPlanPrintReport', 'ProcessPlanPrintReport', 'height=410px,width=460px,resizable=no')">
+                                                <label Class="linkFormat">製造指示書の一括印刷・再印刷 <br /> Process Plan Report Print・Reprint</label>
+                                            </a>
+
+
+                                          
+                                        </td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px"></td>
+                                    </tr>
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <a href="/StoredProcedureExample/Index" target="StoredProcedureExample" onClick="javascript:open('/StoredProcedureExample/Index', 'StoredProcedureExample', 'height=950px,width=1820px,resizable=no')">
+                                                <label Class="linkFormat"> Stored Procedure Example</label>
+                                            </a>
+                                           
+                                        </td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px"></td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <a href="/MaterialSearchSales/MaterialSearchSales" target="MaterialSearchSales" onClick="javascript:open('/MaterialSearchSales/MaterialSearchSales', 'MaterialSearchSales', 'height=950px,width=1880px,resizable=no')">
+                                                <label Class="linkFormat"> MaterialSearchSales</label>
+                                            </a>
+                                           
+                                        </td>
+                                    </tr>
+                                  @*  <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <button class="underDev" tabindex="-1" onclick="javascript: ShowUnderDevMessage(); return false;">
+                                                メーカーミルシート（登録・修正・削除・再発行）<br />
+                                                Maker Milsheet  (Entry・Edit・Delete ・ReGenerate)
+                                            </button>
+                                        </td>
+                                    </tr>*@
+
+                                   
+
+                                   @* <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <a href="/WarehouseToSupplier/TensouEntryEditDelete" target="TensouEntryEditDelete" onClick="javascript:open('/WarehouseToSupplier/TensouEntryEditDelete', 'TensouEntryEditDelete', 'height=350px,width=1220px,resizable=no')">
+                                                <label Class="linkFormat">外注転送（登録・修正・削除） <br /> Warehouse/Maker Tensou ( Entry・Edit・Delete )</label>
+                                            </a>
+                                           
+                                        </td>
+                                    </tr>*@
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                           
+                                           
+                                        </td>
+                                    </tr>
+                                   
+                                  
+
+                                   @* <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <a href="/HSKMillSheet/HSKMillSheetEditDelete" target="HSKMillSheetEditDelete" onClick="javascript:open('/HSKMillSheet/HSKMillSheetEditDelete', 'HSKMillSheetEditDelete', 'height=1150px,width=1200px,resizable=no')">
+                                                <label Class="linkFormat"> HSKMillSheetEditDelete</label>
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="tdclass">
+                                        <td style="width: 303px;padding:5px">
+                                            <a href="/TagWiseStockStatusSearch/TagWiseStockStatusSearch" target="TagWiseStockStatusSearch" onClick="javascript:open('/TagWiseStockStatusSearch/TagWiseStockStatusSearch', 'TagWiseStockStatusSearch', 'height=1150px,width=1310px,resizable=no')">
+                                                <label Class="linkFormat">束別在庫問合せ（向け先材・一般材・スポット材・黒皮）<br />Tag Wise Stock Status Search (Mukesaki・General・Spot・KW)</label>
+                                            </a>
+                                        </td>
+                                    </tr>
+*@
+                                   
+
+                                 
+
+
+
+                                </table>
+                            </div>
+
+                             <div id="divHandyTerminal" class="uppercontainer" runat="server" style="position: relative; display: block;overflow:scroll; width: 100%; height: 740px; top: 0px; left: 0px;">
+                                <table class="MenuTable" border="1" cellpadding="1" cellspacing="1" style="position: relative; width: 100%; height: 22%; top: 0px; left: 0px;">
+                                    
+
+                                       <tr class="tdclass">
+                                        <td class="style2">
+                                           <a href="/GeneralDailyProcessEntry/GeneralDailyProcessEntry" target="GeneralDailyProcessEntry" onClick="javascript:open('/GeneralDailyProcessEntry/GeneralDailyProcessEntry', 'GeneralDailyProcessEntry', 'height=680px,width=490px,resizable=no')">
+                                        
+                                           
+                                            <Label ID="lblGeneralDailyProcessStart" runat="server" 
+                                                   Class="linkFormat">
+                                                  汎用 日報 作業開始（登録）<br />General Daily Process Start (Entry)
+                                                   @* @LocalizationServices.GetLocalizedHtmlString("lbl_menuWipTransferAcceptanceListPrint")*@
+                                              
+                                               </Label>
+                                                </a>
+                                        </td>
+                                    </tr>
+                                   
+
+                                       <tr class="tdclass">
+                                        <td class="style2">
+                                           <a href="/GeneralDailyProcessEnd/GeneralDailyProcessEnd" target="GeneralDailyProcessEnd" onClick="javascript:open('/GeneralDailyProcessEnd/GeneralDailyProcessEnd', 'GeneralDailyProcessEnd', 'height=700px,width=490px,resizable=no')">
+                                               @* <label Class="linkFormat">仕掛製品転送受入予定明細の印刷  <br /> WIP TransferAcceptance ListPrint</label>*@
+                                           
+                                            <Label ID="lblGeneralDailyProcessEnd" runat="server" 
+                                                   Class="linkFormat">
+                                                 汎用 日報 作業終了（登録）<br /> General Daily Process End (Entry) 
+                                                   @* @LocalizationServices.GetLocalizedHtmlString("lbl_menuWipTransferAcceptanceListPrint")*@
+                                              
+                                               </Label>
+                                                </a>
+                                        </td>
+                                    </tr>
+
+                                   
+
+                                   
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                           @*  <a href="/WIPTensou/WIPTensouReportPrint?ScreenName=WIPTensouAcceptance" target="WIPTensouAcceptancePrint" onClick="javascript:open('/WIPTensou/WIPTensouReportPrint', 'WIPTensouReportPrint', 'height=220px,width=460px,resizable=no')">*@
+                                               @* <label Class="linkFormat">仕掛製品転送受入予定明細の印刷  <br /> WIP TransferAcceptance ListPrint</label>*@
+                                           
+                                            <Label ID="lblGeneralDailyProcessStartEnd" runat="server" 
+                                                   Class="linkFormat">
+                                                汎用 日報の登録（開始・終了） <br />   General Daily Process StartEnd (Entry) 
+                                                   @* @LocalizationServices.GetLocalizedHtmlString("lbl_menuWipTransferAcceptanceListPrint")*@
+                                              
+                                               </Label>
+                                               @* </a>*@
+                                        </td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                           @*  <a href="/WIPTensou/WIPTensouReportPrint?ScreenName=WIPTensouAcceptance" target="WIPTensouAcceptancePrint" onClick="javascript:open('/WIPTensou/WIPTensouReportPrint', 'WIPTensouReportPrint', 'height=220px,width=460px,resizable=no')">*@
+                                               @* <label Class="linkFormat">仕掛製品転送受入予定明細の印刷  <br /> WIP TransferAcceptance ListPrint</label>*@
+                                           
+                                            <Label ID="lblGeneralDailyProcessCancel" runat="server" 
+                                                   Class="linkFormat">
+                                                  汎用 日報（取消） <br/>  General Daily Process Cancel  
+                                                   @* @LocalizationServices.GetLocalizedHtmlString("lbl_menuWipTransferAcceptanceListPrint")*@
+                                              
+                                               </Label>
+                                               @* </a>*@
+                                        </td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td class="style3">&nbsp; </td>
+                                    </tr>
+                                   
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                         
+                                            <Label ID="lnkFinalInspectionWithoutNyuko" runat="server" 
+                                                   Class="linkFormat menuSpace">
+                                                 最終検査（登録）<br /> Final Inspection (Entry)
+                                                  
+                                               </Label>
+                                             
+                                        </td>
+                                    </tr>
+
+                                      <tr class="tdclass">
+                                        <td class="style2">
+                                         
+                                            @* <button class="underDev" tabindex="-1" onclick="javascript: ShowUnderDevMessage(); return false;">
+                                                     最終検査（一括登録）
+                                                    <br />
+                                                   Final Inspection (Bulk Entry)</button> *@
+                                           <Label ID="lnkFinalInspectionBulk" runat="server" 
+                                                   Class="linkFormat">
+                                                 最終検査（一括登録）<br /> Final Inspection (Bulk Entry)
+                                               </Label>
+                                              
+                                        </td>
+                                    </tr>
+
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                            <button class="underDev" tabindex="-1" onclick="javascript: ShowUnderDevMessage(); return false;">
+                                                     最終検査（修正）
+                                                    <br />
+                                                    Final Inspection (Edit)</button>
+                                           @* <Label ID="lblFinalInspectionEdit" runat="server" 
+                                                   Class="linkFormat">
+                                                最終検査（修正）<br /> Final Inspection (Edit)*@
+                                             @*  </Label>*@
+                                              
+                                        </td>
+                                    </tr>
+
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                           @* <button class="underDev" tabindex="-1" onclick="javascript: ShowUnderDevMessage(); return false;">
+                                                    最終検査（削除）
+                                                    <br />
+                                                    Final Inspection (Delete)</button>*@
+                                            <Label ID="lnkFinalInspectionDelete" runat="server" 
+                                                   Class="linkFormat">
+                                                最終検査（削除）入庫機能無し <br /> Final Inspection WithOut Nyuko(Delete)
+                                              </Label>
+                                             
+                                        </td>
+                                    </tr>
+
+
+                                      <tr class="tdclass">
+                                        <td class="style2">
+                                           @*  <a href="/WIPTensou/WIPTensouReportPrint?ScreenName=WIPTensouAcceptance" target="WIPTensouAcceptancePrint" onClick="javascript:open('/WIPTensou/WIPTensouReportPrint', 'WIPTensouReportPrint', 'height=220px,width=460px,resizable=no')">*@
+                                               @* <label Class="linkFormat">仕掛製品転送受入予定明細の印刷  <br /> WIP TransferAcceptance ListPrint</label>*@
+                                           
+                                            <Label ID="lnkFinalInspectionSpark" runat="server" 
+                                                   Class="linkFormat">
+                                               最終検査（火花検査のみ）（登録・修正）<br />Final Inspection(Spark Entry)
+                                                   @* @LocalizationServices.GetLocalizedHtmlString("lbl_menuWipTransferAcceptanceListPrint")*@
+                                              
+                                               </Label>
+                                               @* </a>*@
+                                        </td>
+                                    </tr>   
+                                     <tr class="tdclass">
+                                        <td class="style3">&nbsp; </td>
+                                    </tr>
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                           @*  <a href="/WIPTensou/WIPTensouReportPrint?ScreenName=WIPTensouAcceptance" target="WIPTensouAcceptancePrint" onClick="javascript:open('/WIPTensou/WIPTensouReportPrint', 'WIPTensouReportPrint', 'height=220px,width=460px,resizable=no')">*@
+                                               @* <label Class="linkFormat">仕掛製品転送受入予定明細の印刷  <br /> WIP TransferAcceptance ListPrint</label>*@
+                                           
+                                            <Label ID="lnkFinalInspectionWIPtagSplit" runat="server" 
+                                                   Class="linkFormat">
+                                              仕掛束の分割（登録）<br /> WIP Tag Split (Entry)
+                                                   @* @LocalizationServices.GetLocalizedHtmlString("lbl_menuWipTransferAcceptanceListPrint")*@
+                                              
+                                               </Label>
+                                               @* </a>*@
+                                        </td>
+
+                                        
+                                    </tr>   
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                           @*  <a href="/WIPTensou/WIPTensouReportPrint?ScreenName=WIPTensouAcceptance" target="WIPTensouAcceptancePrint" onClick="javascript:open('/WIPTensou/WIPTensouReportPrint', 'WIPTensouReportPrint', 'height=220px,width=460px,resizable=no')">*@
+                                               @* <label Class="linkFormat">仕掛製品転送受入予定明細の印刷  <br /> WIP TransferAcceptance ListPrint</label>*@
+                                           
+                                            <Label ID="lnkFinalInspectionWIPtagCombining" runat="server" 
+                                                   Class="linkFormat">
+                                              仕掛束の結合（登録）<br />WIP Tag Combining (Entry)
+                                                   @* @LocalizationServices.GetLocalizedHtmlString("lbl_menuWipTransferAcceptanceListPrint")*@
+                                              
+                                               </Label>
+                                               @* </a>*@
+                                        </td>
+                                    </tr>   
+
+                                  
+                                    
+                                 </table>
+                             </div>
+
+                              <div id="divCSVList1" class="uppercontainer" runat="server" style="position: relative; display: block;overflow:scroll; width: 100%; height: 740px; top: 0px; left: 0px;">
+                                <table class="MenuTable" border="1" cellpadding="1" cellspacing="1" style="position: relative; width: 100%; top: 0px; left: 0px;">
+                                    
+
+                                       
+
+                                      <tr class="tdclass">
+                                        <td class="style2">
+                                         <a href="/CSVGeneration/CSVExtractCondition?outputCD=1" target="CSVExtractCondition" onClick="javascript:open('/CSVGeneration/CSVExtractCondition?outputCD=1', 'CSVExtractCondition', 'height=1150px,width=1310px,resizable=no')">
+                                           <Label ID="lnkFinalInspectionWIPtagSplit" runat="server" 
+                                                   Class="linkFormat">
+                                            仕掛転送明細書作成用補助帳票(転送待ち一覧)
+                                            <br />
+                                            Work progress Report
+                                               </Label>
+                                               </a>
+                                        </td>
+                                    </tr>   
+                                    
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                         
+                                             <Label ID="lnkFinalInspectionWIPtagSplit" runat="server" 
+                                                   Class="linkFormat">
+                                            工程　引抜（ドローベンチ）
+                                            <br />
+                                            Drawing
+                                               </Label>
+                                              
+                                        </td>
+
+                                        
+                                    </tr>   
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                          
+                                            <Label ID="lnkFinalInspectionWIPtagCombining" runat="server" 
+                                                   Class="linkFormat">
+                                              刻印日報<br />Stampping
+                                                 
+                                              
+                                               </Label>
+                                               
+                                        </td>
+                                    </tr>   
+
+                                  
+                                    
+                                 </table>
+                             </div>
+
+                             <div id="divCSVList2" class="uppercontainer" runat="server" style="position: relative; display: block;overflow:scroll; width: 100%; height: 740px; top: 0px; left: 0px;">
+                                <table class="MenuTable" border="1" cellpadding="1" cellspacing="1" style="position: relative; width: 100%; top: 0px; left: 0px;">
+                                    
+
+                                       
+
+                                      <tr class="tdclass">
+                                        <td class="style2">
+                                         
+                                           
+                                            <Label ID="lnkFinalInspectionSpark" runat="server" 
+                                                   Class="linkFormat">
+                                               有効なステートメント<br />Active Data Report
+                                                 
+                                              
+                                               </Label>
+                                              
+                                        </td>
+                                    </tr>   
+                                   
+                                     <tr class="tdclass">
+                                        <td class="style2">
+                                         
+                                            
+                                            <Label ID="lnkFinalInspectionSpark" runat="server" 
+                                                   Class="linkFormat">
+                                               非アクティブなステートメント<br />In-Active Data Report
+                                                 
+                                              
+                                               </Label>
+                                              
+                                        </td>
+
+                                        
+                                    </tr>   
+                                                                        
+                                 </table>
+                             </div>
+
+                        </Panel>
+                    </td>
+
+                </tr>
+            </table>
+             <input type="hidden" id="TxtUnderConstruction" value="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_UnderDevelopment")" name="hdUnderConstruction" />
+
+       
+        </div>
+
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+ 
+ 

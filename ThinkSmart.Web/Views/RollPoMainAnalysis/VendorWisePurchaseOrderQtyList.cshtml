@@ -1,0 +1,108 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<PoAndReceiptPopupDetails>
+@inject LocalizationServices LocalizationServices
+
+<style type="text/css">
+    .backgroundColor {
+        background-color: white
+    }
+
+    .freezMatlNameWiseOrderGrid1 > td {
+        position: sticky !important;
+        top: 20px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezMatlNameWiseOrderGrid1 {
+        border-color: white;
+    }
+</style>
+<table border="0" cellpadding="0" cellspacing="0" id="tblVendorWisePoOrderReciptPopUp" class="GridLines" style="width:1133px;">
+    @if (Model != null && Model.Count > 0)
+    {
+        bool i = true;
+        foreach (var item in Model)
+        {
+            <tr class="GridNormalRow ">
+                @if (i==true)
+                {
+                    <td class="labelClass gridTextbox " style="background-color:cornflowerblue !important;color:white;text-align:center;width: 141px;vertical-align:top;padding-top:30px;" rowspan="@Model.Count">
+                        <div style="height:100%;">
+                            <div style="position:fixed;padding-left:30px;padding-top:80px;">
+                        <label>@LocalizationServices.GetLocalizedHtmlString("lbl_TotalByTradingCompany")</label>
+                            </div>
+                        </div>
+                    </td>
+                    i=false;
+                }
+               
+                @if (@item.SUPPLIER_NAME != null)
+                {
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass" style="background-color:#FFDBBB;width: 346px;">@item.SUPPLIER_NAME</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="width: 55px;">@item.R1</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="width: 54px;">@item.R2</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="width: 54px;">@item.R3</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="width: 54px;">@item.R4</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="width: 54px;">@item.R5</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="width: 56px;">@item.KOUBAN_TOTAL</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="width: 54px;">@item.R6</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="width: 55px;">@item.R7</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" >@item.R8</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.R9</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="width: 53px;">@item.R10</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="width: 53px;">@item.TOTAL</td>
+                }
+                else
+                {
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass"  style="background-color:yellow;"><label class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Sum_L")</label></td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="background-color:yellow;">@item.R1</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="background-color:yellow;">@item.R2</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="background-color:yellow;">@item.R3</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="background-color:yellow;">@item.R4</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="background-color:yellow;">@item.R5</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="background-color:yellow;">@item.KOUBAN_TOTAL</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="background-color:yellow;">@item.R6</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="background-color:yellow;">@item.R7</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="background-color:yellow;">@item.R8</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="background-color:yellow;">@item.R9</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="background-color:yellow;">@item.R10</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style="background-color:yellow;">@item.TOTAL</td>
+                }
+              
+            </tr>
+        }
+    }
+    else
+    {
+        <tr class="GridNormalRow">
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            <td class="labelClass gridTextbox"></td>
+            @* <td class="labelClass gridTextbox"></td>
+        <td class="labelClass gridTextbox"></td>*@
+        </tr>
+    }
+</table>
+
+@section Scripts{
+
+    <link href="~/css/Common.css" rel="stylesheet" />
+    <link href="~/css/MatlNamWiseOrderQtyPopUp.css" rel="stylesheet" />
+    <link href="~/css/Common_Styles.css" rel="stylesheet" />
+    <link href="~/css/masterStyles.css" rel="stylesheet" />
+    <link href="~/css/OrderAndReceiptHistoryPopup.css" rel="stylesheet" />
+
+}

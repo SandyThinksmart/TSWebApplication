@@ -1,0 +1,280 @@
+﻿@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("最終検査の印刷 Final Inspection Report Print");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/Common.css" rel="stylesheet" />
+<link href="~/css/Common_Styles.css" rel="stylesheet" />
+<link href="~/css/htfireport.css" rel="stylesheet" />
+<link href="~/css/masterStyles.css" rel="stylesheet" />
+
+<form id="finalInspectionReportPrint" style="margin-top:16px;">
+    <div style="border-style:inset; width:543px;background-color:#EEEEEE !important;">
+        <table style="width: 533px;table-layout: fixed;height:100px;background-color:#EEEEEE !important;margin-left:5px;">
+            <tr>
+                <td style="text-align: left; width: 93px">
+                    <label id="lblDateRangeFI" class="labelClass">
+                        @LocalizationServices.GetLocalizedHtmlString("lbl_ReportPrintDateRange_L")
+                    </label>
+
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="text" id="txtStartDateFI" style="width: 100px; height:22px;"
+                                       class="MandatoryFI dateField form-control TextBoxClass labelClass  TextBoxDateTime okToReset InActiveIMEMode"
+                                       errorlabel="@LocalizationServices.GetLocalizedHtmlString("lbl_StartDate")" />
+                            </td>
+                            <td>
+                                <input type="text" id="txtStartTimeFI" style="width: 45px; height:22px;"
+                                       class="MandatoryFI dateField form-control TextBoxClass labelClass TextBoxDateTime okToReset InActiveIMEMode"
+                                       errorlabel="@LocalizationServices.GetLocalizedHtmlString("lbl_StartTime")" />
+                            </td>
+                            <td>
+                                <asp:Label ID="lblDist" runat="server" Style="vertical-align:baseline !important" CssClass="labelmargin labelClass">～ </asp:Label>
+                            </td>
+                            <td>
+                                <input type="text" id="txtEndDateFI" style="width: 100px; height:22px;"
+                                       class=" MandatoryFI dateField form-control TextBoxClass  TextBoxDateTime okToReset labelClass InActiveIMEMode" />
+                            </td>
+                            <td>
+                                <input type="text" id="txtEndTimeFI" style="width: 45px; height:22px;"
+                                       class=" MandatoryFI dateField form-control TextBoxClass  TextBoxDateTime okToReset labelClass InActiveIMEMode"
+                                       errorlabel="@LocalizationServices.GetLocalizedHtmlString("lbl_EndTime")" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+
+
+                @*   <td align="left" style="width: 175px;">
+
+
+
+
+                </td>
+                <td valign="middle" align="center" style="width: 18px;">
+
+                </td>
+                <td align="left" style="width: 175px;">
+
+
+                </td> *@
+            </tr>
+            <tr style="height:5px;"></tr>
+            <tr>
+                <td align="left">
+                    <label id="lblEndOperatorFI" class="labelClass">
+                        @LocalizationServices.GetLocalizedHtmlString("lbl_Operator")
+
+                    </label>
+                </td>
+                <td align="left">
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="text" id="txtOperatorSearchFI" style="width: 50px" />
+                            </td>
+                            <td>
+                                <input type="button" id="btnOperatorSearchFI" style="width: 25px" value="-" />
+                            </td>
+                            <td>
+                                <select id="ddlOperatorNameValueFI" style="width: 190px;height:22px;" class="labelClass">
+                                </select>
+                            </td>
+                            <td align="Center" style="width: 30px">
+
+                                <input type="checkbox" id="chkOnlyUnPrinted" />
+                            </td>
+                            <td td align="left" style="width: 130px;padding-left:5px;">
+
+                                <label id="lblOnlyUnPrinted" class="labelClass" style="min-width:115px;">
+                                    @LocalizationServices.GetLocalizedHtmlString("lbl_PrintOnlyUnprintedReports_L")
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
+
+
+
+                </td>
+
+            </tr>
+            <tr style="height:5px;"></tr>
+            <tr>
+                <td align="left">
+                    <label id="lblPrintSortOrderFI" class="labelClass">
+                        @LocalizationServices.GetLocalizedHtmlString("lbl_PrintSortOrder_L")
+
+                    </label>
+                </td>
+                <td align="left">
+                    <table>
+                        <tr>
+                            <td>
+
+                                <select id="ddlPrintSortOrderFI" style="width: 268px;height:22px;" class="labelClass">
+                                    <option value="1" selected="selected">
+                                        @LocalizationServices.GetLocalizedHtmlString("lbl_PMSReportPrintSortOrderKubun2")
+                                    </option>
+                                    <option value="0" >
+                                        @LocalizationServices.GetLocalizedHtmlString("lbl_PMSReportPrintSortOrderKubun1")
+                                    </option>
+
+                                </select>
+                            </td>
+                            <td align="Center" style="width: 30px">
+
+                                <input type="checkbox" id="chkOnlySimpleFI" />
+                            </td>
+                            <td td align="left" style="width: 130px;padding-left:5px;">
+
+                                <label id="lblOnlyFISimple" class="labelClass" style="min-width:115px;">
+                                    @LocalizationServices.GetLocalizedHtmlString("lbl_InspectionRecordSimplified")
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
+            </tr>
+        </table>
+        <div id="divReportCondition" style="width:536px; height:40px;border:0.5px solid lightgrey;background-color:#EEEEEE !important; table-layout:fixed">
+            <table style="height:38px;">
+                <tr>
+                    <td style="width: 30px">
+                        @*  <input type="radio" id="rdoPrintReportFI" name="rdoButton"/> *@
+                        <input type="checkbox" id="chkPrintReportFI" />@* checked="checked" *@
+                    </td>
+                    <td colspan="5">
+                        <label id="lblFinalInspectionReport_L" class="labelClass NoWrap">@LocalizationServices.GetLocalizedHtmlString("title_FinalInspectionReport_L")</label>
+
+                    </td>
+
+
+                    <td align="left" style="width: 30px">
+                        <input type="checkbox" id="chkOnlyPrintedFinishProduct" />
+                        @*  <input type="radio" id="rdoOnlyPrintedFinishProduct" name="rdoButton" checked="checked" /> *@
+                    </td>
+                    <td td align="left" style="width: 130px">
+                        <label id="lblOnlyUnPrintedFinishProduct" class="labelClass">
+                            @LocalizationServices.GetLocalizedHtmlString("lbl_PrintOnlyFinishProductReports_L")
+                        </label>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+
+        <table cellpadding="0" cellspacing="0" style="width: 536px; table-layout: fixed; height: 54px; vertical-align: bottom; border:0.5px inset lightgrey; background-color:#EEEEEE !important;">
+            <tr style="height: 5px;">
+                <!-- Empty line -->
+            </tr>
+            <tr>
+                <td align="left" style="width: 100px">
+                    <div>
+                        <table style="background-color: darkgreen; width: 100px; height:60px">
+
+                            <tr>
+                                <td align="center" style="color:white" class="labelClass">
+                                    @LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <input type="button" id="btnInitilize" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")"
+                                           style="width: 90px; text-align:center;color:black" class="_functionButtons labelClass">
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </td>
+                <td style="width: 100px" align="center">
+                    <table style="background-color: #CC0000; width: 100px;height:60px">
+                        <tr>
+                            <td align="center" style="color:white" class="labelClass">
+                                @LocalizationServices.GetLocalizedHtmlString("lbl_Print")
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="labelClass">
+                                <input type="button" style="color:black;width: 90px;" id="btnPrint" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Print")"
+                                       class="_functionButtons labelClass">
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td align="right" runat="server" style="color:black;width:80px;" class="labelClass">
+                    @LocalizationServices.GetLocalizedHtmlString("lbl_Location")
+                </td>
+                <td align="center">
+                    <Label id="lblLocationVal" align="left" runat="server" style="width:80px;" Class="ReadOnlyLabel"></Label>
+                </td>
+
+                <td align="right" style="width:150px;">
+                    <div>
+                        <table style="background-color: #27298F; width: 100px;height:60px">
+                            <tr>
+
+                                <td align="center" style="color:white" class="labelClass">
+                                    @LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" style="color:black">
+                                    <input type="button" id="btnClose" style="color:black;width: 90px" causesvalidation="false" value="@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")"
+                                           class="_functionButtons labelClass">
+
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+            <tr style="height: 5px;">
+                <!-- Empty line -->
+            </tr>
+        </table>
+    </div>
+
+    @*Message*@
+    <div id="divErrorMessages" class="Hidden">
+
+        <label id="lblErrorMessageE_PMS_REPORT_PRINT_SCREEN_001" class="Hidden">
+            <span ID="LiteralNoDataToSave">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_IsRequired")</span>
+        </label>
+        <label id="lblErrorMessageE_FIPrintStartDateRequired" class="Hidden">
+            <span ID="LiteralProcessDateInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_FIPrintStartDateRequired")</span>
+        </label>
+        <label id="lblErrorMessageE_FIPrintEndDateRequired" class="Hidden">
+            <span ID="LiteralProcessTimeInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_FIPrintEndDateRequired")</span>
+        </label>
+        <label id="lblErrorMessageE_FIPrintStartDateInvalid" class="Hidden">
+            <span ID="LiteralPMSReportSelectAtLeastOneCheckbox">@LocalizationServices.GetLocalizedHtmlString("valMsg_FIPrintStartDateInvalid")</span>
+        </label>
+        <label id="lblErrorMessageE_FIPrintDateEndInvalid" class="Hidden">
+            <span ID="LiteralPMSReportSelectAtLeastOneCheckbox">@LocalizationServices.GetLocalizedHtmlString("valMsg_FIPrintDateEndInvalid")</span>
+        </label>
+        <label id="lblErrorMessageE_FIPrintDateEndInvalid" class="Hidden">
+            <span ID="LiteralPMSReportSelectAtLeastOneCheckbox">@LocalizationServices.GetLocalizedHtmlString("valMsg_FIPrintDateEndInvalid")</span>
+        </label>
+        <label id="lblMsg_FIPrintStartDateGreaterThanEndDate" class="Hidden">
+            <span ID="LiteralPMSReportFIChooseAtLeastOne">@LocalizationServices.GetLocalizedHtmlString("valMsg_FIPrintStartDateGreaterThanEndDate")</span>
+        </label>
+        <label id="lblErrorMessageSystemException" class="Hidden">
+            <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+        </label>
+        <label id="lblErrorMessageE_PMS_REPORT_PRINT_SCREEN_006" class="Hidden">
+            <span ID="LiteralNoRecordFoundForPrint">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_NoRecordFoundForPrint")</span>
+        </label>
+
+    </div>
+
+</form>
+
+@section Scripts {
+    <script src="~/static/js/finalinspectionreport.js"></script>
+}

@@ -1,0 +1,33 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<OutputCSVDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_CSV_Output").Value;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/css/CSVGeneration.css" rel="stylesheet" asp-append-version="true" />
+<table>
+    <tr>
+        <td align="left" valign="top">
+            <div id="pnlCSVTitleGrid">
+                <div id="divCSVTitleGrid">
+                    @{
+                        @await Html.PartialAsync("CSVTitleListGrid", Model)
+                        ;
+                    }
+                </div>
+            </div>
+        </td>
+    </tr>
+   
+</table>
+    
+<div id="divErrorMessages" class="Hidden">
+    <label id="lblErrorMessageE_CSV_001" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+    </label>
+    </div>
+
+<script src="~/Static/js/CSVGeneration.js" asp-append-version="true"> </script>

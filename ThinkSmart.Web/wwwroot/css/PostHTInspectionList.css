@@ -1,0 +1,43 @@
+﻿.btnClose {
+    width: 100px;
+    height: 60px;
+    background-color: #003399;
+}
+
+.GridHeader {
+    background-color: #7291D2;
+    border-color:white;
+    color: Black;
+    font-size: small;
+    font-weight: lighter;
+    height: 18px;
+    text-align: center;
+    font-family: 'MS Gothic';
+}
+
+.freez > th 
+{
+    position:  static!important;
+    background-color: #7291D2;
+    top: 0.2px;  
+    height:21px;
+    box-shadow: 0 0 0px 0px White;
+}
+
+.headerPadding
+{
+    padding-left:10px!important;
+    padding-right:10px!important        
+}       
+
+.headerBothSidePadding > th {
+    padding-left: 10px;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+.fixLengthDataPadding
+{
+    padding-left:5px!important;
+    padding-right:5px!important;
+} 

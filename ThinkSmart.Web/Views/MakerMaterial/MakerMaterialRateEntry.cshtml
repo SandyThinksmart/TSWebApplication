@@ -1,0 +1,312 @@
+﻿@using TSWebApplication.Domain.Resources
+@using TSWebApplication.Domain.Model
+@inject LocalizationServices LocalizationServices
+@model List<MakerMaterialDetails>
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_MakerMaterialRateEntry").Value.Replace("</br>", "");
+    Layout = "~/Views/Shared/_LayoutMasterTemplate.cshtml";
+
+}
+<link href="~/css/Common_Styles.css" rel="stylesheet" />
+<link href="~/css/Configuration.css" rel="stylesheet" />
+<link href="~/css/MasterTemplate.css" rel="stylesheet" />
+<link href="~/css/masterStyles.css" rel="stylesheet" />
+<link href="~/css/MakerMaterialRateEntry.css" rel="stylesheet" />
+
+ <style>
+/* Popup container - can be anything you want */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: 240px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+/*   border-radius: 6px; */
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+  border:1px solid gray;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 40%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+-webkit-keyframes fadeIn {
+  from {opacity: 0;} 
+  to {opacity: 1;}
+}
+
+keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+</style>
+@* <table>
+    <tr>
+        <td align="left" valign="top">
+            <div id="divButton">
+              <table id="tblMainButton">
+                    <tr>
+                        <td align="center" valign="top" colspan="5">
+                            <label ID="lblBasicOperations" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_BasicOperations")</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" valign="top">
+                            <input type="button" id="btnInitialize" class="_functionButtons" tabindex="1"
+                                   value='@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")' />
+                        </td>
+                        <td align="left" valign="top">
+                            <input type="button" id="btnCopy" class="_functionButtons" tabindex="2"
+                                   value='@LocalizationServices.GetLocalizedHtmlString("lbl_Copy")' />
+                        </td>
+                        <td align="left" valign="top">
+                            <input type="button" id="btnRegister" class="_functionButtons" tabindex="3"
+                                   value='@LocalizationServices.GetLocalizedHtmlString("lbl_Register")' />
+                        </td>
+
+                        <td align="left" valign="top">
+                            <input type="button" id="btnUpdate" class="_functionButtons" tabindex="5"
+                                   value='@LocalizationServices.GetLocalizedHtmlString("btn_Edit")' />
+                        </td>
+                        <td align="left" valign="top">
+                            <input type="button" id="btnDelete" class="_functionButtons" tabindex="6"
+                                   value='@LocalizationServices.GetLocalizedHtmlString("lbl_Delete")' />
+                        </td>
+
+                    </tr>
+                </table>
+
+            </div>
+</td>
+
+        <td id="emptytd1" align="right" valign="top"></td>
+
+        <td align="left" valign="top" class="tdDeleteFunction">
+            <div id="divDeleteRow">
+                <table id="tblDeleteRow">
+                    <tr>
+                        <td align="center" valign="top">
+                            <label ID="lblDeleteRow" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("btn_DeleteRow_L")</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" valign="top">
+                            <input type="button" id="btnDeleteRow" class="_functionButtons" tabindex="1"
+                                   value='@LocalizationServices.GetLocalizedHtmlString("btn_DeleteRow_L")' />
+                        </td>
+                      
+
+                    </tr>
+                </table>
+            </div>
+          
+            
+    </td>
+        <td align="left" valign="top">
+            <div id="divFilter">
+            <table id="tblFilter">
+                <tr>
+                    <td align="center" valign="top" colspan="2">
+                        <label ID="lblFilterCondition" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_FilterCondition")</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" valign="top">
+                        <input type="button" id="btnExtract" class="_functionButtons" tabindex="1"
+                               value='@LocalizationServices.GetLocalizedHtmlString("lbl_Extract")' />
+                    </td>
+                    <td align="left" valign="top">
+                        <input type="button" id="btnSort" class="_functionButtons" tabindex="2"
+                               value='@LocalizationServices.GetLocalizedHtmlString("btn_Sort_L")' />
+                    </td>
+                   
+                </tr>
+            </table>
+            </div>
+            </td>
+</tr>
+   <tr>
+        <td id="emptytd2">
+            </td>
+   </tr>
+</table> *@
+
+   
+    <table id="tblMainTable">
+        <tr>
+        <td align="left" valign="top" style="border: 2px solid gray;">
+            <div id="divSearchCondition">
+            <table id="tblSearchCondition">
+           <tr>
+                            <td align="left" valign="middle">
+                            <label ID="lblMakerName" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MakerName")</label>
+               </td>
+            <td align="left" valign="top">
+                            <select id="ddlMakerName" name="ddlMakerName" class="MandatoryDropdown Mandatory DropdownListClass form-control InsetBorder" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_Maker_Required")" tabindex="1">
+        <option value="0" selected="selected"></option>  </select>
+            </td>
+           @*  <td id="empty1"></td> *@
+                            <td align="right" valign="middle">
+                                <label ID="lblMukesakiShort" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MukesakiShort")</label>
+                               
+                                
+            </td>
+                            <td align="left" valign="top">
+
+                                <table>
+                                    <tr>
+                                        <td align="left" valign="top">
+                                        <input type="text" ID="txtMukesakiName" class="TextFieldsClass form-control" MaxLength="6" TabIndex="2">
+                                        </td>
+                                        <td align="left" valign="top">
+                                        <input type="button" id="btnMukesakiSearch" class="_functionButtons" tabindex="3" value="-" />
+                                        </td>
+                                        <td align="left" valign="top">
+                                        <select id="ddlMukesakiName" name="ddlMukesakiName" class="MandatoryDropdown Mandatory DropdownListClass form-control InsetBorder" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_Mukesaki_Required")" tabindex="4">
+                                            <option value="0" selected="selected"></option>
+                                        </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                                </td>
+                        <td align="left" valign="middle">
+                            <label ID="lblMaterialKubun" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialKubun_L")</label>
+                            
+                        </td>
+                        <td align="left" valign="top">
+                            <select id="ddlMaterialType" name="ddlMaterialType" class="MandatoryDropdown DropdownListClass form-control InsetBorder" tabindex="4">
+                                <option value="0" selected="selected"></option>
+                            </select>
+                        </td>
+                        @* id="empty2" *@
+                            <td align="left" valign="middle">
+                                <label ID="lblApplicableStartDate" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ApplicableStartDate")</label>
+                            
+                            </td>
+                            <td align="left" valign="top">
+                            <input type="text" ID="txtYear" class="TextFieldsClass Mandatory1 form-control" MaxLength="4" TabIndex="5" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+
+                            </td>
+                            <td align="left" valign="top">
+                            <input type="text" ID="txtMonth" class="TextFieldsClass Mandatory1 form-control" MaxLength="2" TabIndex="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+
+                            </td>
+                            <td align="left" valign="top">
+                            <input type="text" ID="txtChance" class="TextFieldsClass Mandatory1 form-control" MaxLength="1" TabIndex="7" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <input type="text" ID="txtCheckApplicationDate" style="display:none;" MaxLength="1" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_MaterialStartDate_Required")">
+
+                            </td>
+                           
+                            <td align="left" valign="top">
+                                <input type="button" id="btnExtractGrid" class="_functionButtons" tabindex="9" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Display_L")" />
+                            </td>
+                            
+           </tr>
+       </table>
+            </div>
+            </td>
+        </tr>
+        <tr>
+        <td align="left" valign="top" style="border: 2px solid gray;">
+            <div id="divList">
+               
+        <div id="divMaterialMainGrid">
+            @{
+                @await Html.PartialAsync("MaterialGrid", Model)
+                ;
+            }
+        </div>
+  
+            </div>
+            </td>
+        </tr>
+    
+    </table>`
+<input type="hidden" id="hdfGroupNo" name="hdfGroupNo" />
+<div id="divPageTitleMessages" class="Hidden">
+    <label id="lblTitle_MakerMaterial_001" class="Hidden">
+        <span ID="LiteralMasterMakerMaterialRate">@LocalizationServices.GetLocalizedHtmlString("title_MasterMakerMaterialRate_L")</span>
+    </label>
+    </div>
+<div id="divErrorMessages" class="Hidden">
+    <label id="lblErrorMessageE_Maker_MaterialEntry_001" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+    </label>
+    <label id="lblErrorMessageE_Maker_MaterialEntry_002" class="Hidden">
+        <span ID="LiteralAddatleastOnePrice">@LocalizationServices.GetLocalizedHtmlString("valMsg_AddatleastOnePrice")</span>
+    </label>
+    <label id="lblErrorMessageE_Maker_MaterialEntry_003" class="Hidden">
+        <span ID="LiteralDimStart_Required">@LocalizationServices.GetLocalizedHtmlString("valMsg_DimStart_Required")</span>
+    </label>
+    <label id="lblErrorMessageE_Maker_MaterialEntry_004" class="Hidden">
+        <span ID="LiteralDimEnd_Required">@LocalizationServices.GetLocalizedHtmlString("valMsg_DimEnd_Required")</span>
+    </label>
+     <label id="lblErrorMessageE_Maker_MaterialEntry_005" class="Hidden">
+        <span ID="LiteralRate_Required">@LocalizationServices.GetLocalizedHtmlString("valMsg_Rate_Required")</span>
+    </label>
+    
+</div>
+<div id="divSuccessMessages" class="Hidden">
+    <label id="lblSuccessMessageS_Maker_MaterialEntry_001" class="Hidden">
+        <span ID="LiteralDataSaved">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataSaved")</span>
+    </label>
+    <label id="lblSuccessMessageS_Maker_MaterialEntry_002" class="Hidden">
+        <span ID="LiteralDataUpdated">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataUpdated")</span>
+    </label>
+    <label id="lblSuccessMessageS_Maker_MaterialEntry_003" class="Hidden">
+        <span ID="LiteralDataDeleted">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataDeleted")</span>
+    </label>
+</div>
+  @*   <div id="divMaterialProcessing">
+                    @{
+                        @await Html.PartialAsync("MakerMaterialRateList", Model)
+                        ;
+                    }
+        </div> *@
+<div id="SortPopUpModalMain">
+    @{
+        @await Html.PartialAsync("~/Views/Shared/SortPopUp.cshtml")
+        ;
+    }
+</div>
+        
+    <script>
+         function myFunction() {
+          var popup = document.getElementById("myPopup");
+          popup.classList.toggle("show");
+        }
+    </script>
+
+<script src="~/static/js/MakerMaterialRateEntry.js"></script>

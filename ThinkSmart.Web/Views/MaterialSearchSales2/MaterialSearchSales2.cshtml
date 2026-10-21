@@ -1,0 +1,232 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_MaterialSearchSalse").Value.Replace("<br/>", "");
+}
+
+<style type="text/css">
+    .hide {
+        display: none;
+    }
+
+    .header {
+        padding-left: 3px;
+    }
+
+    .freez > th {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 0.2px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freez2 > th {
+        position: sticky !important;
+        background-color: #B2C3E6;
+        top: 21px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freez3 > th {
+        position: sticky !important;
+        background-color: #B2C3E6;
+        top: 41.5px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freez4 > th {
+        position: sticky !important;
+        background-color: #B2C3E6;
+        top: 62px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freez5 > th {
+        position: sticky !important;
+        background-color: #B2C3E6;
+        top: 83.5px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+</style>
+
+<link href="~/css/common_styles.css" rel="stylesheet" />
+<link href="~/css/common.css" rel="stylesheet" />
+<link href="~/css/materialsearchsales.css" rel="stylesheet" />
+
+<table id="tblMaterialStatusSearch2" cellpadding="0" cellspacing="0" rules="all" border="1" style="border-style: None;border-collapse: collapse;word-break: break-word;word-wrap: break-word;">
+    <tr>
+        <td>
+            <panel>
+                <table>
+                    <tr>
+                        <td align="left" valign="top">
+                            <div id="pnlMaterialDetailsGrid">
+                                @{
+                                    @await Html.PartialAsync("~/Views/MaterialSearchSales2/MaterialDetailsGrid.cshtml")
+                                    ;
+                                }
+                            </div>
+                        </td>
+                    </tr>
+
+                </table>
+            </panel>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <TabContainer ID="TabContainer1" ClientIDMode="Static" runat="server" ActiveTabIndex="0" Width="1230px">
+                <TabPanel ID="TabPanel1" ClientIDMode="Static" runat="server" HeaderText="<%$ Resources: GlobalResources, lbl_TransferFromWareHouse%>"
+                          ScrollBars="Horizontal">
+                    
+                    <ul class="nav nav-pills" role="tablist" style="padding-left: 7px;" id="tabIndex">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="TbPMSMaltSalesNyuko-Nyuka-tab1" data-title="titleFutouNyukoHSKNyuka" data-toggle="pill" tabIndex="1" href="#divManifactureWarehouseGrid">@LocalizationServices.GetLocalizedHtmlString("lbl_FutouNyukoHSKNyuka")</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="TbPMSMaltSalesTemp&ActAlloc-tab2" data-title="titleTempAllocActAlloc" data-toggle="pill" tabIndex="2" href="#divTempAllocActAllo">@LocalizationServices.GetLocalizedHtmlString("lbl_TempAllocActAlloc")</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="TbPMSShukkoShukkaSubConTransfer-tab3" data-title="titleMaterilShukkoShukka" data-toggle="pill" tabIndex="3" href="#divMaterilShukkoShukka">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterilShukkoShukka")</a>
+                        </li>
+                    </ul>
+                
+                    <div class="tab-content" id="pills-tabContent">
+                        @* tab-1*@
+                        <div class="tab-pane active" style="width: 1189px; height: 500px;overflow:auto;" id="divManifactureWarehouseGrid">
+
+                            <div id="TbManifactureWarehouseGrid" style="float:left">
+                                @{
+                                    @await Html.PartialAsync("ManifactureWarehouseGrid")
+                                    ;
+                                }
+                            </div>
+                            @*</td>
+                            <td>*@
+                            <div id="pnlMaterialDetailsGrid" style="float:right">
+                                @{
+
+                                    @await Html.PartialAsync("MatlStatusSearchNyukaGrid")
+                                    ;
+                                }
+                            </div>
+                        </div>
+                        @* tab-2*@
+                        <div class="tab-pane fade" style="width: 1189px; height: 500px;" id="divTempAllocActAllo">
+
+                            <div id="pnlTempAllocGrid">
+                                @{
+                                    @await Html.PartialAsync("TempAllocGrid")
+                                    ;
+                                }
+                            </div>
+
+                            <div id="pnlActAllocGrid">
+                                @{
+                                    @await Html.PartialAsync("ActAllocGrid")
+                                    ;
+                                }
+                            </div>
+
+                        </div>
+                        @* tab-3*@
+                        <div class="tab-pane fade" style="width: 1189px; height: 500px;border: solid;border-width: thin;border-color: gray;" id="divMaterilShukkoShukka">
+
+                            <div id="pnlCustHSKMatlShukkoGrid">
+                                @{
+                                    @await Html.PartialAsync("CustHSKMatlShukkoGrid")
+                                    ;
+                                }
+                            </div>
+
+                            <div id="pnlWareHouseShukkoGrid">
+                                @{
+                                    @await Html.PartialAsync("WareHouseShukkoGrid")
+                                    ;
+                                }
+                            </div>
+
+                            <div id="pnlTensouSubContractGrid">
+                                @{
+                                    @await Html.PartialAsync("TensouSubContractGrid")
+                                    ;
+                                }
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                   
+                    <TabPanel>
+            </TabContainer>
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table>
+                <tr>
+
+                    <td>
+                        <table border="0" cellpadding="0" cellspacing="0" style="width:775px;">
+                            <tr>
+                                <td>
+                                    <label ID="lbl_POWieghtRemainingWightFormula" class="labelClass" style="color:black;width:84px;margin-left: 3px;">@LocalizationServices.GetLocalizedHtmlString("lbl_PORemark")</label>
+                                    <input type="text" style="width:270px;" id="txtPOWieghtRemainingWightFormula" readonly="readonly" class="ReadOnlyTextBox" />
+                                </td>
+                                <td>
+                                    <label ID="lbl_KoubanReplyRemark" class="labelClass" style="color:black;width:98px;">@LocalizationServices.GetLocalizedHtmlString("lbl_KoubanRemark")</label>
+                                    <input type="text" style="width:270px;" id="txtKoubanReplyRemarka" readonly="readonly" class="ReadOnlyTextBox" />
+                                </td>
+
+                            </tr>
+                            <tr style="height:10px;">
+                            </tr>
+                            <tr style="padding-top:3px;">
+                                <td>
+                                    <label ID="lbl_POInternalMemo" class="labelClass" style="color:black;width:84px;margin-left: 3px;">@LocalizationServices.GetLocalizedHtmlString("lbl_POInternalMemo")</label>
+                                    <input type="text" style="width:270px;height: 30px;" id="txtPOInternalMemo" readonly="readonly" class="ReadOnlyTextBox" />
+                                </td>
+                                <td>
+                                    <label ID="lbl_KoubanIntMemo" class="labelClass" style="color:black;width:98px;">@LocalizationServices.GetLocalizedHtmlString("lbl_KoubanIntMemo")</label>
+                                    <input type="text" style="width:270px;height: 30px;" id="txtKoubanIntMemo" readonly="readonly" class="ReadOnlyTextBox" />
+                                </td>
+                            </tr>
+
+                        </table>
+
+                    </td>
+                    <td style="width: 412px; height: 57px; border-width: 0px; border-style: none;" align="right">
+                        <table bgcolor="Navy" border="0" cellpadding="0" cellspacing="0" style="border-color: Navy; width: 100px;height:68px;">
+                            <tr>
+                                <td align="center">
+                                    <label ID="lblClose" class="labelClass" style="color:White;padding-top:10px;">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" style="padding-bottom:7px;">
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnClose" class="_functionButtons" OnClientClick="return Confirmation()" TabIndex="30" />
+                                </td>
+                            </tr>
+
+                        </table>
+                    </td>
+
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+</table>
+
+@section Scripts{
+    <script src="~/static/js/materialsearchsales2.js"></script>
+}

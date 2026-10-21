@@ -1,0 +1,322 @@
+﻿ .chkChecked
+{
+    background-image:url(../Images/Checked1.gif );
+   background-color:ButtonFace;
+    background-position:	center center;
+    background-repeat:no-repeat;
+    font-family:@MS Gothic;
+ font-size:12px;
+  text-align:center;
+  top:0px;
+  vertical-align:bottom;
+ border:1px inset Silver;
+	margin-left: 0px;
+	width:45px;
+    height:50px;
+    }
+    
+.titleBar
+{
+    border-color: #FFFFFF;
+    border-style: solid none solid none; 
+    border-width: 3px 0px 3px 0px; 
+    background-color: #336699;
+}
+
+.titleBar table
+{
+    height: 15px;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.titleBar table tr
+{
+    min-width: 126px;
+}
+
+.searchBar
+{
+    overflow: auto;
+    height: auto;
+    font-family:MS Gothic;
+    font-size:13px;
+    font-weight:400;
+    text-align: center;
+}
+
+._body
+ {
+ 	width:1191px;
+ 	height:490px;
+  margin:10px 0px 0px 0px;
+  background-color:White;
+   	  border:0px;
+ }
+  .parent_Container2
+{
+	
+ width:100%;
+  height:100%;
+      
+     margin-left:0px;
+      margin-right:0px;
+}
+ .parent_Container1
+{
+	
+ width:100%;
+  height:100%;
+      
+     margin-left:3px;
+      margin-right:0px;
+}
+._upperContainer1
+{
+ width:100%;
+ height:10%;
+ 
+
+
+}
+._inputContainer1
+{
+  
+    width:100%;
+ height:250px;
+ overflow:hidden;
+ height:auto;
+
+ 
+}
+.parent_Container
+{
+	
+ width:100%;
+  height:100%;
+     /*margin-left:8px;    
+	margin-right: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;*/
+}
+._upperContainer
+{
+ /*width:99%;*/
+ height:10%;
+ /*border-left:1px solid Silver;
+ border-bottom:1px solid Silver;*/
+
+ background-color:#336699;
+
+}
+._upperContainerUser
+{
+ width:100%; 
+ border-left:1px solid Silver;
+ border-bottom:1px solid Silver;
+ background-color:#336699;
+
+}
+/*Added following 3 CSS by Satish for Hikinuki Template Screen   */
+._input_Container
+{
+   border:0px solid Black; 
+    width:100%;
+ height:250px;
+ overflow:hidden;
+ height:auto;
+ margin: 0px 0px 0px 0px;
+ background-color:White;
+}
+.parentContainer
+{
+	background-color:White;
+ width:1240px;
+  height:100%;
+     margin:0px 0px 0px 0px;
+     margin-left:8px;
+}
+._upper_Container
+{
+ width:100%;
+ height:10%;
+ border-left:1px solid Silver;
+ border-bottom:1px solid Silver;
+ background-color:White;
+}
+
+._inputContainer
+{
+ border:0px solid Black; 
+ width:100%;
+ height:auto;
+ margin: 0px 0px 0px 0px;
+ background-color:White;
+}
+._searchContainer
+{
+ width:100%;
+ height:11%;
+ border:1px solid Black;
+background-color:Silver;
+}
+._gridviewContainer
+{
+
+ height:auto;
+ border:1px solid Black;
+margin: 0px 0px 0px 0px;
+background-color:Silver;
+}
+
+._functionTable
+{
+width:100%;
+height: 36px; 
+
+}
+._functionEditButton
+{
+ background-color:ButtonFace;
+Height:22px;
+Width:60px;
+ font-family:MS Gothic;
+ font-size:12px;
+  text-align:center;
+  top:0px;
+  vertical-align:bottom;
+ border:1px inset Silver;
+	margin-left: 0px;
+}
+._functionButtons {
+    background-color: ButtonFace;
+    Height: 25px;
+    border: 1px inset Silver;
+    font-size: 12px;
+    font-family: MS Gothic;
+    width: 80px;
+    /*background-color:ButtonFace;
+Width:95px;
+ font-family:@MS Gothic;
+ 
+  text-align:center;
+  top:0px;
+  vertical-align:bottom;
+ 
+	margin-left: 0px;*/
+}
+._popUpfunctionButtons
+{
+ 
+border:1px inset Silver;
+font-size:12px;
+/*background-color:ButtonFace;
+Width:95px;
+ font-family:@MS Gothic;
+ 
+  text-align:center;
+  top:0px;
+  vertical-align:bottom;
+ 
+	margin-left: 0px;*/
+}
+.SearchButtonClass
+{
+  background-color:#336600;
+Height:22px;
+Width:80px;
+border-style:outset;
+  Color :White;
+  font-family:@MS Gothic;
+ font-size:14px;
+}
+
+._functionColums
+{
+   width: 88px;        
+}
+._searchTable
+{
+	margin: 1px 0px 1px 0px;
+width:105%;
+ height:auto;
+
+}
+.searchGridPanel
+{
+ background-color:Silver;
+   border:0px solid Silver;
+    Height:42px;
+	font-weight: 700;
+}
+.gridFixedHeader
+{
+width:1065px;
+height:17px;
+position:relative;
+top:27px;
+z-index:1;  
+empty-cells:hide;
+}
+.girdFixedRows
+{
+width:1245px;
+height:272px;
+position:relative;
+top:63px;
+z-index:1;  
+empty-cells:hide;
+}
+
+.TableTd1
+{
+width: 874px;
+height: 35px;
+}
+       
+.TableTd2
+{
+width: 316px;
+height: 35px;
+}
+.TableTd3
+{
+width: 79px;
+}
+.TableTd4
+{
+width: 99px;
+}
+.TableTd5
+{
+height: 35px;
+}
+
+._searchGridItems
+{
+ border:0px None White;
+  width:100px;
+  height:15px;
+  border-style:inset;
+}
+.searchGridDiv
+{
+	margin-left:3px;
+ background-color:Silver;
+   border:0px solid Silver;
+    Height:53px;
+	font-weight: 700;
+  overflow :hidden;
+}
+.searchTitle
+{
+ height:19px;
+ font-size:13px;
+ font-family:MS Gothic;
+  text-align:center;
+  color:Black;
+   font-weight:normal;
+  padding-left:325px;
+  padding-right:325px;
+   background-color:Silver;
+}

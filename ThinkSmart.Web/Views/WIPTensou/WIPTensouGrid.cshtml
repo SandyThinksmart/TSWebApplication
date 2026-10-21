@@ -1,0 +1,84 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<WIPTensouDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+  
+}
+<div>
+    <table class="GridLines GridColumnLeftPadding freez" cellpadding="0" cellspacing="0" border="1" id="grdvTensouList">
+        <thead>
+            <tr class="GridHeader GridViewScrollHeader freez GridHeaderPadding">
+                <th class="headerPadding labelClass sticky-header" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("")</th>
+                @*<th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("WIP_TRANSFER_GROUP_NO")</th>*@
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_PlanDate")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_TensoDestination")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_TransferDate")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Source1")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_VehicleName")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap;display:none">@LocalizationServices.GetLocalizedHtmlString("束番（１結束分）")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap;display:none">@LocalizationServices.GetLocalizedHtmlString("lbl_NoOfUnits")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap;display:none">@LocalizationServices.GetLocalizedHtmlString("lbl_WeightWithoutKG")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocDate")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocQty1")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ManufacturingSpecificationNo")</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+
+
+                    <tr data-lblWIPTransferCD="@item.TRANSFER_GROUP_NO">
+                        <td class="sticky-col1">
+                            <input type="button" value="●" ID="lnkEdit" Font-Size="Large" Font-Bold="True" CommandName="Select" CommandArgument=''
+                                   class="lnkEditButtonSize" TabIndex="-1" OnClick="getWIPTransferDetailsByTrasferCD($(this))" />
+                        </td>
+                        @* <td class="labelClass" align="center">@item.ACCEPT_PLANNED_DATE</td>
+                        <td class="labelClass" align="left">@item.LOCATION_CD_TO</td> *@
+                        <td class="labelClass" align="center">@item.ACCEPT_PLANNED_DATE</td>
+
+                        <td class="labelClass" align="left">@item.LOCATION_TO</td>
+                        <td class="labelClass" align="center">@item.TRANSFER_DATE_STRING</td>
+
+                        <td class="labelClass" align="left">@item.LOCATION_FROM</td>
+                        
+
+                        <td class="labelClass" align="left">@item.VEHICLE_NAME</td> 
+                        <td class="labelClass" style="white-space:nowrap;" align="center">@item.PP_CHUUBAN_GYOUBAN</td>
+                        <td class="labelClass" align="left">@item.PP_CUSTOMER_NAME</td>
+                        <td class="labelClass" align="left">@item.PP_PROD_NAME_CUST</td>
+                        <td class="labelClass" align="right">@item.PP_PROD_DIM_D_STRING</td>
+                        <td class="labelClass" align="left">@item.PP_PROD_SHAPE</td>
+                        <td class="labelClass" align="right">@item.PP_PROD_LENGTH_STRING</td>
+                        <td class="labelClass" align="center">@item.PP_CHARGE</td>
+                        <td class="labelClass" align="center">@item.ACT_ALLOC_DATE_STRING</td>
+                        <td class="labelClass" align="right">@item.ACT_ALLOC_QTY</td>
+                        <td class="labelClass" align="center">@item.PP_PROD_SPEC_NO</td>
+                        @*<td class="labelClass"></td>
+                <td class="labelClass"></td>*@
+                        @*<td class="labelClass"></td>
+                <td class="labelClass"></td>
+                <td class="labelClass"></td>*@
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr style="height:20px;">
+                    <td colspan="18" align="left" style="padding-left:5px;"><label ID="lbldatanotavailable" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_NoRecordFound_L")</label></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,63 @@
+﻿@using TSWebApplication.Domain.Resources
+@using TSWebApplication.Domain.Model
+@model List<PostHTDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+}
+
+<link href="~/css/Common_Styles.css" rel="stylesheet" />
+
+<div style="width: 680px; margin-top: 1px;">
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+                <Panel ID="pnlListDetailGrid" runat="server">
+                    <div ID="pnlDetailGrid" runat="server" Style="overflow: auto; width: 720px; height: 540px; border-style: none; border-width: 1px" ScrollBars="Auto">
+                        <table id="tblPostHTListDetailes" class="freez GridLines GridLayout GridColumnLeftPadding" cellpadding="1" cellspacing="1" border="1">
+                            <thead>
+                                <tr class="GridHeader GridViewScrollHeader freez GridHeaderPadding">
+                                    <th class="thGrid labelClass sticky-header"></th>
+                                    <th class="thGrid labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_InspectionDate")</th>
+                                    <th class="thGrid labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Machine_L")</th>
+
+                                    <th class="thGrid labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</th>
+                                    <th class="thGrid labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcCondition")</th>
+                                    <th class="thGrid labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_PatternNo")</th>
+                                    <th class="thGrid labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Inspector")</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @if (Model != null)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr data-lblInternalQualityCD="@item.INTERNAL_QUALITY_GROUP_NO">
+                                            <td class="sticky-col1">
+                                                <input id="btnLnkEdit" type="button" value='@LocalizationServices.GetLocalizedHtmlString("lbl_EditDelete")' class="_functionButtons" onclick="OnEditClick($(this))" />
+                                            </td>
+                                            <td id="InspDate" class="labelClass GridCenter">@item.INT_QLTY_TEST_DATE_STRING</td>
+                                            <td id="machine" class="labelClass GridLeft">@item.IQ_MACHINE_NAME</td>
+                                            <td id="FurnanceNo" class="labelClass GridLeft">@item.FURNACE_NO</td>
+                                            <td id="ProcCondition" class="labelClass GridLeft">@item.PP_HT_CONDITION</td>
+                                            <td id="PatternNo" class="labelClass GridRight">@item.PATTERN_NO</td>
+                                            <td id="Operator" class="labelClass GridLeft">@item.IQ_START_OPERATOR_NAME</td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="7" class="GridLeft">@LocalizationServices.GetLocalizedHtmlString("lbl_NoRecordFound_L")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </Panel>
+            </td>
+        </tr>
+    </table>
+</div>

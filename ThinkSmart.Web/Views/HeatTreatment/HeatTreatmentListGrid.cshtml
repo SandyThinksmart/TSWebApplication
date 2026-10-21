@@ -1,0 +1,57 @@
+﻿@using TSWebApplication.Domain.Resources
+@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Utility
+@inject LocalizationServices LocalizationServices
+@model List<HeatTreatMentDetails>
+@{
+    Layout = null;
+}
+
+<table>
+    <tr>
+        <td>
+            <div ID="pnlDetailGrid" runat="server" Style="overflow: auto; width: 780px; height: 540px; border-style: none; border-width: 1px">
+                <table id="HeatTreatMentList" class="GridLines GridLayout GridColumnLeftPadding" cellpadding="0" cellspacing="0" border="1" ScrollBars="Auto">
+                <thead>
+                    <tr class="GridHeader GridViewScrollHeader freez GridHeaderPadding">
+                        <th></th>
+                            <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceProc")</th>
+                        <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</th>
+                        <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcCondition")</th>
+                        <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_PatternNo")</th>
+                        <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceInDateTime")</th>
+                        <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceOutDateTime")</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                                <tr data-HEAT_TREATMENT_NUMBER="@item.HEAT_TREATMENT_NUMBER" data-furNo="@item.FURNACE_NO">
+                              
+                                <td>
+                                        <input type="submit" ID="lnkEdit" value='@LocalizationServices.GetLocalizedHtmlString("lbl_EditDelete")' Width="95%" Font-Size="Large" Font-Bold="True" onclick="OnEditClick($(this))" TabIndex="9" />
+                                </td>
+                                    <td class="labelClass tdPaddingLeftandRight" style="text-align:center;white-space:nowrap">@item.MACHINE_NAME</td>
+                                    <td class="labelClass tdPaddingLeftandRight" style="text-align:left;white-space:nowrap">@item.FURNACE_NO</td>
+                                    <td class="labelClass tdPaddingLeftandRight" style="text-align:left;white-space:nowrap">@item.PROC_CONDITION_STRING</td>
+                                    <td class="labelClass tdPaddingLeftandRight" style="text-align:left;white-space:nowrap">@item.PATTERN_NO</td>
+                                    <td class="labelClass tdPaddingLeftandRight" style="text-align:center;white-space:nowrap">@item.HT_START_DATE_STRING</td>
+                                    <td class="labelClass tdPaddingLeftandRight" style="text-align:center;white-space:nowrap">@item.HT_END_DATE_STRING</td>
+                              
+                            </tr>
+                        }
+                    }
+                  else
+                    {
+                        <tr>
+                            <td colspan="7" align="left" style="padding-left:5px;height:20px;">@LocalizationServices.GetLocalizedHtmlString("lbl_NoRecordFound_L")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            </div>
+        </td>
+    </tr>
+</table>

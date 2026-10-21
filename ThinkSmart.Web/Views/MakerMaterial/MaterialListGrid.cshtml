@@ -1,0 +1,62 @@
+﻿
+@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<MakerMaterialDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblTitle_MaterialProcessingList").Value;
+    Layout = null;
+
+}
+
+<div>
+    <table id="tblMakerMaterialListGrid" class="GridLines GridLayout" cellpadding="0" cellspacing="0" border="1">
+        <thead>
+            <tr class="GridHeader GridViewScrollHeader freez GridHeaderPadding" id="grdvColdDrawingDetails" style="border-collapse:collapse;text-align: left">
+                <th></th>
+
+                <th class="headerPadding labelClass noWrap alignCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_ApplicableStartDate")</th>
+                <th class="headerPadding labelClass noWrap alignCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_MakerName")</th>
+                <th class="headerPadding labelClass noWrap alignCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_MukesakiShort")</th>
+                <th class="headerPadding labelClass noWrap alignCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialKubun_L")</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr data-lblGroupCD="@item.MATL_GROUP_NO">
+                        <td>
+                            <input id="btnLnkEdit" type="button" value='@LocalizationServices.GetLocalizedHtmlString("lbl_EditDelete")' class="_functionButtons" onclick="GetMakerMaterialDetailsByCD($(this))" />
+                        </td>
+
+                        <td class="labelClass GridCenter">@item.APPLICATION_DATE_STRING</td>
+                        <td class="labelClass GridLeft">@item.MAKER_NAME</td>
+                        <td class="labelClass GridLeft">@item.MUKESAKI_NAME</td>
+                        <td class="labelClass GridCenter">@item.MATERIAL_TYPE_STRING</td>
+
+
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr class="trEmptyRow">
+                    <td class="tbEmptyButton">
+                       
+                    </td>
+
+                    <td class="labelClass GridLeft"></td>
+                    <td class="labelClass GridLeft"></td>
+                    <td class="labelClass GridRight"></td>
+                    <td class="labelClass GridLeft"></td>
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

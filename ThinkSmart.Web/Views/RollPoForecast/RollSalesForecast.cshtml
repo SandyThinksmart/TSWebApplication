@@ -1,0 +1,334 @@
+﻿@using TSWebApplication.Domain.Resources
+@using TSWebApplication.Domain.Model
+@model List<ProcessPlanForSalesProductionStatusDetails>
+@inject LocalizationServices LocalizationServices
+@{
+ 
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_RollSalesForecast");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/Common_Styles.css" rel="stylesheet" />
+<link href="~/css/Common.css" rel="stylesheet" />
+<link href="~/css/masterStyles.css" rel="stylesheet" />
+<style>
+    .{
+        height: 22px;
+    }
+</style>
+
+<table width="1080px">
+    <tr>
+        <td align="left">
+            <table border="0" cellpadding="2" cellspacing="2" style="border:2px inset lightgrey">
+                <tr>
+                    <td style="background-color: #C00000; border-width: 0px; border-style: none;padding-left:5px;padding-right:5px;">
+                        <table border="0" cellpadding="2" cellspacing="2" style="height:61px;">
+                            <tr>
+                                <td align="center" colspan="4" valign="bottom">
+                                    <label ID="Label3" class="labelClass" style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("lbl_BasicOperationEntireRecord")</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")" ID="btnInitialize" class="_functionButtons " TabIndex="1" />
+                                </td>
+                                <td align="center">
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Register")" ID="btnRegister" class="_functionButtons " TabIndex="2" />
+                                </td>
+                                @* <td align="center">
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Delete")" ID="btnDelete" class="_functionButtons " TabIndex="3" />
+                                </td> *@
+                            </tr>
+
+                        </table>
+
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td style="padding-top:15px;">
+            <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td align="center">
+                        <label ID="lblForecastR" class="labelClass" style="padding-top:5px;font-weight:800"></label>
+                        <label ID="Label3" class="labelClass" style="padding-top:5px;"><b>@LocalizationServices.GetLocalizedHtmlString("lbl_YearRChance_L")</b></label>
+                        <label ID="Label3" class="labelClass" style="padding-top:5px;"><b>@LocalizationServices.GetLocalizedHtmlString("lbl_ROLLForeCast")</b></label>
+                    </td>
+                </tr>
+                <tr>
+                   
+                    <td align="center">
+                        <input type="checkbox" tabindex="4" id="chkForecastDone" />
+                        <label ID="Label3" class="labelClass" style="padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("lbl_ForeCastComplete")</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label ID="Label3" class="labelClass" style="padding-top:5px;text-align:left;padding-left:5px;color:red;">@LocalizationServices.GetLocalizedHtmlString("lbl_ForeCastNote")</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <label ID="Label3" class="labelClass" style="padding-top:5px;text-align:left;padding-left:5px;white-space:nowrap;color:blue;">@LocalizationServices.GetLocalizedHtmlString("lbl_RollPoForecast_Instruction")</label>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td align="left" style="padding-left:49px;padding-right:1px;">
+            <table border="0" cellpadding="2" cellspacing="2" style="border:2px inset lightgrey">
+                <tr>
+                    <td style="width: 40px; height: 57px; background-color: #029386; border-width: 0px; border-style: none;padding-left:5px;padding-right:5px;">
+                        <table border="0" cellpadding="2" cellspacing="2"
+                               style="height: 61px;">
+                            <tr>
+                                <td align="center" colspan="4" valign="bottom">
+                                    <label ID="Label3" class="labelClass" style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("lbl_RowOperationDetails")</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left">
+                                    <input type="button" ID="btnAddRowBelow" value="@LocalizationServices.GetLocalizedHtmlString("btn_AddRowBelow_L")" class="_functionButtons " TabIndex="5" onclick="AddNewRowEndOfGrid();" />
+                                </td>
+                                <td align="left">
+                                    <input type="button" ID="btnAddRowAbove" value="@LocalizationServices.GetLocalizedHtmlString("btn_AddRowAbove_L")" class="_functionButtons " TabIndex="6" onclick="AddNewRowStartOfGrid();" />
+                                </td>
+                                <td align="left">
+                                    <input type="button" ID="btnDeleteRow" value="@LocalizationServices.GetLocalizedHtmlString("btn_DeleteRow_L")" class="_functionButtons " TabIndex="7" onclick="DeleteRow();"  />
+                                </td>
+                            </tr>
+
+                        </table>
+
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <table border="0" cellpadding="2" cellspacing="2" style="border:2px inset lightgrey;height:40px;width:1138px;padding-left:5px;padding-right:5px;">
+                <tr>
+
+
+                    <td>
+                        <label ID="Label3" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_RequestedDate")</label>
+                        <input type="text" class="_functionButtons " TabIndex="1" id="txtRequestedDate" />
+
+                    </td>
+                    <td>
+                        <label ID="Label3" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Incharge")</label>
+                       @* <input type="text" class="_functionButtons" TabIndex="1" />
+                        <input type="button" value="✓" ID="" class="_functionButtons" TabIndex="1" style="width:25px" />*@
+                      @*  <select style="width: 120px;height: 25px;" class="_functionButtons"></select>*@
+                        <input type="text" ID="txtIncharge" runat="server" class="form-control TextFieldsClass" TabIndex="8" style="font-family:'MS Gothic';Width:43px; Height:22px" ;
+                               BorderStyle="Inset" MaxLength="6" />
+                        <input type="button" value="-" id="btnInchargeSearch" TabIndex="9" style="Width:20px;Height:20px;text-align:center" />
+                        <select ID="ddlInchargeName" runat="server" type="DropDown" class=" Mandatory MandatoryDropdown  DropdownListClass dropListClass" TabIndex="10" style="border-style:inset; padding-bottom:2px;font-family:'MS Gothic'; Height:22px; Width:148px"
+                                ErrorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SalesInchargeRequired")">
+                        
+                        </select>
+                    </td>
+                    <td>
+                        <label ID="Label3" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_CustomerName")</label>
+                        </td>
+                    <td>
+                        <div id="divCustomer">
+
+                            @{
+                                var data = Tuple.Create("txtCustomer", "btnCustomerSearch", "ddlCustomerName", "valMsg_PPCustomerRequired", 13);
+                                @Html.Partial("~/Views/SearchComboCustomer/SearchComboCustomer.cshtml", data)
+
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_SpecInput_1")" ID="btnSpecInput1" class="_functionButtons " TabIndex="14" />
+                    </td>
+                    <td>
+                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_SpecInput_2")" ID="btnSpecInput2" class="_functionButtons " TabIndex="15" />
+                    </td>
+
+                </tr>
+
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <table border="1">
+                <tr>
+                    <td style="vertical-align: top;height: 727px;width: 1079px;" id="RollForecastTab">
+                        <ul class="nav nav-pills" role="tablist" style="padding-left: 7px;">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="TbSalesProductTab" data-toggle="pill" data-title="titleTbSalesProductTab1" href="#TbSalesProductTab1">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " id="TbSalesMaterialTab" data-toggle="pill" data-title="titleTbSalesMaterialTab2" href="#TbSalesMaterialTab2">@LocalizationServices.GetLocalizedHtmlString("lblMaterialNameMaker")</a>
+                            </li>
+                        </ul>
+                        <div id="TabContainerPMS" class="ajax__tab_xp ajax__tab_container ajax__tab_default tab-content">
+
+
+                            <div id="TbSalesProductTab1" class="tab-pane active">
+                                <div id="divRollSalesForecastProductGrid" style="width:1135px;overflow:auto;visibility:visible">
+                                     @{
+                                        @await Html.PartialAsync("RollSalesForecastProductGrid", Model)
+                                    ;
+                                    }
+                                </div>
+                            </div>
+                            <div id="TbSalesMaterialTab2" class="tab-pane fade">
+
+                                <div id="divRollSalesForecastMaterialGrid" style="width:1135px;overflow:auto;">
+                                    @{
+                                        @await Html.PartialAsync("RollSalesForecastMaterialGrid", Model)
+                                    ;
+                                    }
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<table style="width:1140px;">
+
+
+    <tr>
+        <td style="width:278px;">
+            <table border="1" cellpadding="2" cellspacing="2" style="border:2px inset white;padding-left:5px;padding-right:5px;width:292px;height:65px;">
+                <tr>
+                    <td style="text-align:center;height:20px;" class="tdH1" colspan="3">
+                        <label ID="Label3" class="labelClass" style="color:white;"><b>@LocalizationServices.GetLocalizedHtmlString("lbl_PreviousMonthMatlForecast")</b></label>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td class="tdHeaderClass" style="height:20px;">
+                        <label ID="lblFooterLastRoll1" class="labelClass" style="color:black;font-size:12px;">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")</label>
+                        <label ID="lblFooterRollForMonth1" class="labelClass" style="color:black;font-size:12px;">(@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth"))</label>
+                    </td>
+                    <td class="tdHeaderClass" style="height:20px;">
+                        <label ID="lblFooterLastRoll2" class="labelClass" style="color:black;font-size:12px;">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")</label>
+                        <label ID="lblFooterRollForMonth2" class="labelClass" style="color:black;font-size:12px;">(@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth"))</label>
+                    </td>
+                    <td class="tdHeaderClass" style="height:20px;">
+                        <label ID="lblFooterLastRoll3" class="labelClass" style="color:black;font-size:12px;">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")</label>
+                        <label ID="lblFooterlRollForMonth3" class="labelClass" style="color:black;font-size:12px;">(@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth"))</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="height:19px;border:1px inset lightgray;">
+             
+                    </td>
+                    <td style="height:19px;border:1px inset lightgray;">
+                    
+                    </td>
+                    <td style="height:19px;border:1px inset lightgray;">
+                     
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td style="width:457px;padding-left:20px;">
+            <label ID="Label3" class="labelClass" style="color:blue;">@LocalizationServices.GetLocalizedHtmlString("btn_SpecInput_1") : </label>
+            <label ID="Label3" class="labelClass" style="color:blue;">@LocalizationServices.GetLocalizedHtmlString("lbl_EnterDetailsASPreviousMonth")</label>
+            <br />
+            <br />
+            <label ID="Label3" class="labelClass" style="color:blue;">@LocalizationServices.GetLocalizedHtmlString("btn_SpecInput_2") : </label>
+            <label ID="Label3" class="labelClass" style="color:blue;">@LocalizationServices.GetLocalizedHtmlString("lbl_EnterDetailsByProduct")</label>
+        </td>
+        <td style=" width:250px;"></td>
+        @* Hide this button according to Sunnhara Sir *@
+        <td align="left" style="width:40px;">
+            <table border="0" cellpadding="2" cellspacing="2" style="border:2px inset lightgrey;display:none" >
+                <tr>                                                                         
+                    <td style="background-color: #C00000; border-width: 0px; border-style: none;padding-left:5px;padding-right:5px;">
+                        <table border="0" cellpadding="2" cellspacing="2" style="height:58px;width:211px;">
+                            <tr>
+                                <td align="center" colspan="4" valign="bottom">
+                                    <label ID="Label3" class="labelClass" style="color:white;">@LocalizationServices.GetLocalizedHtmlString("lbl_Print")</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <input type="button" style="width: 97px;" value="@LocalizationServices.GetLocalizedHtmlString("btn_ProductForeCast")" ID="btnProductForeCast" class="_functionButtons " TabIndex="" />
+                                </td>
+                                <td align="center">
+                                    <input type="button" style="width: 97px;" value="@LocalizationServices.GetLocalizedHtmlString("btn_MaterialForecast")" ID="btnMaterialForecast" class="_functionButtons " TabIndex="" />
+                                </td>
+                            </tr>
+
+                        </table>
+
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td align="left">
+            <table border="0" cellpadding="2" cellspacing="2" style="border:2px inset lightgrey">
+                <tr>
+                    <td style="background-color: navy; border-width: 0px; border-style: none;padding-left:5px;padding-right:5px;">
+                        <table border="0" cellpadding="2" cellspacing="2" style="height:58px;width:87px;">
+                            <tr>
+                                <td align="center" colspan="4" valign="bottom">
+                                    <label ID="Label3" class="labelClass " style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnInitialize" class="_functionButtons " TabIndex="16" />
+                                </td>
+                            </tr>
+
+                        </table>
+
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+</table>
+<div id="divErrorMessages" class="Hidden">
+<label id="lblErrorMessageE_SalesForecast_01" class="Hidden">
+    <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+</label>
+
+<label id="lblSelectAtLeastOneRecord_SalesForecast_02" class="Hidden">
+    <span ID="LiteralSelectAtLeaseOneRecord">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SelectAtLeastOneRecord")</span>
+</label>
+<label id="lblforecastSaveSuccessfully_SalesForecast_03" class="Hidden">
+    <span ID="LiteralforecastSaveSuccessfully">@LocalizationServices.GetLocalizedHtmlString("successMsg_POSaveSuccessfully")</span>
+</label>
+
+</div>
+
+<label ID="valMsgForSearchCondition" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_EnterAtLeastOneSearchCondition")</label>
+<input type="hidden" class="hidden" id="hdcurrent_yyyy" name="hdcurrent_yyyy" />
+<input type="hidden" id="materialData" value="@TempData["MaterialData"]" />
+<input type="hidden" class="hidden" id="hdfDBOperation" name="hdcurrent_yyyy" />
+<div id="PopUpModalProductMaster">
+    @{
+        @await Html.PartialAsync("~/Views/RollPoForecast/RollSalesForecastProductMasterList.cshtml")
+        ;
+    }
+</div>
+<div id="PopUpModalMaterialMaster">
+    @{
+        @await Html.PartialAsync("~/Views/RollPoForecast/RollSalesForecastMaterialMasterList.cshtml")
+        ;
+    }
+</div>
+
+@section Scripts{
+    <script src="~/static/js/RollSalesForecast.js"></script>
+    <script src="~/static/js/RollSalesMaterialForecast.js"></script>
+    <script src="~/static/js/RollSalesProductForecast.js"></script>
+   
+
+}

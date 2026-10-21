@@ -1,0 +1,74 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<TensileDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+
+}
+<div>
+    <table class="freez GridLines GridLayout GridColumnLeftPadding" cellpadding="0" cellspacing="0" border="1">
+        <thead>
+            <tr class="GridHeader GridViewScrollHeader freez GridHeaderPadding">
+
+                <th class="headerPadding labelClass sticky-header" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_SplitNo")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_InspectionDate")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductDim")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdShape")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductLength")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlNameMaker")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialDimD")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</th>
+                @*   <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_MetallicLabel")</th>*@
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Inspector")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Decision")</th>
+            </tr>
+        </thead>
+
+     <tbody>
+            @if (Model != null && Model.Count >0)
+            {
+                @foreach (var item in Model)
+                {
+                    <tr data-lblTensileCD="@item.MI_TS_CD" data-lblchuuban="@item.PP_CHUUBAN" data-lblgyouban="@item.PP_GYOUBAN">
+                        <td class="sticky-col1">
+                            <input id="btnLnkEdit" type="button" value='@LocalizationServices.GetLocalizedHtmlString("lbl_EditDelete")' class="_functionButtons"
+                           onclick="getTensileDetailsByCD($(this))" />
+                        </td>
+
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:center;white-space:nowrap">@item.PP_CHUUBAN_GYOUBAN</td>
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:right;white-space:nowrap">@item.DETAIL_NO</td>
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:center;white-space:nowrap">@item.TS_TEST_DATE_STRING</td>
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:left;white-space:nowrap">@item.PP_CUSTOMER_NAME</td>
+
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:left;white-space:nowrap">@item.PP_PROD_NAME_CUST</td>
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:right;white-space:nowrap">@item.PP_PROD_DIM_D_STRING</td>
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:left;white-space:nowrap">@item.PP_PROD_SHAPE</td>
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:right;white-space:nowrap">@item.PP_PROD_LENGTH</td>
+
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:left;white-space:nowrap">@item.PP_MATL_NAME_MAK</td>
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:right;white-space:nowrap">@item.PP_MATL_DIM_D_STRING</td>
+
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:center;white-space:nowrap">@item.PP_CHARGE</td>
+
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:left;white-space:nowrap">@item.TS_FURNACE_NO_STRING</td>
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:left;white-space:nowrap">@item.OPERATOR_NAME</td>
+
+                        <td class="labelClass tdPaddingLeftandRight" style="text-align:center;white-space:nowrap">@item.TS_DECISION_STRING</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr style="text-align:left"><td colspan="18"><label ID="lbldatanotavailable" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_NoRecordFound_L")</label></td></tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>

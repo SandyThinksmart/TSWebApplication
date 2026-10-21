@@ -1,0 +1,74 @@
+﻿.hidden {
+    display: none !important;
+}
+
+.IsNumber {
+    text-align: right;
+}
+
+.IsText {
+    text-align: left;
+}
+
+.InActiveIMEMode {
+    ime-mode: disabled;
+}
+
+.headerPadding {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
+.paddingleftTempering {
+    padding-left: 3px;
+}
+
+.Hidden {
+    display: none;
+}
+
+.alignCenter {
+    text-align: center;
+    white-space: nowrap;
+}
+
+.alignRight {
+    text-align: center;
+}
+
+
+/* First column 1 fixed while scrolling horizontally */
+.sticky-col1 {
+    position: sticky;
+    left: 0;
+    
+    z-index: 1;
+}
+/* First column 2 fixed while scrolling horizontally */
+.sticky-col2 {
+    position: sticky;
+    left: 100px;
+   
+    z-index: 2;
+}
+
+/* First column 3 fixed while scrolling horizontally */
+.sticky-col3 {
+    position: sticky;
+    left: 170px;
+    
+    z-index: 3;
+}
+    /* First header cell fixed in both directions */
+    .sticky-header
+
+{
+    left: 0;
+    z-index: 3; /* Highest so it stays above everything */
+}
+
+
+/* Keep header above */
+#tblData th.sticky-col {
+    z-index: 3;
+}

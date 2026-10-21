@@ -1,0 +1,838 @@
+﻿@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+@using TSWebApplication.Domain.Model
+@model List<ECDetails>
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_ECEditDeleteScreen").Value.Replace("</br>", "");
+    Layout = "~/Views/Shared/_LayoutProcessEditDeleteTemplate.cshtml";
+   
+}
+
+
+<style type="text/css">
+    .freez > th {
+        border: thin solid White;
+        background-color: #7291D2;
+        border-color: White;
+        position: sticky !important;
+        top: 0.2px;
+        height: 20px;
+        box-shadow: 0 0 0px 1px White;
+    }
+
+    .headerPadding {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
+    .fixLengthDataPadding {
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+    }
+
+</style>
+<link href="~/css/ECEntryScreen.css" rel="stylesheet" asp-append-version="true" />
+@section MainContent {
+    <div id="pnlProcessDefect" style="height:663px;width:1030px;overflow:auto;">
+        <div style="padding-left: 3px">
+            <div id="divECGridMain" style="height:480px;">
+                @{
+                    @await Html.PartialAsync("ECGrid", Model)
+                    ;
+                }
+            </div>
+
+
+        </div>
+    </div>
+    }
+    @section MainContentStartEndDetails {
+   
+    <div id="pnlProcessStartData" style="border:2px inset lightgrey;padding-left:5px;">
+        <input type="hidden" id="hfld_ECCD" name="hfld_ECCD" />
+        <input type="hidden" id="hfID_ProcessPlanCD" name="hfID_ProcessPlanCD" />
+        <input type="hidden" id="hfld_MessageCD" name="hfld_MessageCD" />
+        <input type="hidden" class="Hidden" id="hdfNifudaCD">
+        <input type="hidden" class="Hidden" id="hdfFinal_Insp">
+        <table id="tblProcessStartData">
+            <tr style="height:15px">
+
+                <td id="" width="85px" colspan="2"></td>
+
+                <td colspan="3" id="tdtxtStartDateTime">
+                </td>
+                @*<td style="width: 10px;"></td>*@
+                <td id="tdlblStartOperatorECEntry" colspan="2" align="left"></td>
+
+                <td colspan="4" id="tdtxtStartOperatorEntry">
+                </td>
+                @*<td id="tdEmptyRow1Col12">
+
+            </td>*@
+                <td id="tdlblFurnaceNumEntry" colspan="1">
+                </td>
+                <td colspan="1" id="tdtxtTabaNo" width="68px">
+                </td>
+                <td colspan="12" width="131px">
+                </td>
+
+            </tr>                                                     <!-- Row 1 : StartDatetime , Start Operator, TP Value, Furnace No. -->
+            <tr>
+
+                <td width="85px" colspan="2">
+                    <label ID="lblStartDateTime"
+                       align="center" class="labelClass lblTextAlign">@LocalizationServices.GetLocalizedHtmlString("lbl_StartDateTime")</label>
+                </td>
+
+                <td colspan="3" id="tdtxtStartDateTime">
+                    <input type="text" id="txtStartDate" tabindex="1" style="width: 120px; display: -webkit-inline-box;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_StartDateTimeRequired")"
+                           class="dateField form-control TextBoxClass Mandatory FocusDefault TextBoxDateTime okToReset InActiveIMEMode labelClass TextFieldsClass lblTextAlign" />
+
+                        <input type="button" id="btnStartDateTime" class="_functionButtons" tabindex="2" style="height:22px" value='@LocalizationServices.GetLocalizedHtmlString("lbl_CurrentDateTime")' />
+                    
+
+                </td>
+               
+                <td id="tdlblStartOperatorECEntry" colspan="2" style="padding-left:30px;">
+                    <label ID="lblStartOperator"
+                       align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Operator")</label>
+                </td>
+                <td id="tdlblStartOperator" colspan="4">
+                    <div id="divStartOpertor">
+
+                        @{
+                            var startData = Tuple.Create("txtYobinaStartOperatorSearch", "btnYobinaStartOpeartorSearch", "ddlStartOperatorNameValue", "valMsg_COM_StartOperatorRequired", 3);
+                            @Html.Partial("~/Views/SearchComboEmployee/SearchComboEmployee.cshtml", startData)
+
+                        }
+                    </div>
+
+                </td>
+               
+                <td id="tdlblFurnaceNumEntry" align="right">
+                    <label ID="lblTabaNo" class="labelClass lblTextAlign" style="padding-right:10px;white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_TabaNo")</label>
+                </td>
+                <td colspan="1" id="tdtxtTabaNo" width="68px">
+                    <input type="text" ID="txtTabaNo" class="form-control GridAlignmentNumeric TextFieldsClass InActiveIMEMode Mandatory" MaxLength="3" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                       TabIndex="6" style="Width:72px" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_BundleNoRequired")"><span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_BundleNoRequired")</span>
+
+
+                </td>
+                <td colspan="12" width="131px">
+
+                    <label ID="lblTPTest0" class="labelClass lblTextAlign">@LocalizationServices.GetLocalizedHtmlString("lbl_TPFlaw")</label>
+                    
+                        <select id="ddlTPTest" name="ddlTPTest" class=" DropdownListClass MandatoryDropdown Mandatory DropdownListClass" tabindex="7"
+                            cssclass="TextFieldsClass" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_TPTestRequired")">
+                           
+                        </select>
+                </td>
+
+            </tr>
+            <!-- Row 2 : Coil Info, Carbon, Maganese -->
+            <tr>
+                <td colspan="2">
+                    <label ID="lblMetalicPltNo"
+                           class="labelClass lblTextAlign">@LocalizationServices.GetLocalizedHtmlString("lbl_MetallicLabelNo")</label>
+                </td>
+                <td id="tdtxtMetalicPltNo" colspan="3">
+                    <input type="text" ID="txtMetalicPltNo" style="Width:120px" class="form-control TextFieldsClass Mandatory InActiveIMEMode"
+                       MaxLength="15" TabIndex="8" Style="text-align: right" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_MatalicLabNoRequired")" />
+                           </td>
+                <td colspan="2" style="padding-left:30px;">
+                    <label ID="lblIsOK"
+                           align="center" class="labelClass lblTextAlign">@LocalizationServices.GetLocalizedHtmlString("lbl_IsOK")</label>
+                </td>
+                <td colspan="2">
+                    <input type="text" ID="txtIsOK" class="form-control GridAlignmentNumeric TextFieldsClass InActiveIMEMode labelClass Mandatory" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                           MaxLength="3" CausesValidation="True" TabIndex="11" ClientIDMode="Static" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_DetectionSensitivityRequired")">
+
+
+
+                </td>
+                <td colspan="3" align="right">
+                    <label ID="lblCoilSizeShape"
+                           align="center" class="labelClass lblTextAlign" style="padding-right:10px; white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_InspectionCoilSizeShape")</label>
+                </td>
+                <td colspan="5">
+                    <input type="text" ID="txtCoilSize" class="form-control GridAlignmentNumeric TextFieldsClass InActiveIMEMode Mandatory1" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                           MaxLength="6" TabIndex="12" style="width:89px">
+
+                    <input type="text" ID="txtCoilShape" class="form-control TextFieldsClass InActiveIMEMode Mandatory1"
+                           onkeyup="ToUpper(this)" onkeypress="return /[a-zA-Z-_]/i.test(event.key)" MaxLength="2" TabIndex="13" style="width:26px;margin-left:-5px;">
+                    <input type="text" id="checkCoil" class="Hidden" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_CoilSizeRequired")" />
+
+                </td>
+               @* <td colspan="2">
+                    <label ID="lblNoOfCoils"
+                       class="labelClass lblTextAlign">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocUnits1")</label>
+                </td>
+                <td id="tdtxtCoilQuantity" colspan="4">
+                    <input type="text" ID="txtNoOfCoils" class="form-control GridAlignmentNumeric TextFieldsClass Mandatory InActiveIMEMode lblTextAlign"
+                       MaxLength="8" TabIndex="9" Enabled="false" Style="text-align: right;width:72px" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_CoilNoRequired")" />
+                    
+
+
+
+                </td>
+                <td colspan="1">
+                    <label ID="lblCoilQuantity"
+                       align="center" class="labelClass lblTextAlign">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocQty1")</label>
+                </td>
+                <td colspan="3" id="IDMetallicLabelNo">
+                    <input type="text" ID="txtCoilQuantity" class="form-control GridAlignmentNumeric TextFieldsClass Mandatory InActiveIMEMode"
+                       BackColor="#C1FFFF" MaxLength="10" TabIndex="10" Style="text-align: right;width:72px" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_ActAllocQtyRequired")"/>
+                </td>*@
+               
+            </tr>
+            <!-- Row 3 : DiceDim, DiceNo, HikinukiDim -->
+            <tr>
+               
+                
+              
+               
+                <td colspan="2">
+                    <label ID="lblFurnaceNum"
+                       class="labelClass lblTextAlign">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</label>
+                </td>
+                <td colspan="3">
+                    <input type="text" ID="txtFurnaceNum" class="form-control TextFieldsClass InActiveIMEMode labelClass"
+                       MaxLength="10" TabIndex="14" ClientIDMode="Static" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_FurnaceNoRequired")">
+
+
+                </td>
+
+                <td colspan="2" style="padding-left:30px;">
+                    <label ID="lblShikii" style="width:57px"
+                       class="labelClass lblTextAlign">@LocalizationServices.GetLocalizedHtmlString("lbl_Shikii")</label>
+                </td>
+                <td colspan="4">
+                    <input type="text" ID="txtShikii" class="form-control GridAlignmentNumeric TextFieldsClass InActiveIMEMode labelClass" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                       MaxLength="3" TabIndex="15" ClientIDMode="Static">
+
+
+                    <label ID="Label9"
+                       class="labelClass lblTextAlign">@LocalizationServices.GetLocalizedHtmlString("%")</label>
+                </td>
+                
+                <td align="right">
+                    <label ID="lblLineSpeed"
+                       align="center" class="labelClass lblTextAlign" style="padding-right:10px;">@LocalizationServices.GetLocalizedHtmlString("lbl_LineSpeed")</label>
+                </td>
+                <td colspan="12">
+                    <input type="text" ID="txtLineSpeed" class="form-control GridAlignmentNumeric TextFieldsClass InActiveIMEMode labelClass" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                       MaxLength="2" TabIndex="16" ClientIDMode="Static">
+
+                    <label ID="Label11" class="labelClass lblTextAlign">@LocalizationServices.GetLocalizedHtmlString("m/min")</label>
+                    
+                </td>
+            </tr>
+            <tr>
+                <td align="left" valign="middle" colspan="2">
+                    <label ID="Label5" align="center" class="labelClass lblTextAlign" style="width:72px;">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualDim1234")</label>
+                    </td>
+                <td align="left" valign="top" colspan="10">
+                    <table style="margin-left:-1px;">
+                        <tr>
+
+                            <td align="left" valign="top">
+                                <input type="text" ID="txtActDim1" class="form-control GridAlignmentNumeric TextFieldsClass Mandatory InActiveIMEMode labelClass" MaxLength="7" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                                       TabIndex="17" style="Width:55px" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ActDimD1Required")"><span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ActDimD1Required")</span>
+                            </td>
+
+                            <td align="left" valign="top">
+                                <input type="text" ID="txtActDim2" class="form-control GridAlignmentNumeric TextFieldsClass InActiveIMEMode labelClass" MaxLength="7" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                                       TabIndex="18" style="Width:55px" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ActDimD2Required")"><span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ActDimD2Required")</span>
+
+                            </td>
+                            <td align="left" valign="top">
+                                <input type="text" ID="txtActDim3" class="form-control GridAlignmentNumeric TextFieldsClass InActiveIMEMode labelClass" MaxLength="7" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                                       TabIndex="19" style="Width:55px"><span class="text-danger"></span>
+                            </td>
+                            <td align="left" valign="top">
+                                <input type="text" ID="txtActDim4" class="form-control GridAlignmentNumeric TextFieldsClass InActiveIMEMode labelClass" MaxLength="7" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                                       TabIndex="20" style="Width:55px"><span class="text-danger"></span>
+                            </td>
+                            <td class="tdDeadLengthEmpty">
+
+                            </td>
+                            <td align="left" valign="middle" class="tdDeadLength1">
+                                <label ID="lblDeadLength" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DeadLength")</label>
+                            </td>
+                            <td align="left" valign="middle">
+                                <label ID="lblA" align="center" class="labelClass lblTextAlign">@LocalizationServices.GetLocalizedHtmlString("lbl_A")</label>
+                            </td>
+
+                            <td align="left" valign="middle">
+                                <input type="text" ID="txtDeadLengthA" class="Mandatory form-control GridAlignmentNumeric TextFieldsClass InActiveIMEMode labelClass" MaxLength="3" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                                       TabIndex="21" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_DeadLength_ARequired")">
+                            </td>
+                            <td align="left" valign="bottom">
+                                <label ID="lblMm1" align="center" class="labelClass lblTextAlign">@LocalizationServices.GetLocalizedHtmlString("lbl_Mm")</label>
+                            </td>
+                            <td valign="middle" class="tdB">
+                                <label ID="lblB" align="center" class="labelClass lblTextAlign">@LocalizationServices.GetLocalizedHtmlString("lbl_B")</label>
+                            </td>
+                            <td align="left" valign="middle">
+                                <input type="text" ID="txtDeadLengthB" class="Mandatory form-control GridAlignmentNumeric TextFieldsClass InActiveIMEMode labelClass" MaxLength="3" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                                       TabIndex="22" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_DeadLength_BRequired")">
+                            </td>
+                            <td align="left" valign="bottom">
+                                <label ID="lblMm2" align="center" class="labelClass lblTextAlign">@LocalizationServices.GetLocalizedHtmlString("lbl_Mm")</label>
+                            </td>
+                            <td align="right" valign="middle" class="tdActualLength">
+                                <label ID="lblActualLength" style="width:95px" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualLength")</label>
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+                 
+                <td align="left" colspan="2">
+                    <input type="text" ID="txtActualLength" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                           class="form-control GridAlignmentNumeric TextFieldsClass InActiveIMEMode labelClass Mandatory" style="width:56px"
+                           MaxLength="7" TabIndex="23" ClientIDMode="Static" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_ActualLengthRequired")">
+                </td>
+                <td align="left" valign="top" colspan="5">
+                    <input type="checkbox" ID="chkReEC" class="labelClass" TabIndex="24" style="margin-left:5px;" /><label class="labelClass" style="margin-left:5px;">@LocalizationServices.GetLocalizedHtmlString("lbl_ReEc")</label>
+                </td>
+            </tr>
+            <tr style="height:15px">
+
+                <td id="" width="85px" colspan="2">
+                </td>
+
+                <td colspan="3" id="tdtxtStartDateTime">
+                </td>
+                @*<td style="width: 10px;"></td>*@
+                <td id="tdlblStartOperatorECEntry" colspan="2" align="left">
+                </td>
+                <td colspan="4" id="tdtxtStartOperatorEntry">
+                </td>
+                @*<td id="tdEmptyRow1Col12">
+
+            </td>*@
+                <td id="tdlblFurnaceNumEntry" colspan="1">
+                </td>
+                <td colspan="1" id="tdtxtTabaNo" width="68px">
+                </td>
+                <td colspan="12" width="131px">
+                </td>
+
+            </tr>
+        </table>
+    </div>
+
+    <div id="pnlProcessEndData" style="padding-left: 5px;border:1px inset lightgrey">
+      
+        <table border="0" width="100%" style="table-layout: fixed;">
+
+            <tr style="height:15px">
+                <td width="75px" colspan="2"> </td>
+                <td colspan="4"> <span></span> </td>
+                <td colspan="1" style="width: 65px;"> </td>
+                <td colspan="2"> </td>
+                <td style="text-align: right; width: 110px;" colspan="2"> </td>
+                <td colspan="2"> </td>
+                <td colspan="3" align="right"> </td>
+            </tr>
+
+            <tr>
+                <td width="75px" colspan="2">
+                    <label ID="lblEndDateTime" class="labelClass lblTextAlign">@LocalizationServices.GetLocalizedHtmlString("lbl_EndDateTime")</label>
+                </td>
+                <td colspan="5">
+                    <span>
+                        <input type="text" id="txtEndDate" tabindex="25" style="width: 120px; display: -webkit-inline-box;"
+                               class="dateField form-control TextFieldsClass Mandatory FocusDefault TextBoxDateTime okToReset InActiveIMEMode labelClass" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_EndDateTimeRequired")" />
+                        <input type="button" id="btnEndDateTime" class="_functionButtons" tabindex="26" style="height:22px" value='@LocalizationServices.GetLocalizedHtmlString("lbl_CurrentDateTime")' />
+
+                    </span>
+                <td colspan="1" align="right" style="width: 65px;">
+                    <label ID="lblEndOperator" class="labelClass lblTextAlign">@LocalizationServices.GetLocalizedHtmlString("lbl_Operator")</label>
+                </td>
+                <td colspan="12">
+                    <table>
+                        <tr>
+                            <td align="left" valign="top" style="padding-left:8px;" colspan="5">
+                                <div id="divEndOpertor">
+
+                                    @{
+                                        var endData = Tuple.Create("txtYobinaEndOperatorSearch", "btnYobinaEndOpeartorSearch", "ddlEndOperatorNameValue", "valMsg_COM_EndOperatorRequired", 27);
+                                        @Html.Partial("~/Views/SearchComboEmployee/SearchComboEmployee.cshtml", endData)
+
+                                    }
+                                </div>
+                                <input type="hidden" id="hiEndOperator" name="hiEndOperator" />
+                            </td>
+                            
+                            
+                        </tr>
+                    </table>
+
+
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="6">
+                    <table>
+                        <tr>
+                            <td align="left" valign="top">
+                                <div><label class="labelClass lblTextAlign">@LocalizationServices.GetLocalizedHtmlString("lbl_TerminalsCrack")</label></div>
+                                <div>
+                                    <label ID="Label10" class="labelClass lblTextAlign">@LocalizationServices.GetLocalizedHtmlString("lbl_VisualInspction")</label>
+                                </div>
+                            </td>
+                            <td align="left" valign="top" style="padding-left:3px;">
+                                <select id="ddlInspection" name="ddlInspection" class="DropdownListClass MandatoryDropdown Mandatory1 DropdownListClass lblTextAlign" tabindex="30" style="height: 23px; width: 109px;"
+                                        cssclass="TextFieldsClass" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_BothInspctionRequired")">
+                                </select>
+
+                        </tr>
+                    </table>
+               
+                </td>
+                <td colspan="2" align="right">
+                    <label ID="lblNGBars1" class="labelClass lblTextAlign" style="white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_NGBars1")</label>
+
+                </td>
+
+                <td align="right">
+                    <input type="text" ID="txtNGBars1" class="form-control GridAlignmentNumeric TextFieldsClass InActiveIMEMode labelClass" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                           style="Width:40px" ClientIDMode="Static"
+                           MaxLength="3" TabIndex="36">
+                    <span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_BundleNo1Required")</span>
+
+                </td>
+                <td colspan="4" id="tdDdlNGReason1">
+
+                    @*Html Drop Down, JS Used So not used UIUtils Methods Used Directly Resource: 2020-10-13*@
+                    <select id="ddlNGReason1" name="ddlDimDecision" class="DropdownListClass form-control lblTextAlign disabled" tabindex="37" style="font-size:small;" disabled="disabled"
+                            cssclass="TextFieldsClass" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_Defect1_Required")">
+                        <option selected="selected"></option>
+                    </select>
+                </td>
+
+                <td colspan="3" align="left">
+                    <label ID="lblNGBarsTotal" class="labelClass lblTextAlign" style="width:112px">@LocalizationServices.GetLocalizedHtmlString("lbl_NGBarsTotal")</label>
+
+                </td>
+
+                <td colspan="1">
+                    <input type="text" ID="txtNGBarsTotal"
+                           class="form-control GridAlignmentNumeric InActiveIMEMode TextFieldsClass labelClass disabled" style="Width:60px" disabled="disabled"
+                           MaxLength="8" ClientIDMode="Static">
+                    <span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_BundleNo1Required")</span>
+
+
+
+
+                </td>
+
+            </tr>
+
+            <tr>
+                <td colspan="2" width="70">
+                    <label ID="lblFinishedBarCount" class="labelClass lblTextAlign">@LocalizationServices.GetLocalizedHtmlString("lbl_OKBars")</label>
+                </td>
+                <td id="tdTextBox2" colspan="6">
+                    <input type="text" ID="txtOKBars" class="form-control GridAlignmentNumeric TextFieldsClass InActiveIMEMode labelClass Mandatory" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                           style="Width:60px" ClientIDMode="Static"
+                           MaxLength="8" TabIndex="31" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_OKBarsRequired")"><span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_OKBarsRequired")</span>
+
+
+                    <select id="ddlUnit" class="DropdownListClass form-control Mandatory lblTextAlign" style="width: 42px;"
+                            tabindex="32">
+                    </select>
+                </td>
+
+
+                <td align="right">
+
+                    <input type="text" ID="txtNGBars2" class="form-control GridAlignmentNumeric TextFieldsClass InActiveIMEMode labelClass " style="width:40px" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                           MaxLength="3" TabIndex="38"><span class="text-danger"></span>
+
+                </td>
+                <td colspan="4" id="tdDdlNGReason1">
+                    <select id="ddlNGReason2" name="ddlDimDecision" class="DropdownListClass form-control lblTextAlign disabled" tabindex="39" style="font-size:small;" disabled="disabled"
+                            cssclass="TextFieldsClass" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_Defect2_Required")">
+                        <option selected="selected"></option>
+                    </select>
+
+
+
+                </td>
+                <td colspan="3">
+                    <label ID="Label2" class="labelBold lblTextAlign" Style="font-size: 16px;" Font-Bold="true">@LocalizationServices.GetLocalizedHtmlString("lbl_DefectRate")</label>
+                </td>
+
+                <td colspan="2">
+                    <input type="text" ID="txtDefectRate"
+                           class="form-control  GridAlignmentNumeric TextFieldsClass ReadOnlyTextBox labelClass disabled" style="Width:60px" Enabled="false" disabled="disabled"
+                           MaxLength="3" ClientIDMode="Static"><span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_BundleNo1Required")</span>
+                    <label ID="Label3" align="center" class="labelBold" Style="font-size: 16px;" Font-Bold="true">@LocalizationServices.GetLocalizedHtmlString("％")</label>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <label ID="lblOKQty" class="labelClass lblTextAlign">@LocalizationServices.GetLocalizedHtmlString("lbl_OKQty")</label>
+                </td>
+                <td colspan="6">
+                    <input type="text" ID="txtOKQty" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                           class="form-control GridAlignmentNumeric TextFieldsClass InActiveIMEMode labelClass Mandatory" style="width:76px"
+                           MaxLength="10" TabIndex="33" ClientIDMode="Static" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_OKQtyRequired")"><span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_OKQtyRequired")</span>
+
+                </td>
+                <td colspan="1" align="right">
+
+                    <input type="text" ID="txtNGBars3" class="form-control GridAlignmentNumeric TextFieldsClass InActiveIMEMode labelClass " style="width:40px" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                           MaxLength="3" TabIndex="40"><span class="text-danger"></span>
+
+                </td>
+                <td>
+                    <select id="ddlNGReason3" name="ddlNGReason3" class="DropdownListClass form-control lblTextAlign disabled" tabindex="41" style="font-size:small;" disabled="disabled"
+                            cssclass="TextFieldsClass" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_Defect3_Required")">
+                        <option selected="selected"></option>
+                    </select>
+                </td>
+
+
+                <td colspan="3"></td>
+                <td colspan="3" align="left">
+                    <label ID="lbDisposalBars" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Magnetism")</label>
+                </td>
+                <td colspan="2">
+                    <input type="text" ID="txtMagnetism" class="Mandatory form-control GridAlignmentNumeric TextFieldsClass InActiveIMEMode labelClass" style="Width:60px" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                           MaxLength="5" TabIndex="42" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_MagnetismRequired")"><span class="text-danger"></span>
+
+
+
+
+                    <label ID="Label6" class="labelClass lblTextAlign">@LocalizationServices.GetLocalizedHtmlString("mT")</label>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <label ID="lblNifudaNumber" align="center" class="labelClass lblTextAlign">@LocalizationServices.GetLocalizedHtmlString("lbl_NGWt")</label>
+                </td>
+                <td colspan="4">
+                    <table>
+                        <tr>
+                            <td align="left" valign="middle">
+                    <input type="text" ID="txtNGWt" title="NGwt" class="form-control GridAlignmentNumeric TextFieldsClass InActiveIMEMode labelClass" MaxLength="8" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                           TabIndex="34" style="width:60px" /> <span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_BundleNo1Required")</span>
+                            </td>
+                <td class="emptytd_">
+                </td>
+                <td align="left" valign="middle">
+                    <label ID="lblFinalInspection" align="center" class="labelClass lblTextAlign">@LocalizationServices.GetLocalizedHtmlString("lbl_FinalInspection")</label>
+                </td>
+
+                <td align="left" valign="middle">
+                    <input type="checkbox" ID="chkFICheck" TabIndex="35" />
+                </td>
+
+            </tr>
+        </table>
+                </td>
+
+                <td style="text-align: right; width: 110px;" colspan="2">
+                    <label ID="lblDecision" align="center" class="labelBold lblTextAlign" Style="font-size: 17px">@LocalizationServices.GetLocalizedHtmlString("lbl_ECDecsion")</label>
+                </td>
+                <td colspan="4" style="padding-left:10px;">
+                    <select id="ddlDecision" name="ddlDecision" class=" DropdownListClass MandatoryDropdown Mandatory DropdownListClass lblTextAlign" tabindex="44"
+                            cssclass="TextFieldsClass" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_ECDecissionRequired")">
+                    </select>
+
+                </td>
+                <td align="right">
+
+                    <label ID="lblNextProcess" class="labelClass lblTextAlign">@LocalizationServices.GetLocalizedHtmlString("lbl_NextProcess")</label>
+                </td>
+                <td>
+                    <select id="ddlNextProcess" name="ddlNextProcess " class="NextProcessWidth DropdownListClass MandatoryDropdown Mandatory DropdownListClass" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_NextProcessRequired")"
+                            tabindex="45">
+                        <option selected="selected"></option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <label ID="lbl_DeliveryRemarks" class="labelClass lblTextAlign" Height="20px">@LocalizationServices.GetLocalizedHtmlString("lbl_DeliveryRemarks")</label>
+                </td>
+                <td colspan="14">
+                    <input type="text" ID="txtRemarks" class="form-control TextFieldsClass labelClass" MaxLength="100"
+                           TabIndex="43" style="Width:773px"><span class="text-danger"></span>
+                </td>
+
+
+
+            </tr>
+
+            <tr style="height:15px">
+                <td colspan="2">
+                </td>
+                <td colspan="14">
+                </td>
+
+
+
+            </tr>
+
+        </table>
+
+    </div>
+
+   
+    <div id="pnlFIEntry">
+        <table border="0px" cellpadding="1" cellspacing="1">
+            <tr colspan="11" style="height:15px"> </tr>
+
+
+
+            <tr>
+                <td width="75px" style="padding-left: 5px">
+                    <label ID="lblActDecision" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActDecision")</label>
+                </td>
+                <td >
+                    <select id="ddlDimDecision" name="ddlDimDecision" class="DropdownListClass Mandatory form-control" tabindex="46"
+                        cssclass="TextFieldsClass" style="width:80px;font-size:small" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_FIActDecisionRequired")">
+                        <option value="0"></option>
+                       
+                    </select>
+                </td>
+                <td align="left" valign="middle" style="padding-left:10px;padding-right:10px;">
+                    <label ID="lblActLenDecision" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActLenDecision")</label>
+                </td>
+                <td align="left" valign="top">
+                    <select id="ddlActLenDecision" name="ddlActLenDecision" class="DropdownListClass Mandatory form-control" tabindex="48"
+                        cssclass="TextFieldsClass" style="width:80px;font-size:small" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_LenDecisionRequired")">
+                        <option value="0"></option>
+                     
+                    </select>
+                </td>
+                <td align="left" style="padding-left:10px;">
+                    <label ID="lblCombinedDecision" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_CombinedDecision")</label>
+                </td>
+                <td>
+                    <select id="ddlCombinedDecision" name="ddlCombinedDecision" class="DropdownListClass Mandatory form-control" tabindex="51" style="font-size:small;width:106px;"
+                        cssclass="TextFieldsClass" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_CombineResultRequired")">                   
+                      
+                    </select>
+                </td>
+                <td align="left" colspan="1" width="75px" style="padding-left:10px">
+                    <label ID="lbl_FINextProcess" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_NextProcess")</label>
+                </td>
+                <td >
+                    <select id="ddlFINextProcess" name="ddlDimDecision" class="DropdownListClass Mandatory form-control" tabindex="52" style="font-size:small;width:110px;"
+                            errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_NextProcessRequired")" cssclass="TextFieldsClass">
+                        <option value="0"></option>
+                       
+
+                    </select>
+                </td>
+                <td align="left" valign="middle">
+                    <label ID="lblInsp_Hardness" style="padding-left:8px;" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessMechanical_Inspection_Hardness")</label>
+                </td>
+                <td align="left" valign="top">
+                    <input type="text" ID="txtHardnessDecision" class="form-control TextFieldsClass"
+                           TabIndex="50" Style="width: 50px" Enabled="false"><span class="text-danger"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="padding-left: 5px">
+                    <label ID="lblColorDecision" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ColorDecision")</label>
+                </td>
+                <td colspan="1">
+                    <input type="text" ID="txtColorDecision" class="TextFieldsClass form-control" MaxLength="100"
+                       TabIndex="50" Style="width: 80px">
+
+                </td>
+                <td colspan="1" style="width:90px">
+
+                    @*Html Drop Down, JS Used So not used UIUtils Methods Used Directly Resource: 2020-10-13*@
+                    <select id="ddlColorDecision" name="ddlColorDecision" class="DropdownListClass Mandatory form-control" tabindex="47" style="font-size:small;width:80px;"
+                        cssclass="TextFieldsClass" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_ColorDecisionRequired")">
+                        <option value="0"></option>
+                       
+                    </select>
+                </td>
+
+
+                <td align="left" style="width:80px">
+                    <label ID="Label7" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ChamferDecision")</label>
+                </td>
+                <td>
+                    <input type="text" ID="txtChamferDecision" class="TextFieldsClass form-control" MaxLength="100"
+                       TabIndex="52" Style="width: 80px">
+
+                </td>
+                <td>
+
+                    @*Html Drop Down, JS Used So not used UIUtils Methods Used Directly Resource: 2020-10-13*@
+                    <select id="ddlChamferDecision" name="ddlChamferDecision" class="DropdownListClass Mandatory form-control" tabindex="49" style="font-size:small;width:106px;"
+                        cssclass="TextFieldsClass" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_ChamferDecisionRequired")">
+                        <option value="0"></option>
+                      
+                    </select>
+                </td>
+
+                <td align="left" Style="padding-left:10px;">
+                    <label ID="Label8" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ExtTextureDecision")</label>
+                </td>
+                <td colspan="1">
+
+                    @*Html Drop Down, JS Used So not used UIUtils Methods Used Directly Resource: 2020-10-13*@
+                    <select id="ddlExtTextureDecision" name="ddlExtTextureDecision" class="DropdownListClass Mandatory form-control" tabindex="50" style="font-size:small;width:110px;"
+                        cssclass="TextFieldsClass" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_SkinDecisionRequired")">
+                        <option value="0"></option>
+                       
+                    </select>
+                </td>
+                <td align="left" valign="middle">
+                    <label ID="lblInsp_Hardness_Tensile" style="padding-left:8px;" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessMechanical_Insp_Hardness_Tensile")</label>
+                </td>
+                <td align="left" valign="top">
+                    <input type="text" ID="txtTensileDecision" class="form-control TextFieldsClass"
+                           TabIndex="50" Style="width: 50px" Enabled="false"><span class="text-danger"></span>
+                </td>
+            </tr>
+
+            <tr colspan="11" style="height:15px"></tr>
+
+
+        </table>
+    </div>
+
+    <label id="lblOK" class="Hidden">@LocalizationServices.GetLocalizedHtmlString("lbl_OK")</label>
+    <label id="lblNA" class="Hidden">@LocalizationServices.GetLocalizedHtmlString("lbl_NA1")</label>
+
+    <div id="divErrorMessages" class="Hidden">
+        <label id="lblErrorMessageE_HIKI_EDIT_DELETE_001" class="Hidden">
+            <span ID="LiteralIsRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_IsRequired")</span>
+        </label>
+        <label id="lblErrorMessageE_HIKI_EDIT_DELETE_002" class="Hidden">
+            <span ID="LiteralNoDataToSave">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_NoRowDataToRegister")</span>
+        </label>
+        <label id="lblErrorMessageE_HIKI_EDIT_DELETE_003" class="Hidden">
+            <span ID="LiteralChuubanNotFound">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_OrderNoNotFound")</span>
+        </label>
+        <label id="lblErrorMessageE_HIKI_EDIT_DELETE_004" class="Hidden">
+            <span ID="LiteralChuubanMarkedAsCompleted">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ChuubanMarkedAsCompleted")</span>
+        </label>
+        <label id="lblErrorMessageE_HIKI_EDIT_DELETE_005" class="Hidden">
+            <span ID="LiteralThabaNoDuplicate">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_PMSThabaNoDuplicate")</span>
+        </label>
+        <label id="lblErrorMessageE_HIKI_EDIT_DELETE_006" class="Hidden">
+            <span ID="LiteralSameThabaNoEnteredMultiple">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_PMSSameThabaNoEnteredMultiple")</span>
+        </label>
+        <label id="lblErrorMessageE_HIKI_EDIT_DELETE_007" class="Hidden">
+            <span ID="LiteralStartDateGreaterThanEndDate">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_PMSStartDateGreaterThanEndDate")</span>
+        </label>
+        <label id="lblErrorMessageE_HIKI_EDIT_DELETE_008" class="Hidden">
+            <span ID="LiteralECNGBarOfflineCannotBeZero">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ECNGBarOfflineCannotBeZero")</span>
+        </label>
+        <label id="lblErrorMessageE_HIKI_EDIT_DELETE_009" class="Hidden">
+            <span ID="LiteralEndDateGreaterByAtLeastOneMinute">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_PMSEndDateGreaterByAtLeastOneMinute")</span>
+        </label>
+        <label id="lblErrorMessageE_HIKI_EDIT_DELETE_010" class="Hidden">
+            <span ID="LiteralActDimOrLengthOutOfTolerance">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ActDimOrLengthOutOfTolerance")</span>
+        </label>
+        <label id="lblErrorMessageE_HIKI_EDIT_DELETE_011" class="Hidden">
+            <span ID="LiteralFinishedQtyNotIn2PercentRange">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_FinishedQtyNotIn2PercentRange")</span>
+        </label>
+        <label id="lblErrorMessageE_HIKI_EDIT_DELETE_012" class="Hidden">
+            <span ID="LiteralOperatorNotFound">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_PMSOperatorNotFound")</span>
+        </label>
+
+
+        <label id="lblErrorMessageE_HIKI_EDIT_DELETE_013" class="Hidden">
+            <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+        </label>
+
+        <label id="lblErrorMessageE_HIKI_EDIT_DELETE_014" class="Hidden">
+            <span ID="LiteralStartDateTimeInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_StartDateTimeInvalid")</span>
+        </label>
+
+        <label id="lblErrorMessageE_HIKI_EDIT_DELETE_015" class="Hidden">
+            <span ID="LiteralEndDateTimeInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_EndDateTimeInvalid")</span>
+        </label>
+
+        <label id="lblErrorMessageE_HIKI_EDIT_DELETE_016" class="Hidden">
+            <span ID="LiteralECTabaDuplicate">@LocalizationServices.GetLocalizedHtmlString("valMsg_ECTabaDuplicate")</span>
+        </label>
+
+        <label id="lblErrorMessageE_HIKI_EDIT_DELETE_017" class="Hidden">
+            <span ID="LiteralEnterAtLeastOneSearchCondition">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_EnterAtLeastOneSearchCondition")</span>
+        </label>
+
+         <label id="lblErrorMessageE_HIKI_EDIT_DELETE_018" class="Hidden">
+            <span ID="LiteralDimDStartRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_DimDStartRequired")</span>
+        </label>
+
+        <label id="lblErrorMessageE_HIKI_EDIT_DELETE_019" class="Hidden">
+            <span ID="LiteralLengthStartRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_LengthStartRequired")</span>
+        </label>
+        <label id="lblErrorMessageE_HIKI_EDIT_DELETE_020" class="Hidden">
+            <span ID="LiteralFIRegistered">@LocalizationServices.GetLocalizedHtmlString("valMsg_FIRegistered")</span>
+        </label>
+
+        <label id="lblErrorMessageE_HIKI_EDIT_DELETE_021" class="Hidden">
+            <span ID="LiteralFICantSaveASHardnessTensileNG">@LocalizationServices.GetLocalizedHtmlString("valMag_FICantSaveASHardnessTensileNG")</span>
+        </label>
+        <label id="lblErrorMessageE_HIKI_EDIT_DELETE_022" class="Hidden">
+            <span ID="lblMsg_ResizeScreenResolution">@LocalizationServices.GetLocalizedHtmlString("valMsg_ResizeScreenResolution")</span>
+        </label>
+    </div>
+    <div id="divSuccessMessages" class="Hidden">
+        <label id="lblSuccessMessageS_HIKI_EDIT_DELETE_001" class="Hidden">
+            <span ID="LiteralDataEditedSuccessfully">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataUpdated")</span>
+        </label>
+        <label id="lblSuccessMessageS_HIKI_EDIT_DELETE_002" class="Hidden">
+            <span ID="LiteralDataDeletedSuccessfully">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataDeleted")</span>
+        </label>
+    </div>
+   
+    <div id="divConfirmationMessages" class="Hidden">
+        <label id="lblConfirmationMessageC_HIKI_EDIT_DELETE_001" class="Hidden">
+            <span ID="LiteralFinishedQtyOutOfRange">@LocalizationServices.GetLocalizedHtmlString("confMsg_FIWeightOutOfRange")</span>
+        </label>
+    </div>
+
+}
+
+
+    @section Scripts{
+    <script src="~/Static/js/ECEditDeleteScreen.js" type="text/javascript" asp-append-version="true"></script>
+    <script>
+        function LoadReSizeScreen() {
+
+            window.resizeTo(1080, 800);
+            document.getElementById('TabContainerPMS').style.height = '380px';
+
+        }
+        function DefaultReSizeScreen() {
+            document.getElementById('TabContainerPMS').style.height = '570px';
+            window.resizeTo(1080, 800);
+        }
+    </script>
+    @*<script>
+        window.onload = function() {
+
+
+            document.getElementById('lbl_DateOfIssue').style.display = 'block';
+            document.getElementById('txtCreatedDate').style.display = 'block';
+            document.getElementById('lblUpdatedDate').style.display = 'inherit';
+            document.getElementById('txtUpdatedDate').style.display = 'inherit';
+
+
+        };
+    </script>*@
+    }

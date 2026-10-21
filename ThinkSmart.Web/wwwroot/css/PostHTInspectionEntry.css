@@ -1,0 +1,244 @@
+﻿.btnClose {
+    width: 100px;
+    height: 60px;
+    background-color: #003399;
+}
+
+.GridMandatoryTextBox {
+    font-family: MS Gothic;
+    font-weight: 400;
+    font-size: 13px;
+    background-color: #C1FFFF;    
+    height: 18px;
+    color: black;
+}
+
+.GridTextBox {
+    border-style:none;
+    width:96%;
+    height:95%;
+    font-family:MS Gothic;
+     font-weight:400;
+ font-size:13px;
+
+}
+
+.GridTextBoxtd      /* editable field White background */
+{
+    background-color:white !important;
+    height: 18px;
+}
+
+
+#tdlblStartDateTime,#tdlblEndDateTime
+{
+    width: 94px;
+}
+
+#txtStartDateTime,#lblEndDateTime
+{
+    width: 155px;
+}   
+
+#tdlblStartOperator,#tdlblEndOperator
+{
+    width: 72px;
+    /*text-align:right;*/
+}
+#tdtxtStartOperator
+{
+    width: 160px;
+}
+
+#tdtxtStartDateTime
+{
+    width: 255px;
+    text-align:left;
+}
+
+#txtDeliveryRemarks 
+{
+    width:555px;
+}
+
+#tdtxtDeliveryRemarks
+{
+    width: 255px;
+    text-align:left;
+}
+
+#tdtxtEndDateTime
+{
+    width:190px;
+    text-align:left;
+}
+
+#txtStartOperator, #txtEndOperator {
+    width: 147px
+}
+#tdlblFurnaceNum
+{
+    width: 46px;
+    text-align:right;
+}
+#tdtxtFurnaceNum
+{
+    width:100px;
+}
+#txtFurnaceNum
+{
+    width: 88px;
+}
+.textboxheight{
+    height:24px;
+}
+#tblProcessStartData1,#tblProcessEndData1
+{
+    table-layout: fixed;
+}
+
+#txtActualLength
+{
+    width:45px;
+}
+
+.Mandatory 
+{
+    background-color: #C1FFFF;    
+}
+
+.Hidden
+{
+    display: none;
+}
+
+.disabled
+{
+    background-color: #EEEEEE !important;
+    color: black;
+}
+
+#txtFinishedBarCount
+{
+    width:100px;
+    height:18px;
+}
+#ddlUnitType
+{
+    width:66px;
+}
+#txtFinishedQuantity
+{
+    width:110px;
+    height:18px;
+}
+#txtThaba1,#txtThaba2,#txtThaba3,#txtThaba4{
+    width:33px;
+    height:18px;
+}
+
+#tdlblDecision
+{
+   width:70px;
+}
+
+#tdlblActualLength
+{
+    width:80px;
+    text-align:right;
+}
+#txtStartDate,#txtEndDate
+{
+    width:100px;
+    height:18px;
+}
+
+#txtStartTime,#txtEndTime
+{
+    width:60px;
+    height:18px;
+}
+
+#btnStartDateTime,#btnEndDateTime
+{
+    width:46px;
+}
+
+#txtNoOfCoils
+{
+    width:104px
+}
+.MsgGridLines>tbody>tr>td /* Apply border to headers */
+    {
+    border: #FFF;   
+    padding-left:3px;
+    }
+
+.hide 
+{
+    display: none;
+}
+
+.freez > th 
+{
+    position:  static!important;
+    background-color: #7291D2;
+    top: 0.2px;  
+    height:21px;
+    box-shadow: 0 0 0px 0px White;
+} 
+           
+.freez2 > th 
+{
+    position:  static!important;
+    background-color: #B2C3E6;
+    top: 21px;  
+    height:20px;
+    box-shadow: 0 0 0px 0px White;
+}
+.lbl_FurnaceNum {
+    color: White;
+    width: 40px;
+    height: 19px;
+    padding-top: 3px;
+    padding-left: 2px;
+}
+.tdH2, .tdH4 {
+    border-width: thin;
+    border-style: solid;
+    /*background-color: #7291D2;*/
+    height: 15px;
+    border-color: White;
+    text-align: center;
+    color: black;
+    white-space: nowrap;
+}
+
+.tdH3 {
+    border-width: thin;
+    border-style: solid;
+    background-color: #B2C3E6;
+    height: 15px;
+    border-color: White;
+    text-align: center;
+    color: black;
+    white-space: nowrap;
+}
+
+.headerPadding
+{
+    padding-left:10px!important;
+    padding-right:10px!important        
+}       
+
+.headerBothSidePadding > th {
+    padding-left: 10px;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+.fixLengthDataPadding
+{
+    padding-left:5px!important;
+    padding-right:5px!important;
+}        

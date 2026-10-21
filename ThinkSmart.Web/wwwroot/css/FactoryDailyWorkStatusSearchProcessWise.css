@@ -1,0 +1,169 @@
+﻿#txtInspDate1, #txtInspDate2 {
+    width: 80px;
+    height: 24px;
+}
+#txtProdSpecNo1, #txtProdSpecNo2{
+    width:40px;
+    height:24px;
+}
+#txtLengthMin, #txtLengthMax{
+    text-align:left;
+    width:50px;
+    height:24px;
+}
+#txtShape{
+    width:25px;
+    height:24px;
+}
+#txtDiaMin, #txtDiaMax {
+    text-align: left;
+    width: 55px;
+    height: 24px;
+}
+#txtDimD1, #txtDimD2 {
+    width: 106px;
+    height: 24px;
+}
+#ddlCustomer, #ddlLocation{
+
+    width:136px;
+    height:24px;
+}
+#txtCharge{
+    width:65px;
+    height:24px;
+}
+#ddlMachine{
+
+    width:175px;
+    height:24px;
+}
+.NumberPadding {
+    padding-left: 10px;
+    padding-right: 8px;
+}
+.bgcolor1 {
+    background-color: #ebf1de;
+    height:25px;
+}
+.tdHeader {
+    background-color: #cde4eb;
+    height: 25px;
+    border: 1px solid black;
+}
+.tdHeader1
+
+{
+    background-color: #cde4eb;
+    height: 25px;
+    border: 1px  black;
+}
+.Proceplanwidth{
+
+     width:100px;
+     padding-left:5px !important;
+     text-align:left;
+ }
+
+.Proceplanwidth1 {
+    width: 80px;    
+    text-align: center;
+}
+
+.disabled {
+    background-color: #EEEEEE !important;
+    /* background-color: #f2f2f2 !important;*/
+    pointer-events: none;
+    padding-left: 3px !important;
+}
+.disabled1 {
+    background-color:  !important;
+    /* background-color: #f2f2f2 !important;*/
+    pointer-events: none;
+    padding-left: 3px !important;
+}
+.FurnaceNum{
+    width:180px;
+    text-align:left;
+
+}
+
+.thwidth{
+    width:50%;
+}
+.th {
+    border-right: 1px groove;
+    text-align: left;
+    width:90px;    
+}
+.th1 {
+    border-right: 1px groove;
+    text-align: center;
+    width: 77px;
+}
+.th2 {
+    border-right: 1px groove;
+    width: 77px;
+}
+.th3 {
+    border-right: 1px dotted;
+    width: 77px;
+}
+.th4 {
+    border-right: 1px groove;
+    width: 62px;
+}
+.lblWrokPoint {
+    width: 150px;
+    text-align: center;
+}
+.lblOpration {
+    width: 110px;
+    text-align: center;
+}
+.lblShape {
+    width: 30px;
+    text-align: center;
+}
+.lblRemark {
+    width: 70px;
+    text-align: center;
+}
+.lblXY {    
+    width: 10px;
+}
+.lblMinMax{
+    border-right: 1px dotted;
+    width: 50px;
+}
+#txtProdName
+{
+    width:90px;
+}
+#txtInternalName {
+    width: 90px;
+}
+.ProductDim, .MatDimD {
+    min-width: 52px;
+    max-width: 52px;
+    white-space: revert !important;
+}
+.gridHeaderBgColor {
+    background-color: white !important;
+}
+.tdComboSearch {
+  background-color:white;
+  border-style:solid;
+  border-width:thin;
+  border-color:#FF9900;
+}
+#ddlOperator {
+    width: 136px;
+    height: 24px;
+}
+#txtYobinaOperatorSearch, #txtYobinaCustomerSearch, #btnYobinaOpeartorSearch, #btnYobinaCustomerSearch {
+    height: 24px;
+}
+.ecRowHeight {
+    height: 27px;
+}

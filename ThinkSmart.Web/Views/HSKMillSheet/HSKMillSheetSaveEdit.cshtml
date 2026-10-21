@@ -1,0 +1,2622 @@
+﻿@using TSWebApplication.Domain.Resources
+@using TSWebApplication.Domain.Model
+@model List<HSKMillSheetDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_HSKMillSheetSave").Value.Replace("</br>", "");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    DateTime fromDate = DateTime.Now;
+    fromDate = fromDate.AddMonths(-3);
+
+    DateTime toDate = DateTime.Now;
+}
+
+var makerMillSheetRecords = [];
+var currentMakerMillSheetIndex = 0;
+
+<link href="~/css/Common_Styles.css" rel="stylesheet" />
+<link href="~/css/hskmillsheetsaveedit.css" rel="stylesheet" />
+<link href="~/css/HSKMillSheetPostHTInspection.css" rel="stylesheet" />
+<link href="~/css/Common.css" rel="stylesheet" />
+<link href="~/css/masterStyles.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/css/jquery-ui.css" />
+<link href="~/css/hskmillsheetChemicalPopup.css" rel="stylesheet" />
+<style type="text/css">
+    .hide {
+        display: none;
+    }
+
+    .header {
+        padding-left: 3px;
+    }
+
+    .freez > td {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 0.2px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .HeaderPadding {
+        padding-left: 10px;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+
+    .rightPadding {
+        padding-right: 2px;
+    }
+
+    .disabled {
+        background-color: #EEEEEE !important;
+        color: black;
+    }
+</style>
+
+<br />
+<br />
+<tsSortPopUp:SortPopup ID="tsSortPopup" OnSortOKClick="tsSortPopup_OKClick" />
+<table width="1870px" style="border: 1px inset; height: 100%; background-color: #d4d0c8;">
+    <tr>
+        @*left Side Information *@
+        <td>
+            <table>
+                <tr>
+                    <td>
+                        <table id="tblSearch" style="height: 80px" class="tableWidth tblDetailsClass">
+                            <tr>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <label ID="lblChhuban" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</label>
+                                            </td>
+                                            <td Style="width: 50px;">
+                                                <input type="text" ID="txtChuuban" class="GridAlignmentNumeric Mandatory1 TextFieldsClass " TabIndex="2" ClientIDMode="Static" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ChubanRequired")"
+                                                       MaxLength="9" Style="width: 80px; background-color: #C1FFFF;"><span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ChubanRequired")</span>
+                                            </td>
+                                            <td>
+                                                <label ID="Label1" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("-")</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" ID="txtGyouban" class="TextFieldsClass" TabIndex="3" Style="width: 30px;" ClientIDMode="Static" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_GyoubanRequired")"
+                                                       ForeColor="Black" MaxLength="11"><span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_GyoubanRequired")</span>
+                                            </td>
+
+                                            <td>
+                                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Extract")" ID="btnChuubanSearch" class="_functionButtons" TabIndex="5" Style="width: 86px;"
+                                                       ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td colspan="5">
+                                                <a href="/HSKMillSheet/HSKMillSheetHistorypopup" target="HSKMillSheetHistorypopup" onClick="javascript:open('/HSKMillSheet/HSKMillSheetHistorypopup', 'HSKMillSheetHistorypopup', 'height=850px,width=1200px,left=300px,top=100px,resizable=no')">
+                                                    <input type="button" value="消込済みの製造指示書の抽出" ID="btnHSKMillSheetHistorypopup" class="_functionButtons" TabIndex="5" Style="width: 210px;"
+                                                           ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" />
+                                                </a>
+
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td align="center" width="235px" rowspan="1" colspan="2">
+                                                <label ID="lbl" class="labelClass" style="font-family:MS Gothic;font-size:20px;font-weight:bold;">@LocalizationServices.GetLocalizedHtmlString("銅材試驗成績表")</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right" style="width:75px">
+                                                <input type="checkbox" ID="chkManuFacturingNO" class="checkboxClass textboxheight bordernone ">
+
+
+                                            </td>
+                                            <td>
+                                                <span ID="lbl" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("林精鋼ロゴの表示")</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+
+                                <td rowspan="2" width="410px">
+                                    <table style="width: 410px; table-layout: fixed; height: 60px; background-color: #b90f0f">
+                                        <tr>
+                                            <td align="center" width="280px" valign="middle">
+                                                <label ID="lblPanelHeading" class="labelClass" Style="color: white; font-size: 16px">@LocalizationServices.GetLocalizedHtmlString("lbl_panelHeading")</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 300px;" align="center">
+                                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")" ID="btnInitialize" class="_functionButtons" TabIndex="5" Style="width: 75px;"
+                                                       ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" />
+                                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Register")" ID="btnRegister" class="_functionButtons" TabIndex="5" Style="width: 75px;"
+                                                       ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" />
+                                                <a href="/HSKMillSheet/HSKMillSheetEditDelete" target="HSKMillSheetEditDelete" onClick="javascript:open('/HSKMillSheet/HSKMillSheetEditDelete', 'HSKMillSheetEditDelete', 'height=925px,width=1420px,left=300px,top=100px,resizable=no')">
+                                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Select")" ID="btnSelect" class="_functionButtons" TabIndex="5" Style="width: 75px;"
+                                                           ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" OnClick="btnSelect_Click" />
+                                                </a>
+                                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Change")" ID="btnChange" class="_functionButtons" TabIndex="5" Style="width: 75px;"
+                                                       ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" />
+                                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Cancel")" ID="btnCancel" class="_functionButtons" TabIndex="5" Style="width: 75px;"
+                                                       ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+
+                            </tr>
+
+                        </table>
+
+                        <table id="tblDetails" class="tblDetailsClass tableWidth">
+                            <tr style="margin-top:3px">
+                                <td align="center" width="80px" valign="middle">
+                                    <label ID="Label3" class="labelClass" style="margin-top:10px">@LocalizationServices.GetLocalizedHtmlString("lbl_PPCustomerRpt")</label>
+                                </td>
+                                @*  <td>
+                                    <input type="text" ID="txtCustomerName" runat="server" class="form-control TextFieldsClass bordernone textboxheight" TabIndex="6" style="font-family:'MS Gothic';Width:43px; Height:22px; margin-top:10px;border-style:inset;"
+                                           BorderStyle="Inset" MaxLength="6" />
+                                </td>
+                                <td>
+                                    <input type="button" value="-" id="btnCustomerNameSearch" TabIndex="7" class="bordernone textboxheight" style="Width:20px;Height:22px;text-align:center; margin-top:10px" />
+                                </td>
+                                <td>
+                                    <select ID="ddlCustomerName" runat="server" class="MandatoryDropdown Mandatory DropdownListClass bordernone textboxheight dropListClass" TabIndex="8" style=" padding-bottom:2px;font-family:'MS Gothic'; Height:22px;margin-top:10px; Width:212px"
+                                            errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_AssembleVerifyByRequired")">
+                                    </select>
+                                <td> *@
+                                <td colspan="4">
+                                    <div id="divCustomerName">
+
+                                        @{
+                                            var CustomerName = Tuple.Create("txtCustomerName", "btnCustomerNameSearch", "ddlCustomerName", "valMsg_PPCustomerRequired", 6);
+                                            @Html.Partial("~/Views/SearchComboCustomer/SearchComboCustomer.cshtml", CustomerName)
+
+                                        }
+                                    </div>
+
+                                </td>
+                                <td>
+                                    <label ID="lblManuFacturingNO" class="labelClass" style="margin-top:10px">@LocalizationServices.GetLocalizedHtmlString("製造仕樣番号")</label>
+                                </td>
+
+                                <td>
+                                    <input type="text" ID="txtSpec_No" class=" disabled textboxheight bordernone" Enabled="false" style="width:70px;margin-left:20px;margin-right:20px;margin-top:10px;background-color: #d4d0c8; border:inset"><span class="text-danger"></span>
+                                </td>
+                                <td>
+                                    <label ID="lblMaker" class="labelClass" style="margin-top:10px">@LocalizationServices.GetLocalizedHtmlString("lbl_MakerMaster")</label>
+                                </td>
+                                <td>
+                                    <input type="text" ID="txtMakerName" runat="server" class="form-control TextFieldsClass bordernone textboxheight" TabIndex="6" style="font-family:'MS Gothic';Width:43px; Height:22px; margin-top:10px;border-style:inset;"
+                                           BorderStyle="Inset" MaxLength="6" />
+                                </td>
+                                <td>
+                                    <input type="button" value="-" id="btnMakerNameSearch" TabIndex="7" class="bordernone textboxheight" style="Width:20px;Height:22px;text-align:center; margin-top:10px" />
+                                </td>
+                                <td>
+                                    <select ID="ddlMakerName" runat="server" class="MandatoryDropdown Mandatory DropdownListClass bordernone textboxheight dropListClass" TabIndex="8" style=" padding-bottom:2px;font-family:'MS Gothic'; Height:22px;margin-top:10px; Width:190px"
+                                            errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_Matrial_MakerNameRequired")">
+                                    </select>
+                                </td>
+
+
+
+
+                                <td>
+                                    <input type="checkbox" ID="chkManuFacturingNO1" class="checkboxClass bordernone textboxheight" style="width:18px; height:22px; margin-top:10px" />
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" width="80px" valign="middle">
+                                    <label ID="Label2" class="labelClass" style="margin-bottom:10px">@LocalizationServices.GetLocalizedHtmlString("需要家")</label>
+                                </td>
+                                <td colspan="4">
+                                    <input type="text" ID="txtConsumer" class="TextFieldsClass bordernone textboxheight" style="width: 280px;margin-bottom:10px;border-style:inset"><span class="text-danger"></span>
+                                </td>
+                                <td></td>
+                                <td colspan="4" align="right">
+                                    <label ID="lblRowMaterial" class="labelClass" style="margin-bottom:10px;">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialClassficationManufacture")</label>
+                                </td>
+                                <td colspan="2">
+                                    <input type="text" ID="txtRowMaterial" class="disabled  textboxheight" style="font-family:'MS Gothic'; width: 191px;margin-bottom:10px;background-color: #d4d0c8; border:inset"><span class="text-danger"></span>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table id="tblProductDetails" class=" tblProductDetailsClass tableWidth">
+                            <tr class="td1 TrProductDetailsClass GridLines12">
+                                <td style="margin-top:5px;width: 80px; ">
+                                    <label ID="lblHeatNo" class="labelClassWhite">溶解番号 <br /> Heat No</label>
+                                </td>
+
+                                <td style="margin-top:5px;width: 119px;">
+                                    <label ID="lblTypeofSteel" class="labelClassWhite  labelClass  tdNoWrap">鋼種名 <br /> Type of Steel</label>
+                                </td>
+
+                                <td style="margin-top:5px;width: 70px;">
+                                    <label ID="lblCondition" class="labelClassWhite  labelClass  tdNoWrap">纳入状態  <br /> Condition</label>
+                                </td>
+
+                                <td style="margin-top:5px;width: 35px;">
+                                    <label ID="lblShapeInfo" class="labelClassWhite  labelClass  ">@LocalizationServices.GetLocalizedHtmlString("lblShapeInfo") <br /> Shape</label>
+                                </td>
+
+                                <td style="margin-top:5px;width: 100px;">
+                                    <label ID="lblSize" class="labelClassWhite  labelClass  tdNoWrap">寸法 長さ <br /> Size</label>
+                                </td>
+
+                                <td style="margin-top:5px;width: 110px;" colspan="3">
+                                    <label ID="lblMaterialDimD" class="labelClassWhite  labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialDimD") <br> Dimention</label>
+                                </td>
+
+                                <td style="margin-top:5px;width: 100px;">
+                                    <label ID="lbldeleveryDate" class="labelClassWhite  labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("rpt_delDate") <br> Date of Delivery</label>
+                                </td>
+
+                                <td style="margin-top:5px;width: 90px;" colspan="2">
+                                    <label ID="lblNoOfUnits" class="labelClassWhite headerPadding labelClass  tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_NoOfUnits") <br />Quantity</label>
+                                </td>
+
+                                <td style="margin-top:5px;width: 60px;" colspan="2">
+                                    <label ID="lblMass" class="labelClassWhite headerPadding labelClass  tdNoWrap">質量 <br /> Mass</label>
+                                </td>
+
+                                <td style="margin-top:5px;width: 70px;">
+                                    <label ID="lblControlNo" class="labelClassWhite headerPadding labelClass  tdNoWrap">発行o <br /> Control No</label>
+                                </td>
+
+                            </tr>
+
+                            <tr class="GridLines13" style="border-top-color: black ">
+                                <td class="paddingleftNright">
+                                    <input type="text" ID="txtHeatNo" class="textboxheight  labelClass bordernone disabled tdNoWrap ProddeailtxtHeight" style="width: 100%;text-align:right"><span class="text-danger"></span>
+                                </td>
+
+                                <td class="paddingleftNright">
+                                    <input type="text" ID="txtProdNameCust" class="textboxheight Mandatory  labelClass bordernone tdNoWrap ProddeailtxtHeight" Style="width: 100%; background-color: #C1FFFF;"
+                                           errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ProdNameCustRequired")">
+                                    <span class="text-danger"></span>
+                                </td>
+
+                                <td class="paddingleftNright">
+                                    <input type="text" ID="txtCondition" class="textboxheight  labelClass bordernone tdNoWrap ProddeailtxtHeight" Style="width: 100%;"><span class="text-danger"></span>
+                                </td>
+
+                                <td class="paddingleftNright">
+                                    <input type="text" ID="txtShapInfo" value="R" class="textboxheight bordernone labelClass disabled tdNoWrap ProddeailtxtHeight" Style="width: 100%; text-align: center;"><span class="text-danger"></span>
+                                </td>
+
+                                <td class="paddingleftNright">
+                                    <input type="text" ID="txtSize1" readonly="readonly" class="textboxheight Mandatory bordernone labelClass  tdNoWrap ProddeailtxtHeight" Style="width: 40px; background-color: #C1FFFF;text-align:right"
+                                           errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_DimRequired")"><span class="text-danger"></span>
+                                    <input type="text" ID="txtSize2" class="textboxheight  labelClass bordernone tdNoWrap ProddeailtxtHeight" Style="width:56px; margin-left: -7px;text-align:right"><span class="text-danger"></span>
+                                </td>
+
+                                <td style="border-right:none">
+                                    <input type="text" ID="txtMaterialDimD" class="textboxheight bordernone disabled ProddeailtxtHeight" readonly="readonly" style="Width:50px;margin-right: -7px;background-color: #d4d0c8; border:inset" /><span class="text-danger"></span>
+                                </td>
+                                <td style="border-left:none; border-right:none">
+                                    <input type="checkbox" ID="chkManuFacturingNO3" class="checkboxClass bordernone textboxheight " style="width:18px; margin-right: -2px" />
+                                </td>
+                                <td style="border-left:none">
+                                    <label ID="Label22" class="labelClass " Style="width:50px">@LocalizationServices.GetLocalizedHtmlString("lbl_Display_L")</label>
+                                </td>
+
+                                <td class="paddingleftNright">
+                                    @*  <select ID="ddldeleveryDate" class="DropdownListClass dropListMandatoryClass bordernone textboxheight  labelClass  tdNoWrap ProddeailtxtHeight" style="width: 100%;"></select> *@
+                                    <input type="text" id="txtDate" class="labelClass Mandatory" placeholder="yyyy/mm/dd" style="width: 89px;" name="selectedDate"
+                                           errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_DeliveryDtRequired")" />
+
+                                </td>
+
+                                <td style="border-right:none">
+                                    <input type="text" ID="txtQuantity" class="textboxheight  labelClass bordernone  tdNoWrap ProddeailtxtHeight" style="width:65px; margin-right:-3px"><span class="text-danger"></span>
+                                </td>
+                                <td style="border-left:none">
+                                    <select ID="ddlUnit" class="DropdownListClass bordernone textboxheight ProddeailtxtHeight " Width="40px" Height="22px"></select>
+                                </td>
+
+                                <td style="border-right:none">
+                                    <input type="text" ID="txtMass" class="textboxheight  bordernone labelClass  tdNoWrap ProddeailtxtHeight" Style="width: 60px; margin-right: -2px; background-color: #C1FFFF;"><span class="text-danger"></span>
+                                </td>
+                                <td style="border-left:none">
+                                    <label ID="lblMass" class="  labelClass tdNoWrap " Width="20px">@LocalizationServices.GetLocalizedHtmlString("kg")</label>
+                                </td>
+
+                                <td class="paddingleftNright">
+                                    <input type="text" ID="txtControlNo" class="ReadOnlyTextBox1 textboxheight bordernone disabled labelClass  tdNoWrap ProddeailtxtHeight" Enabled="false" style="width: 100%;background-color: #d4d0c8; border:inset"><span class="text-danger"></span>
+                                </td>
+
+                            </tr>
+                        </table>
+
+                        <table id="tblMasterChemicalDetails" style="margin-bottom:10px" class=" tableWidth">
+                            <tr class="td1 GridLines12">
+                                <td align="center" colspan="16" height="30px">
+                                    <label ID="lblScheduledOrderQty" Text="化学成分 Chemical Composition (%)" class="labelClass labelClassWhite" ForeColor="White">@LocalizationServices.GetLocalizedHtmlString("化学成分 Chemical Composition (%)")</label>
+                                </td>
+                            </tr>
+                            <tr class="GridHeader GridLines12">
+                                <td class="td100">
+                                    <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ChemicalComponant")<br /> Element</label>
+                                </td>
+
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="lblCheCCName1" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="lblCheRange1" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="lblCheCCName2" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="lblCheRange2" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="lblCheCCName3" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="lblCheRange3" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="lblCheCCName4" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="lblCheRange4" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="lblCheCCName5" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="lblCheRange5" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="lblCheCCName6" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="lblCheRange6" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="lblCheCCName7" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="lblCheRange7" class="labelClass"></label>
+                                </td>
+
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="lblCheCCName8" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="lblCheRange8" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="lblCheCCName9" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="lblCheRange9" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="lblCheCCName10" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="lblCheRange10" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="lblCheCCName11" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="lblCheRange11" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="lblCheCCName12" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="lblCheRange12" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="lblCheCCName13" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="lblCheRange13" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="lblCheCCName14" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="lblCheRange14" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="lblCheCCName15" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="lblCheRange15" class="labelClass"></label>
+                                </td>
+
+
+                            </tr>
+                            <tr class="GridLines13">
+                                <td class="GridHeader td100" style="border-bottom-color: white;border-left-color:white;border-right-color:white;">
+                                    <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Standard_L")<br /> Spec.</label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheCCMIN1" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblCheMCC1Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCheCCMAX1" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheCCMIN2" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblCheMCC2Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCheCCMAX2" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheCCMIN3" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblCheMCC3Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCheCCMAX3" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheCCMIN4" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblCheMCC4Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCheCCMAX4" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheCCMIN5" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblCheMCC5Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCheCCMAX5" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheCCMIN6" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblCheMCC6Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCheCCMAX6" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheCCMIN7" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblCheMCC7Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCheCCMAX7" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheCCMIN8" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblCheMCC8Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCheCCMAX8" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheCCMIN9" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblCheMCC9Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCheCCMAX9" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheCCMIN10" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblCheMCC10Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCheCCMAX10" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheCCMIN11" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblCheMCC11Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCheCCMAX11" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheCCMIN12" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblCheMCC12Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCheCCMAX12" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheCCMIN13" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblCheMCC13Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCheCCMAX13" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheCCMIN14" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblCheMCC14Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCheCCMAX14" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheCCMIN15" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblCheMCC15Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCheCCMAX15" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+
+                            </tr>
+                            <tr class="GridLines13">
+                                <td class="GridHeader td100" style="border-bottom-color: white;border-left-color:white;border-right-color:white;">
+                                    <label ID="lblMech" Text="化学成分 Chemical Composition (%)" class="labelClass tdNoWrap">成績</label><br /> Result
+                                </td>
+                                <td>
+                                    <label ID="lblCheMCCActual1" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheMCCActual2" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheMCCActual3" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheMCCActual4" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheMCCActual5" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheMCCActual6" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheMCCActual7" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheMCCActual8" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheMCCActual9" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheMCCActual10" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheMCCActual11" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheMCCActual12" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheMCCActual13" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheMCCActual14" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCheMCCActual15" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+
+                            </tr>
+                        </table>
+
+                        <table id="tblMechanicalpropertiesDetails" class="tableWidth ">
+                            <tr class="td1 GridLines12">
+                                <td rowspan="2" align="center" class="tdheightwidth">
+                                    <label ID="lblMech" Text="化学成分 Chemical Composition (%)" class="labelClass labelClassWhite tdNoWrap" style="ForeColor:White;">项目<br /> Items</label>
+                                </td>
+                                <td colspan="7" height="30px" align="center">
+                                    <label ID="lblMech" Text="化学成分 Chemical Composition (%)" class="labelClass labelClassWhite" ForeColor="White">@LocalizationServices.GetLocalizedHtmlString("lbl_Machinability") Mechanical properties</label>
+                                </td>
+                                <td colspan="7"></td>
+                            </tr>
+                            <tr class="GridHeader GridLines12">
+                                <td height="80px" style="vertical-align:top;padding-top:6px">
+                                    <label ID="lblTestStandard" Text="化学成分 Chemical Composition (%)" class="labelClass tdNoWrap" style="width:60px">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductTestStandard")</label>
+                                    <br />
+                                    <label ID="lblTestStandard" Text="" class="labelClass" style="width:60px" white-space: normal !important;>Type of specimen</label>
+                                    <br />
+                                    <label ID="lblTSJISVal" Text="" class="labelClass tdNoWrap" style="width:60px;margin-top:8px;"> </label>
+
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:6px">
+                                    <label ID="lblyieldstrength" Text="化学成分 Chemical Composition (%)" class="labelClass tdNoWrap " style="ForeColor:White;">降伏強さ</label><br /> yield strength N/mm2
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:6px">
+                                    <label ID="lblTensileStrength" Text="化学成分 Chemical Composition (%)" class="labelClass " style="width:60px">@LocalizationServices.GetLocalizedHtmlString("lbl_TensileStrength_L")</label><br /> Tensile strength N/mm2
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:6px">
+                                    <label ID="lblElongation" Text="化学成分 Chemical Composition (%)" class="labelClass tdNoWrap" style="width:60px; text-align:center">@LocalizationServices.GetLocalizedHtmlString("lbl_Elongation")</label>
+                                    <br />
+                                    <label ID="lblTestStandard" Text="" class="labelClass " style="width:60px" white-space: normal !important;>Elongation %</label>
+                                    <br />
+                                    <label ID="lblHardnessValue" Text="" class="labelClass tdNoWrap" style="width:60px"> </label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:6px">
+                                    <label ID="lblReduction" Text="化学成分 Chemical Composition (%)" class="labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Reduction")</label><br /> Reduction of Area %
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:6px">
+                                    <label ID="lblHardness" Text="化学成分 Chemical Composition (%)" class="labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Hardness")</label>
+                                    <br />
+                                    <label ID="lblTestStandard" Text="" class="labelClass tdNoWrap" style="width:60px" white-space: normal !important;>Hardness</label>
+                                    <br />
+                                    <label ID="lblHardness1Val" Text="" class="labelClass tdNoWrap" style="width:60px;margin-top:8px"> </label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:6px">
+                                    <label ID="lblImpact" Text="化学成分 Chemical Composition (%)" class="labelClass tdNoWrap">衝撃試驗</label><br /> Impact Test J/cm2
+                                </td>
+
+                                <td class="td60" style="vertical-align:top;padding-top:6px">
+                                    <label ID="lblMech" Text="化学成分 Chemical Composition (%)" style="color:#8be695" class="labelClass  tdNoWrap">DMF   DMT</label><br /><br /> <p style="color:#8be695">×100</p>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:6px">
+                                    <label ID="lblMech" Text="化学成分 Chemical Composition (%)" class="labelClass  tdNoWrap">きず<br />等級</label><br />Rank
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:6px"></td>
+                                <td class="td60" style="vertical-align:top;padding-top:6px"></td>
+                                <td class="td60" style="vertical-align:top;padding-top:6px">
+                                    <label ID="lblMechHardenabilityTest" Text="化学成分 Chemical Composition (%)" class="labelClass  tdNoWrap">燒入性</label><br />Hardenability Test
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:6px"></td>
+                                <td class="td60" style="vertical-align:top;padding-top:6px">
+                                    <label ID="lblMech" Text="化学成分 Chemical Composition (%)" class="labelClass tdNoWrap">特記</label><br /> Remarks
+                                </td>
+
+                            </tr>
+                            <tr class=" GridLines13">
+                                <td class="GridHeader tdheightwidth GridLines13 whitelines" style="border-bottom-color: white;border-left-color:white;border-right-color:white;">
+                                    <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Standard_L")<br /> Spec.</label>
+                                </td>
+                                <td width="80px" style="border-left-color: white; border-bottom:none">
+                                    <input ID="chkShowDimTolonReport" class="checkboxClass" style="width:18px; height:20px; border: groove; margin-top:6px" />
+                                    <label ID="lblchemicalComponant" style="width:39px;margin-top:10px;white-space:break-spaces;float:right" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("公表 差示")</label>
+                                </td>
+
+                                <td width="80px" style="border-left-color: white;border-bottom:none;text-align:center">
+
+                                    <label ID="lblYiedStrength1" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"></label>
+                                </td>
+                                <td width="80px" style="border-left-color: white;border-bottom:none;text-align:center">
+
+                                    <label ID="lblTensileStrength1" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"></label>
+                                </td>
+                                <td width="80px" style="border-left-color: white;border-bottom:none;text-align:center">
+
+                                    <label ID="lblElongation1" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"></label>
+                                </td>
+                                <td width="80px" style="border-left-color: white;border-bottom:none;text-align:center">
+
+                                    <label ID="lblReduction1" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"></label>
+                                </td>
+                                <td width="80px" style="border-left-color: white;border-bottom:none;text-align:center">
+
+                                    <label ID="lblHardness2" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"></label>
+                                </td>
+                                <td width="80px" style="border-left-color: white;border-bottom:none;text-align:center">
+
+                                    <label ID="lblImpactTest" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"></label>
+                                </td>
+                                <td rowspan="2"> </td>
+                                <td rowspan="2" style="width:90px">
+                                    <label ID="lblDMF_Val" style="width:23px;white-space:break-spaces;float:left;font-size:12px;" class="labelClass"></label>
+                                    <label ID="lblDMT_Val" style="width:33px;white-space:break-spaces;float:right;font-size:12px;" class="labelClass"></label>
+                                </td>
+                                <td rowspan="2"> </td>
+                                <td rowspan="2"> </td>
+                                <td rowspan="2">
+                                    <div id="DivHardnessJISData">
+                                <table style="text-align:center;width:100%">
+                                    <tr>
+                                            <td> <label ID="lblJIS1" hidden="hidden" style="text-align:center" class="labelClass">JIS</label></td>
+                                            <td><label ID="lblJIS2" hidden="hidden" style="text-align:center" class="labelClass">JIS</label></td>
+                                            <td><label ID="lblJIS3" hidden="hidden" style="text-align:center" class="labelClass">JIS</label></td>
+                                    </tr>
+                                        <tr>
+                                            <td> <label ID="lblJISRange1" hidden="hidden" style="text-align:center" class="labelClass"></label></td>
+                                            <td><label ID="lblJISRange2" hidden="hidden" style="text-align:center" class="labelClass"></label></td>
+                                            <td><label ID="lblJISRange3" hidden="hidden" style="text-align:center" class="labelClass"></label></td>
+                                        </tr>
+                                        <tr>
+                                            <td> <label ID="lblJISMin1" hidden="hidden" style="text-align:center" class="labelClass"></label></td>
+                                            <td><label ID="lblJISMin2" hidden="hidden" style="text-align:center" class="labelClass"></label></td>
+                                            <td><label ID="lblJISMin3" hidden="hidden" style="text-align:center" class="labelClass"></label></td>
+                                        </tr>
+                                        <tr>
+                                            <td> <label ID="lblJISMax1" hidden="hidden" style="text-align:center" class="labelClass"></label></td>
+                                            <td><label ID="lblJISMax2" hidden="hidden" style="text-align:center" class="labelClass"></label></td>
+                                            <td><label ID="lblJISMax3" hidden="hidden" style="text-align:center" class="labelClass"></label></td>
+                                        </tr>
+                                </table>
+
+                                    </div>
+
+                                </td>
+                                <td rowspan="2">
+                                    <label ID="lblRadius_Val" style="width:33px;white-space:break-spaces;float:right;font-size:12px;" class="labelClass"></label>
+                                </td>
+                                <td rowspan="2"> </td>
+                                @*  <td rowspan="1"> </td> *@
+                            </tr>
+                            <tr class=" GridLines13">
+                                <td class="GridHeader tdheightwidth" style="border-bottom-color: white;border-left-color:white;border-right-color:white;">
+                                    <label ID="lblMech" Text="化学成分 Chemical Composition (%)" class="labelClass tdNoWrap">成績</label><br /> Result
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:right;border-top:none">
+                                    <label ID="lblDimTolMin" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"></label>
+                                    <label ID="lblDimTolMax" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"></label>
+                                </td>
+                                <td style="border-top:none"></td>
+                                <td width="80px" style="border-left-color: white; text-align:center;border-top:none">
+                                    <label ID="lblTensileStrength2" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td style="border-top:none"></td>
+                                <td style="border-top:none"></td>
+                                <td width="80px" style="border-left-color: white; text-align:center;border-top:none">
+                                    <label ID="lblHardness3" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;border-top:none">
+                                    <label ID="lblImpactTest2" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                            </tr>
+                            <tr class="tdheightwidth GridLines13" align="center">
+                                <td class="tdheightwidth">
+                                    <input type="text" ID="txtDetailNo1" class="  labelClass  tdNoWrap tdtext"><span class="text-danger"></span>
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSActualDim1" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSYieldAct1" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTensileAct1" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSElongAct1" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSReductAct1" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblHDD4Avg1" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSTestImpact1" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="100px">
+                                    <label ID="lblDMF" style="width:28px;white-space:break-spaces;float:left;margin-left:3px;font-size:12px;" class="labelClass"></label>
+                                    <label ID="lblDMT" style="width:28px;white-space:break-spaces;float:right;margin-left:3px;font-size:12px;" class="labelClass"></label>
+                                </td>
+                                <td>
+                                    <input type="text" ID="txtRank1" class="  labelClass  tdNoWrap tdtext"><span class="text-danger"></span>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <div id="DivHardnessJISVal">
+                                    <table style="width:100%;text-align:center">
+                                        <tr>
+                                            <td width="35px"> <label ID="lblJISActual1" style="text-align:center" class="labelClass"></label></td>
+                                            <td width="35px"><label ID="lblJISActual2" style="text-align:center" class="labelClass"></label></td>
+                                                <td width="35px"><label ID="lblJISActual3" style="text-align:center" class="labelClass"></label></td>
+                                        </tr>
+                                        
+                                    </table>
+                                    </div>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <input type="text" ID="txtRemarkMessage1" class="  labelClass  tdNoWrap tdtext"><span class="text-danger"></span>
+                                </td>
+                            </tr>
+                            <tr class="tdheightwidth GridLines13">
+                                <td class="tdheightwidth">
+                                    <input type="text" ID="txtDetailNo2" class="  labelClass  tdNoWrap tdtext"><span class="text-danger"></span>
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSActualDim2" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSYieldAct2" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTensileAct2" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSElongAct2" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSReductAct2" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblHDD4Avg2" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSTestImpact2" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td></td>
+                                <td>
+                                    <input type="text" ID="txtRank2" class="textboxheight  labelClass  tdNoWrap tdtext"><span class="text-danger"></span>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <input type="text" ID="txtRemarkMessage2" class="  labelClass  tdNoWrap tdtext"><span class="text-danger"></span>
+                                </td>
+                            </tr>
+                            <tr class="tdheightwidth GridLines13">
+                                <td class="tdheightwidth">
+                                    <input type="text" ID="txtDetailNo3" class="  labelClass  tdNoWrap tdtext"><span class="text-danger"></span>
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSActualDim3" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSYieldAct3" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTensileAct3" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSElongAct3" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSReductAct3" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblHDD4Avg3" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSTestImpact3" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td></td>
+                                <td>
+                                    <input type="text" ID="txtRank3" class="  labelClass  tdNoWrap tdtext"><span class="text-danger"></span>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <input type="text" ID="txtRemarkMessage3" class="  labelClass  tdNoWrap tdtext"><span class="text-danger"></span>
+                                </td>
+                            </tr>
+                            <tr class="tdheightwidth GridLines13">
+                                <td class="tdheightwidth">
+                                    <input type="text" ID="txtDetailNo4" class="  labelClass  tdNoWrap tdtext"><span class="text-danger"></span>
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSActualDim4" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSYieldAct4" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTensileAct4" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSElongAct4" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSReductAct4" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblHDD4Avg4" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSTestImpact4" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td></td>
+                                <td>
+                                    <input type="text" ID="txtRank4" class="textboxheight  labelClass  tdNoWrap tdtext"><span class="text-danger"></span>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <input type="text" ID="txtRemarkMessage4" class="  labelClass  tdNoWrap tdtext"><span class="text-danger"></span>
+                                </td>
+                            </tr>
+                            <tr class="tdheightwidth GridLines13">
+                                <td>
+                                    <input type="text" ID="txtDetailNo5" class="textboxheight  labelClass  tdNoWrap tdtext"><span class="text-danger"></span>
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSActualDim5" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSYieldAct5" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTensileAct5" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSElongAct5" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSReductAct5" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblHDD4Avg5" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSTestImpact5" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td></td>
+                                <td>
+                                    <input type="text" ID="txtRank5" class="  labelClass  tdNoWrap tdtext"><span class="text-danger"></span>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <input type="text" ID="txtRemarkMessage5" class="  labelClass  tdNoWrap tdtext"><span class="text-danger"></span>
+                                </td>
+                            </tr>
+                            <tr class="tdheightwidth GridLines13">
+                                <td class="tdheightwidth">
+                                    <input type="text" ID="txtDetailNo6" class="  labelClass  tdNoWrap tdtext"><span class="text-danger"></span>
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSActualDim6" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSYieldAct6" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTensileAct6" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSElongAct6" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSReductAct6" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblHDD4Avg6" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSTestImpact6" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td></td>
+                                <td>
+                                    <input type="text" ID="txtRank6" class="  labelClass  tdNoWrap tdtext"><span class="text-danger"></span>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <input type="text" ID="txtRemarkMessage6" class="  labelClass  tdNoWrap tdtext"><span class="text-danger"></span>
+                                </td>
+                            </tr>
+                            <tr class="tdheightwidth GridLines13">
+                                <td class="tdheightwidth">
+                                    <input type="text" ID="txtDetailNo7" class="  labelClass  tdNoWrap tdtext"><span class="text-danger"></span>
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSActualDim7" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSYieldAct7" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTensileAct7" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSElongAct7" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSReductAct7" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblHDD4Avg7" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+
+                                <td width="80px" style="border-left-color: white; text-align:center;">
+                                    <label ID="lblTSTestImpact7" style="width:70px;margin-top:3px;white-space:break-spaces;float:left" class="labelClass"> </label>
+
+                                </td>
+                                <td></td>
+                                <td>
+                                    <input type="text" ID="txtRank7" class="  labelClass  tdNoWrap tdtext"><span class="text-danger"></span>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <input type="text" ID="txtRemarkMessage7" class="  labelClass  tdNoWrap tdtext"><span class="text-danger"></span>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table id="tblButtons" class="tblDetailsClass tableWidth" style="height:65px">
+                            <tr>
+                                <td>
+                                    <table id="tblsearchval" class="">
+                                        <tr>
+                                            <td style="width:30px">
+                                                <input type="checkbox" ID="chkCoil" class="checkboxClass bordernone textboxheight" style="width:18px; height:22px; margin-top:0px" />
+                                            </td>
+                                            <td>
+                                                <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("Coil表記")</label>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" ID="chkActualDim" class="checkboxClass bordernone textboxheight" style="width:18px; height:22px; margin-top:0px" />
+                                            </td>
+                                            <td>
+                                                <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualDim_S")</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width:20px">
+                                                <label ID="lblChhuban" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</label>
+                                            </td>
+                                            <td Style="width: 50px;">
+                                                <input type="text" ID="txtChuubanNew" class="GridAlignmentNumeric Mandatory1  TextFieldsClass " TabIndex="22" ClientIDMode="Static"
+                                                       MaxLength="9" Style="width: 80px; background-color: #C1FFFF;"><span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("lbl_NifudaNumber")</span>
+                                            </td>
+                                            <td>
+                                                <label ID="Label1" class="labelClass" style="margin-left:10px;">@LocalizationServices.GetLocalizedHtmlString("-")</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" ID="txtGyoubanNew" class="TextFieldsClass Mandatory1" TabIndex="33" Style="width: 30px; background-color: #C1FFFF;" ClientIDMode="Static"
+                                                       ForeColor="Black" MaxLength="11"><span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_ChubanRequired")</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="MachineInspectionClass">
+                                    <table id="tblMachineInspection" align="center">
+                                        <tr>
+                                            <td colspan="2">
+                                                <label ID="lblchemicalComponant" class="labelClass lablecolor">@LocalizationServices.GetLocalizedHtmlString("機械検査")</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("転記①")" ID="btnHardnessPattern1" class="_functionButtons" TabIndex="5" Style="width: 86px;"
+                                                       ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" />
+                                            </td>
+                                            <td>
+                                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("転記②")" ID="btnHardnessPattern2" class="_functionButtons" TabIndex="5" Style="width: 86px;"
+                                                       ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="contentClass">
+                                    <table id="tblContent">
+                                        <tr>
+                                            <td align="center">
+                                                <label ID="lblchemicalComponant" class="labelClass lablecolor">@LocalizationServices.GetLocalizedHtmlString("內質")</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center">
+                                                <input type="button"
+                                                       value="@LocalizationServices.GetLocalizedHtmlString("転記")"
+                                                       id="btnPostHTSearch"
+                                                       class="_functionButtons1"
+                                                       tabindex="5" />
+
+                                                @*  <a href="/HSKMillSheet/HSKMillSheetPostHTInspection" target="HSKMillSheetPostHTInspection" onClick="javascript:open('/HSKMillSheet/HSKMillSheetPostHTInspection', 'HSKMillSheetPostHTInspection', 'height=500px,width=410px,left=600px,top=200px,resizable=no')"> *@
+                                                @*  <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("転記")" ID="btnPostHTSearch" data-toggle="modal" data-target="#PostHTModel" class="_functionButtons1" TabIndex="5"
+                                                       ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" /> *@
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="InfilClass">
+                                    <table id="tblDimension">
+                                        <tr>
+                                            <td align="center">
+                                                <label ID="lblchemicalComponant" class="labelClass lablecolor">@LocalizationServices.GetLocalizedHtmlString("燒入性")</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center">
+                                                <input type="button"
+                                                       value="@LocalizationServices.GetLocalizedHtmlString("転記(S+F10)")"
+                                                       id="btnChemicalCompositionPopup"
+                                                       class="_functionButtons1"
+                                                       tabindex="6" />
+                                               @*  <a href="/HSKMillSheet/MakerMillSheetChemicalCompositionPopup" target="MakerMillSheetChemicalCompositionPopup" onClick="javascript:open('/HSKMillSheet/MakerMillSheetChemicalCompositionPopup', 'MakerMillSheetChemicalCompositionPopup', 'height=230px,width=1315px,left=300px,top=100px,resizable=no')">
+                                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("転記")" ID="btnChemicalCompositionPopup" class="_functionButtons1" TabIndex="5"
+                                                           ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" />
+                                                </a> *@
+
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="DimensionClass">
+                                    <table id="tblDimension">
+                                        <tr>
+                                            <td align="center">
+                                                <label ID="lblchemicalComponant" class="labelClass lablecolor">@LocalizationServices.GetLocalizedHtmlString("外観寸法")</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center">
+                                                <input type="button"
+                                                       value="@LocalizationServices.GetLocalizedHtmlString("転記(S+F10)")"
+                                                       id="btnMillSheetFinalInspectionPopup"
+                                                       class="_functionButtons1"
+                                                       data-toggle="modal" data-target="#MillSheetFinalInspectionPopup"
+                                                       tabindex="7" />
+
+                                                @*  <a href="/HSKMillSheet/HSKMillSheetFinalInspectionPopup" target="HSKMillSheetFinalInspectionPopup"> *@
+                                                @* onClick="javascript:open('/HSKMillSheet/HSKMillSheetFinalInspectionPopup', 'HSKMillSheetFinalInspectionPopup', 'height=510px,width=810px,left=300px,top=100px,resizable=no')" *@
+                                              @*   <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("付加")" ID="btnMillSheetFinalInspectionPopup" class="_functionButtons1" TabIndex="5"
+                                                       ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" />
+                                                </a> *@
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="printClass">
+                                    <table id="tblprint">
+                                        <tr>
+                                            <td align="center">
+                                                <label ID="lblchemicalComponant" class="labelClass lablecolor">@LocalizationServices.GetLocalizedHtmlString("btn_Reprint_L")</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center">
+                                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Print")" ID="btnChuubanSearch" class="_functionButtons1" TabIndex="5"
+                                                       ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td class="Close">
+                                    <table id="tblprint" align="center">
+                                        <tr>
+                                            <td align="center">
+                                                <label ID="lblchemicalComponant" class="labelClass lablecolor">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnClose" OnClientClick="return Confirmation()" class="_functionButtons" TabIndex="5" Style="width: 86px;"
+                                                       ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+
+                    <td>
+                        <table id="tblChemicalRefresh" class="tblmechClass tablerightWidth">
+                            <tr>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td width="200px" valign="middle" colspan="3">
+                                                <label ID="lblChemicalComposition" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("シルシート成績")</label>
+                                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("転記")" ID="btnChemicalCompositionSearch" class="_functionButtons" TabIndex="5" Style="width: 86px;"
+                                                       ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="text" ID="txtscmbCustName" runat="server" class="form-control TextFieldsClass bordernone textboxheight" TabIndex="6" style="font-family:'MS Gothic';Width:43px; Height:22px; margin-top:10px;"
+                                                       BorderStyle="Inset" MaxLength="6" />
+                                            </td>
+                                            <td>
+                                                <input type="button" value="-" id="btnscmbCustName" TabIndex="7" class="bordernone textboxheight" style="Width:20px;Height:22px;text-align:center; margin-top:10px; " />
+                                            </td>
+                                            <td>
+                                                <select ID="ddlscmbCustName" runat="server" class="DropdownListClass dropListClass bordernone textboxheight" TabIndex="8" style=" padding-bottom:2px;font-family:'MS Gothic'; Height:22px;  margin-top:10px; Width:110px"
+                                                        >
+                                                </select>
+                                            </td>
+
+
+
+                                        </tr>
+                                    </table>
+
+                                </td>
+                                <td>
+                                    <table class="GridLines11 ">
+                                        <tr class="td1 tableWidth">
+                                            <td align="center" colspan="7" height="25px">
+                                                <label ID="Label3" class="labelClass lablecolor">@LocalizationServices.GetLocalizedHtmlString("抽出条件")</label>
+                                            </td>
+                                        </tr>
+                                        <tr class="GridHeader textboxheight">
+                                            <td style="width:100px">
+                                                <label ID="lblCharge" class="labelClass lablecolor">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</label>
+                                            </td>
+                                            <td style="width:100px">
+                                                <label ID="lblMatlNameMaker" class="labelClass lablecolor">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlNameMaker")</label>
+                                            </td>
+                                            <td style="width:140px" colspan="2">
+                                                <label ID="lblDimD" class="labelClass lablecolor">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</label>
+                                            </td>
+                                            <td style="width:60px">
+                                                <label ID="lblShape" class="labelClass lablecolor">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</label>
+                                            </td>
+                                            <td style="width:160px" colspan="2">
+                                                <label ID="lblDate" class="labelClass lablecolor">@LocalizationServices.GetLocalizedHtmlString("取込日")</label>
+                                            </td>
+                                        </tr>
+                                        <tr class="">
+                                            <td style="width:80px">
+                                                <input type="text" ID="txtCharge" class="tdtext2  labelClass  tdNoWrap "><span class="text-danger"></span>
+                                            </td>
+                                            <td style="width:80px">
+                                                <input type="text" ID="txtMatlNameMaker" class=" tdtext2 labelClass  tdNoWrap  "><span class="text-danger"></span>
+                                            </td>
+                                            <td style="width:60px">
+                                                <input type="text" ID="txtDimD1" class=" tdtext2 labelClass  tdNoWrap  "><span class="text-danger"></span>
+                                            </td>
+                                            <td style="width:60px">
+                                                <input type="text" ID="txtDimD2" class=" tdtext2 labelClass  tdNoWrap   "><span class="text-danger"></span>
+                                            </td>
+                                            <td style="width:40px">
+                                                <input type="text" ID="txtShap" class=" tdtext2 labelClass  tdNoWrap  "><span class="text-danger"></span>
+                                            </td>
+                                            <td style="width:100px">
+                                                <input type="text" ID="txtDate1" class=" tdtext2 labelClass  tdNoWrap   "><span class="text-danger"></span>
+                                            </td>
+                                            <td style="width:100px">
+                                                <input type="text" ID="txtDate2" class="tdtext2  labelClass  tdNoWrap   "><span class="text-danger"></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </td>
+                                <td>
+                                    <table class="" style="background-color: #004040; ">
+                                        <tr>
+                                            <td style="width:80px; height:35px;text-align:center" valign="middle" colspan="3">
+                                                <label ID="Label3" class="labelClass labelClassWhite" style="margin-top:10px">@LocalizationServices.GetLocalizedHtmlString("lbl_FilterCondition")</label>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="padding-bottom: 15px;">
+                                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Extract")" ID="btnExtract" class="_functionButtons" TabIndex="5" onclick="btnSelect_Click()" Style="width: 75px;"
+                                                       ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" />
+                                            </td>
+                                            <td style="padding-bottom: 15px;">
+                                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Sort_L")" ID="btnSort" class="_functionButtons" TabIndex="5" Style="width: 75px;"
+                                                       ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" />
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </td>
+
+                            </tr>
+                        </table>
+
+                        <table id="tblMaterialDetails" class="tablerightWidth tblDetailsClass ">
+                            <tr>
+                                <td>
+                                    <table class=" ">
+                                        <tr class="td1 labelClassWhite ">
+                                            <td colspan="6" style="width:335px">
+                                                <input type="checkbox" ID="chkManuFacturingNO1" class="checkboxClass" style="width:18px; height:22px; border: groove; margin-top:5px" />
+
+
+                                                <label ID="lblchemicalComponant labl" style="margin-top:10px;white-space:break-spaces;float:right; padding-right: 176px; " class="labelClass">@LocalizationServices.GetLocalizedHtmlString(" : 抽出結果が1件の場合は表示しない")</label>
+                                            </td>
+
+                                            <td colspan="2" style="width:145px" align="right">
+                                                <label ID="lblchemicalComponant" style="margin-top:5px;white-space:break-spaces;float:right;  " class="labelClass">@LocalizationServices.GetLocalizedHtmlString("メーカーミルシート")</label>
+                                            </td>
+                                            <td style="width:325px" colspan="2"></td>
+                                        </tr>
+                                        <!-- PAGINATION -->
+                                        <tr  id="makerMillSheetEmptyRow" style="border-right: none; border-left: none;">
+                                            <td colspan="10">
+                                                <label ID="lblchemicalComponant" class="  labelClass  tdNoWrap tdtext2 "></label>
+                                            </td>
+                                        </tr>
+                                       
+                                         <tr id="makerMillSheetPagination"
+                                            style="display:none; border-right:none; border-left:none;">
+
+                                            <!-- Page number on LEFT -->
+                                            <td colspan="2" style="text-align:left;">
+                                                <span>
+                                                    <span id="lblPageNo">1</span>
+                                                    /
+                                                    <span id="lblTotalPages">1</span>
+                                                </span>
+                                            </td>
+
+                                            <!-- Empty middle area -->
+                                            <td colspan="6"></td>
+
+                                            <!-- Arrows on RIGHT -->
+                                            <td colspan="2" style="text-align:right;">
+
+                                                <button type="button"
+                                                        id="btnPrevRecord"
+                                                        disabled>
+                                                    &#10094;
+                                                </button>
+
+                                                <button type="button"
+                                                        id="btnNextRecord">
+                                                    &#10095;
+                                                </button>
+
+                                            </td>
+
+                                        </tr> 
+                                        <tr style="border: 1px solid;" class=" ">
+                                            <td style="width:70px" class=" GridHeader22 labelClassWhite labelheight">
+                                                <label ID="lblmaterialcharge" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</label>
+                                            </td>
+                                            <td style="width:80px">
+                                                <label ID="lblvalCharge" class="  labelClass  tdNoWrap  "></label>
+                                            </td>
+                                            <td style="width:80px" class=" GridHeader22 labelClassWhite labelheight">
+                                                <label ID="lblMatlNameMaker" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlNameMaker")</label>
+                                            </td>
+                                            <td style="width:100px">
+                                                <label ID="lblvalMatlNameMaker" class="  labelClass  tdNoWrap  "></label>
+                                            </td>
+                                            <td style="width:70px" class=" GridHeader22 labelClassWhite labelheight">
+                                                <label ID="lblDimD" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</label>
+                                            </td>
+                                            <td style="width:60px">
+                                                <label ID="lblvalDimD" class="labelClass tdNoWrap"></label>
+                                            </td>
+                                            <td style="width:50px" class=" GridHeader22 labelClassWhite labelheight">
+                                                <label ID="lblLength" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</label>
+                                            </td>
+                                            <td style="width:70px" >
+                                                <label ID="lblvalLength" class="  labelClass  tdNoWrap  "></label>
+                                            </td>
+                                            <td style="width:70px" class=" GridHeader22 labelClassWhite labelheight">
+                                                <label ID="lblMillSheetNumber" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("ミルシート番号")</label>
+                                            </td>
+                                            <td style="width:60px" class="">
+                                                <label ID="lblvalMillSheetNumber" class="  labelClass  "></label>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table id="tblMakerChemical" style="margin-bottom:10px" class=" tablerightWidth">
+                            <tr class="td1 GridLines12">
+                                <td align="center" colspan="16" height="30px">
+                                    <label ID="lblScheduledOrderQty" Text="化学成分 Chemical Composition (%)" class="labelClass labelClassWhite" ForeColor="White">@LocalizationServices.GetLocalizedHtmlString("化学成分 Chemical Composition (%)")</label>
+                                </td>
+                            </tr>
+                            <tr class="GridHeader GridLines12">
+                                <td class="td100">
+                                    <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ChemicalComponant")<br /> Element</label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="LblCCNAME1" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="LblRANGE1" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="LblCCNAME2" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="LblRANGE2" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="LblCCNAME3" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="LblRANGE3" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="LblCCNAME4" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="LblRANGE4" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="LblCCNAME5" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="LblRANGE5" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="LblCCNAME6" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="LblRANGE6" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="LblCCNAME7" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="LblRANGE7" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="LblCCNAME8" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="LblRANGE8" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="LblCCNAME9" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="LblRANGE9" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="LblCCNAME10" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="LblRANGE10" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="LblCCNAME11" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="LblRANGE11" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="LblCCNAME12" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="LblRANGE12" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="LblCCNAME13" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="LblRANGE13" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="LblCCNAME14" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="LblRANGE14" class="labelClass"></label>
+                                </td>
+                                <td class="td60" style="vertical-align:top;padding-top:8px">
+                                    <label ID="LblCCNAME15" style="padding-bottom:7px" class="labelClass"></label>
+                                    <br />
+                                    <label ID="LblRANGE15" class="labelClass"></label>
+                                </td>
+
+                            </tr>
+                            <tr class="GridLines13">
+                                <td class="GridHeader td100" style="border-bottom-color: white;border-left-color:white;border-right-color:white;">
+                                    <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Standard_L")<br /> Spec.</label>
+                                </td>
+                                <td>
+                                    <label ID="lblCCMIN1" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblMCC1Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCCMAX1" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCCMIN2" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblMCC2Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCCMAX2" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCCMIN3" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblMCC3Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCCMAX3" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCCMIN4" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblMCC4Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCCMAX4" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCCMIN5" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblMCC5Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCCMAX5" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCCMIN6" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblMCC6Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCCMAX6" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCCMIN7" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblMCC7Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCCMAX7" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCCMIN8" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblMCC8Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCCMAX8" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCCMIN9" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblMCC9Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCCMAX9" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCCMIN10" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblMCC10Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCCMAX10" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCCMIN11" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblMCC11Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCCMAX11" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCCMIN12" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblMCC12Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCCMAX12" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCCMIN13" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblMCC13Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCCMAX13" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCCMIN14" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblMCC14Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCCMAX14" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblCCMIN15" class="labelClass MakerChemicalgridCCMin"></label>
+                                    <br />
+                                    <label ID="lblMCC15Minuse" class="labelClass MakerChemicalgridsymbol">@LocalizationServices.GetLocalizedHtmlString("~")</label>
+                                    <label ID="lblCCMAX15" class="labelClass MakerChemicalgridCCMax"></label>
+                                </td>
+
+                            </tr>
+                            <tr class="GridLines13">
+                                <td class="GridHeader td100" style="border-bottom-color: white;border-left-color:white;border-right-color:white;height:40px">
+                                    <label ID="lblMech" Text="化学成分 Chemical Composition (%)" class="labelClass tdNoWrap">成績</label><br /> Result
+                                </td>
+                                <td>
+                                    <label ID="lblMCCActual1" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblMCCActual2" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblMCCActual3" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblMCCActual4" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblMCCActual5" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblMCCActual6" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblMCCActual7" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblMCCActual8" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblMCCActual9" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblMCCActual10" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblMCCActual11" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblMCCActual12" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblMCCActual13" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblMCCActual14" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+                                <td>
+                                    <label ID="lblMCCActual15" class="labelClass MakerChemicalgridactual"></label>
+                                </td>
+
+                            </tr>
+                        </table>
+
+                        <table id=tblReport style="height:515px" class="tblDetailsClass tablerightWidth ">
+                            <tr>
+                                <td>
+                                    <div class="DivPdfShowMain">
+                                        <div id="pages" style="overflow:scroll; width:900px;height:528px;">
+                                        </div>
+
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </td>
+
+
+
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+<input type="hidden" id="hfdDeploymentTarget" name="hfdDeploymentTarget" />
+<input type="hidden" id="hdfDBOperation" name="hdfDBOperation" />
+<input type="hidden" id="hdfProdCD" name="hdfProdCD" />
+
+<input type="hidden" id="hdfImeMode" name="hdfImeMode" />
+<input type="hidden" id="hdfUserName" name="hdfUserName" />
+<input type="hidden" id="hdfSYSDATE" name="hdfSYSDATE" />
+<input type="hidden" id="hdfMakerMillsheetCD" name="hdfMakerMillsheetCD" />
+
+<input type="hidden" id="hdfStartOperatorCD" name="hdfStartOperatorCD" />
+<label id="lblYes" class="Hidden">@LocalizationServices.GetLocalizedHtmlString("lbl_Yes")</label>
+<label id="lblNo" class="Hidden">@LocalizationServices.GetLocalizedHtmlString("lbl_No")</label>
+<div id="divErrorMessages" class="Hidden">
+
+    <label id="lblErrorMessageE_STA_ENTRY_014" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+    </label>
+    <label id="lblErrorMessageE_STA_ENTRY_017" class="Hidden">
+        <span ID="LiteralStartDateTimeIsInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_StartDateTimeInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_STA_ENTRY_018" class="Hidden">
+        <span ID="LiteralEndDateTimeIsInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_EndDateTimeInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_STA_ENTRY_007" class="Hidden">
+        <span ID="Literal2">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_PMSStartDateGreaterThanEndDate")</span>
+    </label>
+    <label id="lblErrorMessageE_STA_ENTRY_009" class="Hidden">
+        <span ID="LiteralEndDateGreaterByAtLeastOneMinute">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_PMSEndDateGreaterByAtLeastOneMinute")</span>
+    </label>
+    <label id="lblErrorMessageE_HSKMILLSHEET_PostHTInspecDataNotFound" class="Hidden">
+        <span ID="LiteralChuubanNotFound">@LocalizationServices.GetLocalizedHtmlString("valMsg_PostHTInspecDataNotFound")</span>
+    </label>
+    <label id="lblErrorMessageE_HSKMILLSHEET_FinalInspectionNotDoneYet" class="Hidden">
+        <span ID="LiteralFinalInspectionNotDoneYet">@LocalizationServices.GetLocalizedHtmlString("valMsg_FinalInspectionNotDoneYet")</span>
+    </label>
+    <label id="lblErrorMessageE_HSKMILLSHEET_ENTRY_003" class="Hidden">
+        <span ID="LiteralChuubanNotFound">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ChuubanNotFound")</span>
+    </label>
+    <label id="lblErrorMessageE_HSKMILLSHEET_ChubanRequired" class="Hidden">
+        <span ID="LiteralChuubanNotFound">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ChubanRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_HSKMILLSHEET_ENTRY_004" class="Hidden">
+        <span ID="LiteralChuubanMarkedAsCompleted">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ChuubanMarkedAsCompleted")</span>
+    </label>
+
+    <label id="lblErrorMessageE_STA_ENTRY_086" class="Hidden">
+        <span ID="LiteralDivisionNoAlradyOK">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_Stamping_PMSThabaNoDuplicateWithDecisionOK")</span>
+    </label>
+
+    <label id="lblErrorMessageE_STA_ENTRY_08" class="Hidden">
+        <span ID="LiteralScanMachineRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ScanMachineRequired")</span>
+    </label>
+
+    <label id="lblErrorMessageE_HIKI_ENTRY_001" class="Hidden">
+        <span ID="LiteralIsRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_IsRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_STA_ENTRY_002" class="Hidden">
+        <span ID="LiteralNoDataToSave">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ProcessDataRequired")</span>
+    </label>
+
+    <label id="lblErrorMessageE_HIKI_ENTRY_005" class="Hidden">
+        <span ID="LiteralThabaNoDuplicate">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_PMSThabaNoDuplicate")</span>
+    </label>
+    <label id="lblErrorMessageE_HIKI_ENTRY_006" class="Hidden">
+        <span ID="LiteralSameThabaNoEnteredMultiple">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_PMSSameThabaNoEnteredMultiple")</span>
+    </label>
+
+    <label id="lblErrorMessageE_HIKI_ENTRY_008" class="Hidden">
+        <span ID="LiteralECNGBarOfflineCannotBeZero">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ECNGBarOfflineCannotBeZero")</span>
+    </label>
+
+    <label id="lblErrorMessageE_HIKI_ENTRY_010" class="Hidden">
+        <span ID="LiteralActDimOrLengthOutOfTolerance">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ActDimOrLengthOutOfTolerance")</span>
+    </label>
+    <label id="lblErrorMessageE_HIKI_ENTRY_011" class="Hidden">
+        <span ID="LiteralFinishedQtyNotIn2PercentRange">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_FinishedQtyNotIn2PercentRange")</span>
+    </label>
+    <label id="lblErrorMessageE_HIKI_ENTRY_012" class="Hidden">
+        <span ID="LiteralOperatorNotFound">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_PMSOperatorNotFound")</span>
+    </label>
+    <label id="lblErrorMessageE_HIKI_ENTRY_013" class="Hidden">
+        <span ID="LiteralMachineNotFound">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_MachineNotFound")</span>
+    </label>
+
+    <label id="lblErrorMessageE_STA_ENTRY_013" class="Hidden">
+        <span ID="Literal1">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ScanOperatorBarcode")</span>
+    </label>
+
+    <label id="lblErrorMessageE_STA_ENTRY_015" class="Hidden">
+        <span ID="LiteralEmployeeInactive">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_EmployeeInactive")</span>
+    </label>
+
+
+    <label id="lblErrorMessageE_HIKI_ENTRY_016" class="Hidden">
+        <span ID="LiteralMachineInactive">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_InactiveMachine")</span>
+    </label>
+
+    @*<label id="lblErrorMessage_STA_ENTRY_017" class="Hidden">
+    <span ID="LiteralScanOperatorBarcode">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ScanOperatorBarcode")</span>
+    </label>*@
+
+    <label id="lblErrorMessageE_HIKI_ENTRY_019" class="Hidden">
+        <span ID="LiteralThabaNoDuplicateWithDesigionOK">@LocalizationServices.GetLocalizedHtmlString("valMsg_RehikinukiPMSThabaNoDuplicateWithDecisionOK")</span>
+    </label>
+    <label id="lblErrorMessageE_HSKMILLSHEET_ENTRY_021" class="Hidden">
+        <span ID="LiteralNotHT_OrNoNotStartedFromHandOver">@LocalizationServices.GetLocalizedHtmlString("valMsg_OrNoNotStartedFromHandOver")</span>
+    </label>
+    <label id="lblErrorMessageE_STA_ENTRY_022" class="Hidden">
+        <span ID="LiteralNotHT_StartDateTime_IsGreaterThanToday">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_PMSStartDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_STA_ENTRY_023" class="Hidden">
+        <span ID="LiteralNotHT_EndDateTime_IsGreaterThanToday">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_PMSEndDateInvalid")</span>
+    </label>
+    <label id="lblErrorMessageE_STA_ENTRY_033" class="Hidden">
+        <span ID="LiteralPlusMinus">@LocalizationServices.GetLocalizedHtmlString("lbl_PlusMinus")</span>
+    </label>
+    <label id="lblErrorMessageE_STA_ENTRY_034" class="Hidden">
+        <span ID="LiteralPlusMinus">@LocalizationServices.GetLocalizedHtmlString("valMsg_BarcodeIncorrect")</span>
+    </label>
+    <label id="lblErrorMessageE_SearchField" class="Hidden">
+        <span ID="SearchFieldErrorMsg">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_EnterAtLeastOneSearchCondition")</span>
+    </label>
+    <label id="lblErrorMessageE_DateField" class="Hidden">
+        <span ID="SearchFieldErrorMsg">@LocalizationServices.GetLocalizedHtmlString("valMsg_FinalInsStartIsGreaterThanEnd")</span>
+    </label>
+    <label id="lblErrorMessageE_DimStart" class="Hidden">
+        <span ID="SearchFieldErrorMsg">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_BracketStartDimRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_MultipleMillSheets" class="Hidden">
+        <span ID="SearchFieldErrorMsg">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_MultipleMillSheets")</span>
+    </label>
+
+</div>
+
+
+
+<div id="dialog" title="Dialog" class="Hidden">
+    <table>
+        <tr>
+            <td id="dialogMessageIcon">
+                <img id="imgWarning" src="~/images/warning.png" style="height: 25px; width: 25px !important;" alt="" />
+                <img id="imgError" src="~/images/error.png" style="height: 25px; width: 25px !important;" alt="" />
+                <img id="imgSuccess" src="~/images/sucess.png" style="height: 25px; width: 25px !important;" alt="" />
+            </td>
+            <td id="dialogMessageText"></td>
+        </tr>
+    </table>
+</div>
+
+<div class="modal fade" id="PostHTModel" tabindex="1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content labelClass" style="width:81%">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">@LocalizationServices.GetLocalizedHtmlString("lblMenu_HSKMillSheetSave")</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="divPostHTInspectionGrid" style="height:402px">
+                    <div>
+                        <table>
+                            <tr>
+                                <td>
+                                    <table style="width:400px">
+                                        <thead>
+                                            <tr class="td1 GridLines12 textboxheight">
+                                                <td colspan="17" class="labelClass labelClassWhite textboxheighttextboxheight">
+                                                    <label ID="lblchemicalComponant">@LocalizationServices.GetLocalizedHtmlString("lbl_PostHTDetails")</label>
+                                                </td>
+                                            </tr>
+                                            <tr class="GridHeader1 GridLines12 textboxheight">
+                                                <td style="width:20px">
+                                                </td>
+                                                <td style="width:60px">
+                                                    <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_InspectionDate")</label>
+                                                </td>
+                                                <td style="width:80px">
+                                                    <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("DM-F")</label>
+                                                </td>
+                                                <td style="width:80px">
+                                                    <label ID="lblchemicalComponant" class="labelClass">DM-T @LocalizationServices.GetLocalizedHtmlString("lbl_Average")</label>
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model != null && Model.Count > 0)
+                                            {
+                                                int i = 0;
+                                                foreach (var item in Model)
+                                                {
+                                                    i = i + 1;
+                                                    <tr class="trTdSearchContent">
+                                                        <td class="labelClass padddingLeft padddingRight">
+
+                                                            <input type="radio" ID=@("selectRow" + 1) data-id="@i" class="labelClass" name="radiobtn" />
+                                                        </td>
+                                                        <td style="display:none;">
+                                                            <label type="text" ID="@("internal_quality_CD" + i)" data-id="@i">@item.INTERNAL_QUALITY_CD</label>
+                                                        </td>
+                                                        <td style="width:60px;" class="text-center">
+                                                            <label ID="lblchemicalComponant" class="labelClass tdNoWrap">@item.INT_QLTY_TEST_DATE</label>
+                                                        </td>
+                                                        <td style="width:80px" class="text-right">
+                                                            <label ID="lblchemicalComponant" class="labelClass">@item.ACT_DM_F</label>
+                                                        </td>
+                                                        <td style="width:80px" class="text-right">
+                                                            <label ID="lblchemicalComponant" class="labelClass">@item.ACT_DM_T_AVG</label>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <table style="float:right">
+                    <tr>
+                        <td>
+                            <button type="button" ID="btnPostHTSelected" class="_functionButtons" TabIndex="5" Style="width: 86px;"
+                                    ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static">
+                                @LocalizationServices.GetLocalizedHtmlString("lbl_Select")
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" ID="btnClose" OnClientClick="return Confirmation()" class="_functionButtons" TabIndex="5" Style="width: 86px;"
+                                    ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" data-dismiss="modal">
+                                @LocalizationServices.GetLocalizedHtmlString("btn_Close_L")
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="MakerChemicalPopUp" style="width:100%" tabindex="1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:1300px">
+        <div class="modal-content labelClass" style="width:1306px">
+            <div class="modal-header" style="width:1317px">
+                <h5 class="modal-title" id="exampleModalLongTitle">@LocalizationServices.GetLocalizedHtmlString("lblMenu_HSKMillSheetSave")</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div style="background-color:#d4d0c8;height:167px;width:100%">
+                  
+                    <table id="tblHardnessJISDetails" class="BorderInsetChemicalPopup" border="1" cellpadding="0" cellspacing="0">
+                        <tr class="td2">
+                            <td class="labelClass labelClassWhite ">
+                                <label ID="lblchemicalComponant">距離</label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd1" class="labelClass MakerChemicalgridactual"></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd2" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd3" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd4" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd5" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd6" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd7" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd8" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd9" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd10" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd11" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd12" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd13" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd14" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd15" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd16" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd17" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd18" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd19" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd20" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd21" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd22" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd23" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd24" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblStd25" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+
+
+                        </tr>
+                        <tr class="td2">
+                            <td class="labelClass labelClassWhite ">
+                                <label ID="lblchemicalComponant">MIN </label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin1" class="labelClass MakerChemicalgridactual "></label>
+                               
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin2" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin3" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin4" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin5" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin6" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin7" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin8" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin9" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin10" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin11" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin12" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin13" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin14" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin15" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin16" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin17" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin18" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin19" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin20" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin21" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin22" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin23" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin24" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMin25" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                        </tr>
+                        <tr class="td2">
+                            <td class="labelClass labelClassWhite ">
+                                <label ID="lblchemicalComponant">MAX </label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax1" class="labelClass MakerChemicalgridactual "></label>
+                               
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax2" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax3" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax4" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax5" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax6" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax7" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax8" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax9" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax10" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax11" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax12" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax13" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax14" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax15" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax16" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax17" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax18" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax19" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax20" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax21" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax22" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax23" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax24" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblMax25" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+
+
+
+
+                        </tr>
+                        <tr class="td2">
+                            <td class="labelClass labelClassWhite ">
+                                <label ID="lblchemicalComponant">@LocalizationServices.GetLocalizedHtmlString("成績") </label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual1" class="labelClass MakerChemicalgridactual "></label>
+                              
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual2" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual3" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual4" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual5" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual6" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual7" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual8" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual9" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual10" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual11" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual12" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual13" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual14" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual15" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual16" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual17" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual18" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual19" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual20" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual21" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual22" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual23" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual24" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px" class="makerHardnessJISpopup">
+                                <label ID="lblActual25" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+
+                        </tr>
+
+                        <tr class="td2" >
+                            <td class="labelClass labelClassWhite ">
+                                <label ID="lblchemicalComponant"></label>
+                            </td>
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval1"  class=" labelClass  tdNoWrap" style="width: 100%">
+                                <label ID="val1" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                                <span class="text-danger"></span>
+                            </td>
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval2"  class="  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                                <label ID="val2" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval3"  class="  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                                <label ID="val3" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval4"  class="  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                                <label ID="val4" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval5" class="  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                                <label ID="val5" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval6" class="  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                                <label ID="val6" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval7" class="  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                                <label ID="val7" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval8" class="  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                                <label ID="val8" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval9" class="  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                                <label ID="val9" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval10" class="  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                                <label ID="val10" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval11" class="  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                                <label ID="val11" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval12" class="  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                                <label ID="val12" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval13" class="  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                                <label ID="val13" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval14" class="  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                                <label ID="val14" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval15" class="  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                                <label ID="val15" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval16" class="  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                                <label ID="val16" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval17" class="  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                                <label ID="val17" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval18" class="  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                                <label ID="val18" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval19" class="  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                                <label ID="val19" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval20" class="  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                                <label ID="val20" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval21" class="  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                                <label ID="val21" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval22" class="  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                                <label ID="val22" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval23" class="  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                                <label ID="val23" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval24" class="  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                                <label ID="val24" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+                            <td style="width:50px;background-color:white">
+                                <input type="checkbox" ID="chkval25" class="  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                                <label ID="val25" hidden="hidden" class="labelClass MakerChemicalgridactual "></label>
+                            </td>
+
+
+                        </tr>
+                        <tr style="background-color:#d4d0c8">
+                            <td colspan="22">
+                            </td>
+                            <td colspan="2" style="text-align:center;color:black">
+                                <input type="checkbox" ID="chkhardnessCal" class="  labelClass  tdNoWrap"><span>@LocalizationServices.GetLocalizedHtmlString("距離÷10")</span>
+
+
+                            </td>
+                            <td colspan="2" class="Close">
+                                <table id="tblprint" align="center">
+                                    <tr>
+                                        <td align="center">
+                                            <label ID="lblchemicalComponant" class="labelClass labelClassWhite">@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnCloseJISPopUp"  class="_functionButtons" TabIndex="5" Style="width: 86px;"
+                                                   ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+
+                    </table>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+              @*   <table style="float:right">
+                    <tr>
+                        <td>
+                            <button type="button" ID="btnPostHTSelected" class="_functionButtons" TabIndex="5" Style="width: 86px;"
+                                    ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static">
+                                @LocalizationServices.GetLocalizedHtmlString("lbl_Select")
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" ID="btnClose" OnClientClick="return Confirmation()" class="_functionButtons" TabIndex="5" Style="width: 86px;"
+                                    ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" data-dismiss="modal">
+                                @LocalizationServices.GetLocalizedHtmlString("btn_Close_L")
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+ *@
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="MillSheetFinalInspectionPopup" style="width:100%" tabindex="1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width:45%">
+        <div class="modal-content labelClass" style="width:806px">
+            <div class="modal-header" style="width:805px">
+                <h5 class="modal-title" id="exampleModalLongTitle">@LocalizationServices.GetLocalizedHtmlString("lblMenu_HSKMillSheetSave")</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="divHSKMillSheetFinalInspectionList" style="height:402px;overflow:auto">
+                <div>
+                    <table>
+                        <tr>
+                            <td>
+                                <table style="width:800px" class="freez GridLines GridColumnLeftPadding">
+                                    <thead>
+                                        <tr class="td1 GridLines12 textboxheight">
+                                            <td colspan="17" class="labelClass labelClassWhite textboxheight">
+                                                <label ID="lblchemicalComponant">@LocalizationServices.GetLocalizedHtmlString("lbl_FinalInspDetails")</label>
+                                            </td>
+                                        </tr>
+                                        <tr class="GridHeader1 GridLines12 textboxheight">
+                                            <td>
+                                                <label ID="lblchemicalComponant" class="labelClass"> </label>
+                                            </td>
+                                            <td>
+                                                <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_TabaNo")</label>
+                                            </td>
+                                            <td>
+                                                <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualDimension1")</label>
+                                            </td>
+                                            <td>
+                                                <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualDimension2")</label>
+                                            </td>
+                                            <td>
+                                                <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualDim3")</label>
+                                            </td>
+                                            <td>
+                                                <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualLength")</label>
+                                            </td>
+                                            <td>
+                                                <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualRadius1")</label>
+                                            </td>
+                                            <td>
+                                                <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualRadius2")</label>
+                                            </td>
+                                            <td>
+                                                <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualRadius3")</label>
+                                            </td>
+                                            <td>
+                                                <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualRadius4")</label>
+                                            </td>
+                                            <td>
+                                                <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualRadius5")</label>
+                                            </td>
+                                            <td>
+                                                <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualRadius6")</label>
+                                            </td>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model != null && Model.Count > 0)
+                                        {
+                                            int i = 0;
+                                            foreach (var item in Model)
+                                            {
+                                                i = i + 1;
+                                                <tr class="GridRight padddingRight">
+                                                    <td class="labelClass">
+
+                                                        <input type="radio" ID=@("selectRow" + i) data-id="@i" class="labelClass" name="radiobtn" />
+                                                    </td>
+                                                    <td style="display:none;">
+                                                        <label type="text" ID="@("FINAL_INSP_CD" + i)" data-id="@i">@item.FINAL_INSP_CD</label>
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblThaba" class="labelClass">@item.FI_TABA_NO</label>
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblActDim1" class="labelClass padddingRight">@item.FI_DIM1</label>
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblActDim2" class="labelClass">@item.FI_DIM2</label>
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblActDim3" class="labelClass">@item.FI_DIM3</label>
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblAct_len" class="labelClass">@item.FI_LENGTH</label>
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblCRad1" class="labelClass">@item.FI_ACT_RADIUS_1</label>
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblCRad2" class="labelClass">@item.FI_ACT_RADIUS_2</label>
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblCRad3" class="labelClass">@item.FI_ACT_RADIUS_3</label>
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblCRad4" class="labelClass">@item.FI_ACT_RADIUS_4</label>
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblCRad5" class="labelClass">@item.FI_ACT_RADIUS_5</label>
+                                                    </td>
+                                                    <td>
+                                                        <label ID="lblCRad6" class="labelClass">@item.FI_ACT_RADIUS_6</label>
+                                                    </td>
+
+                                                </tr>
+
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr style="height:20px;">
+                                                <td colspan="18" align="left" style="padding-left:5px;"><label ID="lbldatanotavailable" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_NoRecordFound_L")</label></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                </<div>
+            </div>
+            <div class="modal-footer">
+                  <table style="float:right">
+                    <tr>
+                        <td>
+                            <button type="button" ID="btnPostHTSelected" class="_functionButtons" TabIndex="5" Style="width: 86px;"
+                                    ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static">
+                                @LocalizationServices.GetLocalizedHtmlString("lbl_Select")
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" ID="btnClose" OnClientClick="return Confirmation()" class="_functionButtons" TabIndex="5" Style="width: 86px;"
+                                    ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" data-dismiss="modal">
+                                @LocalizationServices.GetLocalizedHtmlString("btn_Close_L")
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+<div id="SortPopUpModalMain">
+    @{
+        @await Html.PartialAsync("~/Views/Shared/SortPopUp.cshtml")
+        ;
+    }
+</div>
+@section Scripts {
+    <script src="~/static/js/HSKMillSheetSaveEdit.js"></script>
+
+    <script src="~/Scripts/jquery-ui.js"></script>
+
+
+    <script src="~/scripts/pdfreader/pdf.js" asp-append-version="true"></script>
+
+    <script src="~/scripts/pdfreader/workerpdf.js" asp-append-version="true"></script>
+
+
+}

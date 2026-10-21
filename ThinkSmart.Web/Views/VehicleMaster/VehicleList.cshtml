@@ -1,0 +1,252 @@
+﻿@using TSWebApplication.Domain.Resources
+@using TSWebApplication.Domain.Model
+@inject LocalizationServices LocalizationServices
+@model List<VehicleDetails>
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_VehicleMaster").Value.Replace("</br>", "");
+    Layout = "~/Views/VehicleMaster/_LayoutVehicleList.cshtml";
+
+}
+<link href="~/css/Common_Styles.css" rel="stylesheet" />
+<link href="~/css/Configuration.css" rel="stylesheet" />
+<link href="~/css/MasterTemplate.css" rel="stylesheet" />
+<link href="~/css/masterStyles.css" rel="stylesheet" />
+<link href="~/css/VehicleEntryEditDelete.css" rel="stylesheet" />
+
+<style>
+    /* Popup container - can be anything you want */
+    .popup {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+        /* The actual popup */
+        .popup .popuptext {
+            visibility: hidden;
+            width: 240px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            /*   border-radius: 6px; */
+            padding: 8px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -80px;
+            border: 1px solid gray;
+        }
+
+            /* Popup arrow */
+            .popup .popuptext::after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                left: 40%;
+                margin-left: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: #555 transparent transparent transparent;
+            }
+
+        /* Toggle this class - hide and show the popup */
+        .popup .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 1s;
+            animation: fadeIn 1s;
+        }
+
+    /* Add animation (fade in the popup) */
+    -webkit-keyframes fadeIn {
+        from
+
+    {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+    }
+
+    keyframes fadeIn {
+        from
+
+    {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+    }
+</style>
+
+
+<div style="Width:93%;overflow:auto;margin-left: 3px;">
+    @* id="pnlProductDetails" *@
+
+    @* <table cellspacing="0" cellspadding="0" width="99.05%" height="250px"> *@
+        @* style="border: inset;" *@
+
+    <table id="tblheaderSearch" cellpadding="1" cellspacing="1" border="0" class="searchTextBox">
+        <tr class="trTdH2">
+
+            <th id="tdVehicleCode" class="tdHeaderClass tdMstheaderClass" >
+                <label ID="lblVehicleCode" class="labelClass1 GridChubaan">@LocalizationServices.GetLocalizedHtmlString("lbl_VehicleOode")</label>
+            </th>
+            <th id="tdVehicleName" class="tdHeaderClass tdMstheaderClass">
+                <label ID="lblVehicleName" class="labelClass1 ">@LocalizationServices.GetLocalizedHtmlString("lbl_VehicleName")</label>
+            </th>
+            <th id="tdShortName" class="tdHeaderClass tdMstheaderClass">
+                <label ID="lblShortName" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_ShortName")</label>
+            </th>
+            <th id="tdYobigana" class="tdHeaderClass tdMstheaderClass">
+                <label ID="lblYobigana" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Yobigana_L")</label>
+            </th>
+            <th id="tdYobina" class="tdHeaderClass tdMstheaderClass">
+                <label ID="lblYobina" class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_Yobina")</label>
+            </th>
+            <th id="tdDriverName" class="tdHeaderClass tdMstheaderClass">
+                <label ID="lblDriverName" class="labelClass1 ">@LocalizationServices.GetLocalizedHtmlString("lbl_DriverName")</label>
+            </th>
+          
+            @* <th id="tdDriverName" class="tdHeaderClass tdMstheaderClass">
+                <label ID="lblDriverName" class="labelClass ">@LocalizationServices.GetLocalizedHtmlString("lbl_DriverName")</label>
+            </th> *@
+           
+            @* <th id="tdTelphoneNumber" class="tdHeaderClass">
+                <label ID="lblTelphoneNumber" class="labelClass1 GridActAllocDate">@LocalizationServices.GetLocalizedHtmlString("lbl_TelphoneNumber")</label>
+            </th> *@
+           
+           @*  <th id="tdVehicleNumber" class="tdHeaderClass tdMstheaderClass">
+                <label ID="lblVehicleNumber" class="labelClass1 GridProdSpec">@LocalizationServices.GetLocalizedHtmlString("lbl_VehicleNumber")</label>
+            </th> *@
+            
+           
+        </tr>
+        <tr class="trTdSearchContent">
+            <td class="td tdSearchGrid tdMstSearchGrid" style="width:85px;">
+                <input type="text" ID="txtVehicleCodeSearch" MaxLength="3" class="FitSearchTextBox labelClass ipBorder" TabIndex="1">
+                       
+            </td>
+            <td class="td tdSearchGrid tdMstSearchGrid">
+                <input type="text" ID="txtVehicleNameSearch" MaxLength="15" TabIndex="2" class="labelClass FitSearchTextBox  ipBorder " />@* UpperCase CharOnly *@
+            </td>
+            
+            <td class="td tdSearchGrid tdMstSearchGrid" style="width:85px;">
+                <input type="text" ID="txtShortNameSearch" MaxLength="10" TabIndex="3" class=" labelClass FitSearchTextBox ipBorder">
+            </td>
+          
+            <td class="td tdSearchGrid tdMstSearchGrid" >
+                <input type="text" ID="txtYobiganaSearch" MaxLength="30" TabIndex="4" class=" labelClass FitSearchTextBox ipBorder">
+            </td>
+            <td class="td tdSearchGrid tdMstSearchGrid" style="width:85px;">
+                <input type="text" ID="txtYobinaSearch" MaxLength="10" TabIndex="5" class=" labelClass FitSearchTextBox ipBorder">
+            </td>
+            <td class="td tdSearchGrid tdMstSearchGrid">
+                <input type="text" ID="txtDriverNameSearch" MaxLength="20" TabIndex="6" class=" labelClass FitSearchTextBox  ipBorder " />@* UpperCase CharOnly *@
+            </td>
+           @*  <td class="td tdSearchGrid tdMstSearchGrid">
+                <input type="text" ID="txtDriverName" MaxLength="40" TabIndex="2" class="labelClass FitSearchTextBox ipBorder CharOnly UpperCase" />
+            </td >*@
+            @* <td class="td tdSearchGrid">
+                <input type="text" ID="txtTelphoneNumber" MaxLength="20" class="FitSearchTextBox labelClass" TabIndex="1">
+
+            </td> *@
+            @* <td class="td tdSearchGrid tdMstSearchGrid">
+                <input type="text" ID="txtVehicleNumber" MaxLength="20" class="FitSearchTextBox labelClass ipBorder" TabIndex="1">
+
+            </td> *@
+            @* <td class="td tdSearchGrid">
+                <input type="text" ID="txtDimD1" MaxLength="7" TabIndex="5" class=" labelClass FitSearchTextBox"
+                       onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+            </td> *@
+         
+           
+
+        </tr>
+    </table>
+       
+   @*  </table> *@
+
+</div>
+<div style="width: 1245px; height: 600px;overflow:auto;margin-top:7px;margin-left: 3px;">
+
+
+    <div id="divVehicleDetailsGridMain" style="height:600px;overflow:auto;">
+        @{
+            @await Html.PartialAsync("VehicleGrid", Model)
+            ;
+        }
+
+    </div>
+</div>
+<div id="SortPopUpModalMain">
+    @{
+        @await Html.PartialAsync("~/Views/Shared/SortPopUp.cshtml")
+        ;
+        
+    }
+</div>
+
+<input type="hidden" id="hdfGroupNo" name="hdfGroupNo" />
+<div id="divPageTitleMessages" class="Hidden">
+    <label id="lblTitle_MakerMaterial_001" class="Hidden">
+        <span ID="LiteralMasterMakerMaterialRate">@LocalizationServices.GetLocalizedHtmlString("lbl_VehicleMaster")</span>
+    </label>
+</div>
+<div id="divErrorMessages" class="Hidden">
+    <label id="lblErrorMessageE_Maker_MaterialEntry_001" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+    </label>
+    <label id="lblErrorMessageE_Maker_MaterialEntry_002" class="Hidden">
+        <span ID="LiteralAddatleastOnePrice">@LocalizationServices.GetLocalizedHtmlString("valMsg_AddatleastOnePrice")</span>
+    </label>
+    <label id="lblErrorMessageE_Maker_MaterialEntry_003" class="Hidden">
+        <span ID="LiteralDimStart_Required">@LocalizationServices.GetLocalizedHtmlString("valMsg_DimStart_Required")</span>
+    </label>
+    <label id="lblErrorMessageE_Maker_MaterialEntry_004" class="Hidden">
+        <span ID="LiteralDimEnd_Required">@LocalizationServices.GetLocalizedHtmlString("valMsg_DimEnd_Required")</span>
+    </label>
+    <label id="lblErrorMessageE_Maker_MaterialEntry_005" class="Hidden">
+        <span ID="LiteralRate_Required">@LocalizationServices.GetLocalizedHtmlString("valMsg_Rate_Required")</span>
+    </label>
+
+</div>
+<div id="divSuccessMessages" class="Hidden">
+    <label id="lblSuccessMessageS_Maker_MaterialEntry_001" class="Hidden">
+        <span ID="LiteralDataSaved">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataSaved")</span>
+    </label>
+    <label id="lblSuccessMessageS_Maker_MaterialEntry_002" class="Hidden">
+        <span ID="LiteralDataUpdated">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataUpdated")</span>
+    </label>
+    <label id="lblSuccessMessageS_Maker_MaterialEntry_003" class="Hidden">
+        <span ID="LiteralDataDeleted">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataDeleted")</span>
+    </label>
+</div>
+
+
+<script>
+     function myFunction() {
+      var popup = document.getElementById("myPopup");
+      popup.classList.toggle("show");
+    }
+</script>
+
+<script src="~/static/js/VehicleEntryEditDelete.js"></script>
+<script src="~/Scripts/SortPopUpAddRemove.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+       btnExtract_Click();
+    });
+</script>

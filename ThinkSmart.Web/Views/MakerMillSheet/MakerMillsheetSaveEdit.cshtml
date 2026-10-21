@@ -1,0 +1,1778 @@
+﻿@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_MakerMillSheet").Value.Replace("</br>", "");
+    // Layout = "~/Views/Shared/_Layout.cshtml";
+    DateTime fromDate = DateTime.Now;
+    fromDate = fromDate.AddMonths(-3);
+
+    DateTime toDate = DateTime.Now;
+}
+
+
+
+<link href="~/css/Common.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/masterStyles.css" rel="stylesheet" asp-append-version="true"/>
+<link href="~/css/MakerMillSheet.css" rel="stylesheet" asp-append-version="true" />
+<style>
+    .Trheight {
+        height: 32px;
+    }
+
+
+
+    .page {
+        margin-left: 10px;
+        margin-top: 5px;
+        box-shadow: 0px 0px 5px #000;
+    }
+
+</style>
+<table class="mainTable">
+    <tr>
+        <td class="maintd">
+            <div class="DivPdfShowMain">
+                <div id="pages">
+                   
+                </div>
+
+            </div>
+        </td>
+        <td class="mainFormtd">
+            <table>
+                <tr>
+                    <td>
+                        <table class="Buttontable">
+                            <tr>
+                                <td colspan="5" align="center" valign="bottom">
+                                    <label ID="lblBasicOperation" class="labelClass" style="color:white">@LocalizationServices.GetLocalizedHtmlString("lbl_BasicOperations")</label>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                   
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Initialize")" ID="btnInitialize" class="_functionButtons Buttonwidthcommon"
+                                           style="margin-left:20px" CausesValidation="false" TabIndex="240" />
+                                          
+                                </td>
+                                <td>
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_BulkSave")" ID="btnSave" ValidationGroup="TrnValidation" class="_functionButtons Buttonwidthcommon"
+                                           CausesValidation="false" TabIndex="241" />
+                                </td>
+                                <td>
+                                 
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Select")" ID="btnSelect" ValidationGroup="TrnValidation" class="_functionButtons Buttonwidthcommon"
+                                    CausesValidation="false" TabIndex="242" />
+                                  
+                                </td>
+                                <td>
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Edit")" ID="btnEdit" ValidationGroup="TrnValidation" class="_functionButtons Buttonwidthcommon"
+                                           CausesValidation="false" TabIndex="243" />
+                                </td>
+                                <td>
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Delete")" ID="btnDelete" class="_functionButtons Buttonwidthcommon" CausesValidation="false"
+                                           TabIndex="244" />
+                                </td>
+
+                                
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table>
+                            <tr class="Trheight">
+                                <td>
+                                    <label ID="lblM_TemplateName" class="labelClass lblmaker" ForeColor="Black" style="white-space:nowrap;">@LocalizationServices.GetLocalizedHtmlString("lbl_M_TemplateName")</label>
+                                </td>
+                                <td colspan="3">
+                                    <select ID="ddlTemplateName" runat="server" class="DropdownListClass bordernone textboxheight dropListClass" TabIndex="1" style=" padding-bottom:2px;font-family:'MS Gothic'; Height:22px;margin-top:10px; Width:100%"
+                                            errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TemplateNameRequired")">
+                                    </select>
+                                </td>
+                                <td align="right" valign="middle">
+                                    <input type="checkbox" id="chkConfirmPage" /> 
+                                    <label ID="lblConfirm" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Confirm")</label>
+                                </td>
+                            </tr>
+                            <tr class="Trheight">
+                                <td class="MakerTdlabel">
+                                    <label ID="lblMaker" class="labelClass lblmaker">@LocalizationServices.GetLocalizedHtmlString("lbl_MakerMaster")</label>
+                                </td>
+                                <td colspan="3">
+                                    <select ID="ddlMakerName" runat="server" class="MandatoryDropdown Mandatory DropdownListClass bordernone textboxheight dropListClass" TabIndex="1" style=" padding-bottom:2px;font-family:'MS Gothic'; Height:22px;margin-top:10px; Width:100%"
+                                            errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_MakerRequired")">
+                                    </select>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+
+                            <tr class="Trheight">
+                                <td>
+                                    <label ID="lblKoban" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Kouban")</label>
+                                </td>
+
+                                <td class="paddingleftNright">
+                                    <input type="text" ID="txtkouban" TabIndex="2" class="textboxheight labelClass bordernone tdNoWrap inputKoubun"><span class="text-danger"></span>
+                                </td>
+                                <td>
+                                </td>
+                                <td class="Chargetd">
+                                    <label ID="lblCharge" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</label>
+                                </td>
+
+                                <td class="paddingleftNright">
+                                    <input type="text" ID="txtcharge" TabIndex="3" class="textboxheight Mandatory  labelClass bordernone tdNoWrap inputcharge"
+                                           errorlabel="@LocalizationServices.GetLocalizedHtmlString("val_Msg_ChargeRequired")"><span class="text-danger"></span>
+                                </td>
+                            </tr>
+
+                            <tr class="Trheight">
+                                <td>
+                                    <label ID="lblTypeOfSteel" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_TypeOfSteel")</label>
+                                </td>
+
+                                <td class="paddingleftNright">
+                                    <input type="text" ID="txtTypeofSteel" TabIndex="4" class="textboxheight Mandatory labelClass bordernone tdNoWrap inputTypeOfSteel"
+                                           errorlabel="@LocalizationServices.GetLocalizedHtmlString("val_Msg_SteelTypeRequired")"><span class="text-danger"></span>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    <label ID="lblDimensions" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Dimensions")</label>
+                                </td>
+
+                                <td class="paddingleftNright">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <input type="text" ID="txtDimension" TabIndex="5" class="textboxheight labelClass  tdNoWrap inputDimension"
+                                                       maxlength="7" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                                                <span class="text-danger"></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" ID="txtLength" TabIndex="6" class="textboxheight  labelClass  tdNoWrap inputDimension"
+                                                       maxlength="8" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                                                <span class="text-danger"></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+
+                                </td>
+                            </tr>
+
+                            <tr class="Trheight">
+                                <td>
+                                    <label ID="lblMaker" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_NoOfUnits")</label>
+                                </td>
+
+                                <td class="paddingleftNright">
+                                    <input type="text" ID="txtNoOfUnits" TabIndex="7" maxlength="9" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" class="textboxheight    labelClass  tdNoWrap inputNoOfUnits"><span class="text-danger"></span>
+                                    <select id="ddlUnitType" name="ddlUnitType" class="TextFieldsClass Mandatory form-control" style="width:45px"
+                                            TabIndex="8" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_UnitRequired")"> </select>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    <label ID="lblWeightWithoutKG" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_WeightWithoutKG")</label>
+                                </td>
+
+                                <td class="paddingleftNright">
+                                    <input type="text" ID="txtWeightWithoutKG" TabIndex="8" class="textboxheight   labelClass tdNoWrap inputWeightWithoutKG"
+                                           maxlength="11" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                                    <span class="text-danger"></span>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td align="left">
+                                    <label ID="lblGainsizeSTD" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_GainSizeStd")</label>
+                                </td>
+                                <td align="left">
+                                    <input type="text" ID="txtGainsizeSTD" TabIndex="9" class="IsNumber textboxheight labelClass tdNoWrap inputGainSize"
+                                           maxlength="4" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                                </td>
+                                <td></td>
+                                <td align="left">
+                                    <label ID="lblGainSizeActual" class="labelClass" style="width:70px;">@LocalizationServices.GetLocalizedHtmlString("lbl_GainSizeActual")</label>
+                                    </td>
+                                <td align="left">
+                                                 <input type="text" ID="txtGainSizeActual" TabIndex="10" class="IsNumber textboxheight   labelClass tdNoWrap inputGainSize"
+                                           maxlength="4" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                                    </td>
+                            </tr>
+                           
+                            <tr class="Trheight">
+                                <td>
+                                    <label ID="lblHardnessmakerType" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessMakerStandard")</label>
+                                </td>
+
+                                <td class="paddingleftNright">
+                                    <input type="text" ID="txtHardnessmakerSTD" maxlength="5" TabIndex="11" class="textboxheight labelClass  tdNoWrap inputHardnessMakerSTD"><span class="text-danger"></span>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    <label ID="lblHardnessMakerStandard" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessmakerType")</label>
+                                </td>
+
+                                <td class="paddingleftNright">
+                                    <input type="text" ID="txtHardnessMakerActual" maxlength="11" TabIndex="12" class="textboxheight labelClass tdNoWrap inputHardnessMakerActual" style="margin-left:2px;">
+                                </td>
+                            </tr>
+
+
+                            <tr class="Trheight">
+                                <td>
+                                    <label ID="lblHardness" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Hardness")</label>
+                                </td>
+
+                                <td class="paddingleftNright">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <input type="text" ID="txtHardnessMin" maxlength="3" TabIndex="13" class="textboxheight labelClass tdNoWrap inputHardness"><span class="text-danger"></span>
+                                            </td>
+                                            <td>
+                                                <input type="text" ID="txtHardnessMax" maxlength="3" TabIndex="14" class="textboxheight labelClass  tdNoWrap inputHardness"><span class="text-danger"></span>
+                                            </td>
+
+                                        </tr>
+                                    </table>
+                                </td>
+
+                                <td colspan="2">
+                                    <label ID="lblminmax" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("（MIN・MAX）")</label>
+                                </td>
+                                <td>
+                                </td>
+
+                            </tr>
+
+
+                        </table>
+
+                    </td>
+                </tr>
+
+            </table>
+            <table style="width:100%">
+                <tr class="TablemainChemicaltr">
+                    <td align="center" class="TablemainChemicaltd">
+                        <label ID="lblScheduledOrderQty" class="labelClass labelClassWhite">@LocalizationServices.GetLocalizedHtmlString("lbl_StandardChemComposition")</label>
+                    </td>
+                </tr>
+            </table>
+            <div class="GriddivChemical">
+                <table border="1" cellpadding="0" cellspacing="0" class="TablemainChemical">
+
+                    <tr class="td2 dropdown">
+                        <td class="labelClass TablemainChemicalTitle">
+                            <label ID="lblchemicalComponant">@LocalizationServices.GetLocalizedHtmlString("lbl_ChemicalComponant")</label>
+                        </td>
+                        <td class="TablemainChemicaltd ">
+                            <input id="txtCCName1" class="labelClass" maxlength="8" type="text" />
+                            <select ID="ddltd1" runat="server" TabIndex="15" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input id="txtCCName2" class="labelClass" maxlength="8" type="text" />
+                            <select ID="ddltd2" runat="server" TabIndex="20" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input id="txtCCName3" class="labelClass" maxlength="8" type="text" />
+                            <select ID="ddltd3" runat="server" TabIndex="25" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input id="txtCCName4" class="labelClass" maxlength="8" type="text" />
+                            <select ID="ddltd4" runat="server" TabIndex="30" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input id="txtCCName5" class="labelClass" maxlength="8" type="text" />
+                            <select ID="ddltd5" runat="server" TabIndex="35" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input id="txtCCName6" class="labelClass" maxlength="8" type="text" />
+                            <select ID="ddltd6" runat="server" TabIndex="40" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input id="txtCCName7" class="labelClass" maxlength="8" type="text" />
+                            <select ID="ddltd7" runat="server" TabIndex="45" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input id="txtCCName8" class="labelClass" maxlength="8" type="text" />
+                            <select ID="ddltd8" TabIndex="50" runat="server" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input id="txtCCName9" class="labelClass" type="text" />
+                            <select ID="ddltd9" runat="server" TabIndex="55" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input id="txtCCName10" class="labelClass" maxlength="8" type="text" />
+                            <select ID="ddltd10" runat="server" TabIndex="60" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input id="txtCCName11" class="labelClass" maxlength="8" type="text" />
+                            <select ID="ddltd11" runat="server" TabIndex="65" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input id="txtCCName12" class="labelClass" maxlength="8" type="text" />
+                            <select ID="ddltd12" runat="server" TabIndex="70" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input id="txtCCName13" class="labelClass" maxlength="8" type="text" />
+                            <select ID="ddltd13" runat="server" TabIndex="75" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input id="txtCCName14" class="labelClass" maxlength="8" type="text" />
+                            <select ID="ddltd14" runat="server" TabIndex="80" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input id="txtCCName15" class="labelClass" maxlength="8" type="text" />
+                            <select ID="ddltd15" runat="server" TabIndex="85" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input id="txtCCName16" class="labelClass" maxlength="8" type="text" />
+                            <select ID="ddltd16" runat="server" TabIndex="90" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input id="txtCCName17" class="labelClass" maxlength="8" type="text" />
+                            <select ID="ddltd17" runat="server" TabIndex="95" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input id="txtCCName18" class="labelClass" maxlength="8" type="text" />
+                            <select ID="ddltd18" runat="server" TabIndex="100" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input id="txtCCName19" class="labelClass" maxlength="8" type="text" />
+                            <select ID="ddltd19" runat="server" TabIndex="105" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input id="txtCCName20" class="labelClass" maxlength="8" type="text" />
+                            <select ID="ddltd20" runat="server" TabIndex="110" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input id="txtCCName21" class="labelClass" maxlength="8" type="text" />
+                            <select ID="ddltd21" runat="server" TabIndex="115" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input id="txtCCName22" class="labelClass" maxlength="8" type="text" />
+                            <select ID="ddltd22" runat="server" TabIndex="120" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input id="txtCCName23" class="labelClass" maxlength="8" type="text" />
+                            <select ID="ddltd23" runat="server" TabIndex="125" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input id="txtCCName24" class="labelClass" maxlength="8" type="text" />
+                            <select ID="ddltd24" runat="server" TabIndex="130" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input id="txtCCName25" class="labelClass" maxlength="8" type="text" />
+                            <select ID="ddltd25" runat="server" TabIndex="135" class="DropdownListClass bordernone textboxheight dropListClass Chemicalddl"
+                                    onchange="this.previousElementSibling.value=this.value; this.previousElementSibling.focus()">
+                            </select>
+                        </td>
+
+                    </tr>
+                    <tr class="td2">
+                        <td class="labelClass" style="width:60px;background-color:white;text-align:center">
+                            <label style="width:43px" ID="lblchemicalComponant">@LocalizationServices.GetLocalizedHtmlString("lbl_StandardMagnification")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange1" TabIndex="16" class="labelClass  tdNoWrap inputChemicaltd"
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange2" TabIndex="21" class="labelClass  tdNoWrap inputChemicaltd"
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange3" TabIndex="26" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange4" TabIndex="31" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange5" TabIndex="36" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange6" TabIndex="41" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange7" TabIndex="46" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange8" TabIndex="51" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange9" TabIndex="56" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange10" TabIndex="61" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange11" TabIndex="66" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange12" TabIndex="71" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange13" TabIndex="76" class="labelClass tdNoWrap inputChemicaltd "
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange14" TabIndex="81" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange15" TabIndex="86" class="labelClass tdNoWrap inputChemicaltd "
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange16" TabIndex="91" class="labelClass tdNoWrap inputChemicaltd "
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange17" TabIndex="96" class="labelClass tdNoWrap inputChemicaltd "
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange18" TabIndex="101" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange19" TabIndex="106" class="  labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange20" TabIndex="111" class="  labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange21" TabIndex="116" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange22" TabIndex="121" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange23" TabIndex="126" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange24" TabIndex="131" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCRange25" TabIndex="136" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="5" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+
+                    </tr>
+                    <tr class="td2">
+                        <td class="labelClass" style="background-color:white; text-align:center">
+                            <label ID="lblchemicalComponant">MIN </label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMin1" TabIndex="17" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMin2" TabIndex="22" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMin3" TabIndex="27" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMin4" TabIndex="32" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMin5" TabIndex="37" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMin6" TabIndex="42" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMin7" TabIndex="47" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMin8" TabIndex="52" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMin9" TabIndex="57" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td style="width:55px">
+                            <input type="text" ID="txtMin10" TabIndex="62" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMin11" TabIndex="67" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMin12" TabIndex="72" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMin13" TabIndex="77" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMin14" TabIndex="82" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMin15" TabIndex="87" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMin16" TabIndex="92" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMin17" TabIndex="97" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMin18" TabIndex="102" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMin19" TabIndex="107" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMin20" TabIndex="112" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMin21" TabIndex="117" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMin22" TabIndex="122" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMin23" TabIndex="127" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMin24" TabIndex="132" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMin25" TabIndex="137" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+
+                    </tr>
+                    <tr class="td2">
+                        <td class="labelClass" style="background-color:white;text-align:center">
+                            <label ID="lblchemicalComponant">MAX </label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax1" TabIndex="18" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax2" TabIndex="23" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax3" TabIndex="28" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax4" TabIndex="33" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax5" TabIndex="38" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax6" TabIndex="43" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax7" TabIndex="48" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax8" TabIndex="53" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax9" TabIndex="58" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax10" TabIndex="63" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax11" TabIndex="68" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax12" TabIndex="73" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax13" TabIndex="78" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax14" TabIndex="83" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax15" TabIndex="88" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax16" TabIndex="93" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax17" TabIndex="98" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax18" TabIndex="103" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax19" TabIndex="108" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax20" TabIndex="113" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax21" TabIndex="118" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax22" TabIndex="123" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax23" TabIndex="128" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax24" TabIndex="133" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtMax25" TabIndex="138" class="labelClass  tdNoWrap inputChemicaltd "
+                                   maxlength="4" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr class="td2">
+                        <td class="labelClass" style="background-color:white;text-align:center">
+                            <label ID="lblchemicalComponant">@LocalizationServices.GetLocalizedHtmlString("lbl_Score") </label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual1" maxlength="4" TabIndex="19" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual2" maxlength="4" TabIndex="24" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual3" maxlength="4" TabIndex="29" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual4" maxlength="4" TabIndex="34" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual5" TabIndex="39" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual6" maxlength="4" TabIndex="44" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual7" maxlength="4" TabIndex="49" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual8" maxlength="4" TabIndex="54" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual9" maxlength="4" TabIndex="59" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual10" maxlength="4" TabIndex="64" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual11" maxlength="4" TabIndex="69" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual12" maxlength="4" TabIndex="74" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual13" maxlength="4" TabIndex="79" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual14" maxlength="4" TabIndex="84" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual15" maxlength="4" TabIndex="89" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual16" maxlength="4" TabIndex="94" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual17" maxlength="4" TabIndex="99" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual18" maxlength="4" TabIndex="104" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual19" maxlength="4" TabIndex="109" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual20" maxlength="4" TabIndex="114" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual21" maxlength="4" TabIndex="119" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual22" maxlength="4" TabIndex="124" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual23" maxlength="4" TabIndex="129" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual24" maxlength="4" TabIndex="134" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtCCActual25" maxlength="4" TabIndex="139" class="labelClass  tdNoWrap inputChemicaltd "><span class="text-danger"></span>
+                        </td>
+                    </tr>
+
+
+
+
+
+                </table>
+
+            </div>
+            <table style="width:100%">
+                <tr class="HardnessTableTitletr">
+                    <td align="center" height="23px">
+                        <label ID="lblHardnessTitle" class="labelClass labelClassWhite">@LocalizationServices.GetLocalizedHtmlString("lbl_Hardness_T")</label>
+                    </td>
+                </tr>
+            </table>
+            <div class="GridHardness">
+                <table border="1" cellpadding="0" cellspacing="0" class="HardnessTableMain">
+                   
+                    <tr class="td2" style="text-align:center">
+                        <td class="labelClass">
+                            <label ID="lblchemicalComponant"></label>
+                        </td>
+
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ1" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J1")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ2" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J2")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ3" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J3")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ4" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J4")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ5" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J5")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ6" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J6")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ7" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J7")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ8" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J8")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ9" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J9")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ10" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J10")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ11" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J11")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ12" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J12")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ13" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J13")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ14" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J14")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ15" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J15")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ16" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J16")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ17" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J17")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ18" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J18")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ19" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J19")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ20" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J20")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ21" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J21")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ22" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J22")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ23" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J23")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ24" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J24")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <label ID="lblJ25" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("J25")</label>
+                        </td>
+
+                    </tr>
+                    <tr class="td2">
+                        <td class="labelClass labelHardnessTable">
+                            <label ID="lblchemicalComponant">@LocalizationServices.GetLocalizedHtmlString("lbl_StandardMagnification")</label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD1" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="140"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD2" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="144"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD3" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="148"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD4" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="152"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD5" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="156"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD6" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="160"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD7" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="164"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD8" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="168"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD9" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="172"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD10" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="176"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD11" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="180"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD12" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="184"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD13" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="188"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD14" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="192"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD15" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="196"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD16" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="200"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD17" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="204"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD18" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="208"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD19" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="212"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD20" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="216"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD21" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="220"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD22" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="224"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD23" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="228"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD24" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="232"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardSTD25" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="236"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+
+                    </tr>
+                    <tr class="td2">
+                        <td class="labelClass labelHardnessTable">
+                            <label ID="lblchemicalComponant">MIN </label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMin1" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="141"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMin2" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="145"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMin3" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="149"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMin4" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="153"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMin5" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="157"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMin6" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="161"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMin7" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="165"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMin8" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="169"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMin9" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="173"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td style="width:55px">
+                            <input type="text" ID="txtHardMin10" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="177"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMin11" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="181"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMin12" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="185"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMin13" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="189"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMin14" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="193"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMin15" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="197"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMin16" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="201"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMin17" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="205"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMin18" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="209"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMin19" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="213"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMin20" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="217"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMin21" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="221"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMin22" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="225"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMin23" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="229"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMin24" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="233"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMin25" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="237"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+
+                    </tr>
+                    <tr class="td2">
+                        <td class="labelClass labelHardnessTable">
+                            <label ID="lblchemicalComponant">MAX </label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax1" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="142"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax2" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="146"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax3" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="150"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax4" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="154"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax5" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="158"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax6" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="162"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax7" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="166"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax8" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="170"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax9" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="174"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax10" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="178"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax11" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="182"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax12" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="186"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax13" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="190"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax14" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="194"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax15" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="198"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax16" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="202"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax17" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="206"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax18" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="210"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax19" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="214"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax20" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="218"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax21" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="222"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax22" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="226"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax23" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="230"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax24" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="234"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardMax25" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="238"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr class="td2">
+                        <td class="labelClass labelHardnessTable">
+                            <label ID="lblchemicalComponant">@LocalizationServices.GetLocalizedHtmlString("lbl_Score") </label>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual1" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="143"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual2" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="147"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual3" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="151"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual4" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="155"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual5" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="159"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual6" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="163"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual7" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="167"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual8" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="171"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual9" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="175"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual10" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="179"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual11" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="183"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual12" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="187"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual13" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="191"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual14" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="195"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span> <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual15" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="199"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual16" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="203"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual17" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="207"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual18" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="211"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual19" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="215"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual20" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="219"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual21" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="223"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual22" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="227"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual23" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="231"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual24" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="235"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                        <td class="TablemainChemicaltd">
+                            <input type="text" ID="txtHardActual25" class="labelClass  tdNoWrap inputChemicaltd HardnessTextFormat" tabindex="239"
+                                   maxlength="6" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            <span class="text-danger"></span>
+                        </td>
+                    </tr>
+
+
+
+
+
+                </table>
+
+            </div>
+
+            <div class="DivPdfupload">
+                <table cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td align="center">
+                            <table class="tablePdf">
+                                <tr>
+                                    <td colspan="2">
+                                        <label ID="lblpdftitle" class="labelClass lblPdffilename">@LocalizationServices.GetLocalizedHtmlString("lbl_PDF_Instruction")</label>
+                                    </td>
+                                </tr>
+                                <tr class="Trheight">
+                                    <td class="lblpdffile">
+                                        <label ID="lblpdffile" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_PDFName")</label>
+                                    </td>
+                                    <td>
+                                        <input type="file" id="fileUpload" value="" name="postedFile2" accept="application/pdf" />
+                                        <span id="selectedFileName" style="margin-left:10px;"></span>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                </tr>
+                                <tr>
+                                    <td class="lblpdffile">
+                                    </td>
+                                    <td>
+                                       @*  no-timeout class added due to unable to set timeout as per common js to avoid delay*@
+                                        <table>
+                                            <tr>
+                                                <td class="tablepdfpage">
+                                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("<<")" ID="prev-page" ValidationGroup="TrnValidation" class="_functionButtons btnpdfmove no-timeout"
+                                                           CausesValidation="false" />
+                                                </td>
+                                                <td>
+                                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString(">>")" ID="next-page" ValidationGroup="TrnValidation" class="_functionButtons btnpdfmove no-timeout"
+                                                           CausesValidation="false" />
+                                                </td>
+                                                <td style="width: 82px">
+                                                </td>
+                                                <td>
+                                                    <label ID="lblpage" class="labelClass lblpage">@LocalizationServices.GetLocalizedHtmlString("Page")</label>
+                                                </td>
+                                                <td>
+                                                    <label ID="page-indicator" class="labelClass lblpage">@LocalizationServices.GetLocalizedHtmlString("99/99")</label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="5">
+                                                    <label ID="lblpdfmessage" class="labelClass lblpage">@LocalizationServices.GetLocalizedHtmlString("lbl_PDFNavigation_Msg")</label>
+                                                </td>
+
+                                            </tr>
+                                        </table>
+                                    </td>
+
+                                </tr>
+
+
+                            </table>
+                        </td>
+
+                        <td align="center" style="width:90px">
+                            <table class="tablePdfUpload">
+                                
+                                <tr>
+                                    <td valign="bottom">
+                                        <label ID="lblReadFile" class="labelClass" style="margin-top:3px;">
+                                            @LocalizationServices.GetLocalizedHtmlString("lbl_PDF_File")
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="bottom">
+                                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_StartOCR")" ID="btnRead" ValidationGroup="TrnValidation" class="_functionButtons"
+                                               style="width:70px;" CausesValidation="false" />
+                                        <p style="margin-bottom: 6.1px;"></p>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <br />
+                            <table class="tablepdfclose">
+                               
+                                <tr>
+                                    <td valign="bottom">
+                                        <label ID="lblMaker" class="labelClass" style="margin-top:3px;">
+                                            @LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="bottom">
+                                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnClose" ValidationGroup="TrnValidation" class="_functionButtons"
+                                               style="width: 50px" CausesValidation="false" />
+                                        <p style="margin-bottom: 6.1px;"></p>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </td>
+
+
+                    </tr>
+
+
+
+
+
+
+                </table>
+
+            </div>
+
+          <div class="line_1"></div>           
+            <div class="DivEDIUpdate">
+                <table cellpadding="0" cellspacing="0">
+                    <tr>
+
+                        <td align="left" valign="top">
+
+                            <label ID="lblEDIUpdateNote" class="labelClass">
+                                @Html.Raw(@LocalizationServices.GetLocalizedHtmlString("lbl_EDI_Note"))
+                            </label>
+
+                        </td>
+
+                        <td align="right" valign="top" style="width:142px;">
+                            <table class="tablepdfclose" style="width:140px;background-color: #006666;">
+
+                                <tr>
+                                    <td valign="middle" align="center">
+                                        <label ID="lblUpdateDataEDI" class="labelClass" style="margin-top:3px;">
+                                            @LocalizationServices.GetLocalizedHtmlString("lbl_UpdateData_EDI")
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td valign="top" align="center">
+                                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_EDI_Update")" ID="btnEDIUpdate" ValidationGroup="TrnValidation" class="_functionButtons"
+                                               style="width: 70px" CausesValidation="false" />
+                                       
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                        </td>
+
+
+                    </tr>
+                </table>
+            </div>
+
+        </td>
+    </tr>
+</table>
+<input type="hidden" id="hfdDeploymentTarget" name="hfdDeploymentTarget" />
+<input type="hidden" id="hdfMakerMillSheetCD" name="hdfMakerMillSheetCD" />
+<input type="hidden" id="hdfFTPPassword" value="" />
+<input type="hidden" id="hdfFTPUsername" value="" />
+<input type="hidden" id="hdfFTPURL" value="" />
+
+<input type="hidden" id="hdfImeMode" name="hdfImeMode" />
+<input type="hidden" id="hdfUserName" name="hdfUserName" />
+<input type="hidden" id="hdfSYSDATE" name="hdfSYSDATE" />
+<input type="hidden" id="hdfStartOperatorCD" name="hdfStartOperatorCD" />
+<label id="lblYes" class="Hidden">@LocalizationServices.GetLocalizedHtmlString("lbl_Yes")</label>
+<label id="lblNo" class="Hidden">@LocalizationServices.GetLocalizedHtmlString("lbl_No")</label>
+<div id="divErrorMessages" class="Hidden">
+    <label id="lblErrorMessageE_MAKERMILLSHEET_ENTRY_001" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+    </label>
+    <label id="lblErrorMessageE_PDF_SELECT_01" class="Hidden">
+        <span ID="LiteralPDFSelectRequired">@LocalizationServices.GetLocalizedHtmlString("ValMsg_PDFSelected")</span>
+    </label>
+    <label id="lblErrorMessageE_PDF_Extention_02" class="Hidden">
+        <span ID="LiteralPDFSelectRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_CheckPDFExtention")</span>
+    </label>
+    <label id="lblErrorMessageE_KubunAlreadyUse_03" class="Hidden">
+        <span ID="LiteralKoubanAlreadyExist">@LocalizationServices.GetLocalizedHtmlString("valMsg_KoubanAlreadyExist")</span>
+    </label>
+    <label id="lblErrorMessageE_MAKERMILLSHEET_ENTRY_NEXT_PRIVIOUS_004" class="Hidden">
+        <span ID="LiteralPDFNotFound">@LocalizationServices.GetLocalizedHtmlString("Record Not Found")</span>
+    </label>
+    <label id="lblErrorMessageE_MAKERMILLSHEET_ENTRY_005" class="Hidden">
+        <span ID="LiteralTemplateNameRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_TemplateNameRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_MAKERMILLSHEET_ENTRY_006" class="Hidden">
+        <span ID="LiteralPDF_Instruction">@LocalizationServices.GetLocalizedHtmlString("lbl_PDF_Instruction")</span>
+    </label>
+    
+    <label id="lblErrorMessageE_MAKERMILLSHEET_ENTRY_007" class="Hidden">
+        <span ID="LiteralCC_MinIsLessThanMax">@LocalizationServices.GetLocalizedHtmlString("valMsg_CC_MinGreaterThanMax")</span>
+    </label>
+    <label id="lblErrorMessageE_MAKERMILLSHEET_ENTRY_008" class="Hidden">
+        <span ID="LiteralHardnessMinIsLessThanMax">@LocalizationServices.GetLocalizedHtmlString("valMsg_HardnessMinGreaterThanMax")</span>
+    </label>
+    <label id="lblErrorMessageE_MAKERMILLSHEET_ENTRY_009" class="Hidden">
+        <span ID="LiteralMillsheetConfirmRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_MillsheetConfirmRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_MAKERMILLSHEET_ENTRY_010" class="Hidden">
+        <span ID="LiteralMillsheetConfirmRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_FileRequired")</span>
+    </label>
+    <label id="lblErrorMessageE_MAKERMILLSHEET_ENTRY_011" class="Hidden">
+        <span ID="LiteralUnableToConnectMillsheetFTP">@LocalizationServices.GetLocalizedHtmlString("valMsg_UnableToConnectMillsheetFTP")</span>
+    </label>
+    <label id="lblErrorMessageE_MAKERMILLSHEET_ENTRY_012" class="Hidden">
+        <span ID="LiteralOCRUnconfirmedData">@LocalizationServices.GetLocalizedHtmlString("valMsg_OCRUnconfirmedData")</span>
+    </label>
+    
+
+</div>
+
+<div id="divSuccessMessages" class="Hidden">
+    <label id="lblSuccessMessageS_MAKERMILLSHEET_ENTRY_001" class="Hidden">
+        <span ID="Literal1">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataSaved")</span>
+    </label>
+
+    <label id="lblSuccessMessageE_MAKERMILLSHEET_ENTRY_EDIT_DELETE_002" class="Hidden">
+        <span ID="LiteralDataUpdated">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataUpdated")</span>
+    </label>
+
+    <label id="lblSuccessMessageE_MAKERMILLSHEET_ENTRY_EDIT_DELETE_003" class="Hidden">
+        <span ID="LiteralDataDeleted">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataDeleted")</span>
+    </label>
+
+
+</div>
+<div id="LoadingImage" style="display: none">
+    <img id="loadImage" src="~/images/loading.gif" height="60px" width="60px" />
+</div>
+@section Scripts {
+
+    <script src="~/scripts/pdfreader/pdf.js" asp-append-version="true"></script>
+   
+   <script src="~/scripts/pdfreader/workerpdf.js" asp-append-version="true"></script>
+     @*  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> *@
+    <script src="~/static/js/MakerMillSheet.js" asp-append-version="true"></script>
+}

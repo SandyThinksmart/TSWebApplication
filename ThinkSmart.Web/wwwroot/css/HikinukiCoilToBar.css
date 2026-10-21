@@ -1,0 +1,493 @@
+﻿#grdvHikinukiMachine tr:not(#tr1HdrGrdvHikinukiMachine):not(#tr2HdrGrdvHikinukiMachine):not(#tr3HdrGrdvHikinukiMachine):not(#tr4HdrGrdvHikinukiMachine):not(#tr1ItemGrdvHikinukiMachine):not(#tr2ItemGrdvHikinukiMachine):not(#tr3ItemGrdvHikinukiMachine) {
+    /* display: none;*/
+}
+
+#grdvHistory .th {
+    border-width: thin;
+    border-style: solid;
+    text-align: center;
+    height: 15px;
+    border-color: #FF9900;
+    vertical-align: middle;
+}
+
+/* Styles for Start Data Grid */
+
+#tblProcessStartData {
+    table-layout: fixed;
+}
+
+#tdlblStartDateTime, #lblGridDimD, #lblGridLength, #lblGridWeight4,
+#txtGridTabaNo, #txtGridBendStatus, #lblGridEcDesicision, #lblGridMagnetism, #txtGridShikiiValue,
+#txtGridTabaNo3 {
+    width: 85px;
+}
+
+#tdtxtStartDateTime {
+    width: 220px;
+}
+
+#tdEmptyRow1Col6, #lblGridBend {
+    width: 40px;
+}
+
+#tdEmptyRow1Col12, #txtGridFinishedBars, #txtGridExtSurf, #txtGridEcNgBarTotal {
+    width: 45px;
+}
+
+#tdlblStartOperator {
+    width: 67px;
+}
+
+#txtGridMsgContent {
+    width: 70px;
+}
+
+#tdtxtStartOperator {
+    width: 160px;
+}
+
+#txtStartOperator, #txtEndOperator {
+    width: 110px;
+}
+#txtUpperLowerRollerAngle2
+{
+    width:52px;
+}
+#txtInspectionCoilSize, #txtInspectionCoilShape, #txtUpperLowerRollerAngle1, #txtCoilQuantity, #txtDieNo, #txtUpperRoleElevation,
+#txtNoOfCoils, #txtDieDim, #lblShikii, #txtShikii, #txtDrawDim2,
+#txtCompressionTonnage, #txtIsOK, #lblGridWeight2, #lblGridWeight1, #lblGridTabaNo {
+    width: 50px;
+}
+
+#txtDrawDim1 {
+    width: 50px;
+  /*  border-right-width: 0;*/
+    padding-right: 0;
+}
+
+#tdlblFurnaceNum {
+    width: 26px;
+}
+
+#txtActAllocLength1, #txtActAllocLength2, #txtActAllocLength3 {
+    width: 30px;
+}
+
+#txtFurnaceNum {
+    width: 72px;
+}
+
+#txtMn {
+    width: 20px;
+}
+
+#tdActAllocDim1, #tdActAllocDim2, #tdActAllocDim3, #tdActAllocDim4, #tdActAllocDim5, #tdActAllocDim6,
+#tdActAllocLength1, #tdActAllocLength2, #tdActAllocLength3 {
+    width: 30px;
+}
+
+#tdtxtC {
+    width: 50px;
+}
+
+#txtStartDateTime {
+    width: 155px;
+}
+
+
+#tdbtnStartDateTime {
+    width: 50px;
+}
+
+#btnStartDateTime {
+    width: 46px;
+}
+
+#txtHexR {
+    width: 50px;
+}
+
+
+
+#ddlDieShape {
+    width: 47px;
+}
+
+#tdTPTest {
+    text-align: center !important;
+    width: 117px;
+}
+
+
+#lblDrawDim, #lblUpperRoleElevation {
+    width: 80px;
+}
+
+#txtMetallicLabelNo {
+    width: 110px;
+}
+
+#txtC {
+    width: 25px;
+}
+
+#lblMn {
+    float: right;
+}
+
+
+#lblCompressionTonnage {
+    width: 81px;
+}
+
+#lblTPTest0 {
+    text-align: right;
+}
+
+#lblGridCustomerName {
+    width: 59px;
+}
+
+#lblGridChubanNo, #lblGridSpecification {
+    width: 67px;
+}
+
+#lblGridExtText {
+    width: 38px;
+}
+
+#txtGridDecisionColor {
+    width: 5px;
+}
+
+#txtGridCustomerName {
+    width: 73px;
+}
+
+#txtGridChuban {
+    width: 83px;
+}
+
+#txtGridMagnetism {
+    width: 75px;
+}
+
+#btnStartDateTime, #btnEndDateTime {
+    width: 83px;
+}
+
+#txtActualDim1, #txtActualDim2, #txtActualLength4, #txtActualLength2, #txtActualLength3 {
+    width: 60px;
+}
+
+#txtGridMetallicPlateCode {
+    width: 97px;
+}
+
+#txtGridNoOfCoils {
+    width: 39px;
+}
+
+#txtGridQuantity, #lblGridNgBars {
+    width: 38px;
+}
+
+#txtActAllocDim1, #txtActAllocDim2, #txtActAllocDim3, #txtActAllocDim4, #txtActAllocDim5, #txtActAllocDim6 {
+    width: 25px;
+}
+
+#txtGridFinishedQty {
+    width: 47px;
+}
+
+#txtGridProdNameCust {
+    width: 63px;
+}
+
+#lblGridMetallicLabelNo, #lblGridMetallicCharge, #lblGridMetallicCharge {
+    width: 79px;
+}
+
+#lblGridWeight, #tdGridMetallicDim, #tdGridMaterialDimD {
+    width: 32px;
+}
+
+#lblGridInzu {
+    width: 31px;
+}
+
+#lblGridDimD1, #lblGridDimD2, #lblGridDimD3, #lblGridDimD4, #lblGridDimD5, #lblGridDimD6, #lblGrig4, #lblGrig5, #lblGrig6 {
+    width: 20px;
+}
+
+#lblGridWeight3, #lblGridQty {
+    width: 35px;
+}
+
+#lblGridShikki {
+    width: 48px;
+}
+
+#txtGridSpecification {
+    width: 82px;
+}
+
+#txtGridCharge {
+    width: 92px;
+}
+
+#tdGridDimDLength {
+    width: 65px;
+}
+
+#tdGridDimDDie {
+    width: 43px;
+}
+
+#ddlDecision {
+    width: 108px;
+}
+
+#ddlNextProcess {
+    width: 170px;
+}
+
+#dialogMessageIcon {
+    width: 45px;
+}
+
+#dialogMessageText {
+    width: 480px;
+}
+
+/*****************************************************************************/
+/* IE Specific CSS */
+
+/* IE9 and Lower CSS styles go here */
+.ie #txtShikii {
+    margin-left: 4px;
+    width: 46px;
+}
+
+.ie #txtFurnaceNum {
+    width: 72px;
+}
+
+.ie #txtMn {
+    width: 20px;
+}
+
+
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    /* IE10+ CSS styles go here */
+    #txtShikii {
+        margin-left: 4px;
+        width: 46px;
+    }
+
+    #txtFurnaceNum {
+        width: 72px;
+    }
+
+    #txtMn {
+        width: 20px;
+    }
+}
+
+/* End of IE Specific CSS */
+/*****************************************************************************/
+
+.Mandatory {
+    background-color: #C1FFFF;
+}
+
+.Hidden {
+    display: none;
+}
+
+.disabled {
+    background-color: #EEEEEE !important;
+    color: black;
+}
+
+/** Jquery Override CSS */
+
+.ui-widget-header {
+    background: #225AD9;
+    border-style: none;
+    height: 5px;
+}
+
+.ui-dialog-title {
+    display: none;
+}
+
+.ui-dialog-titlebar-close {
+    display: none;
+}
+
+.ui-dialog {
+    border-style: solid;
+    border-color: #225AD9;
+    border-width: 2px;
+    border-radius: 0px;
+    background-color: white;
+}
+
+    .ui-dialog div, .ui-dialog button {
+        border-radius: 0px;
+    }
+
+.ui-dialog-buttonpane {
+    border: none;
+    text-align: center !important;
+}
+
+.ui-dialog-buttonset {
+    float: none !important;
+}
+
+.ui-button {
+    Height: 25px;
+    border: 1px inset Silver;
+    font-size: 12px;
+    width: 80px;
+}
+
+.ui-button-text {
+    padding: 0 !important;
+    color: black;
+    font-size: 12px;
+}
+
+.ui-state-hover {
+    border: 1px solid #ccc;
+    background: #f6f6f6 url(images/ui-bg_glass_100_f6f6f6_1x400.png) 50% 50% repeat-x;
+    font-weight: bold;
+    color: #1c94c4;
+}
+
+.ui-dialog-content.ui-widget-content {
+    font-family: MS Gothic;
+    font-weight: 400;
+    font-size: 13px;
+    background-color: white;
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+    padding: 0;
+}
+
+.ui-dialog-buttonpane {
+    background-color: white;
+}
+
+.ui-widget-content {
+    background: white;
+    color: #333;
+}
+
+/*Added by Sagar b content 21/8/2017*/
+#GridNGDetails {
+    width: 950px;
+}
+
+#GridFurnaceNum {
+    width: 142px;
+}
+
+#GridDecision {
+    width: 75px;
+}
+
+#ddlNGReason1, #ddlNGReason2, #ddlNGReason3 {
+    width: 105px;
+}
+
+.freez > th {
+    position: sticky !important;
+    background-color: #7291D2;
+    top: 0.2px;
+    height: 20px;
+}
+.widthTextBox {
+    width:55px;
+}
+#txtThaba1, #txtThaba2, #txtThaba3, #txtThaba4 {
+    width: 45px;
+    height: 22px;
+}
+#txtStartDate, #txtEndDate {
+    width: 100px;
+    height: 22px;
+}
+.Mandatory {
+    background-color: #C1FFFF;
+    border: 1px solid #ced4da;
+}
+.headerPadding {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+#grdvHistory th {
+    position: sticky;
+    z-index: 10;
+    
+}
+#grdvHistory tr:nth-child(1) th {
+    top: 1px;
+}
+#grdvHistory tr:nth-child(2) th {
+    top: 19px;
+    border-width: thin;
+    border-style: solid;
+    background-color: #7291D2;
+    border-color: White;
+    text-align: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
+    white-space: nowrap;
+}
+#grdvHistory tr:nth-child(3) th {
+    top: 41px;
+    border-width: thin;
+    border-style: solid;
+    background-color: #7291D2;
+    border-color: White;
+    text-align: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
+    white-space: nowrap;
+}
+#grdvHistory tr:nth-child(4) th {
+    top: 59px;
+    border-width: thin;
+    border-style: solid;
+    background-color: #7291D2;
+    border-color: White;
+    text-align: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
+    white-space: nowrap;
+}
+#grdvHistory tr:nth-child(5) th {
+    top: 81px;
+    border-width: thin;
+    border-style: solid;
+    background-color: #7291D2;
+    border-color: White;
+    text-align: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 4px;
+    padding-right: 4px;
+    white-space: nowrap;
+}

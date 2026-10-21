@@ -1,0 +1,112 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<CustomerWiseProdStockShukka>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+
+}
+
+<table bgcolor="#7291D2" border="0" cellpadding="0" cellspacing="0" id="" class="GridLines">
+
+    <tr>
+        
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter" rowspan="3" style="width:254px;">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter" colspan="3" style="width:405px;">
+            <label id="" class="labelClassearch ">@LocalizationServices.GetLocalizedHtmlString("lbl_KhakoiraiStockStatus_L")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter" style="width:175px;">
+            <label id="" class="labelClassearch"></label>
+
+        </th>
+
+    </tr>
+    <tr>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_31to60D")</label>
+
+        </th>
+
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_61to90D")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_91toD")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_BeforeActAlloc")</label>
+
+        </th>
+
+    </tr>
+    <tr>
+        
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_RemainingStock_L")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_FinishedProductStock")</label>
+
+        </th>
+
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Sum_L")</label>
+
+        </th>
+        <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocWIP")</label>
+
+        </th>
+    </tr>
+    <tr>
+          @if (Model != null && Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <tr class="GridNormalRow">
+
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap" rowspan="2">@item.CUST_NAME</td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap">@item.TOT_PEND_STOCK_ABOVE30 </td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap">@item.TOT_PEND_STOCK_ABOVE60</td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap">@item.TOT_PEND_STOCK_ABOVE90</td>
+                    <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap">@item.BEFORE_ACT_ALLOC</td>
+                </tr>
+                <tr class="GridNormalRow">
+
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap">@item.ORD_REM_STOCK </td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap">@item.TOT_PROD_STOCK </td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap">@item.TOTAL </td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap">@item.WIP_ACT_ALLOC </td>
+
+                </tr>
+             }
+        }
+        else
+        {
+        <tr class="GridNormalRow">
+
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap" rowspan="2"></td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"> </td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+        </tr>
+        <tr class="GridNormalRow">
+
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+
+        </tr>
+        }
+
+
+</table>

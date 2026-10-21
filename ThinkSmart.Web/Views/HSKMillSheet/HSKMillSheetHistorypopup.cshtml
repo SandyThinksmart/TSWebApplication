@@ -1,0 +1,255 @@
+﻿@using TSWebApplication.Domain.Resources
+@using TSWebApplication.Domain.Model
+@model List<HSKMillSheetDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_HSKMillSheetSave").Value.Replace("</br>", "");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    DateTime fromDate = DateTime.Now;
+    fromDate = fromDate.AddMonths(-3);
+
+    DateTime toDate = DateTime.Now;
+}
+
+
+<link href="~/css/Common_Styles.css" rel="stylesheet" />
+<link href="~/css/HSKMillSheetHistoryPopup.css" rel="stylesheet" />
+
+<link href="~/css/Common.css" rel="stylesheet" />
+<link href="~/css/masterStyles.css" rel="stylesheet" />
+
+
+<style type="text/css">
+    .hide {
+        display: none;
+    }
+
+    .header {
+        padding-left: 3px;
+    }
+
+    .freez > td {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 0.2px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .HeaderPadding {
+        padding-left: 10px;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+
+    .rightPadding {
+        padding-right: 2px;
+    }
+
+    .disabled {
+        background-color: #EEEEEE !important;
+        color: black;
+    }
+</style>
+
+
+
+<br />
+<br />
+<tsSortPopUp:SortPopup ID="tsSortPopup" OnSortOKClick="tsSortPopup_OKClick" />
+
+<table id="tblSearch" width="100%">
+    <tr>
+        <td>
+            <table class="BorderInset">
+                <tr class="td1 GridLines12 textboxheight">
+                    <td colspan="17" class="labelClass labelClassWhite textboxheighttextboxheight">
+                        <label ID="lblchemicalComponant">@LocalizationServices.GetLocalizedHtmlString("製造指示書　抽出条件")</label>
+                    </td>
+                </tr>
+                <tr class="GridHeader1 GridLines12 textboxheight">
+                    <td>
+                        <label ID="lbl_Charge" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</label>
+                    </td>
+                    <td>
+                        <label ID="lbl_ProdNameCust" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</label>
+                    </td>
+                   
+                    <td style="width:20px;">
+                        <label ID="lblShapeInfo" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lblShapeInfo")</label>
+                    </td>
+                    <td colspan="2"  >
+                        <label ID="lbl_DimD" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</label>
+                    </td>
+                    <td colspan="2" >
+                        <label ID="lbl_Length" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</label>
+                    </td>
+                    <td colspan="2">
+                        <label ID="lbl_DeliveryDate" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DeliveryDate")</label>
+                    </td>
+                    <td colspan="2">
+                        <label ID="lbl_Chuuban" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</label>
+                    </td>
+                   
+                   @* <td style="width:100px">
+                        <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("柔材寸法(開始)")</label>
+                    </td>
+                    <td style="width:100px">
+                        <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("素材寸法(終了)")</label>
+                    </td>
+                    <td style="width:80px">
+                        <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</label>
+                    </td>
+                    <td style="width:91px">
+                        <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MakerMaster")</label>
+                    </td>
+                    <td style="width:127px">
+                        <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("引当日(実引当開始)")</label>
+                    </td>
+                    <td style="width:146px">
+                        <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("引当日(実引当)(終了)")</label>
+                    </td>
+                    <td style="width:127px">
+                        <label ID="lblchemicalComponant" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ManufacturingSpecificationNo")</label>
+                    </td>*@
+                </tr>
+
+                <tr class="GridLines13">
+                    <td style="width:60px">
+                        <input type="text" maxlength="30" ID="txtcharge" class="textboxheight Mandatory labelClass  tdNoWrap" errorLabel="@LocalizationServices.GetLocalizedHtmlString("val_Msg_ChargeRequired")" style="width: 100%">
+                        <span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("val_Msg_ChargeRequired")</span>
+                    </td>
+                    <td style="width:80px">
+                        <input type="text" maxlength="22" ID="txtProdNameCust" class="textboxheight Mandatory labelClass  tdNoWrap" style="width: 100%" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ProdNameCustRequired")">
+                        <span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("val_Msg_ChargeRequired")</span>
+                    </td>
+                    <td style="width:20px">
+                        <input type="text" maxlength="2" ID="txtshape" class="textboxheight Mandatory labelClass  tdNoWrap" style="width: 100%" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ShapeRequired")"><span class="text-danger"></span>
+                    </td>
+                    <td style="width:40px">
+                        <input type="text" maxlength="9" ID="txtDimD1" class="textboxheight Mandatory  labelClass  tdNoWrap" style="width: 100%" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_ActualDimXRequired")"
+                               onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"><span class="text-danger"></span>
+                    </td>
+                    <td style="width:40px">
+                        <input type="text" maxlength="9" ID="txtDimD2" class="textboxheight  Mandatory labelClass  tdNoWrap" style="width: 100%" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_ActualDimYRequired")"
+                               onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"><span class="text-danger"></span>
+                    </td>
+                    <td style="width:50px">
+                        <input type="text" maxlength="10" ID="txtLengthT1" class="textboxheight   labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                    </td>
+                    <td style="width:50px">
+                        <input type="text" maxlength="10" ID="txtLengthT2" class="textboxheight  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                    </td>
+                    <td style="width:50px">
+                        <input type="text" ID="txtDatestart" class="textboxheight  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                    </td>
+                     <td style="width:50px">
+                        <input type="text" ID="txtDateend" class="textboxheight  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                    </td>
+                    <td style="width:50px">
+                        <input type="text" maxlength="10" ID="txtChuban" class="textboxheight  labelClass  tdNoWrap" style="width: 100%"
+                               onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"><span class="text-danger"></span>
+                    </td>
+                    <td style="width:20px">
+                        <input type="text" maxlength="2" ID="txtgyouban" class="textboxheight  labelClass  tdNoWrap" style="width: 100%"
+                               onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"><span class="text-danger"></span>
+                    </td>
+                   @* <td style="width:55px">
+                        <input type="text" ID="txtLength1" class="textboxheight  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                    </td>
+                    <td style="width:55px">
+                        <input type="text" ID="txtLength2 " class="textboxheight  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                    </td>
+                    <td style="width:80px">
+                        <input type="text" ID="txtCharge" class="textboxheight  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                    </td>
+                    <td style="width:30px;border-right: none;">
+                        <input type="text" ID="txtMakerName" runat="server" class="form-control TextFieldsClass textboxheight  " style="width:100%" TabIndex="6" MaxLength="6" />
+                    </td>
+
+                    <td style="width:63px">
+                        <input type="text" ID="txtDelDate2" class="textboxheight  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                    </td>
+                    <td style="width:60px">
+                        <input type="text" ID="txtIssue" class="textboxheight  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                    </td>
+
+
+                    <td style="width:60px">
+                        <input type="text" ID="txtIssue" class="textboxheight  labelClass  tdNoWrap" style="width: 100%"><span class="text-danger"></span>
+                    </td>*@
+
+                </tr>
+            </table>
+        </td>
+        <td class="MachineInspectionClass ">
+
+            <table id="tblMachineInspection" align="center">
+                <tr>
+                    <td colspan="2">
+                        <label ID="lblchemicalComponant" class="labelClass labelClassWhite ">@LocalizationServices.GetLocalizedHtmlString("補助機能(抽出·並替)")</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Extract")" ID="btnExtract" class="_functionButtons" TabIndex="5" Style="width: 86px;"
+                               ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" onclick="btnSearch_Click()" />
+                    </td>
+                    <td>
+                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Sort_L")" ID="btnSort" class="_functionButtons" TabIndex="5" Style="width: 86px;"
+                               ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" />
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <div id="divHSKMillSheetHistoryList" style="overflow:auto">
+                @{
+                    @await Html.PartialAsync("HSKMillSheetHistorypopupGrid", Model)
+                    ;
+                }
+            </div>
+
+           
+        </td>
+    </tr>
+    <tr>
+        <td align="right" colspan="16" style="background-color: #d4d0c8;">
+            <table>
+                <tr>
+                   
+                    <td class="Close">
+                        <table id="tblprint" align="center">
+                            <tr>
+                                <td align="center">
+                                    <label ID="lblchemicalComponant" class="labelClass labelClassWhite">@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnClose" OnClientClick="return Confirmation()" class="_functionButtons" TabIndex="5" Style="width: 86px;"
+                                           ValidationGroup="pnlFirstMasterValidation" ClientIDMode="Static" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<div id="SortPopUpModalMain">
+    @{
+            @await Html.PartialAsync("~/Views/Shared/SortPopUp.cshtml")
+        ;
+    }
+</div>
+@section Scripts{
+
+    <script src="~/static/js/HSKMillSheetHistoryPopUp.js"></script>
+   
+ }

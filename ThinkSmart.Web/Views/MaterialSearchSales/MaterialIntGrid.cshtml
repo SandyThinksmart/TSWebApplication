@@ -1,0 +1,69 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<HikinukiDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+
+}
+
+<div style="height:150px;overflow:auto;">
+    <table bgcolor="#7291D2" border="0" cellpadding="0" cellspacing="0" id="tblMaterialIntGrid">
+        <tr>
+            <td colspan="10" align="center" valign="middle" class="tdH1">
+                <label ID="lbl_InternalMaterialInfo"
+                       class="labelClass1" style="color:white">@LocalizationServices.GetLocalizedHtmlString("lbl_InternalMaterialInfo")</label>
+            </td>
+        </tr>
+        <tr class="trTdH2">
+
+            <th id="tdMatlNameMakerInHouse" class="tdHeaderClass labelClass GridCenter">
+                <label ID="lbl_MatlNameMakerInHouse" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lblMaterialNameMaker(lbl_Internal)")</label>
+            </th>
+            <th id="tdDimD" class="tdHeaderClass labelClass GridCenter">
+                <label ID="lbl_DimD" class="labelClass1" ForeColor="Black">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</label>
+            </th>
+            <th id="tdShape" class="tdHeaderClass labelClass GridCenter">
+                <label ID="lbl_Shape" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</label>
+            </th>
+            <th id="tdLength" class="tdHeaderClass">
+                <label ID="lbl_Length" class="labelClass ">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</label>
+            </th>
+            <th id="tdCondition" class="tdHeaderClass">
+                <label ID="lbl_Condition" class="labelClass1 ">@LocalizationServices.GetLocalizedHtmlString("lbl_Condition")</label>
+            </th>
+            <th id="tdCoilBarKurokawa" class="tdHeaderClass">
+                <label ID="lblCoilBarKurokawa" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_CoilBarKurokawa_L")</label>
+            </th>
+            <th id="tdPOWieghtRemainingWight" class="tdHeaderClass">
+                <label ID="lbl_POWieghtRemainingWight" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_POWieghtRemainingWight")</label>
+            </th>
+            <th id="tdTempAllcatedWt" class="tdHeaderClass">
+                <label ID="lbl_TempAllcatedWt" class="labelClass1 ">@LocalizationServices.GetLocalizedHtmlString("lbl_TempAllcatedWt")</label>
+            </th>
+            <th id="tdFutouWtOrBeforeTempAlloc" class="tdHeaderClass">
+                <label ID="lbl_FutouWtOrBeforeTempAlloc" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_FutouWtOrBeforeTempAlloc")</label>
+            </th>
+            <th id="tdFutouYardWeight" class="tdHeaderClass">
+                <label ID="lbl_FutouYardWeight" class="labelClass1">@LocalizationServices.GetLocalizedHtmlString("lbl_FutouYardWeight")</label>
+
+            </th>
+
+
+        </tr>
+         
+        <tr class="GridNormalRow GridLines">
+            <td class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+            <td class="labelClass td tdSearchGrid padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+        </tr>
+        
+    </table>
+</div>

@@ -1,0 +1,550 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<RollPoMainAnalysisDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+
+}
+<style>
+    .freezMakerGrid > th {
+        position: sticky !important;
+        background-color: #4e6cab;
+        top: 0.0px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezMakerGrid {
+        border-color: white;
+    }
+
+    .freezMakerGrid1 > th {
+        position: sticky !important;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+        border-color: white !important;
+    }
+
+    .freezMakerGrid1 {
+        border-color: white !important
+    }
+
+    .freezMakerGrid2 > th {
+        position: sticky !important;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezMakerGrid2 {
+        border-color: white;
+    }
+
+    .freezMakerGrid3 > th {
+        position: sticky !important;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezMakerGrid3 {
+        border-color: white;
+    }
+
+</style>
+
+<div>
+    <table bgcolor="#7291D2" border="0" cellpadding="0" cellspacing="0" id="tblMakerGrid" class="GridLines">
+
+        <tr class="freezMakerGrid">
+            <th align="center" valign="middle" class="tdH1" colspan="61" style="border-right: 2px solid white">
+                <label id="" class="labelClass" style="color:white">@LocalizationServices.GetLocalizedHtmlString("lbl_MakerMaterialList")</label>
+
+            </th>
+
+        </tr>
+        <tr class="freezMakerGrid1">
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" rowspan="3">
+
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" rowspan="3">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MakerMaster")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" rowspan="3">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlNameMaker")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" rowspan="3">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MukesakiShort")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" rowspan="3">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Rate")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" rowspan="2" colspan="2">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_StockRemainingWeight")</label>
+
+            </th>
+
+
+
+            @* <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" rowspan="3">
+            <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialCondition")</label>
+
+            </th> *@
+
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" colspan="14">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_KoubanRemQty")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" colspan="13">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_RollOrderData")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" colspan="4">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlFactStock/Direct")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" colspan="20">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_RollOrderedWt")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" rowspan="3">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Supplier")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" rowspan="3">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Warehouse")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" rowspan="3">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DeliveryLocation")</label>
+
+            </th>
+
+        </tr>
+
+        <tr class="freezMakerGrid2">
+
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" rowspan="2">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_UptoDate")</label>
+
+            </th>
+
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" colspan="4">
+                <label id="lblRMonth31" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" colspan="4">
+                <label id="lblRMonth21" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" colspan="4">
+                <label id="lblRMonth11" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" rowspan="2">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Sum_L")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" colspan="4">
+                <label id="lblRMonth3" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" colspan="4">
+                <label id="lblRMonth2" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" colspan="4">
+                <label id="lblRMonth1" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" rowspan="2">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Average")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" rowspan="2">
+                <label id="lblNextR51" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")<br />（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" rowspan="2">
+                <label id="lblNextR41" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")<br />（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" rowspan="2">
+                <label id="lblNextR31" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")<br />（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" rowspan="2">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Average")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter" colspan="4">
+                <label id="lblNextR5" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader1 labelClass GridCenter" colspan="4">
+                <label id="lblNextR4" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader1 labelClass GridCenter" colspan="4">
+                <label id="lblNextR3" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader1 labelClass GridCenter" colspan="4">
+                <label id="lblNextR2" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter" colspan="4">
+                <label id="lblNextR1" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+
+            </th>
+
+        </tr>
+
+        <tr class="freezMakerGrid3">
+
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Internal")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_SubContr")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("1")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("2")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("3")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("4")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("1")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("2")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("3")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("4")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("1")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("2")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("3")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("4")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("1")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("2")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("3")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("4")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("1")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("2")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("3")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("4")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("1")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("2")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("3")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("4")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("1")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("2")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("3")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("4")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("1")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("2")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("3")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("4")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("1")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("2")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("3")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("4")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("1")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("2")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("3")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeader1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("4")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("1")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("2")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("3")</label>
+
+            </th>
+            <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("4")</label>
+
+            </th>
+
+        </tr>
+
+        @if (Model != null && Model.Count > 0)
+
+        {
+            foreach (var item in Model)
+            {
+                <tr class="GridNormalRow" data-lblMaterialCD="@item.MATERIAL_CD">
+                    <td class="labelClass padddingLeft padddingRight " style=" white-space:nowrap">
+                        <input type="button" class="btnArrow" onclick="OnClickMaterialMakerList($(this))" style="height:16px;float: right;width:25px" />
+                    </td>
+                    @*onclick="OnMaterialListBtnClick($(this))"*@
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass" style=" white-space:nowrap">@item.MAKER_NAME</td>
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass" style=" white-space:nowrap">@item.MATL_MAKER_NAME</td>
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass" style=" white-space:nowrap">@item.MUKESAKI_NAME</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.RATE</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.INT_STOCK_QTY</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.EXT_STOCK_QTY</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_REM_QTY_PREV</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_REM_QTY_R_1_1</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_REM_QTY_R_1_2</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_REM_QTY_R_1_3</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_REM_QTY_R_1_4</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_REM_QTY_R_2_1</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_REM_QTY_R_2_2</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_REM_QTY_R_2_3</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_REM_QTY_R_2_4</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_REM_QTY_R_3_1</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_REM_QTY_R_3_2</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_REM_QTY_R_3_3</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_REM_QTY_R_3_4</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_REM_QTY_TOTAL</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_PRV_QTY_R_1_1</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_PRV_QTY_R_1_2</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_PRV_QTY_R_1_3</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_PRV_QTY_R_1_4</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_PRV_QTY_R_2_1</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_PRV_QTY_R_2_2</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_PRV_QTY_R_2_3</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_PRV_QTY_R_2_4</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_PRV_QTY_R_3_1</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_PRV_QTY_R_3_2</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_PRV_QTY_R_3_3</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_PRV_QTY_R_3_4</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_PRE_QTY_TOTAL</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.NYUKA_QTY_BOFORE_3</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.NYUKA_QTY_BOFORE_2</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.NYUKA_QTY_BOFORE_1</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.NYUKA_QTY_TOTAL</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_QTY_R_CM_1</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_QTY_R_CM_2</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_QTY_R_CM_3</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_QTY_R_CM_4</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_QTY_R_1_1</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_QTY_R_1_2</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_QTY_R_1_3</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_QTY_R_1_4</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_QTY_R_2_1</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_QTY_R_2_2</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_QTY_R_2_3</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_QTY_R_2_4</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_QTY_R_3_1</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_QTY_R_3_2</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_QTY_R_3_3</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_QTY_R_3_4</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_QTY_R_4_1</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_QTY_R_4_2</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_QTY_R_4_3</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass" style=" white-space:nowrap">@item.PO_QTY_R_4_4</td>
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass" style=" white-space:nowrap">@item.SUPPLIER_NAME</td>
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass" style=" white-space:nowrap">@item.FUTOU_NAME</td>
+                    <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass" style=" white-space:nowrap">@item.MOCHIKOMISAKI_NAME</td>
+
+                </tr>
+            }
+        }
+        else
+        {
+            <tr class="GridNormalRow">
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"><input type="button" class="btnArrow" style="height:16px;float: right;width:25px" /></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+                <td class="labelClass padddingLeft padddingRight" style="text-align:center; white-space:nowrap"></td>
+
+            </tr>
+        }
+
+
+    </table>
+
+</div>
+@section Scripts {
+
+    <link href="~/css/Common.css" rel="stylesheet" />
+    <link href="~/css/AnalysePOQuantity.css" rel="stylesheet" />
+    <link href="~/css/Common_Styles.css" rel="stylesheet" />
+    <link href="~/css/masterStyles.css" rel="stylesheet" />
+    <script src="~/static/js/AnalysePOQuantity.js"></script>
+
+}  

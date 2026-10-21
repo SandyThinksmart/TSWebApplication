@@ -1,0 +1,439 @@
+﻿@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+@{
+    //ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_HardnessEntry").Value.Replace("</br>", "");
+    Layout = "~/Views/Shared/_LayoutProcessEntryTemplate2.cshtml";
+    int FI_Result_Ok = ViewBag.FI_Result_Ok;
+    int FI_Result_Ng = ViewBag.FI_Result_Ng;
+    int FI_Result_Untested = ViewBag.FI_Result_Untested;
+    int FI_Result_SparkUntested = ViewBag.FI_Result_SparkUntested;
+    int FI_Spark_Untested = ViewBag.FI_Spark_Untested;
+    int FI_Spark_Ok = ViewBag.FI_Spark_Ok;
+    int FI_Spark_Ng = ViewBag.FI_Spark_Ng;
+}
+
+<link href="~/css/ProcessEntryTemplate2.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/Common.css" rel="stylesheet" asp-append-version="true" />
+<script src="~/Scripts/CommonScript.js" asp-append-version="true"></script>
+@section Scripts{
+    <script src="~/Static/js/HardnessEntry.js" asp-append-version="true"></script>
+
+    <script>
+        $(document).ready(function () {
+
+
+            window.resizeTo(1220, 800);
+
+
+        });
+
+        function LoadTbMessage() {
+
+            window.resizeTo(1220, 980);
+
+
+        }
+        function LoadTbProcessInfo() {
+
+            window.resizeTo(1220, 1000);
+
+
+        }
+        function ReSizeScreen() {
+
+            window.resizeTo(1220, 800);
+
+
+        }
+
+    </script>
+}
+
+@section cphStartEndData {
+
+
+    <div style="border:solid 1px;border-color:gray">
+        <div id="pnlHardnessPattern" style="border:solid 1px;border-color:gray" class="labelPadding">
+            <table id="tblProcessStartData" style="padding-left:10px;width:882Px;Height:29px">
+
+                <tr style="height:15px">
+                    <td style="width: 27px; padding-left: 10px"></td>
+                    <td style="width: 260px"> </td>
+                </tr>
+                <tr>
+                    <td style="width: 27px">
+                        <label ID="lblHardness"
+                               align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessStandard_L")</label>
+                    </td>
+                    <td>
+                        @*
+                    *@
+                        <input type="text" id="txtHardnessData1" style="width: 80px;" disabled="disabled" class="dateField form-control TextBoxClass ReadOnlyTextBox  okToReset labelClass TextFieldsClass" />
+                        @*<option value="1">HRB</option>
+                    <option value="2">
+                    @LocalizationServices.GetLocalizedHtmlString("lbl_Hone")</option>
+                    <option value="3">
+                    @LocalizationServices.GetLocalizedHtmlString("lbl_Thaba_L")</option>*@
+
+                        @*
+                    *@
+                        @*<select ID="ddlHardnessKubun"    class="DropdownListClass"
+                    style="background-color: #EEEEEE; width: 70px; border-style: inset; padding-bottom: 2px;"
+                    >
+                    </select>*@
+
+                        <input type="text" id="txtHardnessData2" style="width: 80px;" disabled="disabled"
+                               class="dateField form-control TextBoxClass ReadOnlyTextBox TextBoxDateTime okToReset labelClass TextFieldsClass" />
+                        <input type="text" id="txtHardnessData3" style="width: 80px;" disabled="disabled"
+                               class="dateField form-control TextBoxClass ReadOnlyTextBox TextBoxDateTime okToReset labelClass TextFieldsClass" />
+                    </td>
+                </tr>
+                <tr style="height:15px">
+                    <td style="width: 27px; padding-left: 10px"></td>
+                    <td style="width: 260px"> </td>
+                </tr>
+            </table>
+        </div>
+
+
+        <div style="padding-left:5px;border: 0.5px inset lightgrey;" id="divProcessStartData">
+            <table id="tblProcessStartData1" style="padding-left:10px;">
+
+                <tr style="height:15px">
+                    <td align="left" width="110px"> </td>
+                    <td colspan="3"> </td>
+                </tr>
+                <tr>
+                    <td align="left" width="110px">
+                        <label ID="lblHardnessStandard" align="left" class="labelClass" Style="font-weight:bold;margin-left:-2px;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessStandard")</label>
+                    </td>
+                    <td colspan="3">
+                        <label ID="lblSplitNo" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_SplitNo")</label>&nbsp;&nbsp;&nbsp;
+
+                        <input type="text" ID="txtSplitNo" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                               class="form-control GridAlignmentNumeric TextFieldsClass Mandatory IsNumber InActiveIMEMode labelClass " style="width: 50px;"
+                               MaxLength="2" TabIndex="5" ClientIDMode="Static" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_DivisionNoRequired")" />
+
+
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label ID="lblLastNo" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_LastNo")</label>&nbsp;&nbsp;&nbsp;
+                        <input type="text" id="txtLastSplitNo" class="GridAlignmentNumeric TextFieldsClass IsNumber InActiveIMEMode labelClass disabled ReadOnlyTextBox"
+                               style="width: 50px;" maxlength="7" tabindex="-1" readonly="readonly" disabled="disabled" />
+                    </td>
+
+                    <td>
+                        <label style="color:indianred;display:none;white-space:nowrap;" id="FIDoneWarning">@LocalizationServices.GetLocalizedHtmlString("lbl_FIDoneWarning")</label>
+                    </td>
+                   
+                </tr>
+                <tr>
+                    <td>
+                        <label ID="lblInspectionDate" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_InspectionDate")</label>
+                    </td>
+                    <td>
+                        <input type="text" id="txtDate" tabindex="6" style="width: 120px"
+                               class="dateField form-control TextBoxClass TextFieldsClass Mandatory TextBoxDateTime okToReset InActiveIMEMode labelClass"
+                               errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_InspectionDateRequired")" />
+
+                        <input type="button" id="btnDateTime" class="_functionButtons" tabindex="7" style="width: 46px;height:22px"
+                               value='@LocalizationServices.GetLocalizedHtmlString("lbl_CurrentDateTime")' />
+                    </td>
+                    <td style="width: 20px"></td>
+                    <td id="tdlblInspector" style="width: 72px">
+                        <label ID="lblInspector" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Inspector")</label>
+                    </td>
+                    @* <td style="width: 235px">
+                        <input type="text" ID="txtInputSearch" runat="server" tabindex="8" style="font-family:'MS Gothic';Width:43px; Height:22px" class="form-control TextFieldsClass"
+                               BorderStyle="Inset" MaxLength="6" />
+
+                        <input type="button" name="btnYobinaStartOpeartorSearch" value="-" id="btnYobinaStartOpeartorSearch"
+                               style="Width:21px;Height:22px;margin-left:-2px;text-align:center" CausesValidation="false" tabindex="9" />
+                        <select ID="ddlOperatorName" runat="server" class="Mandatory MandatoryDropdown form-control" tabindex="10" style="border-style:inset; padding-bottom:2px;font-family:'MS Gothic'; Height:22px; Width:133px;font-size:small;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_OperatorRequired")">
+                        </select><span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_OperatorRequired")</span>
+                    </td> *@
+                    @* <td  id="tdtxtStartOperator" style="width: 235px">
+
+                        <div id="divStartOpertor">
+
+                            @{
+                                var startData = Tuple.Create("txtInputSearch", "btnYobinaStartOpeartorSearch", "ddlOperatorName", "valMsg_COM_OperatorRequired", 8);
+                                @Html.Partial("~/Views/SearchComboEmployee/SearchComboEmployee.cshtml", startData)
+
+                            }
+                        </div>
+
+                        <input type="hidden" id="hdfStartOperatorCD" name="hdfStartOperatorCD" />
+                    </td> *@
+                    <td style="width: 235px" id="tdtxtStartOperator">
+
+
+                        <input type="text" ID="txtOperator" class="TextFieldsClass InActiveIMEMode Mandatory form-control"
+                               TabIndex="8" MaxLength="20" ErrorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_OprRequired")" style="width:204px;" />
+
+
+                        <input type="hidden" id="hdfStartOperatorCD" name="hdfStartOperatorCD" />
+                    </td>
+                   
+                   @*  <td>
+                        <label ID="lblNextProcess" align="center" class="labelClass" style="margin-left:-1px;width: 56px;">@LocalizationServices.GetLocalizedHtmlString("lbl_NextProcess")</label>
+                    </td>
+                    <td style="width:120px">
+                        <select id="ddlnextprocess" name="ddlnextprocess" class="MandatoryDropdown Mandatory DropdownListClass form-control" style="width: 188px;font-size: small"
+                                tabindex="23" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_NextProcessRequired")"></select>
+                    </td> *@
+                </tr>
+                <tr>
+                    <td id="tdlblFurnaceNum" style="width: 84px">
+                        <label ID="lblFurnaceNum" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</label>
+                    </td>
+                    <td id="tdtxtFurnaceNum" style="width: 267px;">
+                        <input type="text" ID="txtFurnaceNum" class="form-control TextFieldsClass InActiveIMEMode" MaxLength="20"
+                               TabIndex="11" Style="width: 190px;text-transform:uppercase;"><span class="text-danger"></span>
+                    </td>
+                    <td style="width: 20px">
+                        <input type="checkbox" ID="chkActualDim"
+                               TabIndex="12" class="labelClass"
+                               ClientIDMode="Static">
+                    </td>
+                   
+                    <td id="tdlblActualDim" style="width: 80px">
+                        <label ID="lblActualDim" align="left" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ActualDim")</label>
+
+                    </td>
+                    <td id="tdtxtActualDimD" style="width: 130px">
+                       
+                        <table>
+                            <tr>
+                                <td>
+                                    <input type="text" ID="txtActDim" class="form-control TextFieldsClass IsNumber Mandatory GridAlignmentNumeric InActiveIMEMode" MaxLength="7"
+                                           TabIndex="13" Style="width: 55px" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_ActualdimensionRequired")"
+                                           onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                                </td>
+                                <td id="tdlblHardnessType" style="width: 121px;padding-left: 6px;">
+                                    <label ID="lblHardnessType" align="left" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessType")</label>
+                                </td>
+                                <td style="width: 187px;">
+                                    <select id="ddlHardnessKubun2" name="ddlHardnessKubun2" class="form-control DropdownListClass MandatoryDropdown Mandatory" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_Hardness_TypeRequired")"
+                                            style="width: 60px; height: 23px; font-size:small;" tabindex="14">
+
+
+                                        <option value="0" selected="selected">
+
+
+                                        </option>
+
+                                    </select>
+                                    <span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_UnitRequired")</span>
+                                </td>
+                            </tr>
+                        </table>
+
+
+
+
+                       
+                    </td>
+                   
+                   
+                    <td align="left">
+                        <label ID="lblCenterRef" align="left" class="labelClass" style="white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_CenterRef")</label>
+                    </td>
+                    <td style="width: 130px">
+                        <input type="text" id="txtCenterRef" class="form-control GridAlignmentNumeric TextFieldsClass IsNumber InActiveIMEMode labelClass" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                               style="width: 55px;" maxlength="5" tabindex="15" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_CenterRefRequired")" />
+                    </td>
+                </tr>
+                <tr>
+                    <td id="tdlblThabNo" style="width: 84px">
+                        <label ID="lblThabNo" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("Ｄ／４")</label>
+                    </td>
+                    <td>
+                        <input type="text" ID="txtD1" class="form-control GridAlignmentNumeric TextFieldsClass MandatoryDropdown InActiveIMEMode labelClass" MaxLength="5" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                               TabIndex="16" style="Width:50px">
+                        <input type="text" ID="txtD2" class="form-control GridAlignmentNumeric TextFieldsClass MandatoryDropdown  InActiveIMEMode labelClass" MaxLength="5" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                               TabIndex="17" style="Width:50px">
+                        <input type="text" ID="txtD3" class="form-control GridAlignmentNumeric TextFieldsClass MandatoryDropdown  InActiveIMEMode labelClass" MaxLength="5" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                               TabIndex="18" style="Width:50px">
+                        <input type="text" ID="txtD4" class="form-control GridAlignmentNumeric TextFieldsClass  InActiveIMEMode labelClass" MaxLength="5" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"
+                               TabIndex="19" style="Width:50px">
+
+
+
+                        <input type="text" id="txtcheckD4" style="display:none;" class="Mandatory" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_D4Required")" />
+
+
+
+
+                    </td>
+                    <td style="width: 20px"></td>
+                    <td style="width: 100px">
+                        <label ID="lblD4Avg" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_D4Avg")</label>
+                    </td>
+                    <td>
+                    <table>
+                        <tr>
+                            
+                            <td>
+                                <input type="text" id="txtD4Avg" class="form-control GridAlignmentNumeric TextFieldsClass disabled ReadOnlyTextBox InActiveIMEMode labelClass" disabled="disabled" readonly="readonly"
+                                       style="width: 55px;" maxlength="6" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_D4AvgRequired")"><span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_D4AvgRequired")</span>
+
+
+                            </td>
+                            </td>
+                                <td colspan="2" style="padding-left: 9px;">
+                                <input type="checkbox" ID="chkIncludesCenterInAvg"
+                                       TabIndex="20" class="labelClass"
+                                       ClientIDMode="Static" />
+                                    <label >@LocalizationServices.GetLocalizedHtmlString("lbl_IncludesCenterInAvg")</label>
+                            </td>
+                            
+                        </tr>
+                    </table>
+
+                    </td>
+                    <td style="width: 76px;">
+                        <label ID="lblCombinedDecision" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_CombinedDecision")</label>
+                    </td>
+                    <td>
+                        <select id="ddlDecision" name="ddlDecision" class="form-control MandatoryDropdown Mandatory DropdownListClass" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ResultRequired")"
+                                tabindex="22" style="font-size:small;">
+                        </select>
+                        <span class="text-danger" style="display:none">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ResultRequired")</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label ID="lblDeliveryRemark" align="left" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DeliveryRemarks")</label>
+                    </td>
+                    <td colspan="8">
+                        <input type="text" ID="txtRemarks" class="form-control TextFieldsClass" MaxLength="100"
+                               TabIndex="21" style="Width:905px"><span class="text-danger"></span>
+                        @* <input  type="button" value="&#9660;" ID="btnT"   class="_functionButtons" style="width: 35px;" Visible="false" />*@
+                    </td>
+                    <td colspan="3"></td>
+                </tr>
+                <tr style="height:15px">
+                    <td> </td>
+                    <td colspan="5"></td>
+                    <td colspan="3"></td>
+                </tr>
+            </table>
+            <input type="hidden" id="hdfDBOperation" name="hdfDBOperation" />
+
+            <input type="hidden" id="hdfUserName" name="hdfUserName" />
+            <input type="hidden" id="hdfSYSDATE" name="hdfSYSDATE" />
+            <input type="hidden" id="hdfOperatorCD" name="hdfOperatorCD" />
+            <input type="hidden" id="hdfFIResultOk" name="hdfFIResultOk" value="@FI_Result_Ok" />
+            <input type="hidden" id="hdfFIResultNg" name="hdfFIResultNg" value="@FI_Result_Ng" />
+            <input type="hidden" id="hdfFIResultUntested" name="hdfFIResultUntested" value="@FI_Result_Untested" />
+            <input type="hidden" id="hdfFIResultSparkUntested" name="hdfFIResultSparkUntested" value="@FI_Result_SparkUntested" />
+            <input type="hidden" id="hdfFISparkUntested" name="hdfFISparkUntested" value="@FI_Spark_Untested" />
+            <input type="hidden" id="hdfFISparkOk" name="hdfFISparkOk" value="@FI_Spark_Ok" />
+            <input type="hidden" id="hdfFISparkNg" name="hdfFISparkNg" value="@FI_Spark_Ng" />
+        </div>
+
+        
+        <div id="divErrorMessages" class="Hidden">
+            <label id="lblErrorMessageE_HARDNESS_ENTRY_001" class="Hidden">
+                <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+            </label>
+            <label id="lblErrorMessageE_HARDNESS_ENTRY_002" class="Hidden">
+                <span ID="LiteralChuubanNotFound">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ChuubanNotFound")</span>
+            </label>
+            <label id="lblErrorMessageE_HARDNESS_ENTRY_003" class="Hidden">
+                <span ID="LiteralChuubanMarkedAsCompleted">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ChuubanMarkedAsCompleted")</span>
+            </label>
+            <label id="lblErrorMessageE_HARDNESS_ENTRY_004" class="Hidden">
+                <span ID="LiteralOperatorNotFound">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_PMSOperatorNotFound")</span>
+            </label>
+            <label id="lblErrorMessageE_HARDNESS_ENTRY_005" class="Hidden">
+                <span ID="LiteralStartDateTimeIsInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_PMSInspectionDateInvalid")</span>
+            </label>
+            <label id="lblErrorMessageE_HARDNESS_ENTRY_014" class="Hidden">
+                <span ID="LiteralStartDateTimeIsInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_DateTimeInvalid")</span>
+            </label>
+            <label id="lblErrorMessageE_HARDNESS_ENTRY_006" class="Hidden">
+                <span ID="LiteralThabaNoDuplicateWithDecisionOK">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_PMSThabaNoDuplicateWithDecisionOK")</span>
+            </label>
+            <label id="lblErrorMessageE_HARDNESS_ENTRY_007" class="Hidden">
+                <span ID="LiteralSameThabaNoEnteredMultiple">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_PMSSameThabaNoEnteredMultiple")</span>
+            </label>
+            <label id="lblErrorMessageE_HARDNESS_ENTRY_008" class="Hidden">
+                <span ID="Literal2">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ScanOperatorBarcode")</span>
+            </label>
+            <label id="lblErrorMessageE_HARDNESS_ENTRY_009" class="Hidden">
+                <span ID="LiteralDivisionNoAlradyOK">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_DivisionNoAlreadyOkDecision")</span>
+            </label>
+
+            <label id="lblErrorMessageE_HARDNESS_ENTRY_010" class="Hidden">
+                <span ID="LiteralUnitRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_UnitRequired")</span>
+            </label>
+
+            <label id="lblErrorMessageE_HARDNESS_ENTRY_011" class="Hidden">
+                <span ID="LiteralOrNoNotStartedFromHandOver">@LocalizationServices.GetLocalizedHtmlString("valMsg_OrNoNotStartedFromHandOver")</span>
+            </label>
+
+            <label id="lblErrorMessageE_HARDNESS_ENTRY_012" class="Hidden">
+                <span ID="LiteralCanNotUseInactiveMaster">@LocalizationServices.GetLocalizedHtmlString("valMsg_CanNotUseInactiveMaster")</span>
+            </label>
+
+            <label id="lblErrorMessageE_HARDNESS_ENTRY_013" class="Hidden">
+                <span ID="LiteralPlusMinus">@LocalizationServices.GetLocalizedHtmlString("lbl_PlusMinus")</span>
+            </label>
+
+            <label id="lblErrorMessageE_HARDNESS_ENTRY_015" class="Hidden">
+                <span ID="LiteralPlusMinus">@LocalizationServices.GetLocalizedHtmlString("valMsg_PMSHardnessStandardInvalid")</span>
+            </label>
+            <label id="lblErrorMessageE_HARDNESS_ENTRY_016" class="Hidden">
+                <span ID="LiteralFurnaceNoNotMatchingwithHardness">@LocalizationServices.GetLocalizedHtmlString("valMsg_FurnaceNoNotMatchingwithtensile")</span>
+            </label>
+
+            <label id="lblErrorMessageE_HARDNESS_ENTRY_017" class="Hidden">
+                <span ID="LiteralBarcodeIncorrect">@LocalizationServices.GetLocalizedHtmlString("valMsg_BarcodeIncorrect")</span>
+            </label>
+            <label id="lblErrorMessageE_HARDNESS_ENTRY_018" class="Hidden">
+                <span ID="Literal1">@LocalizationServices.GetLocalizedHtmlString("valMsg_HardnessOperatorBarcode")</span>
+            </label>
+            <label id="lblErrorMessageE_HARDNESS_ENTRY_019" class="Hidden">
+                <span ID="LiteralBarcodeNotFound">@LocalizationServices.GetLocalizedHtmlString("valMsg_BarcodeNotFound")</span>
+            </label>
+            <label id="lblErrorMessageE_HARDNESS_ENTRY_020" class="Hidden">
+                <span ID="LiteralEmployeeInactive">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_HardnessEmployeeInactive")</span>
+            </label>
+
+        </div>
+
+        <div id="divConfirmationMessages" class="Hidden">
+
+            <label id="lblConfirmationMessageC_HARDNESS_ENTRY_001" class="Hidden">
+                <span ID="LiteralDimOutOfTolerance">@LocalizationServices.GetLocalizedHtmlString("confMsg_DimOutOfTolerance")</span>
+            </label>
+            <label id="lblConfirmationMessageC_HARDNESS_ENTRY_002" class="Hidden">
+                <span ID="LiteralDimOutOfTolerance">@LocalizationServices.GetLocalizedHtmlString("confMsg_HardnessPatternValueInvalid")</span>
+            </label>
+            <label id="confMsgFIExistUpdateFIAsOK" class="Hidden">
+                <span ID="FiExistUpdate">@LocalizationServices.GetLocalizedHtmlString("confMsg_FIExistUpdateFIAsOK")</span>
+            </label>
+            <label id="ConfMsgProcessResultDiscrepancy" class="Hidden">
+                <span ID="confMsgResultSavesWithNg">@LocalizationServices.GetLocalizedHtmlString("ConfMsg_ProcessResultDiscrepancy")</span>
+            </label>
+            <label id="lblYes" class="Hidden">
+                <span ID="lblYes">@LocalizationServices.GetLocalizedHtmlString("lbl_Yes")</span>
+            </label>
+            <label id="lblNo" class="Hidden">
+                <span ID="lblNo">@LocalizationServices.GetLocalizedHtmlString("lbl_No")</span>
+            </label>
+        </div>
+
+        <div id="divSuccessMessages" class="Hidden">
+            <label id="lblSuccessMessageS_HARDNESS_ENTRY_001" class="Hidden">
+                <span ID="Literal1">@LocalizationServices.GetLocalizedHtmlString("successMsg_COM_DataSaved")</span>
+            </label>
+        </div>
+       
+    </div>
+}
+
+

@@ -1,0 +1,345 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@inject LocalizationServices LocalizationServices
+@{
+    ViewData["Title"] = ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lbl_MaterailPoMainAnalysis");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string executeBatch = @Configuration.GetSection("Import_PO_Batches")["Value"];
+}
+<style>
+    div.fixed {
+        position: fixed;
+        padding-top: 2px;
+        margin-left: 50%;
+    }
+
+    #LoadingImage {
+        position: fixed;
+        display: block;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        text-align: center;
+        opacity: 0.7;
+        background-color: #fff;
+        z-index: 99;
+        padding-top: 20%;
+    }
+
+    #loadImage {
+        position: absolute;
+        padding-top: 40%;
+        top: 100px;
+        left: 280px;
+        z-index: 100;
+    }
+
+    .disabled {
+        background-color: #EEEEEE !important;
+        color: black;
+    }
+</style>
+
+
+<table border="0" cellpadding="0" cellspacing="0" id="tblMain" style="margin-top:20px;margin-left:5px;">
+    <tr>
+        <td>
+            <div id="pnlHeader">
+                <table id="tblHeader">
+                    <tr>
+                        <td align="left" valign="top">
+                            <input type="text" ID="txtYear" class="TextFieldsClass form-control InActiveIMEMode disabled" disabled="disabled">
+                        </td>
+                        <td align="left" valign="middle" id="tdYearMonth">
+                            <label id="lblYear" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Year")</label> 
+                        </td>
+                        <td align="left" valign="top" id="tdMonth">
+                            <input type="text" ID="txtRoll" class="TextFieldsClass form-control InActiveIMEMode disabled" disabled="disabled">
+                        </td>
+                        <td align="left" valign="middle" id="tdMonth">
+                            <label id="lblMonth" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_R")</label>
+                        </td>
+                        <td align="left" valign="middle" id="tdwidth">
+                            <label id="lblAngle" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Angle")</label>
+                        </td>
+                        <td align="left" valign="middle" id="tdorderInfo">
+                            <label id="lblOrderInfo" class="labelClass" style="width:60px">@LocalizationServices.GetLocalizedHtmlString("lbl_OrderInfo")</label>
+                        </td>
+
+                        <td> <label id="lblOrderInfo" class="labelClass" style="width:60px">@LocalizationServices.GetLocalizedHtmlString("lblOperator")</label></td>
+
+                        <td>
+                            <input type="text" ID="txtscAssembleVerifyByInputSearch" runat="server" class="form-control TextFieldsClass" style="font-family:'MS Gothic';Width:30px; Height:22px" ;
+                                   BorderStyle="Inset" MaxLength="6" />
+                        </td>
+                        <td>
+                            <input type="button" value="-" id="btnscAssembleVerifyByOpeartorSearch" style="Width:20px;Height:20px;text-align:center" />
+                        </td>
+                        <td>
+                            <select ID="ddlscAssembleVerifyBy" runat="server" class="DropdownListClass dropListClass Mandatory" style="border-style:inset; padding-bottom:2px;font-family:'MS Gothic'; Height:22px; Width:120px" errorlabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_InchargeRequired")">
+                            </select>
+                        </td>
+                        <td width="300px"><input type="text" ID="txtLocation" class="TextFieldsClass form-control InActiveIMEMode disabled" disabled="disabled" style="width:150px"></td>
+
+                        <td align="left">                            <input type="checkbox" ID="chkRollPOLockMonthly" class="labelClass" Enabled="true" style="Width:20px" /></td>
+
+                        <td width="200px" align="left">
+                            <label id="lblOrderInfo" class="lblRollPOLockMonthly" style="width:200px">@LocalizationServices.GetLocalizedHtmlString("lbl_POForecastRegistrationLock")</label>
+                        </td>
+                        <td>
+                            <input type="checkbox" ID="chkRollPOCompleteMonthly" class="labelClass" Enabled="true" style="Width:20px" disabled="disabled" />
+                        </td>
+                        <td width="200px">
+                            <label id="lblOrderInfo" class="lbl_RollPOCompleteMonthly" style="width:200px" disabled="disabled">@LocalizationServices.GetLocalizedHtmlString("lbl_POAnalysisDone")</label>
+                        </td>
+
+                    </tr>
+                </table>
+                <table id="tblSearch" >
+                    <tr>
+                        <td align="left"  style="background-color:purple;" width="30px">
+                            <table style="width:710px;height:47px">
+                                <tr>
+                                    <td colspan="8" align="center">
+                                        <label id="lbl" class="lblClass">@LocalizationServices.GetLocalizedHtmlString("lbl_R")</label>
+                                        <label id="lblAngle" class="lblClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Angle")</label>
+                                        <label id="lblOrderInfo" class="lblClass" style="width:60px">@LocalizationServices.GetLocalizedHtmlString("lbl_OrderInfo")</label>
+                                    </td>
+                                 </tr>
+                                <tr>
+                                    <td width="75px" >
+                                        <label id="lbl" class="lblClass" style="margin-left:5px">@LocalizationServices.GetLocalizedHtmlString("lbl_InternalName")</label>
+                                    </td>
+                                    <td width="91px">
+                                        <input type="text" ID="txtMatlNameInt" class="TextFieldsClass form-control InActiveIMEMode" onkeyup="ToUpper(this)" style="width:85px" maxlength="20">
+                                    </td>
+                                    <td width="40px">
+                                        <label id="lbl" class="lblClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</label>
+
+
+                                    </td>
+                                    <td width="90px">
+                                        <input type="text" ID="txtDimD" class="TextFieldsClass form-control InActiveIMEMode rightAlign" 
+                                        onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" style="width:85px">
+                                    </td>
+                                    <td width="60px">
+                                        <label id="lbl" class="lblClass">@LocalizationServices.GetLocalizedHtmlString("lbl_CoilBarKurokawa_L")</label>
+                                    </td>
+                                    <td width="92px">
+                                       
+                                        <select ID="ddlCoilBarKurokawa" runat="server" class="DropdownListClass dropListClass" style="border-style:inset; padding-bottom:2px;font-family:'MS Gothic'; Height:22px; Width:80px">                                            
+                                           
+                                        </select>
+                                    </td>
+                                  
+                                    <td>
+                                        <label id="lbl" class="lblClass">@LocalizationServices.GetLocalizedHtmlString("lbl_UnconfirmedMatlSearch")</label>
+
+                                    </td>
+                                    <td align="center">
+                                        <input type="checkbox" id="chkUnconfirmed" checked />
+                                    </td>
+
+                                    <td width="86px">                                       
+                                                                           
+                                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Extract")" ID="btnSearch" class="_functionButtons" />
+
+                                    </td>
+                                    <td >                                       
+                                       
+                                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Sort_L")" ID="btnSort" class="_functionButtons"  />
+
+                                    </td>
+                                </tr>
+                                @* <tr>
+                                </tr> *@
+                            </table>
+                        </td>
+                        <td width="70px"></td>
+                        <td align="left" style="background-color:green;">
+                            <table style="width:460px;height:47px">
+                                <tr>
+                                    <td colspan="8" align="center">
+                                        <label id="lbl" class="lblClass">@LocalizationServices.GetLocalizedHtmlString("lbl_R")</label>
+                                        <label id="lblAngle" class="lblClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Angle")</label>
+                                        <label id="lblOrderInfo" class="lblClass" style="width:60px">@LocalizationServices.GetLocalizedHtmlString("lbl_OrderInfo")</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    
+                                    <td align="center">
+
+                                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_ExecuteBatch")" ID="btnExecuteBatch" class="_functionButtons" style="width:162px" />
+
+
+                                    </td>
+                                    <td >
+
+                                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_MarkAsAnalyzed")" ID="btnMarkAsAnalyzed" class="_functionButtons" style="width:280px;margin-right:-10px;" />
+
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                </tr>
+                            </table>
+                        </td>
+
+                    </tr>
+                </table>
+                <table id="tblPoMainGrid">
+                    <tr>
+                        <td valign="top">
+                            <div id="divRollPOMainAnalysisGrid">
+                                @{
+                                    @await Html.PartialAsync("~/Views/RollPoMainAnalysis/RollPoMainAnalysisGrid.cshtml")
+                                   
+                                }
+                            </div>
+                        </td>
+                    </tr>
+
+                </table>
+                <table id="tblbottom">
+                    <tr>
+                       
+                        <td align="center" valign="middle" rowspan="2" bgcolor="#C00000" style="width: 199px">
+                            <table cellpadding="2" cellspacing="2" style="height: 65px">
+                                <tr>
+                                    <td align="center" colspan="2">
+                                        <label ID="lblAuxiliaryFunctionCSVExcel" class="labelClass" style="color:white">@LocalizationServices.GetLocalizedHtmlString("lbl_Operation")</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_AnalyzePOQty")" ID="btnAnalyzePOQty" class="_functionButtons" onClick="openScreens()" />
+                                    </td>
+                                    <td>
+@*                                         <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_PlaceOrder")" ID="btnPlaceOrder" class="_functionButtons" style="width:100px" />
+ *@                                        
+                                           <input type="button" ID="btnPlaceOrder" class="_functionButtons" style="width:100px" />
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width:7px;"></td>
+                        <td align="center" valign="middle" rowspan="2" bgcolor="#254636" style="width: 322px">
+                            <table cellpadding="2" cellspacing="2" style="height: 65px" >
+                                <tr>
+                                    <td align="center" colspan="3">                                        
+                                        <label id="lbl_InfoDisplay" class="lableClass" style="color:white;">@LocalizationServices.GetLocalizedHtmlString("lbl_InfoDisplay")</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_OrderQty")" ID="btnOrderQty" class="_functionButtons"  onClick="javascript:open('/RollPoMainAnalysis/OrderAndReceiptHistoryPopUp', 'OrderAndReceiptHistoryPopUp', 'height=855px,width=1160px,resizable=no')" />
+                                    </td>
+                                    <td>
+                                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_MaterialWiseSubTotal")" ID="btnMaterialWiseSubTotal" class="_functionButtons" onClick=" OnMaterialWiseOrderQtyBtnClick($(this))" />
+                                    </td>
+                                    <td>
+                                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_ForcastStatus")" ID="btnForcastStatus" class="_functionButtons" onClick=" OnForecastStatusBtnClick($(this))" />
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        
+                        <td style="width:7px;"></td>
+                        <td align="center" valign="middle" style="background-color:#edb226;">
+                            <table style="margin-top:3px;height: 65px" id="tblBottomReportBtn">
+                                <tr>
+                                    <td align="center" >
+
+                                        <label id="lbl_InfoDisplay" class="lableClass" style="color:white;margin-left:8px;">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+                                    <td align="center" >
+                                        
+                                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_MaterialForcastDataReport")" ID="btnMaterialForcastDataReport" class="_functionButtons"  />
+
+                                        
+                                    </td>
+
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width:427px;"></td>
+                        <td align="center" valign="middle" style="background-color: Navy;">
+                            <table id="tblClose" style="margin-top:-8px">
+                                <tr>
+                                    <td align="center" >
+                                        <label ID="lblClose" class="labelClass" style="color:White;padding-top:12px">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" >
+                                        <br />
+                                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnClose" class="_functionButtons" OnClientClick="return Confirmation()"  style="width:86px"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<input type="hidden" id="hdfExecuteBatch" name="" value="@executeBatch" />
+
+<div id="divErrorMessages" class="Hidden">
+    <label id="lblErrorMessageE_ROLL_PO_01" class="Hidden">
+        <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+    </label>
+
+    <label id="lblSelectAtLeastOneRecord_ROLL_PO_02" class="Hidden">
+        <span ID="LiteralSelectAtLeaseOneRecord">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SelectAtLeastOneRecord")</span>
+    </label>
+    <label id="lblPOSaveSuccessfully_ROLL_PO_03" class="Hidden">
+        <span ID="LiteralPOSaveSuccessfully">@LocalizationServices.GetLocalizedHtmlString("successMsg_POSaveSuccessfully")</span>
+    </label>
+    <label id="lblNoDataForPO_ROLL_PO_04" class="Hidden">
+        <span ID="LiteralNoDataForPO">@LocalizationServices.GetLocalizedHtmlString("valMsg_NoDataForPO")</span>
+    </label>
+    <label id="btn_PlaceOrder" class="Hidden">
+        <span ID="LiteralbtnPlaceOrder">@LocalizationServices.GetLocalizedHtmlString("btn_PlaceOrder")</span>
+    </label>
+    <label id="btn_ReprintPOReport" class="Hidden">
+        <span ID="LiteralbtnReprintPOReport">@LocalizationServices.GetLocalizedHtmlString("btn_ReprintPOReport")</span>
+    </label>
+    <label id="lblUnregisteredMaterial_ROLL_PO_05" class="Hidden">
+        <span ID="LiteralbtnReprintPOReport">@LocalizationServices.GetLocalizedHtmlString("valMsg_UnregisteredMaterial")</span>
+    </label>
+
+    <label id="lblconfMsg_MarkAsAnalysed" class="Hidden">
+        <span ID="LiteralMarkAsAnalysed">@LocalizationServices.GetLocalizedHtmlString("confMsg_MarkAsAnalysed")</span>
+    </label>
+
+    </div>
+<div id="LoadingImage" style="display: none">
+    <img id="loadImage" src="~/images/loading.gif" height="60px" width="60px" />
+</div>
+
+<div id="SortPopUpModalMain">
+    @{
+        @await Html.PartialAsync("~/Views/Shared/SortPopUp.cshtml")
+        ;
+    }
+</div>
+@section Scripts{
+    <link href="~/css/Common.css" rel="stylesheet" />
+    <link href="~/css/RollPoMainAnalysis.css" rel="stylesheet" />
+    <link href="~/css/Common_Styles.css" rel="stylesheet" />
+    <link href="~/css/masterStyles.css" rel="stylesheet" />
+    <script src="~/static/js/RollPoMainAnalysis.js"></script>
+
+}

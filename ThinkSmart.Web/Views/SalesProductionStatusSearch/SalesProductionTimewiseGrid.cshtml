@@ -1,0 +1,229 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@using TSWebApplication.Domain.Utility
+@model List<ProcessPlanForSalesProductionStatusDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+    int thabaDivisionK = UIUtils.GetProcessKubun(LocalizationServices.GetLocalizedHtmlString("lbl_ProcessHTWipDivision"));
+     int thabaCombineK = UIUtils.GetProcessKubun(LocalizationServices.GetLocalizedHtmlString("lbl_ProcessHTWipCombine"));
+}
+
+<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/salesproductionstatussearch.css" rel="stylesheet" asp-append-version="true" />
+
+<div>
+    <table>
+        <tr>
+            <td style="vertical-align: top">
+              
+               
+
+                  
+                        <table class="GridLines GridNormalRows" id="grdvTimewise">
+                            <thead>
+                                <tr class="thHeaderClass freez">
+                                    <th>
+                                        <label ID="lblProcessName" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessName_L")</label>
+                                    </th>
+                                    <th>
+                                        <label ID="lblProcessEndDate" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessEndDate_L")</label>
+                                    </th>
+
+                            <th>
+                                <label ID="lblLocation" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_Location")</label>
+                            </th>
+                                    <th>
+                                        <label ID="lblMachine" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_Machine_L")</label>
+                                    </th>
+                            <th>
+                                <label ID="lblFurnaceNum" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</label>
+                            </th>
+                            <th>
+                                
+                                        <label ID="lblTabaNo" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_TabaNo")</label>
+                                    </th>
+                                    <th>
+                                <label ID="lblFinishedBarCount" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_NoOfUnits")</label>
+                                    </th>
+                                    <th>
+                                <label ID="lblFinishQty" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_WeightWithoutKG")</label>
+                                    </th>
+                                    <th>
+                                        <label ID="lblDecision" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_Decision")</label>
+                                    </th>
+                                    <th>
+                                        <label ID="lblColor" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_Color_L")</label>
+                                    </th>
+                                    <th>
+                                        <label ID="lblChamferShort" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ChamferShort")</label>
+                                    </th>
+                                    <th>
+                                        <label ID="lblSpark" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_Spark")</label>
+                                    </th>
+                                    <th>
+                                <label ID="lblBendStatus" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_BendStatus")</label>
+                                    </th>
+                                    <th>
+                                        <label ID="lblExternalSurfaceCondition" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ExternalSurfaceCondition")</label>
+                                    </th>
+                                    <th>
+                                <label ID="lblECOnline" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ECOnline")</label>
+                                    </th>
+                                    <th>
+                                        <label ID="lblECNGBars" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_ECNGBars")</label>
+                                    </th>
+                                    <th>
+                                        <label ID="lblDeliveryRemarks" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_DeliveryRemarks")</label>
+                                    </th>
+                                    <th>
+                                        <label ID="lblEndOperator1" class="labelClass labelPadding">@LocalizationServices.GetLocalizedHtmlString("lbl_EndOperator1")</label>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Count > 0)
+                                {
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr class="GridNormalRow">
+                                            <td class="labelClass GridLeft align-middle">
+                                        @if (thabaDivisionK == item.PROCESS_KUBUN_CD || thabaCombineK == item.PROCESS_KUBUN_CD)
+                                        {
+                                                <table>
+                                                    <tr>
+                                                        <td align="left" valign="middle">
+                                                        @item.PP_PROCESS_NAME
+                                                        </td>
+                                                    <td align="left" valign="middle">
+                                                        @if (thabaDivisionK == item.PROCESS_KUBUN_CD)
+                                                        {
+
+                                                            <a onClick="javascript:open('/WIPTagSplit/WIPTagSplitDelete?divisionCD=' + @item.SERIAL_NO, 'WIPTagSplitDelete', 'height=400px,width=240px,resizable=no')">
+                                                              <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Delete")" ID="btnDelete" class="btnDelete labelClass"
+                                                               CausesValidation="false" TabIndex="10" />
+                                                            </a>
+                                                        }else
+                                                        {
+                                                            <a onClick="javascript:open('/WIPTagCombine/WIPTagCombineDelete?combineCD=' + @item.SERIAL_NO, 'WIPTagCombineDelete', 'height=400px,width=240px,resizable=no')">
+                                                                <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Delete")" ID="btnDelete" class="btnDelete labelClass"
+                                                                 CausesValidation="false" TabIndex="10" />
+                                                            </a>
+                                                            
+                                                        }
+                                                    </td>
+                                                    </tr>
+                                                </table>
+                                                
+                                        }else
+                                        {
+                                            @item.PP_PROCESS_NAME
+                                        }
+                                            </td>
+                                    <td class="labelClass GridLeft">
+                                        @if (item.PROCESS_KUBUN_CD == 880 || item.PROCESS_KUBUN_CD == 890)
+                                        {
+                                            @(Convert.ToDateTime(@item.END_DATE).ToString("yyyy/MM/dd"));
+                                           
+                                        }else
+                                        {
+                                            @item.END_DATE
+                                        }
+
+                                                </td>
+                                            <td class="labelClass GridLeft">@item.LOCATION_NAME</td>
+                                            <td class="labelClass GridLeft">@item.MACHINE_NAME</td>
+                                            <td class="labelClass GridLeft">@item.FURNACE_NO</td>
+                                            <td class="labelClass GridCenter">@item.TABA_NO</td>
+                                            <td class="labelClass GridRight">@item.FINISHED_BARS_DECODE</td>
+                                            <td class="labelClass GridRight">@item.FINISHED_QTYS</td>
+                                            <td class="labelClass GridCenter">@item.RESULT_DECISION_STRING</td>
+                                            <td class="labelClass GridCenter" style="background-color:@item.FI_COLOR;color:white;">@item.FI_DECISION_STRING</td>
+                                            <td class="labelClass GridCenter">@item.FI_CHAMFER_DECISION_STRING</td>
+                                            <td class="labelClass GridCenter">@item.FI_SPARK_DECISION_STRING</td>
+                                            <td class="labelClass GridCenter">@item.BEND_STATUS_DECODE</td>
+                                            <td class="labelClass GridCenter">@item.EXTERIOR_CONDITION_DECODE</td>
+                                            <td class="labelClass GridCenter">@item.EC_DONE_CHECK_DECODE</td>
+                                            <td class="labelClass GridRight">@item.TOTAL_NG_BARS</td>
+                                            <td class="labelClass GridLeft">
+
+                                        @if (!string.IsNullOrEmpty(item.MESSAGE) && item.MESSAGE.Contains("⇒") && thabaDivisionK == item.PROCESS_KUBUN_CD) //⇒
+                                        {
+                                            var leftpart = item.MESSAGE.Split('⇒')[0] + "⇒";
+                                            var rightpart = item.MESSAGE?.Split('⇒', 2)[1];
+                                            <table class="wipRemarks">
+                                                <tr>
+                                                    <td valign="top" class="labelClass GridRight">
+                                                        @Html.Raw(leftpart.ToString())
+                                                    </td>
+                                                    <td valign="top" class="labelClass GridLeft">
+                                                        @Html.Raw(string.Join("<br/>", rightpart))
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            
+                                        }
+                                        else if (!string.IsNullOrEmpty(item.MESSAGE) && item.MESSAGE.Contains("⇒") && thabaCombineK == item.PROCESS_KUBUN_CD)
+                                        {
+                                            var rightpart = "⇒" + item.MESSAGE.Split(new[] { '⇒' }, 2)[1];
+                                            var leftpart = item.MESSAGE.Split(new[] { '⇒' }, 2)[0];
+                                            <table class="wipRemarks">
+                                                <tr>
+                                                    <td valign="top" class="labelClass GridLeft">
+                                                        @Html.Raw(leftpart.ToString())
+                                                    </td>
+                                                    <td valign="bottom" class="labelClass GridLeft">
+                                                        @Html.Raw(string.Join("<br/>", rightpart))
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        }
+                                        else
+                                        {
+                                            @item.MESSAGE;
+                                        }
+                                        
+                                            
+                                            </td>
+                                            <td class="labelClass GridLeft">@item.END_OPERATOR_NAME</td>
+                                        </tr>
+                                    }
+
+                                }
+                                else
+                                {
+                                    <tr class="GridNormalRow">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                  
+
+               
+
+                
+            </td>
+        </tr>
+    </table>
+</div>

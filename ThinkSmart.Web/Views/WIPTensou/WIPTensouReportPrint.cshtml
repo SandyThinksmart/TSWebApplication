@@ -1,0 +1,199 @@
+﻿@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+@{
+    var screenName = Context.Request.Query["screenName"].ToString();
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    @if (screenName == "WIPTensouRequest")
+    {
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lbl_menuWipTransferRequestListPrint");
+    }
+    else
+    {
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lbl_menuWipTransferAcceptanceListPrint");
+    
+    }
+
+<link href="~/css/Common.css" rel="stylesheet" asp-append-version="true" />
+<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+
+<link href="~/css/masterStyles.css" rel="stylesheet" asp-append-version="true" />
+<form id="frmWIPTensouReportPrintScreen" >
+    <div style="margin-top:20px">
+        
+          <table  width="400px" >
+                    <tr>
+                              <td align="left" width ="300px">
+                                        
+                                            <table style="background-color: darkred; width: 100px;height:50px">
+
+                                                <tr>
+                                                       <td align="center" valign="bottom">
+                                                              <label ID="lblClose0"  class="labelClass labelcolor" 
+                                                                >
+                                                              @LocalizationServices.GetLocalizedHtmlString("lbl_Print")</label>
+                                                       </td>
+                                                </tr>
+
+                                                <tr>
+                                                   <td align="center">
+                                                            <input type="button" ID="btnPrint"  value="@LocalizationServices.GetLocalizedHtmlString("lbl_Print")"  CausesValidation="false" class="_functionButtons"
+                                                              
+                                                             style="Width:90px" />
+                                                  </td>
+                                              </tr>
+
+                                            </table>
+                                        
+                                    </td>  
+
+                                    <td align="left" width ="110px">
+                                        <table style="background-color: #27298F; width: 100px;height:50px">
+
+                                            <tr>
+                                               <td align="center" valign="bottom">
+                                                  <label ID="lblClose"  class="labelClass labelcolor" >
+                                                  @LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+                                               </td>
+                                           </tr>
+
+                                            <tr>
+                                                <td align="center">
+                                                     <input  type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_Close_L")" ID="btnClose"  CausesValidation="false" class="_functionButtons"
+                                                       
+                                                        style="Width:90px" />
+                                               </td>
+                                           </tr>
+
+                                        </table>
+                                     </td>
+
+                                   
+                    </tr>
+                     </table>
+                
+                
+          <table width="400px">
+               <tr >
+                        
+                          
+                  <table style="width:400px">
+                         <tr>
+                             <td align="left">
+                                  <label  class="labelClass">＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊</label>
+                             </td>
+                         </tr>
+
+                         <td align="left">
+                                    <label ID="lblLocation"  class="labelClass" Visible="true" style="Width:275px">@LocalizationServices.GetLocalizedHtmlString("lbl_TransferLocation")</label>
+                                    <input type="text" ID="tbLocation" readonly="readonly"  Style="text-align:left;height:22px;Width:110px" ClientIDMode="Static" class="ReadOnlyTextBox" enabled="false"  Visible="true"><span class="text-danger"></span>
+                          </td>
+
+                                         
+                         <tr>
+                            <td align="left">
+                                    <label  class="labelClass">＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊</label>
+                            </td>
+                          </tr>
+                  </table>
+                              
+                        
+               </tr>
+
+               <tr>
+                         <td>
+                    <asp:Panel ID="WIPrequestPanel" runat="server"  >@* style="visibility:hidden;"*@
+                        <table width ="400px">
+                                    <tr>
+                                        <td >
+                                            <label ID="lblDate"  class="labelClass"  style="Width:279px">@LocalizationServices.GetLocalizedHtmlString("lbl_TransferDate")</label>
+                                        </td>
+                                        <td width="130px" align ="left">
+                                    <input type="text" ID="txtDate" Style="text-align:left;height:22px;Width:110px" ClientIDMode="Static" class="TextboxClass InActiveIMEMode MandatoryTextBox"> <span class="text-danger"></span>
+                                        </td>
+                                    </tr>
+                                </table>
+                                </asp:Panel>
+
+
+                    <asp:Panel ID="acceptancePanel" runat="server" > @*style="visibility:hidden;"*@
+                                  <table width ="400px">
+                                      <tr>
+                                          <td style="width:130px">
+                                    <label ID="lbldate1" class="labelClass" style="Width:100px">@LocalizationServices.GetLocalizedHtmlString("lbl_PlanDate")</label>
+                                          </td>
+                                          <td width ="100px" align ="right">
+                                    <input type="text" ID="frmDate" Style="text-align:left;Height:22px;Width:110px" ClientIDMode="Static" Visible="true" class="TextboxClass InActiveIMEMode Mandatory" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_StartDateRequired")"> <span class="text-danger"></span>
+                                          </td>
+                                          <td align = "center" width="20px">
+                                              <label ID="lblSymb"    Style="width: 20px; display: inline-block;" Visible="true">@LocalizationServices.GetLocalizedHtmlString("～")</label>
+                                          </td>
+                                          <td width="100px" align ="left">
+                                    <input type="text" ID="toDate" Style="text-align:left;height:22px;Width:110px" ClientIDMode="Static" Visible="true" class="TextboxClass InActiveIMEMode Mandatory" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_EndDateRequired")"> <span class="text-danger"></span>
+                                          </td>
+                                      </tr>
+                                  </table>
+                                  </asp:Panel>
+                               
+                                 
+                         </td>
+                         
+                         
+                     </tr>
+                    
+          </table>
+
+
+                <input type="hidden" id="hdfWidth" name="hdfWidth"   />
+                 <input type="hidden" id="hdfHeight" name="hdfHeight"   />
+       @*   <input type="hidden" id="hdfUserId" name="hdfUserId" value="@hdfLoginId"/>*@
+
+
+
+    </div>
+        <input type="hidden" id="formWidth" name="formWidth"   />
+   <input type="hidden" id="formHeight" name="formHeight"   />
+
+    <div id="divErrorMessages" class="Hidden">
+        <label id="lblErrorMessageE_WIPTensouPrint_001" class="Hidden">
+            <span ID="LiteralChubanRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_TransferDateStartInvalid")</span>
+        </label>
+        <label id="lblErrorMessageE_WIPTensouPrint_002" class="Hidden">
+            <span ID="LiteralChubanRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_TransferDateEndInvalid")</span>
+        </label>
+        @*<label id="lblErrorMessage_StartDate" class="Hidden">
+            <span ID="LiteralStartDateTimeIsInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_TransferDateStartInvalid")</span>
+        </label>
+        <label id="lblErrorMessage_EndDate" class="Hidden">
+            <span ID="LiteralEndDateTimeIsInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_TransferDateEndInvalid")</span>
+        </label>*@
+        <label id="lbl_SystemException" class="Hidden">
+            <span ID="LiteralEndDateTimeIsInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+        </label>
+        <label id="lblStartDateGreaterThanEndDate" class="Hidden">
+            <span ID="LiteralEndDateTimeIsInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_PMSStartDateGreaterThanEndDate")</span>
+        </label>
+        <label id="lblTransferDateInvalid" class="Hidden">
+            <span ID="LiteralEndDateTimeIsInvalid">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_TransferDateInvalid")</span>
+        </label>
+        <label id="lblTransferDateRequired" class="Hidden">
+            <span ID="LiteralInvalidBillingDate">@LocalizationServices.GetLocalizedHtmlString("valMsg_TransferDateRequired")</span>
+        </label>
+        <label id="lblNoDataToPrint" class="Hidden">
+            <span ID="LiteralNoDatatoPrint">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_NoRecordFoundForPrint")</span>
+        </label>
+         <label id="lblTensoueAcceptanceStartDateRequired" class="Hidden">
+            <span ID="LiteralStartDateRequired">
+                @LocalizationServices.GetLocalizedHtmlString("valMsg_TransferDateStartRequired")</span>
+        </label>
+        <label id="lblTensoueAcceptanceEndDateRequired" class="Hidden">
+            <span ID="LiteralEndDateRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_TransferDateEndRequired")</span>
+        </label>
+   </div>
+
+    </form>
+
+ @section Scripts{
+    <script src="~/static/js/wiptensoureportprint.js" asp-append-version="true"></script>
+ }

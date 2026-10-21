@@ -1,0 +1,857 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<HardeningTemperingDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+    
+}
+<style>
+    .freezHardnessTemperingGird > th {
+        position: sticky !important;
+        background-color: #4e6cab;
+        top: 0.0px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezHardnessTemperingGird {
+        border-color: white;
+    }
+
+        .freezHardnessTemperingGird1 > th {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 20px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezHardnessTemperingGird1 {
+        border-color: white;
+    }
+
+
+
+</style>
+<div>
+     <table >
+                <tr class="freezHardnessTemperingGird">                    
+                    <th  colspan="190" style="color:white;vertical-align:top;" class="GridHeader GridViewScrollHeader labelClass1 tdH1">
+                        <div class="fixed">@LocalizationServices.GetLocalizedHtmlString("lbl_SearchResult")</div>
+                    </th>
+                </tr>
+               <tr>
+                   <td>
+                <table class="GridLinesTable GridLayout GridColumnLeftPadding tblMargineLeft " cellpadding="0" cellspacing="0" border="1" id="tableHardnessTempering">
+                    <tr class="GridHeader GridViewScrollHeader freezHardnessTemperingGird1 GridHeaderPadding">
+
+
+                        @*Common Fields Start*@
+
+                        <th id="lblChuubanHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</th>
+                        <th id="lblGoubanHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Gouban")</th>
+                        <th id="lblManufacturingSpecificationNo1Hard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ManufacturingSpecificationNo1")</th>
+                        <th id="lblManufacturingSpecificationNo2Hard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ManufacturingSpecificationNo2")</th>
+                        <th id="lblVERHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_VER")</th>
+                          
+                        <th id="lblCustomerHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</th>
+                        <th id="lblReceiverShortNameHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ReceiverShortName")</th>
+                        <th id="lblSalesInchargeMHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_SalesIncharge_M")</th>
+                        <th id="lblProdNameCustHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</th>
+                        <th id="lblInternalNameMasterHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_InternalNameMaster")</th>
+                    
+                        <th id="lblMadeShapeRptHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_DailyScreenShape")</th>
+                        <th id="lblProductDimDLHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductDimD_L")</th>
+                        <th id="lblProductDimWLHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductDimW_L")</th>
+                        <th id="lblProductDimOtherLHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductDimOther_L")</th>
+                        <th id="lblProdDimTolMinHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdDimTolMin")</th>
+
+                        <th id="lblProdDimTolMaxHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdDimTolMax")</th>
+                        <th id="lblProdDimTolMinTexthard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdDimTolMinText")</th>
+                        <th id="lblProdDimTolMaxTextHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdDimTolMaxText")</th>
+                        <th id="lblProdLengthHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdLength")</th>
+                        <th id="lblProdLengthTextHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdLengthText")</th>
+                    
+                        <th id="lblProdLengthTolMin" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdLengthTolMin")</th>
+                        <th id="lblProdLengthTolMax" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdLengthTolMax")</th>
+                        <th id="lblProdLengthTolMinText" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdLengthTolMinText")</th>
+                        <th id="lblProdLengthTolMaxText" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdLengthTolMaxText")</th>
+                        <th id="lblHdrInnerDim" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HdrInnerDim")</th>
+                    
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HdrOuterDim")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HdrWindingDir")</th>
+                        <th id="lblConditionMasterHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ConditionMaster")</th>
+                        <th id="lblChamferShortHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ChamferShort")</th>
+                        <th id="lblCornerRadiusKatakana_LHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_CornerRadiusKatakana_L")</th>
+
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Bend/FureType")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Bend/FureTol")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Bend/FureSpan")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_TwistAngle")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_TwistSpan")</th>
+
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitType")</th>
+                        <th id="lblUnitWtHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitWt")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitRangeMin")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_UnitRangeMax")</th>
+                        <th id="lblExternalTextureHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ExternalTexture")</th>
+
+                        <th id="lblColor_LHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Color_L")</th>
+                        <th id="lblDisplayLHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Display_L")</th>
+                        <th id="lblStampLHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Stamp_L")</th>
+                        <th id="lblProcessNo1Hard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo1")</th>
+                        <th id="lblProcessNo2Hard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo2")</th>
+
+                        <th id="lblProcessNo3Hard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo3")</th>
+                        <th id="lblProcessNo4Hard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo4")</th>
+                        <th id="lblProcessNo5Hard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo5")</th>
+                        <th id="lblProcessNo6Hard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo6")</th>
+                        <th id="lblProcessNo7Hard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo7")</th>
+
+                        <th id="lblProcessNo8Hard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo8")</th>
+                        <th id="lblProcessNo9Hard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo9")</th>
+                        <th id="lblProcessNo10Hard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo10")</th>
+                        <th id="lblProcessNo11Hard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo11")</th>
+                        <th id="lblProcessNo12Hard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo12")</th>
+
+                        <th id="lblProcessNo13Hard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessNo13")</th>
+                        <th id="lblProductTestStandard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductTestStandard")</th>
+                        <th id="lblTensileStrengthHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_TensileStrength")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_TensileStrength(MIN-MAX)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_TensileStrengthMin")</th>
+
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_TensileStrengthMax")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_TensileStrengthActual")</th>
+                        <th id="lblElongationHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Elongation")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Elongation(MIN-MAX)")</th>
+
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ElongationMin")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ElongationMax")</th>
+                          
+                        <th id="lblElongationActualHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Elongation(lbl_ActualPattern)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessStandard_L")</th>
+                        <th id="lblHardnessHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Hardness")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Hardness(MIN-MAX)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessStdRange")</th>
+                          
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessMin")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessMax")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HrdnessActual")</th>
+                        <th id="lbl_YieldPointHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_YieldPoint")</th>
+                        <th id="lbl_YieldPointMinMaxHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_YieldPoint(MIN-MAX)")</th>
+                         
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_YeildPointMin")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_YeildPointMax")</th>
+                        <th id="lblYieldPointActualHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_YieldPoint(lbl_ActualPattern)")</th>
+                        <th id="lblReductionHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Reduction")</th>
+                        <th id="lblReductionMinMaxHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Reduction(MIN-MAX)")</th>
+                          
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_PressMin")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_PressMax")</th>
+                        <th id="lblReductionActualHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Reduction(lbl_ActualPattern)")</th>
+                        <th id="lblDecarb1Hard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Decarb1_L")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Decarb1Max")</th>
+                          
+                        <th id="lblDecarb2Hard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Decarb2_L")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Decarb2Max")</th>
+                        <th id="lblDecarb3Hard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Decarb3_L")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Decarb3Max")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_TestImpact")</th>
+                         
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_TestImpactMinMax")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_TestImpactMin")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_TestImpactMax")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_TestImpactActual")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_StampGrade")</th>
+                          
+                        <th id="lblHeatTreatConditionHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HeatTreatCondition")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlCoilBarKW")</th>
+                        <th id="lblMatlNameMakerHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlNameMaker")</th>
+                        <th id="lblMaterialShapeSHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialShape_S")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialDimDD")</th>
+                          
+                        <th id="lblMaterialDimWHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialDimW")</th>
+                        <th id="lblMaterialDimOtherHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialDimOther")</th>
+                        <th id="lblMaterialLengthHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialLength_L")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlCondition")</th>
+                        <th id="lblChargeHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</th>
+                          
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessPlanType")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductionManagementKubun")</th>
+                        <th id="lblSpecialManagementKubunHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_SpecialManagementKubun")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_StorageMgmtKbn")</th>
+                        <th id="lblKakouiraiWeightHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_KakouiraiWeight")</th>
+                          
+                        <th id="lblDeliveryDateHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_DeliveryDate")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocUnits")</th>
+                        <th id="lblUnitHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Unit")</th>
+                        <th id="lblActAllocWeightHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocWeight")</th>
+                        <th id="lblActAllocDateHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocDate")</th>
+                        <th id="lblDateOfIssueHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_DateOfIssue")</th>
+
+                @*Common Fields END*@
+
+                   @*HARDENING TEMPER Fields Start*@
+
+                        <th id="lblLocationCodeHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Location")</th>
+                        <th id="lblFurnaceNumHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceNum")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_QuenchingMachine")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_TemperingMachine")</th>
+                        <th id="lblMetallicLabelNoHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_MetallicLabelNo")</th>
+
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Unit(Hardness)")</th>
+                        <th id="lblUnitHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Unit")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_InputQunatity")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_LiquidType(FurnaceSetting)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Temperature(FurnaceSetting)")</th>
+
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Concentration(FurnaceSetting)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Frequency(FurnaceSetting)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Carbon(FurnaceSetting)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Manganese(FurnaceSetting)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Chromium(FurnaceSetting)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Molybdenum(FurnaceSetting)")</th>
+
+                       
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_TargetHardnessMin(FurnaceSetting)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_TargetHardnessMax(FurnaceSetting)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Operator(Quenching)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceInDateTime(Quenching)")</th>
+
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceOutDateTime(Quenching)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Temperature(Quenching)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Time(Quenching)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessNorthUp①(quenched)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessNorthUp②(quenched)")</th>
+
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessNorthUp③(quenched)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessNorthUpCenter(quenched)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessNorthDown①(quenched)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessNorthDown②(quenched)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessNorthDown③(quenched)")</th>
+
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessNorthDownCenter(quenched)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessSouthUp①(quenched)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessSouthUp②(quenched)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessSouthUp③(quenched)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessSouthUpCenter(quenched)")</th>
+
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessSouthDown①(quenched)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessSouthDown②(quenched)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessSouthDown③(quenched)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessSouthDownCenter(quenched)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Operator(Tempering)")</th>
+
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceInDateTime(Tempering)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_FurnaceOutDatetime(Tempering)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Temperature(Tempering)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Time(Tempering)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessNorthUp①(tempered)")</th>
+
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessNorthUp②(tempered)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessNorthUp③(tempered)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessNorthUpCenter(tempered)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessNorthDown①(tempered)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessNorthDown②(tempered)")</th>
+
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessNorthDown③(tempered)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessNorthDownCenter(tempered)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessSouthUp①(tempered)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessSouthUp②(tempered)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessSouthUp③(tempered)")</th>
+
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessSouthUpCenter(tempered)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessSouthDown①(tempered)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessSouthDown②(tempered)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessSouthDown③(tempered)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_HardnessSouthDownCenter(tempered)")</th>
+
+                        <th id="lblInspectionDateHard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_InspectionDate")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Inspector")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_DMFMin")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_DMFMax")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_DMTMin")</th>
+
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_DMTMax")</th>
+                        <th id="lbl_Structure(lbl_OuterRpt)Hard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Structure(lbl_OuterRpt)")</th>
+                        <th id="lbl_Structure(lbl_InnerRpt)Hard" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_Structure(lbl_InnerRpt)")</th>
+                        <th id="" class="headerPadding labelClass  tdNoWrap ">@LocalizationServices.GetLocalizedHtmlString("lbl_InspectionDecesion")</th>
+                        <th id="" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Remark")</th>
+
+                
+
+                    @*HARDENING TEMPER Fields END*@
+                    
+                </tr>
+                 @if (Model != null && Model.Count > 0)
+
+        {
+            foreach (var item in Model)
+            {
+                <tr class="GridNormalRow">
+                    @*Common Fields Start*@
+
+                    <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PP_CHUUBAN</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PP_GYOUBAN_STRING</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PP_PROD_SPEC_NO1</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PP_PROD_SPEC_NO2</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PP_VER</td>
+
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_CUSTOMER_NAME</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_RECEIVER_NAME</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_EMPLOYEE_NAME</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_PROD_NAME_CUST</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.INTERNAL_NAME</td>
+
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PP_PROD_SHAPE</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.PP_PROD_DIM_D</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.PP_PROD_DIM_W</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_PROD_DIM_OTHER</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PP_DIM_TOL_MIN</td>
+
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PP_DIM_TOL_MAX</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PP_DIM_TOL_MIN_CHR</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PP_DIM_TOL_MAX_CHR</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.PP_PROD_LENGTH</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_PROD_LENGTH_OTHER</td>
+
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PP_LENGTH_TOL_MIN</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PP_LENGTH_TOL_MAX</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.LENGTH_TOL_MIN_CHR</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.LENGTH_TOL_MAX_CHR</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.PP_COIL_DIA_INTERNAL</td>
+
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.PP_COIL_DIA_EXTERNAL</td>
+                                
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">
+                                    @if(@item.PP_COIL_DIA_WINDING == 1)
+                                    {
+                                        @LocalizationServices.GetLocalizedHtmlString("lbl_CoilWindDirections1of3")
+                                    }
+                                    else if(@item.PP_COIL_DIA_WINDING == 2)
+                                    {
+                                        @LocalizationServices.GetLocalizedHtmlString("lbl_CoilWindDirections2of3")
+                                    }
+                                    else if(@item.PP_COIL_DIA_WINDING == 3)
+                                    {
+                                        @LocalizationServices.GetLocalizedHtmlString("lbl_Other")
+                                    }
+                                    else
+                                    {
+
+                                    }                                    
+                                    
+                                    </td>
+
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PROD_CONDITION_DESCRIPTION</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PP_CHAMFER_STRING</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PP_CORNER_R_STRING</td>
+
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PP_MAGARI_KUBUN_STRING</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.MAGARI_BEND_TOL</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.MAGARI_SPAN</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.NEJIRE_ANGLE</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.NEJIRE_SPAN</td>
+
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PP_UNIT_WT_KUBUN_STRING</td>
+                                @* <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.PP_UNIT_WT</td> *@
+                                <td id="" class="labelClass padddingRight tdNoWrap NumericFieldsClass">
+                                    @if (@item.PP_UNIT_WT_KUBUN == 3 && @item.UNIT_WT > 0)
+                                    {
+                                        @item.UNIT_WT @LocalizationServices.GetLocalizedHtmlString("lbl_Hone")
+                                        ;
+                                    }
+                                    else
+                                    {
+                                        @item.UNIT_WT
+                                    }
+                                </td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.UNIT_WT_MIN</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.UNIT_WT_MAX</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_EXT_TEXTURE</td>
+
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_COLOR</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_DISPLAY</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_STAMP</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_PROCESS_ANOTHER_NAME_1</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_PROCESS_ANOTHER_NAME_2</td>
+                                                                                                         
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_PROCESS_ANOTHER_NAME_3</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_PROCESS_ANOTHER_NAME_4</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_PROCESS_ANOTHER_NAME_5</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_PROCESS_ANOTHER_NAME_6</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_PROCESS_ANOTHER_NAME_7</td>
+                                                                                                         
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_PROCESS_ANOTHER_NAME_8</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_PROCESS_ANOTHER_NAME_9</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_PROCESS_ANOTHER_NAME_10</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_PROCESS_ANOTHER_NAME_11</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_PROCESS_ANOTHER_NAME_12</td>
+
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_PROCESS_ANOTHER_NAME_13</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.TEST_SPECIMEN</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight ">@item.TENSILE_STRN_PATTERN1</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.TENSILE_STRN_PATTERN1_MIN_MAX_STRING</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.TENSILE_STRN_PATTERN2_MIN</td>
+
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.TENSILE_STRN_PATTERN2_MAX</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">
+                                    @if(@item.TENSILE_STRN_PATTERN3_ACTUAL > 0)
+                                    {
+                                        @LocalizationServices.GetLocalizedHtmlString("lbl_ActualPattern")
+                                    }
+                                    else
+                                    {
+
+                                    }
+                                    </td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.ELONGATION_PATTERN1</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.ELONGATION_PATTERN1_MIN_MAX_STRING</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.ELONGATION_PATTERN2_MIN</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.ELONGATION_PATTERN2_MAX</td>
+
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">
+                                    @if(@item.ELONGATION_PATTERN3_ACTUAL > 0)
+                                    {
+                                        @LocalizationServices.GetLocalizedHtmlString("lbl_ActualPattern")  
+                                    }
+                                    else
+                                    {
+
+                                    }   
+                                </td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.HARDNESS_PATTERN1_CODE_STRING</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.HARDNESS_PATTERN1</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.HARDNESS_PATTERN1_MIN_MAX_STRING</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.HARDNESS_PATTERN2_CODE_STRING</td>
+
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.HARDNESS_PATTERN2_MIN</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.HARDNESS_PATTERN2_MAX</td>
+
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">
+                                    @if (@item.HARDNESS_PATTERN3_ACTUAL > 0) 
+                                    { 
+                                      @LocalizationServices.GetLocalizedHtmlString("lbl_ActualPattern")  
+                                    }
+                                    else
+                                    {
+                                    
+                                    }
+                                </td>                             
+
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.YEILD_PATTERN1</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.YEILD_PATTERN1_MIN_MAX_STRING</td>
+
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.YEILD_PATTERN2_MIN</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.YEILD_PATTERN2_MAX</td>
+
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">
+                                    @if(@item.YEILD_PATTERN3_ACTUAL > 0)
+                                    {
+                                        @LocalizationServices.GetLocalizedHtmlString("lbl_ActualPattern")  
+                                    }
+                                    else
+                                    {
+
+                                    }
+                                    </td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.PRESS_PATTERN1</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PRESS_PATTERN1_MIN_MAX_STRING</td>
+
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.PRESS_PATTERN2_MIN</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.PRESS_PATTERN2_MAX</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">
+                                    @if(@item.PRESS_PATTERN3_ACTUAL > 0)
+                                    {
+                                    @LocalizationServices.GetLocalizedHtmlString("lbl_ActualPattern")  
+                                    }
+                                    else
+                                    {
+
+                                    }
+                                </td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PP_DECARB_STD_1</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.DECARB_VAL_1</td>
+
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PP_DECARB_STD_2</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.DECARB_VAL_2</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PP_DECARB_STD_3</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.DECARB_VAL_3</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.IMPACT_TEST_PATTERN1</td>
+
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.IMPACT_TEST_PATTERN1_MIN_MAX_STRING</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.IMPACT_TEST_PATTERN2_MIN</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.IMPACT_TEST_PATTERN2_MAX</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">
+                                @if(@item.IMPACT_TEST_PATTERN3_ACTUAL > 0)
+                                {
+                                     @LocalizationServices.GetLocalizedHtmlString("lbl_ActualPattern")  
+                                }    
+                                else
+                                {
+
+                                }
+                                </td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.RANK_STD</td>
+
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_HT_CONDITION</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_MATL_TYPE_CBK_STRING</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_MATL_NAME_MAK</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PP_MATL_SHAPE</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.PP_MATL_DIM_D</td>
+
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.PP_MATL_DIM_W</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.PP_MATL_DIM_OTHER</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.PP_MATL_LENGTH</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.MATL_CONDITION_DESCRIPTION</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_CHARGE</td>
+
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PP_PROCESS_PLAN_KUBUN_STRING</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PP_PROD_MNGMNT_KUBUN_STRING</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PP_SPCL_MNGMNT_KUBUN_STRING</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.PP_STORAGE_MNGMNT_KUBUN_STRING</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.KAKOUIARI_QTY</td>
+
+                                <td id="" class=" labelClass  centerAlign ">@item.PP_DELIVERY_DATE_STRING</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.PP_NO_OF_UNITS</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.PP_UNIT_TYPE_STRING</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.PP_ACT_ALLOC_QTY</td>
+                                <td id="" class=" labelClass  centerAlign ">@item.PP_ACT_ALLOC_DATE_STRING</td>
+                                <td id="" class=" labelClass  centerAlign ">@item.PROCESS_PLAN_PRINT_DATE_STRING</td>
+
+                    @*Common Fields END*@                                                             
+
+                    @*HARDENING TEMPER Fields Start*@
+
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.LOCATION_NAME</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.FURNACE_NO</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.HARDENING_MACHINE_NAME</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.TEMPERING_MACHINE_NAME</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.METALLIC_PLATE_CODE</td>
+
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.NO_OF_UNITS</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.UNIT_TYPE_STRING</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.WEIGHT</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.WATER_OIL_STRING</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.TEMPERATURE_FURNACE</td>
+
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.CONCENTRATION_FURNACE</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.FREQUENCY_FURNACE</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.C_FURNACE</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.MN_FURNACE</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.CR_FURNACE</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.MO_FURNACE</td>
+
+                                
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.HARDNESS_MIN</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.HARDNESS_MAX</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.HARDENING_OPERATOR_NAME</td>
+                                <td id="" class=" labelClass centerAlign">@item.START_DATE_HARDENING_STRING</td>
+
+                                <td id="" class=" labelClass centerAlign">@item.END_DATE_HARDENING_STRING</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.TEMPERATURE_HARDENING</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.TIME_HARDENING</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.Q_HARDNESS_NORTH_UP_1</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.Q_HARDNESS_NORTH_UP_2</td>
+                                                                                                                                  
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.Q_HARDNESS_NORTH_UP_3</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.Q_HARDNESS_NORTH_UP_CEN</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.Q_HARDNESS_NORTH_DOWN_1</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.Q_HARDNESS_NORTH_DOWN_2</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.Q_HARDNESS_NORTH_DOWN_3</td>
+                                                                                                                                  
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.Q_HARDNESS_NORTH_DOWN_CEN</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.Q_HARDNESS_SOUTH_UP_1</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.Q_HARDNESS_SOUTH_UP_2</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.Q_HARDNESS_SOUTH_UP_3</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.Q_HARDNESS_SOUTH_UP_CEN</td>
+                                                                                                                                  
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.Q_HARDNESS_SOUTH_DOWN_1</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.Q_HARDNESS_SOUTH_DOWN_2</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.Q_HARDNESS_SOUTH_DOWN_3</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.Q_HARDNESS_SOUTH_DOWN_CEN</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.TEMPERING_OPERATOR_NAME</td>
+
+                                <td id="" class=" labelClass  centerAlign ">@item.START_DATE_TEMPERING_STRING</td>
+                                <td id="" class=" labelClass  centerAlign ">@item.END_DATE_TEMPERING_STRING</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.TEMPERATURE_TEMPERING</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.TIME_TEMPERING</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.T_HARDNESS_NORTH_UP_1</td>
+
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.T_HARDNESS_NORTH_UP_2</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.T_HARDNESS_NORTH_UP_3</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.T_HARDNESS_NORTH_UP_CENT</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.T_HARDNESS_NORTH_DOWN_1</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.T_HARDNESS_NORTH_DOWN_2</td>
+
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.T_HARDNESS_NORTH_DOWN_3</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.T_HARDNESS_NORTH_DOWN_CEN</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.T_HARDNESS_SOUTH_UP_1</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.T_HARDNESS_SOUTH_UP_2</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.T_HARDNESS_SOUTH_UP_3</td>
+
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.T_HARDNESS_SOUTH_UP_CENT</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.T_HARDNESS_SOUTH_DOWN_1</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.T_HARDNESS_SOUTH_DOWN_2</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.T_HARDNESS_SOUTH_DOWN_3</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.T_HARDNESS_SOUTH_DOWN_CEN</td>
+
+                                <td id="" class=" labelClass  centerAlign ">@item.INSPECTION_DATE_STRING</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.INSPECTED_OPERATOR_NAME</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.DM_F_MIN</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.DM_F_MAX</td>
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.DM_T_MIN</td>
+
+                                <td id="" class=" labelClass  tdNoWrap NumericFieldsClass padddingRight">@item.DM_T_MAX</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.STRUCTURE_OUT</td>
+                                <td id="" class=" labelClass  tdNoWrap CharactFieldsClass padddingLeft">@item.STRUCTURE_IN</td>
+                                <td id="" class=" labelClass  tdNoWrap centerAlign">@item.DECISION_STRING</td>
+                                <td id="" class=" labelClass  padddingLeft tdNoWrap CharactFieldsClass">@item.REMARK</td>
+
+                    @*HARDENING TEMPER Fields END*@
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr class="GridNormalRow">
+                            @*Common Fields Start*@
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            @*Common Fields END*@
+
+                            @*HARDENING TEMPER Fields Start*@
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            <td id="" class=" labelClass  tdNoWrap "></td>
+                            @*HARDENING TEMPER Fields END*@
+
+                        </tr>
+                    }
+                </table>
+                   </td>
+               </tr>
+    </table>
+    </div>

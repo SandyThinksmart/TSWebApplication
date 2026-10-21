@@ -1,0 +1,278 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model OutputCSVDetails
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+
+}
+
+<div>
+    
+    <link href="~/css/CSVGeneration.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+
+    @*Fixed Grid view (scroll bar Issue)*@
+    <table class="GridLines GridLayout" cellpadding="0" cellspacing="0" border="1" id="tblMain">
+        <thead>
+            <tr class="GridHeader GridViewScrollHeader freez trTdH">
+                @if (Model != null)
+            {
+                    <th class="headerPadding labelClass padding_top_bottom" style="text-align:center;white-space:nowrap" colspan="2">
+                        <label id="lblGridHeader" class="lableClass">@Model.TITLE.Split("<br>")[0].Split("<br/>")[0]</label>
+                        </th>
+                
+            }
+            </tr>
+        </thead>
+
+        <tbody>
+            @if (Model != null)
+            {
+                int i = 0;
+                <tr style="display:none;">
+
+
+                    <td align="left" valign="top" colspan="2">
+                        <input type="hidden" id="hfdSqlType" value="@Model.SQL_PLSQL_TYPE" />
+                        <input type="hidden" id="hfdSqlName" value="@Model.SQL_PLSQL_NAME" />
+                        <input type="hidden" id="hfdFileName" value="@Model.CSV_FILE_NAME" />
+                        <input type="hidden" id="hfdDateFlag" value="@Model.ADD_DATE_FLAG" />
+                        <input type="hidden" id="hfdTimeFlag" value="@Model.ADD_TIME_FLAG" />
+                        <input type="hidden" id="hfdPageSize" value="@Model.PAGE_SIZE" />
+                        <input type="hidden" id="hfdPageOrientation" value="@Model.PAGE_ORIENTATION" />
+                        <input type="hidden" id="hfdTitleFont" value="@Model.REPORT_TITLE_FONT" />
+                        <input type="hidden" id="hfdHeaderFont" value="@Model.REPORT_HEADER_FONT" />
+                        <input type="hidden" id="hfdDetailsFont" value="@Model.REPORT_DETAILS_FONT" />
+                    </td>
+                </tr>
+                <tr class="trHeight">
+                    <td align="center" valign="middle">
+                        <label id="lblItemName" class="labelClass GridLeft padding-topbottom">@LocalizationServices.GetLocalizedHtmlString("lbl_ItemName")</label>
+                        </td>
+                    <td align="center" valign="middle">
+                        <label id="lblItemTitleOther" class="labelClass GridLeft padding-topbottom">@Model.TITLE_OTHER</label>
+                    </td>
+                        </tr>
+                <tr class="trHeight">
+                    <td align="left" valign="middle">
+                        <label id="lblLocation" class="labelClass GridLeft padding-topbottom">@LocalizationServices.GetLocalizedHtmlString("lbl_WorkReportLocation")</label>
+                    </td>
+                    <td align="left" valign="middle">
+                       @*  <select ID="ddlLocationName" runat="server" class=" form-control LocationDropdown" tabindex="1">
+                        </select> *@
+                        <input type="text" id="txtUserLocation" class="TextFieldsClass labelClass form-control disabled" autocomplete="off" disabled="disabled" />
+                    </td>
+                </tr>
+               @*  <tr class="trHeight">
+
+                    <td align="left" valign="middle">
+                        <label id="lblNextProcess" class="lableClass GridLeft padding-topbottom">@LocalizationServices.GetLocalizedHtmlString("lbl_NextProcess")</label>
+                    </td>
+                    <td align="left" valign="middle">
+                        <select ID="ddlNextProcess" runat="server" class=" form-control NextProcessDropdown" tabindex="2">
+                        </select>
+                        </td>
+                </tr> *@
+                foreach (var item in Model.WHERE_CONDITION_LIST)
+                {
+                   
+                    i = i + 1;
+                    <tr class="trHeight">
+                        <td align="left" valign="middle">
+                            <span id=@("spanDisplayName"+i) class="labelClass GridLeft padding-topbottom">@item.DISPLAY_CONDITION_COLUMN</span>
+                            <label id=@("lblColumnName" + i) class="labelClass GridLeft padding-topbottom Hidden">@item.WHERE_CONDITION_COLUMN</label>
+                        </td>
+
+                        <td align="left" valign="middle">
+                            @if (item.WHERE_CONDITION_TYPE == 0)
+                                {
+                                @if (item.SQL_PLSQL_TYPE == 0)
+                                {
+                                    <table id="tblCharCondition">
+                                        <tr condition-id="@item.WHERE_CONDITION_TYPE" id=@("row"+i)>
+                                            <td align="left" valign="top">
+                                                <select id=@("ddlSearchCombo"+i) class="labelClass ddlSearchCombo"></select>
+                                            </td>
+                                            <td align="left" valign="top">
+                                                <input type="text" id=@("txtCharValue"+i) class="labelClass txtSearch" max="20" autocomplete="off"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                }else
+                                {
+                                    <table id="tblCharCondition">
+                                        <tr condition-id="@item.WHERE_CONDITION_TYPE" id=@("row" + i)>
+                                            <td align="left" valign="top">
+                                                <input type="text" id=@("txtCharValue" + i) class="labelClass txtSearch" max="20" autocomplete="off" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                }
+                            }else if (item.WHERE_CONDITION_TYPE == 1)
+                            {
+                                @if (item.SQL_PLSQL_TYPE == 0)
+                                {
+                                    <table id="tblNumberCondition">
+                                        <tr condition-id="@item.WHERE_CONDITION_TYPE" id=@("row"+i)>
+                                            <td align="left" valign="top">
+                                                <select id=@("ddlSearchCombo"+i) class="labelClass ddlSearchCombo"></select>
+                                            </td>
+                                            <td align="left" valign="top">
+                                                <input type="text" id=@("txtNumericValue" + i) class="labelClass txtSearch NumericVal" maxlength="20" autocomplete="off"
+                                                onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                }else
+                                {
+
+                                    <table id="tblNumberCondition">
+                                        <tr condition-id="@item.WHERE_CONDITION_TYPE" id=@("row" + i)>
+                                            <td align="left" valign="top">
+                                                <input type="text" id=@("txtNumericValue" + i) class="labelClass txtSearch NumericVal" maxlength="20" autocomplete="off"
+                                                       onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                }
+                            }else if (item.WHERE_CONDITION_TYPE == 2)
+                            {
+                                @if (item.SQL_PLSQL_TYPE == 0)
+                                {
+                                    <table id="tblDateCondition">
+                                        <tr condition-id="@item.WHERE_CONDITION_TYPE" id=@("row"+i)>
+                                            <td align="left" valign="top">
+                                                <select id=@("ddlSearchCombo"+i) class="labelClass ddlSearchCombo"></select>
+                                            </td>
+                                            <td align="left" valign="top">
+                                                <input type="text" id=@("txtDate"+i) class="labelClass txtSearch" maxlength="20" placeholder="YYYY/MM/DD" autocomplete="off" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                }else
+                                {
+                                    <table id="tblDateCondition">
+                                        <tr condition-id="@item.WHERE_CONDITION_TYPE" id=@("row" + i)>
+                                            <td align="left" valign="top">
+                                                <input type="text" id=@("txtDate" + i) class="labelClass txtSearch" maxlength="20" placeholder="YYYY/MM/DD" autocomplete="off" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                }
+                            }else if (item.WHERE_CONDITION_TYPE == 3)
+                            {
+                                @if (item.SQL_PLSQL_TYPE == 0)
+                                {
+                                    <table id="tblDateTimeCondition">
+                                        <tr condition-id="@item.WHERE_CONDITION_TYPE" id=@("row"+i)>
+                                            <td align="left" valign="top">
+                                                <select id=@("ddlSearchCombo"+i) class="labelClass ddlSearchCombo"></select>
+                                            </td>
+                                            <td align="left" valign="top">
+                                                <input type="text" id=@("txtDateTime"+i) class="labelClass txtSearchDate" maxlength="25" placeholder="YYYY/MM/DD HH:MM:SS" autocomplete="off" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                }else
+                                {
+                                    <table id="tblDateTimeCondition">
+                                        <tr condition-id="@item.WHERE_CONDITION_TYPE" id=@("row" + i)>
+                                            <td align="left" valign="top">
+                                                <input type="text" id=@("txtDateTime" + i) class="labelClass txtSearchDate" maxlength="25" placeholder="YYYY/MM/DD HH:MM:SS" autocomplete="off" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                }
+                            }
+                            else if (item.WHERE_CONDITION_TYPE == 4)
+                            {
+                                <table id="tblDateRangeCondition">
+                                    <tr condition-id="@item.WHERE_CONDITION_TYPE" id=@("row"+i)>
+                                       
+                                        <td align="left" valign="top">
+                                            <input type="text" id=@("txtStartDate"+i) class="labelClass txtSearch1" maxlength="20" placeholder="YYYY/MM/DD" autocomplete="off" />
+                                        </td>
+                                        <td align="center" valign="middle" class="tdRange">
+                                            <label id="lblSymbolRange1" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_SymbolRange")</label>
+                                            </td>
+                                        <td align="left" valign="top">
+                                            <input type="text" id=@("txtEndDate"+i) class="labelClass txtSearch2" maxlength="20" placeholder="YYYY/MM/DD" autocomplete="off" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            }
+                           
+                            else if (item.WHERE_CONDITION_TYPE == 5)
+                            {
+                                <table id="tblDateTimeRangeCondition">
+                                    <tr condition-id="@item.WHERE_CONDITION_TYPE" id=@("row"+i)>
+                                        <td align="left" valign="top">
+                                            <input type="text" id=@("txtStartDateTime"+i) class="labelClass txtSearchDate1" maxlength="20" placeholder="YYYY/MM/DD HH:MM:SS" autocomplete="off" />
+                                        </td>
+                                        <td align="center" valign="middle" class="tdRange">
+                                            <label id="lblSymbolRange2" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_SymbolRange")</label>
+                                        </td>
+                                        <td align="left" valign="top">
+                                            <input type="text" id=@("txtEndDateTime"+i) class="labelClass txtSearchDate2" maxlength="20" placeholder="YYYY/MM/DD HH:MM:SS" autocomplete="off" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            }
+                            else if (item.WHERE_CONDITION_TYPE == 6)
+                            {
+
+                                <table>
+                                    <tr condition-id="@item.WHERE_CONDITION_TYPE" id=@("row" + i)>
+                                        <td align="left" flag-id="@item.ON_OFF_FLAG_TYPE">
+
+                                            @if (item.ON_OFF_FLAG_TYPE == 0)
+                                            {
+
+                                            <table id="tblON-OFF">
+                                                <tr>
+                                                    <td align="left" valign="top">
+                                                        <input type="radio" id=@("radioButtonON" + i) name="radio_" value="0" checked="checked">
+                                                        <label ID="lblON" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ON")</label>
+                                                    </td>
+                                                    <td align="left" valign="top">
+                                                        <input type="radio" id=@("radioButtonOFF" + i) name="radio_" value="1">
+                                                        <label ID="lblOFF" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_OFF")</label>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            }else
+                                            {
+                                            <table id="tblNULL-NOTNULL">
+                                                    <tr>
+                                                    <td align="left" valign="top">
+                                                            <input type="radio" id=@("radioButtonNULL" + i) name="radio_" value="IS NULL" checked="checked">
+                                                        <label ID="lblNull" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Null")</label>
+                                                    </td>
+                                                    <td align="left" valign="top">
+                                                        <input type="radio" id=@("radioButtonNOTNULL" + i) name="radio_" value="IS NOT NULL">
+                                                        <label ID="lblNull" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_NotNull")</label>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            }
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+
+                            }
+
+                            </td>
+                    </tr>
+                    }
+                
+            }
+            else
+            {
+                <tr style="height:20px;"><td colspan="18" align="left" style="padding-left:5px;"><label ID="lbldatanotavailable" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_NoRecordFound_L")</label></td></tr>
+            }
+        </tbody>
+    </table>
+</div>
+ 

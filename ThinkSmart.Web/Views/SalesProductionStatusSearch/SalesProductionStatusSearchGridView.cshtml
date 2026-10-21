@@ -1,0 +1,116 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<SalesProductionStatusSearchDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+}
+
+<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+<div>
+
+    <table class="freez GridLines GridLayout GridColumnLeftPadding hover-row" cellpadding="0" cellspacing="0" border="1">
+        <thead>
+            <tr class="GridHeader GridViewScrollHeader freez GridHeaderPadding">
+                <th></th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_SalesIncharge_M")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_DeliveryDate")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_Dimension")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_DimTolerance")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_LengthTolerance")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_FureMagariStd")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocDate")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_ActAllocWeight")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_FinishedWt")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_SuccessRate")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductionStatus_L")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlNameMaker")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialDimD")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_ProductSpecNo")</th>
+                <th class="tdHeaderClass labelClass GridCenter">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessPlanFinishedDate_L")</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                @foreach (var item in Model)
+                {
+                    <tr class="GridNormalRow" data-lblProcessPlanCD="@item.PP_PROCESS_PLAN_CD">
+                        <td>
+                            <input type="button" id="" ID="lnkEdit" onclick="OnEditClick($(this))" class="btnArrow" style="height:22px" CausesValidation="false" />
+                        </td>
+
+                        <td class="labelClass GridCenter">@item.PP_CHUUBAN_GYOUBAN</td>
+                        <td class="labelClass GridLeft">@item.PP_CUSTOMER_NAME</td>
+                        <td class="labelClass GridLeft">@item.PP_EMPLOYEE_NAME</td>
+                        <td class="labelClass GridCenter">@item.PP_DELIVERY_DATE_STRING</td>
+                        <td class="labelClass GridLeft">@item.PP_PROD_NAME</td>
+                        <td class="labelClass GridRight">@item.PP_PROD_DIM_D</td>
+                        <td class="labelClass GridLeft">@item.PP_PROD_SHAPE</td>
+                        <td class="labelClass GridRight">@item.PP_PROD_LENGTH_STRING</td>
+                        <td class="labelClass GridCenter">@item.PP_DIM_TOLERANCE</td>
+                        <td class="labelClass GridCenter">@item.PP_LENGTH_TOL</td>
+                        <td class="labelClass GridCenter">@item.PP_MAGARI_BEND_TOL</td>
+                        <td class="labelClass GridLeft">@item.PP_CHARGE</td>
+                        <td class="labelClass GridCenter">@item.PP_ACT_ALLOC_DATE_STRING</td>
+                        <td class="labelClass GridRight">@item.PP_ACT_ALLOC_QTY</td>
+                        <td class="labelClass GridRight">@item.PP_FINISHED_QTY</td>
+                        <td class="labelClass GridRight">@item.SUCCESS_PERCENTAGE</td>
+                        <td class="labelClass GridLeft">@item.PROD_CONDITION_DESCRIPTION</td>
+                        <td class="labelClass GridLeft">@item.PP_MATL_NAME_MAK</td>
+                        <td class="labelClass GridRight">@item.PP_MATL_DIM_D</td>
+                        <td class="labelClass GridLeft">@item.PP_MATL_SHAPE</td>
+                        <td class="labelClass GridCenter">@item.PP_PROD_SPEC_NO</td>
+                        <td class="labelClass GridCenter">@item.PROCESS_PLAN_CMPL_DATE_STRING</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr class="GridNormalRow">
+
+                    @*<td class="labelClass" align="left" style="padding-left:0px;">
+                <select id="select1" name="select1" tabindex="57">
+                </select>
+                </td>*@
+                    <td>
+                        <input type="button" id="" ID="lnkEdit" 
+                               class="btnArrow" disabled="disabled" style="height:22px" CausesValidation="false" />
+                        @* <input id="btnLnkEdit" type="button" value='@LocalizationServices.GetLocalizedHtmlString("lbl_EditDelete")' class="_functionButtons"/>
+                    @*onclick="getSalesProductionStatusByDrawingCD($(this))"*@
+                    </td>
+                    <td class="labelClass GridCenter"></td>
+                    <td class="labelClass GridlLeft"></td>
+                    <td class="labelClass GridlLeft"></td>
+                    <td class="labelClass GridCenter"></td>
+                    <td class="labelClass GridlLeft"></td>
+                    <td class="labelClass GridRight"></td>
+                    <td class="labelClass GridlLeft"></td>
+                    <td class="labelClass GridRight"></td>
+                    <td class="labelClass GridlLeft"></td>
+                    <td class="labelClass GridlLeft"></td>
+                    <td class="labelClass GridCenter"></td>
+                    <td class="labelClass GridlLeft"></td>
+                    <td class="labelClass GridCenter"></td>
+                    <td class="labelClass GridRight"></td>
+                    <td class="labelClass GridRight"></td>
+                    <td class="labelClass GridlLeft"></td>
+                    <td class="labelClass GridlLeft"></td>
+                    <td class="labelClass GridRight"></td>
+                    <td class="labelClass GridCenter"></td>
+                    <td class="labelClass GridCenter"></td>
+                    <td class="labelClass GridCenter"></td>
+                    <td class="labelClass GridCenter"></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script src="~/Scripts/CommonScript.js" asp-append-version="true"></script>

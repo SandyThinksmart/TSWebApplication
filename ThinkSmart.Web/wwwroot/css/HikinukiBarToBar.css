@@ -1,0 +1,224 @@
+﻿#tdlblStartDateTime {
+    width: 85px;
+}
+
+#tdtxtStartDateTime {
+    width: 270px;
+}
+
+#tdlblStartOperator {
+    width: 67px;
+}
+
+#tdtxtStartOperator {
+    width: 160px;
+}
+
+#txtStartOperator, #txtEndOperator {
+    width: 110px;
+}
+
+#ddlNextProcess {
+    width: 210px;
+}
+
+.DropdownListClass {
+    border-style: inset;
+    font-family: MS Gothic;
+    height: 22px;
+    color: black;
+}
+
+#ddlDieShape {
+    width: 55px;
+}
+
+#txtDieDim {
+    width: 104px;
+   /* text-align:right;*/
+}
+
+#txtDieNo {
+    width: 110px;
+}
+
+
+#ddl1 {
+    width: 55px;
+}
+
+#ddl2 {
+    width: 55px;
+}
+
+.Hidden {
+    display: none;
+}
+
+.HeaderPadding {
+    padding-left: 10px;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+
+.disabled {
+    background-color: #EEEEEE !important;
+    color: black;
+}
+
+
+/** Jquery Override CSS */
+
+.ui-widget-header {
+    background: #225AD9;
+    border-style: none;
+    height: 5px;
+}
+
+.ui-dialog-title {
+    display: none;
+}
+
+.ui-dialog-titlebar-close {
+    display: none;
+}
+
+.ui-dialog {
+    border-style: solid;
+    border-color: #225AD9;
+    border-width: 2px;
+    border-radius: 0px;
+    background-color: white;
+}
+
+    .ui-dialog div, .ui-dialog button {
+        border-radius: 0px;
+    }
+
+.ui-dialog-buttonpane {
+    border: none;
+    text-align: center !important;
+}
+
+.ui-dialog-buttonset {
+    float: none !important;
+}
+
+.ui-button {
+    Height: 25px;
+    border: 1px inset Silver;
+    font-size: 12px;
+    width: 80px;
+}
+
+.ui-button-text {
+    padding: 0 !important;
+    color: black;
+    font-size: 12px;
+}
+
+.ui-state-hover {
+    border: 1px solid #ccc;
+    background: #f6f6f6 url(images/ui-bg_glass_100_f6f6f6_1x400.png) 50% 50% repeat-x;
+    font-weight: bold;
+    color: #1c94c4;
+}
+
+.ui-dialog-content.ui-widget-content {
+    font-family: MS Gothic;
+    font-weight: 400;
+    font-size: 13px;
+    background-color: white;
+}
+
+.
+.ui-dialog .ui-dialog-buttonpane {
+    padding: 0;
+}
+
+.ui-dialog-buttonpane {
+    background-color: white;
+}
+
+.ui-widget-content {
+    background: white;
+    color: #333;
+}
+.headerPadding {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+.thGrid {
+    text-align: center;
+    white-space: nowrap;
+    border-color: white;
+}
+.Mandatory {
+    background-color: #C1FFFF;
+   
+}
+.freez > th {
+    position: sticky !important;
+    background-color: #7291D2;
+    top: 0.2px;
+    height: 20px;
+}
+
+.dropdownSearch1 select {
+    width: 100px;
+    height: 25px;
+}
+
+.dropdownSearch1 > * {
+    box-sizing: border-box;
+    height: 1.5em;
+}
+
+.dropdownSearch1 input {
+    position: absolute;
+    width: 80px;
+    height: 25px;
+}
+#dropdown-wrapper {
+    position: relative;
+    width: 200px;
+}
+
+#dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    background: white;
+    z-index: 10;
+    display: none;
+}
+#tblNGDefect
+{
+    width:686px;
+}
+#txtdefectcount1
+{
+    margin-left:0px;
+
+}
+#tblActualLength
+{
+    width:174px;
+}
+#tblWeight
+{
+    width:392px;
+}
+#tblWeight_E
+{
+    width:433px;
+}
+#tblNGDefect_E
+{
+    width:700px;
+}

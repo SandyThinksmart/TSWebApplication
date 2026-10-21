@@ -1,0 +1,309 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+@model List<RollSalesForecastDetails>
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lbl_Menu_RollPoForecast").Value.Replace("<br>", "");
+
+}
+
+ <style type="text/css">
+    .large-checkbox {
+        transform: scale(1.5); /* Increase size by 1.5x */
+    }
+    .hide {
+        display: none;
+    }
+
+    .header {
+        padding-left: 3px;
+    }
+
+    .freez > th {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 0.2px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freez2 > th {
+        position: sticky !important;
+        background-color: #B2C3E6;
+        top: 21px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freez3 > th {
+        position: sticky !important;
+        background-color: #B2C3E6;
+        top: 41.5px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freez4 > th {
+        position: sticky !important;
+        background-color: #B2C3E6;
+        top: 62px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freez5 > th {
+        position: sticky !important;
+        background-color: #B2C3E6;
+        top: 83.5px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+</style>
+
+ 
+
+<table border="0" cellpadding="0" cellspacing="0" width="1300px" id="tblMain" style="margin-top:20px;">
+    <tr>
+        <td>
+            <div>
+                <table>
+
+                    <tr>
+                        <td>
+                            <div id="mainDiv">
+                                <table cellpadding="0">
+                                    <tr>
+                                        <td  >                                            
+                                        </td>
+                                        <td >
+                                        </td>
+                                        <td >
+                                        </td>
+
+                                        <td  class="tdLbl">
+                                            <table>
+                                                <tr>
+                                                    <td style="width:43px;text-align:center;">
+                                                        <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Diameter")</label>
+                                                    </td>
+                                                    <td style="width:30px;text-align:center;">
+                                                        <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</label>
+                                                    </td>
+                                                    <td style="width:43px;text-align:center;padding-right:10px">
+                                                        <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Width")</label>
+                                                    </td>
+                                                    <td style="padding-left:14px;">
+                                                        <label id="" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Auxiliary")</label>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                           
+                                        </td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td align="left" valign="middle">
+
+                                            <label id="" class="labelClass tdLbl padddingLeft">@LocalizationServices.GetLocalizedHtmlString("lbl_InternalName")</label>
+                                        </td>
+                                        <td align="left" valign="top" class="tdTextBox">
+
+                                            <input type="text" ID="txtInternalName" class=" materialGridCss labelClass TextFieldsClass form-control InActiveIMEMode disabled padddingLeft tdNoWrap CharactFieldsClass" disabled="disabled">
+                                        </td>
+                                        <td align="left" valign="middle">
+
+                                            <label id="" class="labelClass tdLbl">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</label>
+                                        </td>
+                                        <td align="left" valign="top" class="tdTextBox">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <input type="text" ID="txtDia" style="width:40px" class="materialGridCss labelClass TextFieldsClass form-control InActiveIMEMode disabled padddingRight tdNoWrap NumericFieldsClass" disabled="disabled">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" ID="txtShape" style="width:26px;text-align:left; white-space:nowrap;" class="materialGridCss labelClass TextFieldsClass form-control InActiveIMEMode disabled" disabled="disabled">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" ID="txtWidth" style="width:40px" class="materialGridCss labelClass TextFieldsClass form-control InActiveIMEMode disabled padddingRight tdNoWrap NumericFieldsClass" disabled="disabled">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" ID="txtAuxilary" style="width:60px" class="materialGridCss labelClass TextFieldsClass form-control InActiveIMEMode disabled padddingLeft tdNoWrap CharactFieldsClass" disabled="disabled">
+
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                        </td>
+                                        <td align="left" valign="middle">
+
+                                            <label id="" class="labelClass tdLbl">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</label>
+                                        </td>
+                                        <td align="left" valign="top" class="tdTextBox">
+
+                                            <input type="text" ID="txtLength" style="width:60px" class="materialGridCss labelClass TextFieldsClass form-control InActiveIMEMode disabled padddingRight tdNoWrap NumericFieldsClass" disabled="disabled">
+                                        </td>
+                                        <td align="left" valign="middle">
+
+                                            <label id="" class="labelClass tdLbl">@LocalizationServices.GetLocalizedHtmlString("lbl_Condition")</label>
+                                        </td>
+                                        <td align="left" valign="top" class="tdTextBox">
+
+                                            <input type="text" ID="txtCondition" style="width:60px;text-align:left; white-space:nowrap;" class="materialGridCss labelClass TextFieldsClass form-control InActiveIMEMode disabled " disabled="disabled">
+                                        </td>
+                                        <td align="left" valign="middle">
+
+                                            <label id="" class="labelClass tdLbl">@LocalizationServices.GetLocalizedHtmlString("lbl_COILBAR")</label>
+                                        </td>
+                                        <td align="left" valign="top" class="tdTextBox">
+
+                                            <input type="text" ID="txtCoilBar" style="width:60px;text-align:center; white-space:nowrap;" class="materialGridCss labelClass TextFieldsClass form-control InActiveIMEMode disabled" disabled="disabled">
+                                          
+                                        </td>
+                                        <td class="GridTextBoxtd" hidden>
+                                            <input type="text" id=hdfMatlKubunType />
+
+                                        </td>
+                                        <td align="left" valign="middle">
+
+                                            <label id="" class="labelClass tdLbl">@LocalizationServices.GetLocalizedHtmlString("lbl_GeneralSpecial_L")</label>
+                                        </td>
+                                        <td class="GridTextBoxtd" hidden>
+                                            <input type="text" id=hdfGenSpecType />
+
+                                        </td>
+                                        <td align="left" valign="top">
+
+                                            <input type="text" ID="txtGenSpecName" style="width:60px;text-align:center; white-space:nowrap;" class="materialGridCss labelClass TextFieldsClass form-control InActiveIMEMode disabled " disabled="disabled">
+                                        </td>
+                                        <td style="padding-left: 636px;" valign="bottom">
+                                            
+                                            <div>
+                                                <input type="checkbox" class="large-checkbox" />
+                                            <label class="labelClass" style="font-size: 20px;"><b>@LocalizationServices.GetLocalizedHtmlString("lbl_MatlReviewCompleted")</b></label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                  
+                                </table>
+                            </div>
+                        </td>
+                       
+                       
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+    
+    <tr>
+        <td align="left" valign="top">
+            <div id="pnlMakerListGrid">
+                @{
+                    @await Html.PartialAsync("~/Views/RollPOMainAnalysis/GetInternalNameWiseMakerList.cshtml")
+                    ;
+                }
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" valign="top">
+            <div id="pnlMaterialPOGrid">
+                @{
+                    @await Html.PartialAsync("~/Views/RollPOMainAnalysis/MaterialPOGrid.cshtml", Model)
+                    ;
+                }
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="right" valign="top">
+            <div id="pnlBottom">
+                <table>
+                    <tr>
+                        <td align="center" valign="middle" rowspan="2" bgcolor="#C00000" style="width: 175px">
+                            <table cellpadding="2" cellspacing="2" style="height: 65px">
+                                <tr>
+                                    <td align="center" colspan="2">
+                                        <label ID="lblAuxiliaryFunctionSearchSort" class="labelClass" style="color:white">@LocalizationServices.GetLocalizedHtmlString("lbl_ExtraInfo")</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_OrderedWt")" ID="btn_PoOrder" class="_functionButtons" onClick=" OnPurchaseOrderQtyBtnClick($(this))" />
+                                    </td>
+                                    <td>
+                                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("btn_MaterialWiseSubTotal")" ID="btnMaterialWiseSubTotal" onClick=" OnMaterialWiseOrderQtyBtnClick($(this))" class="_functionButtons" style="width:100px" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        
+                        <td style="width:3px;"></td>
+                        <td align="right" valign="top" style="background-color:green">
+                            <table style="margin-top:4px;" id="tblInitialize">
+                                <tr>
+                                    <td align="center" valign="middle">
+
+                                        <label id="lbl_Initialize" class="lableClass" style="color:white;margin-left:8px;">@LocalizationServices.GetLocalizedHtmlString("btn_DeleteRow_L")</label>
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+                                    <td align="center" valign="middle">
+                                        <br />
+                                        <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Delete")" ID="btnDeleteRow" class="_functionButtons" onclick="deleteRowMaterialPoGrid();" />
+
+                                    </td>
+
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width:3px;"></td>
+                        <td align="center" valign="middle" rowspan="2" bgcolor="Navy" style="width: 175px">
+                            <table cellpadding="2" cellspacing="2" style="height: 65px">
+                                <tr>
+                                    <td align="center" colspan="2">
+                                        <label ID="lblAuxiliaryFunctionSearchSort" class="labelClass" style="color:white">@LocalizationServices.GetLocalizedHtmlString("lbl_CloseWindow")</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="button" id="btnCancel" value="@LocalizationServices.GetLocalizedHtmlString("lbl_CancelKatakana")" ID="" class="_functionButtons" />
+                                    </td>
+                                    <td>
+                                        <input type="button" id="btnSaveMaterialPo" value="@LocalizationServices.GetLocalizedHtmlString("lbl_SaveBack")" ID="" class="_functionButtons" style="width:100px" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>                        
+                       
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<input type="hidden" id="materialData" value="@TempData["MaterialData"]" />
+<label ID="valMsgRecordAlreadySelected" class="labelClass" hidden style="color:white;padding-top:5px;">@LocalizationServices.GetLocalizedHtmlString("valMsg_RecordAlreadySelected")</label>
+<label id="lblErrorMessageE_DimDStartRequired" class="Hidden">
+    <span ID="LiteralDimDStartRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_DimDStartRequired")</span>
+</label>
+<label id="lblErrorMessageE_LengthStartRequired" class="Hidden">
+    <span ID="LiteralLengthStartRequired">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_ProdLengthStartRequired")</span>
+</label>
+<div id="PopUpModalMaterialMasterOnRollPoMain">
+    @{
+        @await Html.PartialAsync("~/Views/RollPoMainAnalysis/AnalysePoQtyMaterialListPopup.cshtml")
+        ;
+    }
+</div>
+
+
+@section Scripts {
+    <script src="~/static/js/AnalysePOQuantity.js"></script>
+    <link href="~/css/Common.css" rel="stylesheet" />
+    <link href="~/css/AnalysePOQuantity.css" rel="stylesheet" />
+    <link href="~/css/Common_Styles.css" rel="stylesheet" />
+    <link href="~/css/masterStyles.css" rel="stylesheet" />
+}

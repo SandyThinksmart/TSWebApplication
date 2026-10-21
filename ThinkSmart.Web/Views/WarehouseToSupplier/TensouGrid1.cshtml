@@ -1,0 +1,103 @@
+﻿@using TSWebApplication.Domain.Resources
+@using TSWebApplication.Domain.Model
+
+@model List<MaterialTensouDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+
+}
+
+<div>
+    <table cellpadding="0" cellspacing="0" width="100%;" align="center">
+        <tr>
+            <td>
+                <table cellpadding="1" cellspacing="1" width="100%" style="margin: 0px;">
+                    <tr>
+                        <td>
+                            <table cellpadding="1" cellspacing="1" width="100%" style="margin: 0px;">
+                                <tr>
+                                    <td class="tdH1" align="center" style="height: 15px;color:white">
+                                        <label ID="lblProductSearch" class="labelClassHeader" Font-Size="13px"
+                                               
+                                               Width="72%">@LocalizationServices.GetLocalizedHtmlString("lbl_TensouList")</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        </table>
+
+    @*Fixed Grid view (scroll bar Issue)*@
+    <table class="GridLines GridLayout" cellpadding="0" cellspacing="0" border="1" >
+        
+        <thead>
+            <tr class="GridHeader GridViewScrollHeader freez GridHeaderPadding">
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialMaker")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_MatlNameMaker")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_InternalName")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Condition")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_CoilBarKurokawa_L")</th>
+
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Kouban")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_TensouNoOfUnits")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_TensouQuantity")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_TransferDate")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ShipyardAndWarehouse")</th>
+                <th class="headerPadding labelClass" style="text-align:center;white-space:nowrap">@LocalizationServices.GetLocalizedHtmlString("lbl_OutTensou")</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+
+            {
+                foreach (var item in Model)
+                {
+
+
+                    <tr data-lblTensouTransferCD="@item.TRANSFER_CD">
+                        <td>
+
+                            <input type="button" value="●" ID="lnkEdit" Font-Size="Large" Font-Bold="True"
+                           CommandName="Select" CommandArgument=''
+                           class="lnkEditButtonSize" TabIndex="-1" OnClick="getMaterialDataTransferDetailsByTrasferCD($(this))" />
+
+                        </td>
+
+                        <td class="labelClass GridPaddingLeft">@item.MAKER_NAME</td>
+                         <td class="labelClass">@item.MATL_MAKER_NAME</td>
+                <td class="labelClass" style="white-space:nowrap;">@item.INTERNAL_NAME</td>
+                <td class="labelClass">@item.DIM_D</td>
+                <td class="labelClass">@item.SHAPE</td>
+                <td class="labelClass">@item.MATERIAL_LENGTH</td>
+                <td class="labelClass">@item.CONDITION_DESCRIPTION</td>
+                <td class="labelClass">@item.MATL_KUBUN_NAME</td>
+                        <td class="labelClass">@item.KOUBAN</td>
+                <td class="labelClass">@item.CHARGE</td>
+                <td class="labelClass">@item.NO_OF_UNITS</td>
+                <td class="labelClass">@item.QUANTITY</td>
+                <td class="labelClass">@item.TRANSFER_DATE</td>
+                <td class="labelClass">@item.FUTOU_NAME</td>
+                <td class="labelClass">@item.MKSAKI_NAME</td>
+
+
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td colspan="18"><label ID="lbldatanotavailable" align="center" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_NoRecordFound_L")</label></td></tr>
+            }
+        </tbody>
+    </table>
+</div>

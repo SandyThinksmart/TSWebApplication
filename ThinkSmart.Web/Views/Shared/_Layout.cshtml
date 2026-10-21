@@ -1,0 +1,133 @@
+﻿@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+<!DOCTYPE html>
+@{
+    string apiurl = @Configuration.GetSection("APIUrl")["Url"];
+    string machinename = @Configuration.GetSection("MachineName")["Machine"];
+    string opratorname = @Configuration.GetSection("OpratorName")["Oprator"];
+    string reporturl = @Configuration.GetSection("ReportUrl")["Url"];
+    string AspHTUrl = @Configuration.GetSection("AspHTUrl")["Url"];
+    string pmsurlmobilemenu = @Configuration.GetSection("PMSUrlMobileMenu")["Url"];
+    string pmsloginmenu = @Configuration.GetSection("PMSLoginMenu")["Url"];
+    int dateRange = Convert.ToInt32(@Configuration.GetSection("StartEndDateRange")["Range"]);
+    string cultureName = ViewBag.CultureName;
+    int? userId = ViewBag.UserId;
+    string splChuubanGyouban = @Configuration.GetSection("SpecialChuuban").Value;
+    string startAndEndDateTime = @Configuration.GetSection("StartAndEndDateTime").Value;
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="google" content="notranslate" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/Bootstrap.css" asp-append-version="true"/>
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+    <link href="~/lib/fontawesome/css/all.css" rel="stylesheet" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link href="~/css/Common.css" rel="stylesheet" asp-append-version="true" />
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/Static/js/SessionHandler.js" asp-append-version="true"></script>
+
+</head>
+<body>
+    <header>
+        <nav class="navbar fixed-top navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+
+                @* <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">*@
+                @*   <span class="navbar-toggler-icon">
+                       
+                            <Button ID="lnkSignOut" runat="server" Class="labelClass" style="width:110px;color:blue"
+                                            OnClick="lnkSignOut_Click">@LocalizationServices.GetLocalizedHtmlString("lbl_SignOut")
+                       
+                </button>
+                 </span>*@
+                @*  <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+
+                <span style="line-height: 30px; margin-left: 5px;">
+                <asp:LinkButton ID="lnkSignOut" runat="server" CssClass="labelClass" Width="90px"
+                OnClick="lnkSignOut_Click">
+                <asp:Literal ID="literalSignOut" runat="server" Text="<%$ Resources: GlobalResources, lbl_SignOut%>" />
+                </asp:LinkButton></span><span style="display: inline-block; width: 613px;"></span><span><asp:Label ID="lblUser" runat="server" CssClass="labelClass"></asp:Label></span>
+
+                </div>*@
+                <ul class="navbar-nav ml-auto">
+                    <li>
+                        @await Html.PartialAsync("_SetLanguagePartialView")
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+
+    </header>
+    <div id="divErrorMessages" class="Hidden">
+        <label id="lblErrorMessageCommon_001" class="Hidden">
+            <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+        </label>
+    </div>
+    <div class="">
+        <main role="main">
+            @*class="pb-3"*@
+            @RenderBody()
+        </main>
+    </div>
+    <input type="hidden" id="apiurlvalue" value="@apiurl" />
+    <input type="hidden" id="machinename" value="@machinename" />
+    <input type="hidden" id="opratorname" value="@opratorname" />
+    <input type="hidden" id="reporturlvalue" value="@reporturl" />
+    <input type="hidden" id="aspHTvalue" value="@AspHTUrl" />
+    <input type="hidden" id="pmsurlmobilemenuvalue" value="@pmsurlmobilemenu" />
+    <input type="hidden" id="dateRange" value="@dateRange" />
+    <input type="hidden" class="hidden" id="hdfCultureName" value="@cultureName" />
+    <input type="hidden" id="hdfLoginId" name="hdfLoginId" value="@userId" />
+    <input type="hidden" id="hdfSplChuubanGyouban" name="hdfSplChuubanGyouban" value="@splChuubanGyouban" />
+    <input type="hidden" id="hdfLocationName" name="hdfLocationName" />
+    <input type="hidden" id="pmsmenuurl" name="" value="@pmsloginmenu" />
+    <input type="hidden" id="hdfStartAndEndDateTime" name="hdfStartAndEndDateTime" value="@startAndEndDateTime" />
+
+
+    <footer class="border-top footer text-muted">
+        @*<div class="container">
+                &copy; 2022 - TSWebApplication.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>*@
+    </footer>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+    @* <script src="~/lib/fontawesome/js/all.js"></script>*@
+    <script src="~/lib/bootbox/bootbox.min.js" asp-append-version="true"></script>
+    <script src="~/Static//js/jquery.mask.js" asp-append-version="true"></script>
+    <script src="~/lib/date.format.js" asp-append-version="true"></script>
+    <script src="~/Scripts/table2csv.js" asp-append-version="true"></script>
+    <script src="~/Scripts/CommonScript.js" asp-append-version="true"></script>
+
+
+    <script>
+        // var APIURL = "http://202.0.103.130:51/";
+         var APIURL = $("#apiurlvalue").val();
+         var REPORTURL = $("#reporturlvalue").val();
+         var commonDateRange = $("#dateRange").val();
+         var MACHINENAME =  $("#machinename").val();
+         var OPRATORNAME =  $("#opratorname").val();
+         var AspHTUrl = $("#aspHTvalue").val();
+         var PMSMOBILEMENUURL = $("#pmsurlmobilemenuvalue").val();
+         var PMSLOGINMENUURL = $("#pmsmenuurl").val();
+         var SPLCHUUBANGYOUBAN = $("#hdfSplChuubanGyouban").val();
+         var StartAndEndDateTime = $("#hdfStartAndEndDateTime").val();
+         $("#btnClose").click(function (event) {
+
+          self.close();
+         });
+         $(function () {
+             $('select[onload]').trigger('onload'); // TRIGGER ACTIVATED TO BIND COMMON CUSTOMER AND EMPLOYEE SEARCH COMBO
+         });
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>

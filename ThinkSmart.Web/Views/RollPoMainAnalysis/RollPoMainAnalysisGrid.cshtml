@@ -1,0 +1,424 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<RollPoMainAnalysisDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+
+}
+<style>
+    .freezRollPoMainGrid > th {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 0.0px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezRollPoMainGrid {
+        border-color: white;
+    }
+
+        .freezRollPoMainGrid1 > th {
+        position: sticky !important;
+        
+        top: 22px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezRollPoMainGrid1 {
+        border-color: white;
+    }
+
+    .freezRollPoMainGrid2 > th {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 44px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezRollPoMainGrid2 {
+        border-color: white;
+    }
+
+    .freezRollPoMainGrid3 > th {
+        position: sticky !important;
+        background-color: #b2c3e6;
+        top: 66px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezRollPoMainGrid3 {
+        border-color: white;
+    }
+
+    .freezRollPoMainGrid4 > th {
+        position: sticky !important;
+        background-color: #b2c3e6;
+        top: 88px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezRollPoMainGrid4 {
+        border-color: white;
+    }
+            
+
+        .freezRollPoMainGrid5 > th {
+            position: sticky !important;
+        background-color: #b2c3e6;
+            top: 110px;
+            height: 20px;
+            box-shadow: 0 0 0px 0.5px White;
+        }
+
+    .freezRollPoMainGrid5 {
+        border-color: white;
+    }
+</style>
+<div>
+    <table bgcolor="#7291D2" border="0" cellpadding="0" cellspacing="0" id="tblPOGrid" class="GridLines">
+      <thead>
+        @*Headers Cloumn*@
+            <tr class="freezRollPoMainGrid">
+                <th rowspan="7" class="tdHeaderClass labelClass GridCenter" style="border-right: 2px solid white"></th>
+                <th rowspan="7" class="tdHeaderClass labelClass GridHeaderCenter" style="white-space: pre-line !important;">
+                <label id="lblOrderQtyInfo" class="labelClass chkOrderQtyLbl">@LocalizationServices.GetLocalizedHtmlString("lbl_OrderQtyInfo")</label>
+
+            </th>
+            
+            <th  class="tdHeaderClass labelClass GridCenter" colspan="7">
+                <label id="lblMaterialInfo" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialInfo")</label>
+
+            </th>
+             
+            <th  class="tdHeaderClass labelClass GridCenter"  colspan="5">
+                <label id="lblPastInfo" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_PastInfo")</label>
+
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter" style="padding:2px;">
+                <label id="lblCurrent" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Current")</label>
+
+            </th>
+            <th class="tdHeaderClass labelClass GridCenter" colspan="4">
+                <label id="lblFuture" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Future")</label>
+
+            </th>
+            <th  class="tdHeaderClass labelClass GridCenter" colspan="4" rowspan="3">
+                <label id="lblStock" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Stock")</label>
+
+            </th>
+
+        </tr>
+
+            <tr class="freezRollPoMainGrid1">
+            <th  rowspan="6" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblInternalName" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_InternalNameShort")</label>
+
+            </th>
+            <th rowspan="6" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblDimD" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</label>
+
+            </th>
+            <th   rowspan="6" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblShape" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Shape")</label>
+
+            </th>
+            <th  rowspan="6" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblLength" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</label>
+
+            </th>
+            <th rowspan="6" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblCondition" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Condition")</label>
+
+            </th>
+            <th  rowspan="6" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblCoilBarKurokawaL" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_CoilBarKurokawa_L")</label>
+
+            </th>
+            <th  rowspan="6" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblGeneralSpecialS" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_GeneralSpecial_S")</label>
+
+            </th>
+            <th colspan="5" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblOrderDetails" class="labelClass" >@LocalizationServices.GetLocalizedHtmlString("lbl_OrderDetails")</label>
+
+            </th>
+            <th colspan="5" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblOrderQty" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_OrderQty")</label>
+
+            </th>
+            
+           
+        </tr>
+
+            <tr class="freezRollPoMainGrid2">
+           
+            <th colspan="5" class="tdHeaderClass labelClass GridCenter">
+                <label id="lblRollPOMaterialReport" class="labelClass" >@LocalizationServices.GetLocalizedHtmlString("lbl_SpecialOrder")</label>
+
+            </th>
+            <th colspan="5" class="tdHeaderClass labelClass GridCenter">
+                <label id="lblRollPOMaterialReport" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ForcastQty")</label>
+
+            </th>
+        </tr>
+
+            <tr class="freezRollPoMainGrid3">
+            <th colspan="5" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblNyukaChoksouDecision" class="labelClass" >@LocalizationServices.GetLocalizedHtmlString("lbl_NyukaChoksouDecision")</label>
+
+            </th>
+            <th colspan="5" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblEstimatedUsage" class="labelClass" >@LocalizationServices.GetLocalizedHtmlString("lbl_EstimatedUsage")</label>
+
+            </th>
+            <th class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblInternalStock" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_ExternalStock")</label>
+
+            </th>
+        </tr>
+
+            <tr class="freezRollPoMainGrid4">
+            
+            <th rowspan="3" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblUptoDate" class="labelClass" >@LocalizationServices.GetLocalizedHtmlString("lbl_UptoDate")</label>
+
+            </th>
+           
+           
+        </tr>
+
+            <tr class="freezRollPoMainGrid4">
+            <th class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblRMonth1" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+            </th>
+            <th class="tdHeaderClass1 labelClass GridCenter" >
+                <label id="lblRMonth2" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+            </th>
+            <th class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblRMonth3" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")（@LocalizationServices.GetLocalizedHtmlString("lbl_MMMonth")）</label>
+            </th>
+            <th rowspan="2" class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblSumL" class="labelClass" >@LocalizationServices.GetLocalizedHtmlString("lbl_Sum_L")</label>
+
+            </th>
+            <th class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblNextR1" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")</label>
+            </th>
+            <th class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblNextR2" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")</label>
+            </th>
+            <th class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblNextR3" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")</label>
+            </th>
+            <th class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblNextR4" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")</label>
+            </th>
+            <th class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblNextR5" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_XXRoll")</label>
+
+            </th>
+            <th class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblInternalStock" class="labelClass" >@LocalizationServices.GetLocalizedHtmlString("lbl_InternalStock")</label>
+
+            </th>
+           
+       </tr>
+
+            <tr class="freezRollPoMainGrid5">
+            <th class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lbl1MonthAgo" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Last3Month")</label>
+        </th>
+            <th class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lbl2MonthAgo" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Last2Month")</label>
+            </th>
+            <th class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lbl3MonthAgo" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Last1Month")</label>
+            </th>
+            <th class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblPresentMonth" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_PresentMonth")</label>
+            </th>
+            <th class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lbl1MonthAhed" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Next1Month")</label>
+            </th>
+            <th class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lbl2MonthAhed" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Next2Month")</label>
+            </th>
+            <th class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lbl3MonthAhed" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Next3Month")</label>
+            </th>
+            <th class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lbl4MonthAhed" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Next4Month")</label>
+            </th>
+            <th class="tdHeaderClass1 labelClass GridCenter">
+                <label id="lblSumL" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_Sum_L")</label>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @*Data Rows*@
+         @if (Model != null && Model.Count > 0)
+          {
+                int i = 0;
+            foreach (var item in Model)
+            {
+                    i = i + 1;
+                    var sum = (item.PO_QTY_3MONTH_AGO ?? 0) + (item.PO_QTY_2MONTH_AGO ?? 0) + (item.PO_QTY_1MONTH_AGO ?? 0) + (item.PO_QTY_THIS_MONTH ?? 0) + (item.PO_QTY_1MONTH_AHEAD ?? 0) + (item.PO_QTY_2MONTH_AHEAD ?? 0) + (item.PO_QTY_3MONTH_AHEAD ?? 0) + (item.PO_QTY_4MONTH_AHEAD ?? 0) + (item.REM_QTY_4MONTH_AGO ?? 0) + (item.REM_QTY_3MONTH_AGO ?? 0) +
+                    (item.REM_QTY_2MONTH_AGO ?? 0) + (item.REM_QTY_1MONTH_AGO ?? 0) + (item.PLAN_QTY_THIS_MONTH ?? 0) + (item.PLAN_QTY_1MONTH_AHEAD ?? 0) + (item.PLAN_QTY_2MONTH_AHEAD ?? 0) + (item.PLAN_QTY_3MONTH_AHEAD ?? 0) + (item.PLAN_QTY_4MONTH_AHEAD ?? 0) + (item.RECVD_QTY_3MONTH_AGO ?? 0) +
+                    (item.RECVD_QTY_2MONTH_AGO ?? 0) + (item.RECVD_QTY_1MONTH_AGO ?? 0) + (item.SALES_FC_QTY_THIS_MONTH ?? 0) + (item.SALES_FC_QTY_1MONTH_AHEAD ?? 0) + (item.SALES_FC_QTY_2MONTH_AHEAD ?? 0) + (item.SALES_FC_QTY_3MONTH_AHEAD ?? 0);
+                    <tr class="GridNormalRow">
+                        <td rowspan="3" class="labelClass padddingLeft padddingRight">
+                            
+                            <input type="radio" ID=@("selectRow" + i) data-id="@i" class="labelClass" name="radiobtn" />
+                        </td>
+                        <td style="display:none;">
+                            <label type="text" ID="@("intMatlFcSummaryCd"+i)" data-id="@i">@item.INT_MATL_FC_SUMMARY_CD</label>
+                        </td>
+                       @*  <td rowspan="3" class="centerAlign">
+                        <input type="checkbox" class="blue-disabled" />
+                    </td> *@
+                    <td rowspan="3" class="centerAlign">
+                            @if (@item.PO_REVIEWED_DATE!= null)
+                            {
+                                <input type="checkbox" checked class="blue-disabled"  />
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="blue-disabled"  />
+                            }
+                        </td>
+                        <td rowspan="3" class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.INTERNAL_NAME_STRING</td>
+                        <td rowspan="3" class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.00}",@item.DIM_D)</td>
+                        <td rowspan="3" class="labelClass centerAlign">@item.SHAPE</td>
+                        <td rowspan="3" class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.LENGTH</td>
+                        <td rowspan="3" class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.CONDITION_DESCRIPTION</td>
+                        <td rowspan="3" class="labelClass centerAlign">@item.MATL_KUBUN_NAME</td>
+                        <td rowspan="3" class="labelClass centerAlign">@item.MATL_SPECIAL_KUBUN_NAME</td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.PO_QTY_3MONTH_AGO)</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.PO_QTY_2MONTH_AGO)</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.PO_QTY_1MONTH_AGO)</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.TOT_PO_QTY_MONTH_AGO)</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.PO_QTY_THIS_MONTH)</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.PO_QTY_1MONTH_AHEAD)</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.PO_QTY_2MONTH_AHEAD)</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.PO_QTY_3MONTH_AHEAD)</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.PO_QTY_4MONTH_AHEAD)</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.EXT_STOCK_QTY)</td>
+                </tr>                 
+                <tr class="GridNormalRow">
+                     <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.REM_QTY_4MONTH_AGO)</td>
+                     <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.REM_QTY_3MONTH_AGO)</td>
+                     <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.REM_QTY_2MONTH_AGO)</td>
+                     <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.REM_QTY_1MONTH_AGO)</td>
+                     <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.TOT_REM_QTY_MONTH_AGO)</td>
+                     <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.PLAN_QTY_THIS_MONTH)</td>
+                     <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.PLAN_QTY_1MONTH_AHEAD)</td>
+                     <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.PLAN_QTY_2MONTH_AHEAD)</td>
+                     <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.PLAN_QTY_3MONTH_AHEAD)</td>
+                     <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.PLAN_QTY_4MONTH_AHEAD)</td>
+                     <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.INT_STOCK_QTY)</td>
+                </tr>
+                <tr class="GridNormalRow lastRowBorderColor">
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass"></td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.RECVD_QTY_3MONTH_AGO)</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.RECVD_QTY_2MONTH_AGO)</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.RECVD_QTY_1MONTH_AGO)</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.TOT_RECVD_QTY_MONTH_AGO)</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",item.SALES_FC_QTY_THIS_MONTH)</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.SALES_FC_QTY_1MONTH_AHEAD)</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.SALES_FC_QTY_2MONTH_AHEAD)</td>
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.SALES_FC_QTY_3MONTH_AHEAD)</td>
+                   <td class="labelClass padddingRight tdNoWrap NumericFieldsClass"></td>
+                          @* @if (sum > 0)
+                            {
+                                 <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">0</td>
+                            }
+                            else
+                            {
+                                 <td class="labelClass padddingRight tdNoWrap NumericFieldsClass"></td>
+                            } *@
+                   
+                    <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@String.Format("{0:0.0}",@item.TOT_STOCK_QTY)</td>
+                    </tr>
+
+                }
+
+            }
+            else
+            {
+                <tr class="GridNormalRow">
+                    <td rowspan="3" align="center">
+                        <input type="radio" />
+                    </td>
+                    <td rowspan="3" align="center">
+                        <input type="checkbox" />
+                    </td>
+
+
+                    <td rowspan="3" class="labelClass"></td>
+                    <td rowspan="3" class="labelClass"></td>
+                    <td rowspan="3" class="labelClass"></td>
+                    <td rowspan="3" class="labelClass"></td>
+                    <td rowspan="3" class="labelClass"></td>
+                    <td rowspan="3" class="labelClass"></td>
+                    <td rowspan="3" class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                </tr>
+                <tr class="GridNormalRow">
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                </tr>
+                <tr class="GridNormalRow">
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                    <td class="labelClass"></td>
+                </tr>
+            }
+           
+        </tbody>
+
+    </table>
+
+</div>
+@section Scripts{
+
+    <link href="~/css/Common.css" rel="stylesheet" />
+    <link href="~/css/RollPoMainAnalysis.css" rel="stylesheet" />
+    <link href="~/css/Common_Styles.css" rel="stylesheet" />
+    <link href="~/css/masterStyles.css" rel="stylesheet" />
+
+
+}  

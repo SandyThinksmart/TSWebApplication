@@ -1,0 +1,426 @@
+﻿body
+{
+margin-bottom:revert;
+}
+#pnlCSVTitleGrid {
+    margin-top: 30px;
+    margin-left: 10px;
+}
+.labelClass {
+    font-family: MS Gothic;
+    font-weight: 400;
+    font-size: 13px;
+}
+.trTdH{
+    border-width: thin;
+    border-style: solid;
+    background-color: #7291D2;
+    height: 30px;
+    border-color: White;
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 2px;
+}
+.padding-top-bottom {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+#divCSVTitleGrid
+{
+    border:1px solid gray;
+    height:800px;
+    width:850px;
+    overflow:auto;
+}
+#pnlConditionGrid {
+    margin-top: 30px;
+    margin-left: 10px;
+}
+#pnlConditionGrid {
+    border: 1px solid gray;
+    height: 500px;
+    width: 450px;
+    overflow: auto;
+}
+.Hidden {
+    display: none;
+}
+.padding-topbottom {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+.centerAlign
+{
+    text-align:center;
+}
+.FrontColor
+{
+    color:black;
+}
+#lblTitle:hover {
+    cursor: pointer; /* Or any other cursor style */
+}
+#tblClose {
+    height: 66px;
+    width: 100px;
+   
+}
+
+#divClose {
+    background-color: Navy;
+    height: 70px;
+    width:100px;
+    vertical-align: middle;
+}
+#lblCloseWindow, #lblExportCSVFile, #lblExportPDFFile {
+    color: white;
+}
+._functionButtons {
+    background-color: ButtonFace;
+    Height: 25px;
+    border: 1px inset Silver;
+    font-size: 12px;
+    font-family: MS Gothic;
+    width: 80px;
+}
+#divCSV {
+    margin-left: 10px;
+    background-color: #008000;
+    height: 70px;
+    width: 135px;
+    vertical-align: middle;
+}
+#tblCSV {
+    height: 66px;
+    width: 135px;
+}
+#divPDF {
+    margin-left: 5px;
+    background-color: #ec0606;/*#cc0000;*/
+    height: 70px;
+    width: 135px;
+    vertical-align: middle;
+}
+
+#tblPDF {
+    height: 66px;
+    width: 135px;
+}
+.ddlSearchCombo
+{
+    height:25px;
+    width:100px;
+}
+.txtSearch
+{
+    margin-left:20px;
+    width:100px;
+    height:25px;
+}
+.txtSearch1 {
+    width: 100px;
+    height: 25px;
+}
+.txtSearch2 {
+    margin-left: 20px;
+    width: 100px;
+    height: 25px;
+}
+.txtSearchDate {
+    margin-left: 20px;
+    width: 140px;
+    height: 25px;
+}
+.txtSearchDate1 {
+    width: 140px;
+    height: 25px;
+}
+.txtSearchDate2 {
+    margin-left: 20px;
+    width: 140px;
+    height: 25px;
+}
+.set-width
+{
+    width:250px;
+}
+.freez > th {
+    background-color: #7291D2;
+    top: 0.2px;
+    height: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.pdTopBottom {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+.pdLeftRight {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+.tdWidth
+{
+    padding:10px;
+}
+#pnlCSVGroupTitle {
+   /* margin-top: 20px;*/
+    margin-left: 10px;
+    min-width: 500px;
+    min-height: 750px;
+    min-width: 850px;
+    border:1px solid gray;
+    overflow:auto;
+}
+.DoubleLines
+{
+    border:3px double;
+}
+#tblGroupTitle
+{
+    width:800px;
+}
+.tdPadding {
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+.tdBottomBorder
+{
+    border-bottom:1px solid darkGray;
+}
+.tdEmpty
+{
+    height:37px;
+}
+.labelMenu
+{
+    height:20px;
+    width:780px;
+    text-align:center;
+    vertical-align:middle;
+}
+.labelHeight {
+    height: 16px;
+    width: 780px;
+    text-align: center;
+    vertical-align: middle;
+}
+.NumericVal
+{
+    text-align:right;
+
+}
+
+
+#menuWrapper {
+    width: 700px;
+}
+
+#menuWrapper {
+    width: 100%;
+}
+
+
+#menuHeader {
+    background-color: #336699;
+    width: 100%;
+    height: 32px
+}
+
+
+
+#menuFooter {
+    float: right;
+    right: 0;
+    bottom: 0;
+}
+
+#tblGroupTitleList, #tblTitleList {
+    width: 100%;
+    /*  border: 2px solid Silver;*/
+    margin-top: 0px;
+    vertical-align: top;
+    background-color: White;
+}
+
+    #tblGroupTitleList th, #tblGroupTitleList td, #tblTitleList th, #tblTitleList td {
+        border: 1px solid Silver;
+    }
+
+        #tblGroupTitleList td:hover, #tblTitleList td:hover {
+            outline: 2px solid #E0ECF8;
+            background-color: #E0ECF8;
+        }
+
+.tdclass {
+    height: 28px;
+}
+
+
+.menulabel {
+    color: White;
+    font-size: 15px;
+}
+
+.exitlabel {
+    font-size: 15px;
+    color: White;
+}
+
+.menuButtons {
+    border-style: inset;
+    margin-bottom: 10px;
+    height: 26px;
+    text-align: center;
+}
+
+.exitButtons {
+    border-style: inset;
+    margin-bottom: 10px;
+    height: 26px;
+    text-align: center;
+}
+
+.menuSearch {
+    margin-left: 2px;
+    margin-bottom: 10px;
+    width: 51px;
+    height: 18px;
+    border-style: inset;
+}
+
+.linkFormat {
+    color: Navy;
+    font-size: 13px;
+    font-family: Arial;
+  /*  height: 25px;*/
+    cursor: pointer;
+}
+
+.labelClass {
+    /*color: #FFFFFF;*/
+    font-family: MS Gothic;
+    font-size: 13px;
+    margin-left: 0px;
+}
+
+.style1 {
+    width: 342px;
+    height: 25;
+}
+
+.style2 {
+    width: 303px;
+    height: 25;
+}
+
+.style3 {
+    height: 25px;
+    width: 303px;
+}
+
+.selected {
+    background-color: #E0ECF8;
+}
+
+.pptLink {
+    text-decoration: none;
+}
+
+#DivCloseButton {
+    background-color: #0000ff;
+    text-align: center;
+    width: 100px;
+    height: 50px;
+}
+
+#divLblClose, #divBtnClose {
+    line-height: 25px;
+}
+
+.underDev {
+    border-style: none;
+    width: 100%;
+    height: auto;
+    background-color: white;
+    text-align: left;
+    padding-left: 0px;
+    color: Navy;
+    font-size: 13px;
+    font-family: Arial;
+}
+
+.MenuHeight {
+    padding-top: 23px;
+    padding-bottom: 18px;
+}
+.NoCollapse {
+    border-collapse: revert;
+}
+.LocationDropdown {
+    width: 100%;
+    height: 25px;
+    border-style: inset;
+    font-family: MS Gothic;
+    color: black;
+    font-size:small;
+}
+.NextProcessDropdown {
+    width: 100%;
+    height: 25px;
+    border-style: inset;
+    font-family: MS Gothic;
+    color: black;
+    font-size: small;
+}
+.trHeight
+{
+    height:30px;
+}
+.thHeight
+{
+    height:22px;
+}
+#txtUserLocation
+{
+    width:100%;
+    height:25px;
+}
+.disabled {
+    background-color: #EEEEEE !important;
+    color: black;
+}
+#lblGridHeader, #lblPrint {
+    color: white;
+}
+.tdRange
+{
+    width:40px;
+}
+.padding_top_bottom {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+#LoadingImage {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    text-align: center;
+    opacity: 0.7;
+    background-color: #fff;
+    z-index: 99;
+    padding-top: 50%;
+}
+
+#loadimage {
+    position: absolute;
+    padding-top: 40%;
+    top: 100px;
+    left: 280px;
+    z-index: 100;
+}

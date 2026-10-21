@@ -1,0 +1,297 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<ECDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+
+}
+<style>
+    .freezECDailyGrid > th {
+        position: sticky !important;
+        background-color: #4e6cab;
+        top: 0.0px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezECDailyGrid {
+        border-color: white;
+    }
+
+    .freezECDailyGrid1 > th {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 20px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezECDailyGrid1 {
+        border-color: white;
+    }
+
+    .freezECDailyGrid2 > th {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 40px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezECDailyGrid2 {
+        border-color: white;
+    }
+
+    .freezECDailyGrid3 > th {
+        position: sticky !important;
+        background-color: #7291D2;
+        top: 58px;
+        height: 20px;
+        box-shadow: 0 0 0px 0.5px White;
+    }
+
+    .freezECDailyGrid3 {
+        border-color: white;
+    }
+</style>
+<div>
+    <table class="GridLinesTable GridLayout GridColumnLeftPadding" cellpadding="0" cellspacing="0" border="1" id="tblECReport">
+        <thead>
+            <tr class="freezECDailyGrid">
+
+                <th id="ECHeader" colspan="21" style="color:white;" class="GridHeader GridViewScrollHeader labelClass1 tdH1 sticky-header">@LocalizationServices.GetLocalizedHtmlString("lbl_ECDailyReport")</th>
+            </tr>
+            <tr class="GridHeader GridViewScrollHeader freezECDailyGrid1 GridHeaderPadding">
+                <th align="left" valign="middle" class="tdHeaderClass1 labelClass GridCenter sticky-header" rowspan="3">
+
+                </th>
+                <th id="ECProcessLocation" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ProcessLocation")</th>
+                <th id="ECOperationDay" colspan="2" class="headerPadding labelClass tdNoWrap" style="width:80px;">@LocalizationServices.GetLocalizedHtmlString("lbl_OperationDayStartEnd")</th>
+                <th id="ECCustomer" rowspan="3" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Customer")</th>
+                <th id="ECChuuban" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Chuuban")</th>
+                <th id="ECVerification" colspan="2" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Verification")</th>
+                <th id="ECDimD" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_DimD")</th>
+                <th id="ECReserveQty" colspan="2" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ReserveQty")</th>
+                <th id="ECThabaNo" rowspan="3" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_TabaNo")</th>
+                <th id="ECOkProd" colspan="2" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_OKProd")</th>
+                <th id="ECNGProd" colspan="2" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_NGProd")</th>
+                <th id="ECIsOk" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_IsOK")</th>
+                <th id="ECLineSpeed" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_LineSpeed")</th>
+                <th id="ECMagnetism_L" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Magnetism_L")</th>
+                <th id="ECDecision" rowspan="3" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Decision")</th>
+                <th id="nextProcess" rowspan="3" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lblNextProcess")</th>
+            </tr>
+
+            <tr class="GridHeader GridViewScrollHeader freezECDailyGrid2 GridHeaderPadding">
+
+                <th id="ECMachine" colspan="2" rowspan="2" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Machine_L")</th>
+                <th id="ECOperator" rowspan="2" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Operator")</th>
+                <th id="ECManufacturingSpecificationNo" rowspan="2" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ManufacturingSpecificationNo")</th>
+
+                <th id="ECProdNameCust" rowspan="2" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ProdNameCust")</th>
+                <th id="ECMetallicLabelNo" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_MetallicLabelNo")</th>
+                <th id="ECLength" rowspan="2" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Length")</th>
+                <th id="ECNoOfUnits" rowspan="2" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_NoOfUnits")
+                    <label id="ECReservePieces" hidden>@LocalizationServices.GetLocalizedHtmlString("lbl_ReservedPieces")</label>
+                </th>
+                <th id="ECWeight" rowspan="2" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Weight")
+                    <label id="ECReserveWeight" hidden>@LocalizationServices.GetLocalizedHtmlString("lbl_ReservedWeight")</label>
+                </th>
+                <th id="ECNoOfUnits1" rowspan="2" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_NoOfUnits")
+                    <label id="ECOKPieces" hidden>@LocalizationServices.GetLocalizedHtmlString("lbl_FinishedPieces")</label>
+                </th>
+                <th id="ECWeightWithoutKG" rowspan="2" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_WeightWithoutKG")
+                    <label id="ECOKWeight" hidden>@LocalizationServices.GetLocalizedHtmlString("lbl_FinishedWeight")</label>
+                </th>
+                <th id="ECBarCount" rowspan="2" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_BarCount")</th>
+                <th id="ECDefectName" rowspan="2" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_DefectName")</th>
+                <th id="ECRemark" rowspan="2" colspan="3" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Remark")</th>
+
+
+
+
+
+            </tr>
+            <tr class="GridHeader GridViewScrollHeader freezECDailyGrid3 GridHeaderPadding">
+                <th id="ECCharge" class="headerPadding labelClass tdNoWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_Charge")</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+
+            {
+                foreach (var item in Model)
+                {
+                    <tr class="GridNormalRow" data-lblProcessPlanCD="@item.PP_PROCESS_PLAN_CD">
+                        <td rowspan="3" class="sticky-col1">
+                            <input type="button" id="" ID="lnkEdit" class="btnArrow" onclick="OnEditClick($(this))" style="height:77px" CausesValidation="false" />
+                        </td>
+                        <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.PP_PROCESS_LOCATION</td>
+                        <td class="labelClass centerAlign" style="width:95px;">@item.EC_START_DATE_STRING</td>
+                        <td class="labelClass centerAlign" style="width:95px;">@item.EC_END_DATE_STRING</td>
+                        <td rowspan="3" class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.PP_CUSTOMER_NAME</td>
+                        <td class="labelClass tdNoWrap centerAlign">@item.PP_CHUUBAN</td>
+                        <td rowspan="3" class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.PP_PROD_NAME_CUST</td>
+                        <td rowspan="2" class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.EC_METALLIC_PLATE_CODE</td>
+                        <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.PP_PROD_DIM_D @item.PP_PROD_SHAPE</td>
+                        <td rowspan="3" class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.PP_NO_OF_UNITS @item.PP_UNIT_TYPE_STRING</td>
+                        <td rowspan="3" class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.PP_ACT_ALLOC_QTY</td>
+                        <td rowspan="3" class="labelClass tdNoWrap centerAlign">@item.EC_TABA_NO</td>
+                        <td rowspan="3" class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.EC_OK_BARS @item.UNIT_TYPE_STRING</td>
+                        <td rowspan="3" class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.EC_OK_QTY</td>
+                        <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.EC_NG_BARS1</td>
+                        <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.EC_NG_DETAILS1_STRING</td>
+                       @*  @if (item.EC_NG_BARS1 != null && item.EC_NG_BARS2 != null && item.EC_NG_BARS3 != null)
+                        {
+                            <td rowspan="3" class="labelClass padddingRight tdNoWrap NumericFieldsClass">
+                                @item.EC_NG_BARS1<br />
+                                @item.EC_NG_BARS2<br />
+                                @item.EC_NG_BARS3
+                            </td>
+                        }
+                        else if (item.EC_NG_BARS1 != null && item.EC_NG_BARS2 != null && item.EC_NG_BARS3 == null)
+                        {
+                            <td rowspan="3" class="labelClass padddingRight tdNoWrap NumericFieldsClass">
+                                @item.EC_NG_BARS1<br />
+                                @item.EC_NG_BARS2
+                            </td>
+                        }
+                        else if (item.EC_NG_BARS1 != null && item.EC_NG_BARS2 == null && item.EC_NG_BARS3 == null)
+                        {
+                            <td rowspan="3" class="labelClass padddingRight tdNoWrap NumericFieldsClass">
+                                @item.EC_NG_BARS1
+                            </td>
+                        }
+                        else
+                        {
+                            <td rowspan="3" class="labelClass padddingRight tdNoWrap NumericFieldsClass"></td>
+                        }
+                        @if (item.EC_NG_DETAILS1_STRING != null && item.EC_NG_DETAILS2_STRING != null && item.EC_NG_DETAILS3_STRING != null)
+                        {
+                            <td rowspan="3" class="labelClass padddingLeft tdNoWrap CharactFieldsClass">
+                                @item.EC_NG_DETAILS1_STRING<br />
+                                @item.EC_NG_DETAILS2_STRING<br />
+                                @item.EC_NG_DETAILS3_STRING
+                            </td>
+                        }
+                        else if (item.EC_NG_DETAILS1_STRING != null && item.EC_NG_DETAILS2_STRING != null && item.EC_NG_DETAILS3_STRING == null)
+                        {
+                            <td rowspan="3" class="labelClass padddingLeft tdNoWrap CharactFieldsClass">
+                                @item.EC_NG_DETAILS1_STRING<br />
+                                @item.EC_NG_DETAILS2_STRING
+                            </td>
+                        }
+                        else if (item.EC_NG_DETAILS1_STRING != null && item.EC_NG_DETAILS2_STRING == null && item.EC_NG_DETAILS3_STRING == null)
+                        {
+                            <td rowspan="3" class="labelClass padddingLeft tdNoWrap CharactFieldsClass">
+                                @item.EC_NG_DETAILS1_STRING
+                            </td>
+                        }
+                        else
+                        {
+                            <td rowspan="3" class="labelClass padddingRight tdNoWrap NumericFieldsClass"></td>
+                        } *@
+                       @*  <td rowspan="3" class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.EC_NG_BARS1<br /> @item.EC_NG_BARS2<br />@item.EC_NG_BARS3</td> *@
+                        @* <td rowspan="3" class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.EC_NG_DETAILS1_STRING <br /> @item.EC_NG_DETAILS2_STRING <br />@item.EC_NG_DETAILS3_STRING</td> *@
+                        <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.IS_OK</td>
+                        <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.LINE_SPEED</td>
+                        <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.EC_MAGNETISM</td>
+                        <td rowspan="3" class="labelClass tdNoWrap centerAlign">@item.EC_DECISION_STRING</td>
+                        <td rowspan="3" class="labelClass tdNoWrap centerAlign">@item.NEXT_PROCESS_NAME</td>
+                    </tr>
+                    <tr class="GridNormalRow ecRowHeight">
+
+                        <td rowspan="2" colspan="2" class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.EC_MACHINE_NAME</td>
+                        <td rowspan="2" class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.EC_END_OPERATOR_NAME</td>
+                        <td rowspan="2" class="labelClass tdNoWrap centerAlign">@item.PP_PROD_SPEC_NO</td>
+                        <td rowspan="2" class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.PP_PROD_LENGTH_STRING</td>
+                        <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.EC_NG_BARS2</td>
+                        <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.EC_NG_DETAILS2_STRING</td>
+                        <td rowspan="2" colspan="3" class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.EC_REMARKS</td>
+                    </tr>
+                    <tr class="GridNormalRow ecRowHeight">
+                        <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.PP_CHARGE</td>
+                        <td class="labelClass padddingRight tdNoWrap NumericFieldsClass">@item.EC_NG_BARS3</td>
+                        <td class="labelClass padddingLeft tdNoWrap CharactFieldsClass">@item.EC_NG_DETAILS3_STRING</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr class="GridNormalRow ecRowHeight">
+                    <td class="labelClass padddingLeft padddingRight " rowspan="3" style=" white-space:nowrap">
+                        <input type="button" class="btnArrow" style="height:77px;float: right;" />
+                    </td>
+                    <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                    <td style="width: 95px;"  class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                    <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                    <td rowspan="3" class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                    <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>                    
+                    <td rowspan="3" class="labelClass tdPaddingLeftandRight tdNoWrap CharactFieldsClass"></td>
+                    <td rowspan="2" class="labelClass tdPaddingLeftandRight tdNoWrap NumericFieldsClass"></td>
+                    <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>                    
+                    <td rowspan="3" class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                    <td rowspan="3" class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                    <td rowspan="3" class="labelClass tdPaddingLeftandRight tdNoWrap"></td>                   
+                    <td rowspan="3" class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                    <td rowspan="3" class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                    @* <td rowspan="3" class="labelClass tdPaddingLeftandRight tdNoWrap"></td> *@
+                    <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                  @*   <td rowspan="3" class="labelClass tdPaddingLeftandRight tdNoWrap"></td> *@
+                    <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                    <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                    <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                    <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                    <td rowspan="3" class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                    <td rowspan="3" class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                </tr>
+                <tr class="GridNormalRow ecRowHeight">
+
+                    <td rowspan="2" colspan="2" class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                    <td rowspan="2" class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                    <td rowspan="2" class="labelClass tdPaddingLeftandRight tdNoWrap"></td>                    
+                    <td rowspan="2" class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                    <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                    <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                    <td rowspan="2" colspan="3" class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                </tr>
+                <tr class="GridNormalRow ecRowHeight">
+
+                    <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                    <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                    <td class="labelClass tdPaddingLeftandRight tdNoWrap"></td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="footerRow" style="position: sticky !important;">
+                <td colspan="10" align="right">
+                    <label runat="server">@LocalizationServices.GetLocalizedHtmlString("lbl_TotalActAllocWeight")</label>
+                </td>
+                <td align="right" style="padding-left:2px;">
+                    <label class="labelClass padddingRight tdNoWrap NumericFieldsClass" ID="lblTotal">
+                        @(Model?.GroupBy(x => new { x.PP_CHUUBAN })
+                                                .Select(g => g.FirstOrDefault()).Sum(x => x.PP_ACT_ALLOC_QTY ?? 0) ?? 0)
+                    </label>
+
+
+                </td>
+                <td colspan="2" align="right">
+                    <label runat="server">@LocalizationServices.GetLocalizedHtmlString("lbl_TotalWeight")</label>
+                </td>
+                <td align="right" style="padding-left:2px;">
+                   @*  <label class="labelClass padddingRight tdNoWrap NumericFieldsClass" ID="lblTotal"> @(Model?.Where(x => x.EC_DECISION == 10).Sum(x => x.EC_OK_QTY ?? 0) ?? 0)</label>*@
+
+                    <label class="labelClass padddingRight tdNoWrap NumericFieldsClass" ID="lblTotal">
+                        @(Model?.Where(x => x.EC_DECISION == 10 ||
+                                            x.EC_DECISION == 30 ||
+                                            x.EC_DECISION == 40)
+                                            .Sum(x => x.EC_OK_QTY ?? 0) ?? 0)</label>
+
+                </td>
+                <td colspan="8"></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

@@ -1,0 +1,137 @@
+﻿@using TSWebApplication.Domain.Resources
+@inject LocalizationServices LocalizationServices
+@using TSWebApplication.Domain.Model
+@model List<MakerMaterialDetails>
+@{
+    ViewData["Title"] = LocalizationServices.GetLocalizedHtmlString("lblMenu_MakerMaterialRateEntry").Value.Replace("</br>", "");
+    Layout = "~/Views/Shared/_LayoutMasterListPageTemplate.cshtml";
+
+}
+
+ 
+<link href="~/css/MakerMaterialListPage.css" rel="stylesheet" />
+<link href="~/css/Common_Styles.css" rel="stylesheet" />
+<style type="text/css">
+    .freez > th {
+        border: thin solid White;
+        background-color: #7291D2;
+        border-color: White;
+        position: sticky !important;
+        top: 0.2px;
+        height: 20px;
+        box-shadow: 0 0 0px 1px White;
+    }
+
+    .headerPadding {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+
+    .fixLengthDataPadding {
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+    }
+</style>
+<form>
+    <asp:ScriptManager ID="ScriptManager1">
+    </asp:ScriptManager>
+   <div id="divFilterList">
+
+        <table id="tblFilterList" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td colspan="4" class="M_HeaderGrid">
+                                <label ID="lblSearchGridHeader" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_SearchCondition")</label>
+
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td class="tdH2">
+                    <label ID="lblApplicableStartDate" Class="labelClass noWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_ApplicableStartDate")</label>
+                            </td>
+                            <td class="tdH2">
+                    <label ID="lblMakerName" CssClass="labelClass noWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_MakerName")</label>
+                            </td>
+                            <td class="tdH2">
+                    <label ID="lblMukesakiShort" CssClass="labelClass noWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_MukesakiShort")</label>
+
+                            </td>
+                            <td class="tdH2">
+                    <label ID="lblMaterialKubun" CssClass="labelClass noWrap">@LocalizationServices.GetLocalizedHtmlString("lbl_MaterialKubun_L")</label>
+
+                            </td>
+                        </tr>
+                        <tr>
+                <td class="tdSerachComponant">
+                  <table>
+                      <tr>
+                          <td align="left" valign="top">
+
+                                <input type="text" ID="txtYear" class="TextFieldsClass form-control" MaxLength="4" TabIndex="1" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            </td>
+                            <td align="left" valign="top">
+                                <input type="text" ID="txtMonth" class="TextFieldsClass form-control" MaxLength="2" TabIndex="2" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                            </td>
+                            <td align="left" valign="top">
+
+                                <input type="text" ID="txtChance" class="TextFieldsClass form-control" MaxLength="1" TabIndex="3" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))">
+                                </td>
+                      </tr>
+                  </table>
+                            </td>
+                            <td class="tdSerachComponant">
+                               
+                                <select ID="ddlMakerName" class="form-control TextFieldsClass" TabIndex="4" />
+
+                            </td>
+                            <td class="tdSerachComponant">
+                    <table>
+                        <tr>
+                            <td align="left" valign="top">
+                                <input type="text" ID="txtMukesakiName" class="TextFieldsClass form-control" MaxLength="6" TabIndex="5">
+                            </td>
+                            <td align="left" valign="top">
+                                <input type="button" id="btnMukesakiSearch" class="_functionButtons" tabindex="6" value="-" />
+                            </td>
+                            <td align="left" valign="top">
+                                <select id="ddlMukesakiName" name="ddlMukesakiName" class="DropdownListClass form-control InsetBorder" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_Mukesaki_Required")" tabindex="7">
+                                    <option value="0" selected="selected"></option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                            </td>
+                            <td class="td tdSearchGrid">
+                    <select id="ddlMaterialType" name="ddlMaterialType" class="DropdownListClass form-control InsetBorder" tabindex="8">
+                        <option value="0" selected="selected"></option>
+                    </select>
+
+                            </td>
+                            
+                        </tr>
+                    </table>
+    </div>
+    <div id="divMain" style="margin-top:15px;">
+        <div ID="divMaterialListGrid" runat="server">
+            @{
+                @await Html.PartialAsync("MaterialListGrid", Model)
+                ;
+            }
+        </div>
+       
+      
+    </div>
+
+    <div id="divPageTitleMessages" class="Hidden">
+        <label id="lblTitle_MakerMaterialListPage_001" class="Hidden">
+            <span ID="LiteralMakerMaterialRateListPage">@LocalizationServices.GetLocalizedHtmlString("title_ListMasterMakerMaterialRate_L")</span>
+        </label>
+    </div>
+    <div id="divErrorMessages" class="Hidden">
+        <label id="lblErrorMessageE_Maker_MaterialList_001" class="Hidden">
+            <span ID="LiteralExceptionOccured">@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SystemException")</span>
+        </label>
+    </div>
+</form>
+
+<script src="~/static/js/MakerMaterialRateListPage.js"></script>

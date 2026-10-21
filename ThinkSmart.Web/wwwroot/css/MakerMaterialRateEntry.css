@@ -1,0 +1,235 @@
+﻿#divButton {
+    height: 65px;
+    margin-top: 20px;
+    background-color: #c60000;
+    width:442px;
+}
+#lblBasicOperations {
+    padding-bottom: 5px;
+    padding-top: 10px;
+    color:white;
+}
+#tblMainButton {
+    width: 260px;
+    margin-top: 15px;
+    margin-left:5px;
+}
+#divFilter {
+    height: 65px;
+    margin-top: 20px;
+    background-color: #004100;
+    width: 178px;
+}
+#tblFilter {
+    width: 170px;
+    margin-top: 15px;
+    margin-left: 5px;
+}
+#lblFilterCondition, #lblAuxiliaryFunctionCSVExcel, #lblClose, #lblDeleteRow {
+    padding-bottom: 5px;
+    padding-top: 10px;
+    color: white;
+}
+#emptytd1 {
+    width: 350px;
+}
+#emptytd2 {
+    height:10px;
+}
+#btnInitialize, #btnCopy, #btnRegister, #btnSelect, #btnUpdate {
+    margin-right: 5px;
+}
+#lblMakerName{
+    min-width:75px;
+}
+#lblMukesakiShort {
+    min-width: 50px;
+}
+#lblApplicableStartDate{
+    min-width:135px;
+    white-space:nowrap;
+}
+#ddlMakerName {
+    width: 200px;
+    height: 22px;
+}
+
+#empty1, #empty2{
+    width: 50px;
+}
+
+#txtMukesakiName
+{
+    width:50px;
+}
+#btnMukesakiSearch {
+    width: 30px;
+    height: 22px;
+}
+#ddlMukesakiName {
+    width: 150px;
+    height: 22px;
+}
+#txtYear {
+    width: 40px;
+    text-align: right;
+}
+#txtMonth, #txtChance {
+    width: 30px;
+    text-align:right;
+}
+#btnShowPopup {
+    padding-bottom: 6px;
+    width: 30px;
+    height: 22px;
+}
+#btnExtractGrid {
+    height: 22px;
+    width: 60px;
+}
+#tblMainTable{
+    width:1175px;
+}
+#tblSearchCondition{
+   /* margin-left:20px;*/
+}
+#divSearchCondition{
+   
+    height:60px;
+    padding-top:18px;
+}
+#divList {
+    
+    height: 690px;
+    max-width:1168px;
+    overflow:auto;
+}
+#divAuxiliaryFunction {
+    height: 65px;
+    background-color: #004100;
+    width: 185px;
+}
+#tblAuxiliaryFunction{
+    margin-left:6px;
+}
+#lblRollPoForecastInstruction {
+    padding-left: 2px;
+    width: 230px;
+    white-space: nowrap;
+}
+#emptytd3
+{
+    width:380px;
+}
+#lblDataDisplayInstruction{
+    color:red;
+    white-space:nowrap;
+}
+#divClose {
+    height: 65px;
+    background-color: #000084;
+    width: 100px;
+}
+#tblCloseButton {
+    margin-left:10px;
+}
+.fa-eye {
+    position: absolute;
+    top: 28%;
+    right: 4%;
+    cursor: pointer;
+    color: dimgray;
+    font-size: small;
+}
+#txtTotal
+{
+    width:80px;
+    height:22px;
+}
+#btnRedisplay
+{
+    height:22px;
+}
+.btnCalculator{
+    background-color:aliceblue;
+    height:24px;
+    width:35px;
+}
+#tblItem
+{
+    height:65px;
+}
+.freez > th {
+    position: sticky !important;
+    background-color: #7291D2;
+    top: 0.2px;
+    height: 20px;
+}
+#tblDetails {
+    height:65px;
+}
+#divEvents {
+    background-color: #c60000;
+    height: 42px;
+    padding-top: 7px;
+    width: 190px;
+    padding-left: 6px;
+}
+#tblEvents{
+    width:190px;
+}
+#divDeleteRow {
+    height: 65px;
+    margin-top: 20px;
+    background-color: #2f4f4f;
+    width: 100px;
+  
+}
+
+#tblDeleteRow {
+    width: 100px;
+    margin-top: 15px;
+  
+}
+.tdDeleteFunction{
+    width:201px;
+}
+#ddlMaterialType {
+    width: 80px;
+    height: 22px;
+    margin-right:10px;
+}
+#lblMaterialKubun{
+    margin-left:10px;
+    white-space:nowrap;
+}
+.dataRow{
+    height:22px;
+}
+#btnCloseMaster{
+    margin-top:4px;
+}
+.disabled {
+    background-color: #EEEEEE !important;
+    color: black;
+}
+.alignRightText{
+    text-align:right;
+}
+#tblBottom
+{
+
+    width:1166px;
+}
+.thDimStart {
+    width: 60px;
+}
+.thDimEnd {
+    width: 100px;
+}
+.thRate{
+    width: 100px;
+}
+.txtRate, .txtDimStart, .txtDimEnd {
+    border-style: none;
+}

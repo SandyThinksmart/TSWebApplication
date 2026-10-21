@@ -1,0 +1,66 @@
+﻿.td2 {
+   
+   /* background-color: #183776;*/
+   height:25px;
+}
+
+.labelClassWhite {
+    font-family: 'MS Gothic';
+    color: white;
+    text-align: center;
+    background-color: #183776;
+}
+
+.GridLines12 > td /* Apply border to headers */ {
+    border: 1px solid white;
+    white-space: normal;
+}
+
+.BorderInsetChemicalPopup {
+    border: inset;
+    width: 1316px;
+}
+
+
+.GridLines13 > td /* Apply border to headers */ {
+    border: 1px solid #f6b47c;
+    white-space: normal;
+}
+
+.MachineInspectionClass {
+    border: inset;
+    width: 220px;
+    background-color: #004040;
+    text-align: center;
+}
+
+.BorderInset {
+    border: inset;
+    width: 1296px;
+}
+
+.GridHeader1 {
+    background-color: #7291D2;
+    color: Black;
+    font-size: small;
+    font-weight: lighter;
+    text-align: center;
+    font-family: 'MS Gothic';
+}
+
+.textboxheight {
+    height: 22px;
+    border: none;
+}
+
+.Close {
+    border: inset;
+    width: 100px;
+    background-color: #000080;
+}
+
+.Select {
+    border: inset;
+    width: 100px;
+    background-color: #8b0000;
+}

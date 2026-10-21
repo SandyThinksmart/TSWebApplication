@@ -1,0 +1,60 @@
+﻿@using TSWebApplication.Domain.Model
+@using TSWebApplication.Domain.Resources
+@model List<GeneralDailyProcessDetails>
+@inject LocalizationServices LocalizationServices
+@{
+    Layout = null;
+}
+
+<link href="~/css/Common_Styles.css" rel="stylesheet" asp-append-version="true" />
+
+
+<div class="col-6" style="padding-left:0px">
+    <table>
+        <tr>
+            <td style="vertical-align: top;">
+                <br />
+                <div id="DivProcess" >
+                    
+                    <table class=" GridLayout" cellpadding="0" cellspacing="0" border="1" id="grdvGeneralDailyProcessList" style="border-collapse:collapse;text-align: left;width:279px;">
+                        <tbody>
+                            @if (Model != null && Model.Count > 0)
+
+                            {
+
+                                int i = 0;
+                                foreach (var item in Model)
+                                {
+                                    i = i + 1;
+                                    <tr class="freez GridHeaderPadding" id="grdvGeneralDailyProcessDetails" style="border-collapse:collapse;text-align: left">
+                                        <td class="labelClass GridCenter" style="width:30px"><input type="radio" ID=@("selectRow" + i) data-id="@i" class="labelClass" name="radiobtn" /></td>
+                                        <td style="display:none;">
+                                            <label type="text" ID="@("generalProcessCD" + i)" data-id="@i">@item.GEN_PROCESS_CD</label>
+                                        </td>
+                                        <td style="display:none;">
+                                            <label type="text" ID="@("processPlanCD"+i)" data-id="@i">@item.PP_PROCESS_PLAN_CD</label>
+                                        </td>
+                                        <td style="padding-left:2px;font-size: 13px;">
+                                            <label type="text" ID="@("gpDate"+i)" data-id="@i">@item.GP_DATE</label>
+                                            <label class="headerDash">-</label>
+                                            
+                                            @if (@item.GP_PROCESS_STATUS == 0)
+                                            {
+                                            <label class="lableFont">@LocalizationServices.GetLocalizedHtmlString("lbl_Start")</label>
+                                            }
+                                             else{
+                                                <label class="lableFont">@LocalizationServices.GetLocalizedHtmlString("lbl_End")</label>
+                                            }
+                                            
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                    
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

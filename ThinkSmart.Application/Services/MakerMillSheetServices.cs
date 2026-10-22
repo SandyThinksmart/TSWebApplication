@@ -211,7 +211,7 @@ namespace TSWebApplication.Application.Services
         }
         public List<NameValue> GetUnitTypeList()
         {
-            var _UnitTypeList = UIUtils.GetUnitTypetKubun();
+            var _UnitTypeList = UIUtils.GetUnitTypeKubunMillsheet();
             return _UnitTypeList;
         }
         public List<NameValue> GetChemicalSpecifcationList()

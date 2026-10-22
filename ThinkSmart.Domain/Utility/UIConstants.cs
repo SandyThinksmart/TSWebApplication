@@ -1526,6 +1526,16 @@ namespace TSWebApplication.Domain.Utility
             };
             return TrialResultKubun;
         }
+        public static Dictionary<int, string> UnitTypeKubunMillsheet()
+        {
+            Dictionary<int, string> TrialResultKubun = new Dictionary<int, string>()
+            {
+             {K_UNIT_BAR,Convert.ToString(_localizationServices.GetLocalizedHtmlString("lbl_Hone")) },
+             {K_UNIT_BUNDLE,Convert.ToString(_localizationServices.GetLocalizedHtmlString("lbl_Thaba_L")) },
+             {K_UNIT_COIL,Convert.ToString(_localizationServices.GetLocalizedHtmlString("lbl_Coil_L")) }
+            };
+            return TrialResultKubun;
+        }
         public static Dictionary<int, string> NGReasonKubunGet()
         {
             Dictionary<int, string> NGReasonKubun = new Dictionary<int, string>()

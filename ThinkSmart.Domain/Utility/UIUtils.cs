@@ -1081,7 +1081,24 @@ namespace TSWebApplication.Domain.Utility
             }
             return returnTypeKubunList;
         }
+        public static List<NameValue> GetUnitTypeKubunMillsheet(bool isDefaultIncluded = false)
+        {
+            var returnTypeKubunList = new List<NameValue>();
 
+            Dictionary<int, string> d_nifudaTypeKubun = UIConstants.UnitTypeKubunMillsheet();
+
+            if (isDefaultIncluded)
+                returnTypeKubunList.Add(new NameValue { CD = K_DEAFULT_MINUS_ONE, Name = K_DEAFULT_STRING });
+
+            foreach (var kb in d_nifudaTypeKubun)
+            {
+                NameValue nmVal = new NameValue();
+                nmVal.CD = kb.Key;
+                nmVal.Name = kb.Value;
+                returnTypeKubunList.Add(nmVal);
+            }
+            return returnTypeKubunList;
+        }
         public static string GetUnitTypeName(string key)
         {
             if (!IsAllDigits(key) || key == string.Empty)

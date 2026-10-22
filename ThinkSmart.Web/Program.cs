@@ -11,6 +11,7 @@ namespace TSWebApplication.Web
 {
     public class Program
     {
+        // This is the entry point of the application. It creates and runs the host for the web application.
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();

@@ -13,7 +13,7 @@ using TSWebApplication.Domain.Utility;
 using TSWebApplication.Infrastructure;
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to DI container.
+// Add services to the DI container.
 
 builder.Services.AddControllers().AddDataAnnotationsLocalization(options =>
 {

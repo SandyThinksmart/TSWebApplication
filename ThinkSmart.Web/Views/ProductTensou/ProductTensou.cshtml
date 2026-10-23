@@ -68,7 +68,7 @@
                                     <label ID="lbl_PlanDate" style="margin-left:17px;width:65px;">@LocalizationServices.GetLocalizedHtmlString("lbl_PlanDate")</label>
                                 </td>
                                 <td>
-                                    <input type="text" ID="txtWIPAcceptanceDate" class="MandatoryTextBox TextboxClass InActiveIMEMode" style="Width:100px"
+                                    <input type="text" ID="txtPlanDate" class="MandatoryTextBox TextboxClass InActiveIMEMode" style="Width:100px"
                                            Style="margin-left:10px;" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TransferDateRequired")"><span class="text-danger"></span>
                                 </td>
                               
@@ -88,7 +88,7 @@
 
                                     <span>
 
-                                        <input type="text" ID="txtDate" class="Mandatory InActiveIMEMode"
+                                        <input type="text" ID="txtTransferDate" class="Mandatory InActiveIMEMode"
                                                TabIndex="7" style="Width:100px" ClientIDMode="Static" errorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_TransferDateRequired")"><span class="text-danger"></span>
                                         <input type="text" ID="txtTime" class="Mandatory InActiveIMEMode"
                                                TabIndex="7" style="Width:38px;display:none" ClientIDMode="Static"><span class="text-danger"></span>
@@ -161,7 +161,7 @@
                             </tr>
                             <tr>
                                 <td align="center">
-                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Extract")" ID="btnTransferNoSearch" Class="_functionButtons" />
+                                    <input type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_Extract")" ID="btnShukkaNoSearch" Class="_functionButtons" />
                                 </td>
                             </tr>
                         </table>

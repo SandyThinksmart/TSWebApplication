@@ -26,6 +26,8 @@ namespace TSWebApplication.Application.Services
         private readonly IUserLoginRepository _userLoginRepository;
         private readonly LocalizationServices _localization;
         private readonly IAllCommonService _allCommonService;
+       private int  m_dispatchMonth1, m_dispatchMonth2, m_dispatchMonth3;
+        private int m_dispatchYear1, m_dispatchYear2, m_dispatchYear3;
 
         public RollPoForecastService(IRollPoForecastRepository rollPoForecastRepository, IAllCommonRepository allCommonRepository, IUserLoginRepository userLoginRepository, LocalizationServices localization, IAllCommonService allCommonService)
         {
@@ -428,36 +430,39 @@ namespace TSWebApplication.Application.Services
         }
 
 
-        public List<RollSalesForecastDetails> GetSpecInput1DetailsByCustInchrge_CD(int cust_Cd,int incharge_Cd, int current_R, int current_YYYY,decimal? history_Month1, decimal? history_Month2, decimal? history_Month3)
+        public List<RollSalesForecastDetails> GetSpecInput1DetailsByCustInchrge_CD(RollSalesForecastDetails request)
         {
-            var recordCount = CalculateRParameter(cust_Cd, current_R, current_YYYY);
-          
-            var _data = _rollPoForecastRepository.GetSpecInput1Details(cust_Cd, incharge_Cd, current_R, current_YYYY, history_Month1, history_Month2, history_Month3);
-            foreach (RollSalesForecastDetails record in _data)
+            List<RollSalesForecastDetails> _data = null;
+
+            var recordCount = CalculateRParameter(request.CUSTOMER_CD,request.CURRENT_R,request.CURRENT_YYYY);
+            if (recordCount.count != 0)
             {
-                record.PROCDUCT_KUBUN_STRING = UIUtils.GetProductKubunNameByID(Convert.ToString(record.PRODUCT_KUBUN));
-                if (record.MAGARI_KUBUN != null)
+                GetDispatchHistoryMonths(request.CURRENT_R, request.CURRENT_YYYY, out m_dispatchMonth1, out m_dispatchMonth2, out m_dispatchMonth3, out m_dispatchYear1, out m_dispatchYear2, out m_dispatchYear3);
+                 _data = _rollPoForecastRepository.GetSpecInput1Details(request.CUSTOMER_CD, request.EMPLOYEE_CD, request.CURRENT_R, request.CURRENT_YYYY, m_dispatchMonth1, m_dispatchMonth2, m_dispatchMonth3, m_dispatchYear1, m_dispatchYear2, m_dispatchYear3);
+                foreach (RollSalesForecastDetails record in _data)
                 {
-                    record.MAGARI_BEND_TOLLERENCE = Utils.GetMagariBendTolSpan(UIUtils.Instance.GetMagariKubunValue(Convert.ToString(record.MAGARI_KUBUN)), Convert.ToDecimal(record.MAGARI_BEND_TOL), Convert.ToInt32(record.MAGARI_SPAN));
-                }
-                if (record.DISPATCH_QTY1 != null)
-                {
-                    record.DISPATCH_QTY1 = Convert.ToDecimal(Convert.ToDecimal(record.DISPATCH_QTY1).ToString("#.##"));
-                }
-                if (record.DISPATCH_QTY2 != null)
-                {
-                    record.DISPATCH_QTY2 = Convert.ToDecimal(Convert.ToDecimal(record.DISPATCH_QTY1).ToString("#.##"));
-                }
-                if (record.DISPATCH_QTY3 != null)
-                {
-                    record.DISPATCH_QTY3 = Convert.ToDecimal(Convert.ToDecimal(record.DISPATCH_QTY1).ToString("#.##"));
+                    record.PROCDUCT_KUBUN_STRING = UIUtils.GetProductKubunNameByID(Convert.ToString(record.PRODUCT_KUBUN));
+                    if (record.MAGARI_KUBUN != null)
+                    {
+                        record.MAGARI_BEND_TOLLERENCE = Utils.GetMagariBendTolSpan(UIUtils.Instance.GetMagariKubunValue(Convert.ToString(record.MAGARI_KUBUN)), Convert.ToDecimal(record.MAGARI_BEND_TOL), Convert.ToInt32(record.MAGARI_SPAN));
+                    }
+                    if (record.DISPATCH_QTY1 != null)
+                    {
+                        record.DISPATCH_QTY1 = Convert.ToDecimal(Convert.ToDecimal(record.DISPATCH_QTY1).ToString("#.##"));
+                    }
+                    if (record.DISPATCH_QTY2 != null)
+                    {
+                        record.DISPATCH_QTY2 = Convert.ToDecimal(Convert.ToDecimal(record.DISPATCH_QTY1).ToString("#.##"));
+                    }
+                    if (record.DISPATCH_QTY3 != null)
+                    {
+                        record.DISPATCH_QTY3 = Convert.ToDecimal(Convert.ToDecimal(record.DISPATCH_QTY1).ToString("#.##"));
+                    }
                 }
             }
-
-
-
-            //return _productDetails;
-            return _data;
+                return _data;
+            
+            
         }
 
         //public List<RollSalesForecastDetails> GetSpecInput2DetailsByCustInchrge_CD(RollSalesForecastDetails rollSalesForecastRequest)
@@ -484,20 +489,19 @@ namespace TSWebApplication.Application.Services
         {
             
             DateTimeDetails result = new DateTimeDetails();
-            result = Rcalculate(current_R, current_YYYY, -1);
-            while (DiffernceR(current_R,result.LAST_R) <= 6)
+            result = AddRs(current_R, current_YYYY, -1);
+            while (DiffernceR(current_R,result.resultMonth) <= 6)
             {
-                int countForecastData = _rollPoForecastRepository
-                    .IsForecastDataPresentCustomerWise(customer_CD, result.LAST_R, result.LAST_YYYY);
+                result.count = _rollPoForecastRepository.IsForecastDataPresentCustomerWise(customer_CD, result.LAST_R, result.LAST_YYYY);
 
-                if (countForecastData > 0)
+                if (result.count > 0)
                 {
                     break;
                 }
                 else
                 {
                     // 🔥 FIX: use LAST_R and LAST_YYYY instead of CURRENT
-                    result = Rcalculate(result.LAST_R, result.LAST_YYYY, -1);
+                    result = AddRs(result.resultMonth, result.resultYear, -1);
                 }
             }
             return result;
@@ -531,7 +535,27 @@ namespace TSWebApplication.Application.Services
           return difference;
         }
 
-
+        public void GetDispatchHistoryMonths(int forecastR,int forecastYYYY,out int month1, out int month2, out int month3, out int year1, out int year2, out int year3)
+       {
+            DateTimeDetails histortyMonthYear = new DateTimeDetails();
+            histortyMonthYear = AddRs(forecastR, forecastYYYY, -5);
+            month1= histortyMonthYear.resultMonth;
+            year1= histortyMonthYear.resultYear;
+            histortyMonthYear=AddRs(forecastR, forecastYYYY, -4);
+            month2 = histortyMonthYear.resultMonth;
+            year2 = histortyMonthYear.resultYear;
+            histortyMonthYear=AddRs(forecastR, forecastYYYY, -3);
+            month3 = histortyMonthYear.resultMonth;
+            year3 = histortyMonthYear.resultYear;
+        }
+        public DateTimeDetails AddRs(int forecastR, int forecastYYYY, int addMonths)
+        {
+            DateTimeDetails result = new DateTimeDetails();
+            DateTime date = new DateTime(forecastYYYY, forecastR, 1).AddMonths(addMonths);
+            result.resultMonth = date.Month;
+            result.resultYear = date.Year;
+            return result;
+        }
 
         public List<RollSalesForecastDetails> GetSpecInput1MaterialDetailsByCustInchrge_CD(int cust_Cd, int incharge_Cd, int? current_R, int? current_YYYY)
         {

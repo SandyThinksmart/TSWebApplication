@@ -160,7 +160,7 @@ namespace TSWebApplication.Infrastructure.Repositories
             selectQuery.Append(" ,CON.CONDITION_DESCRIPTION ");
             selectQuery.Append(" ,SHU.USER_ID ");
             selectQuery.Append(",GET_DIM_D_W_SHAPE_OTHER('',SHU.PROD_DIM_W, '', SHU.PROD_DIM_OTHER) AS PROD_DIM_OTHER_STRING");
-           
+
             selectQuery.Append(" FROM TRN_SHUKKA_INSTRUCTION SHU");
             selectQuery.Append(" LEFT JOIN MST_PRODUCT PD on PD.PRODUCT_CD = SHU.PRODUCT_CD ");
             selectQuery.Append(" LEFT JOIN MST_CUSTOMER CST on SHU.CUSTOMER_CD = CST.CUSTOMER_CD ");
@@ -176,7 +176,7 @@ namespace TSWebApplication.Infrastructure.Repositories
         }
 
 
-        public int SaveWIPTensouDetails(WIPTensouDetails wipTensou)
+        public int SaveProductTensouDetails(WIPTensouDetails wipTensou)
         {
             WIPTensouDetails wip = new WIPTensouDetails();
             StringBuilder insertQuery = new StringBuilder();
@@ -184,7 +184,7 @@ namespace TSWebApplication.Infrastructure.Repositories
             string time = "00:00:00";
             string dateTime = wipTensou.TRANSFER_DATE_STRING + " " + time;
             DateTime transferDate = Convert.ToDateTime(wipTensou.TRANSFER_DATE_STRING + " " + time);
-           
+
             DateTime acceptancePlanDate = Convert.ToDateTime(wipTensou.ACCEPT_PLANNED_DATE + " " + time);
             if (transferDate == acceptancePlanDate)
             {
@@ -228,23 +228,23 @@ namespace TSWebApplication.Infrastructure.Repositories
             insertQuery.Append("'" + wipTensou.PROCESS_KUBUN_ID + "', ");
             insertQuery.Append("'" + wipTensou.NIFUDA_CD + "', ");
             insertQuery.Append("'" + wipTensou.LOCATION_CD + "', ");
-            insertQuery.Append("NULL, "); 
+            insertQuery.Append("NULL, ");
             insertQuery.Append("'" + wipTensou.LOCATION_CD_TO + "', ");
             insertQuery.Append("'" + wipTensou.START_VEHICLEL_CD + "', ");
             insertQuery.Append("NULL, ");
             insertQuery.Append("TO_DATE('" + dateTime + "','" + Constants.DateFormats.YYYYMMDD_HH24MISS + "'), ");
-            insertQuery.Append("NULL, "); 
+            insertQuery.Append("NULL, ");
             insertQuery.Append("NULL, ");
             insertQuery.Append("TO_DATE('" + AcceptancePlanDate + "','" + Constants.DateFormats.YYYYMMDD_HH24MISS + "'), ");
             insertQuery.Append("0, ");
-            insertQuery.Append("'" + wipTensou.TABA_NO_1 + "', ");
-            insertQuery.Append("'" + wipTensou.TABA_NO_2 + "', ");
-            insertQuery.Append("'" + wipTensou.TABA_NO_3 + "', ");
-            insertQuery.Append("'" + wipTensou.TABA_NO_4 + "', ");
+            //insertQuery.Append("'" + wipTensou.TABA_NO_1 + "', ");
+            //insertQuery.Append("'" + wipTensou.TABA_NO_2 + "', ");
+            //insertQuery.Append("'" + wipTensou.TABA_NO_3 + "', ");
+            //insertQuery.Append("'" + wipTensou.TABA_NO_4 + "', ");
             insertQuery.Append("'" + wipTensou.NO_OF_UNITS + "', ");
             insertQuery.Append("'" + wipTensou.UNIT_TYPE + "', ");
             insertQuery.Append("'" + wipTensou.QTY + "', ");
-            
+
             if (wipTensou.MSG_CD == 0)
             {
                 insertQuery.Append(" null ,");
@@ -259,7 +259,7 @@ namespace TSWebApplication.Infrastructure.Repositories
             insertQuery.Append("SYSDATE, ");
             insertQuery.Append("SYSDATE)");
             ExecuteNonQuery(insertQuery.ToString());
-            
+
             StringBuilder selectQuery = new StringBuilder();
             selectQuery.Append(" SELECT MAX(TRANSFER_GROUP_NO) FROM TRN_WIP_AND_PROD_TRANSFER");
             int WIP_TRANSFER_GROUP_NO = Convert.ToInt32(ExecuteScalar(selectQuery.ToString()));
@@ -267,5 +267,155 @@ namespace TSWebApplication.Infrastructure.Repositories
             return WIP_TRANSFER_GROUP_NO;
 
         }
+
+        public List<WIPTensouDetails> GetProductTensouList(List<SearchField> searchCriteria, string sortCiteria, long locationCD)
+        {
+            List<WIPTensouDetails> result = new List<WIPTensouDetails>();
+            StringBuilder selectQuery = new StringBuilder();
+            selectQuery.Append("SELECT * FROM (");
+            selectQuery.Append("SELECT ");
+            selectQuery.Append(" DISTINCT PROD.TRANSFER_GROUP_NO");
+            selectQuery.Append(", (SELECT MAX( TO_CHAR(PROD.TRANSFER_DATE, 'YYYY/MM/DD')) FROM TRN_WIP_AND_PROD_TRANSFER PROD1 WHERE PROD1.TRANSFER_GROUP_NO =PROD.TRANSFER_GROUP_NO)  AS TRANSFER_DATE_STRING ");
+            selectQuery.Append(" , ( ");
+            selectQuery.Append(" SELECT MAX(TO_CHAR(PROD1.TRANSIT_PLANNED_DATE, 'YYYY/MM/DD'))");
+            selectQuery.Append(" FROM TRN_WIP_AND_PROD_TRANSFER PROD1");
+            selectQuery.Append(" WHERE PROD1.TRANSFER_GROUP_NO = PROD.TRANSFER_GROUP_NO");
+            selectQuery.Append(" ) AS ACCEPT_PLANNED_DATE");
+            selectQuery.Append(", LOCTO.SHORT_NAME AS LOCATION_TO");
+            //selectQuery.Append(", GET_HYPHENATED_CHUUBAN_GYOUBAN(PP.CHUUBAN_YEAR ||PP.CHUUBAN,PP.GYOUBAN)  AS PP_CHUUBAN_GYOUBAN");
+            //selectQuery.Append(", CUS.SHORT_NAME AS PP_CUSTOMER_NAME");
+            //selectQuery.Append(", PP.PROD_NAME_CUST AS PP_PROD_NAME_CUST");
+            //selectQuery.Append(", GET_DIM_D_W_SHAPE_OTHER(PP.PROD_DIM_D,PP.PROD_DIM_W,'',PP.PROD_DIM_OTHER) AS PP_PROD_DIM_D_STRING");
+            //selectQuery.Append(", PP.PROD_SHAPE AS PP_PROD_SHAPE");
+            //selectQuery.Append(", NVL(PP.LENGTH_OTHER,PP.PROD_LENGTH) AS PP_PROD_LENGTH_STRING");
+            //selectQuery.Append(", PP.CHARGE AS PP_CHARGE ");
+            //selectQuery.Append(", TO_CHAR(PP.ACT_ALLOC_DATE, 'YYYY/MM/DD') AS ACT_ALLOC_DATE_STRING ");
+            //selectQuery.Append(", PP.ACT_ALLOC_QTY");
+            //selectQuery.Append(", (PP.PROD_SPEC_NO1 || '-' || PP.PROD_SPEC_NO2) AS PP_PROD_SPEC_NO ");
+            selectQuery.Append(", VHE.SHORT_NAME AS VEHICLE_NAME");
+            selectQuery.Append(", LOCFROM.SHORT_NAME AS LOCATION_FROM  ");
+            selectQuery.Append(" FROM ");
+            selectQuery.Append(" TRN_WIP_AND_PROD_TRANSFER PROD ");
+
+            selectQuery.Append(" LEFT JOIN MST_LOCATION LOCTO ON LOCTO.LOCATION_CD = PROD.LOCATION_CD_TO ");
+            selectQuery.Append(" LEFT JOIN MST_LOCATION LOCFROM ON LOCFROM.LOCATION_CD = PROD.LOCATION_CD_FROM ");
+            //selectQuery.Append(" LEFT JOIN MST_CUSTOMER CUS ON CUS.CUSTOMER_CD =PP.CUSTOMER_CD ");
+            //selectQuery.Append(" LEFT JOIN MST_INTERNAL_NAME MIN ON MIN.INTERNAL_NAME_CD=PP.INTERNAL_NAME_CD");
+            selectQuery.Append(" LEFT JOIN MST_VEHICLE VHE ON VHE.VEHICLE_CD = PROD.START_VEHICLEL_CD ");
+            selectQuery.Append(" WHERE PROD.INPUT_LOCATION_CD = " + locationCD);
+            //selectQuery.Append(" AND PP.PROCESS_PLAN_CMPL_DATE IS NULL");
+
+            var query = selectQuery.ToString();
+            if (searchCriteria != null && searchCriteria.Count > 0)
+            {
+                string whereCondition = " AND ";
+                string andOperator = string.Empty;
+
+                foreach (var searchField in searchCriteria)
+                {
+                    if (searchField.FieldName != null)
+                    {
+                        whereCondition = whereCondition + andOperator + DynamicSearchProvider.ApplySearchCriteria(searchField, query);
+                        andOperator = " AND ";
+                    }
+                }
+
+                query = query + whereCondition;
+            }
+
+            query = query + ")";
+
+            if (!string.IsNullOrEmpty(sortCiteria))
+            {
+                query = Helper.ApplySortCriteria(sortCiteria, query);
+            }
+            else
+            {
+                //query += " ORDER BY PP_CHUUBAN_GYOUBAN ASC ";
+            }
+
+            result = ExecuteQueryMultiResult<WIPTensouDetails>(query);
+            return result;
+        }
+
+        public int GetMaxGroupNo()
+        {
+            StringBuilder selectQuery = new StringBuilder();
+
+            selectQuery.Append(" SELECT MAX(TRANSFER_GROUP_NO) FROM TRN_WIP_AND_PROD_TRANSFER");
+            int max = Convert.ToInt32(ExecuteScalar(selectQuery.ToString()));
+
+            //int max = ExecuteQueryMultiResult<long?>(selectQuery);
+            return max;
+        }
+
+        public List<WIPTensouDetails> GetTransferCD(long TransferGroupNo)
+        {
+            StringBuilder selectQuery = new StringBuilder();
+            selectQuery.Append("SELECT TRANSFER_CD AS WIP_TRANSFER_CD,TRANSFER_GROUP_NO AS WIP_TRANSFER_GROUP_NO  from TRN_WIP_AND_PROD_TRANSFER WHERE TRANSFER_GROUP_NO= '" + TransferGroupNo + "'");
+            var result = ExecuteQueryMultiResult<WIPTensouDetails>(selectQuery.ToString()).ToList();
+            return result;
+
+        }
+
+        public Dictionary<string, List<string>> GetValidShukkaCD(string productCD)
+        {
+            StringBuilder selectQuery = new StringBuilder();
+            string[] ShukkaCD;
+            ShukkaCD = productCD.Split(',');
+            List<string> validShukkaCD = new List<string>();
+            List<string> notvalidShukkaCD = new List<string>();
+            Dictionary<string, List<string>> _dictProdnumber = new Dictionary<string, List<string>>();
+
+            foreach (string ProdNum in ShukkaCD)
+            {
+                selectQuery.Append(" SELECT COUNT(SHUKKA_INSTRUCTION_CD) FROM TRN_SHUKKA_INSTRUCTION");
+                selectQuery.Append(" WHERE SHUKKA_INSTRUCTION_CD  = (" + ProdNum + ")");
+                int count = Convert.ToInt32(ExecuteScalar(selectQuery.ToString()));
+                if (count > 0)
+                {
+                    validShukkaCD.Add(ProdNum);
+                }
+                else
+                {
+                    notvalidShukkaCD.Add(ProdNum);
+                }
+                selectQuery.Clear();
+
+            }
+            _dictProdnumber.Add("found", validShukkaCD);
+            _dictProdnumber.Add("notFound", notvalidShukkaCD);
+            return _dictProdnumber;
+        }
+        public List<ProductTensouDetails> GetShukkaProductDetails(string shukkaCD)
+        {
+            StringBuilder selectQuery = new StringBuilder();
+            List<ProductTensouDetails> result = new List<ProductTensouDetails>();
+            selectQuery.Append(" SELECT ");
+            selectQuery.Append(" SHU.SHUKKA_INSTRUCTION_CD AS SHUKKA_CD,");
+            selectQuery.Append(" SHU.PRODUCT_CD,");
+            selectQuery.Append(" SHU.CUSTOMER_CD,");
+            //selectQuery.Append(" SHU.PROD_SPEC_NO1,");
+            //selectQuery.Append(" SHU.PROD_SPEC_NO2,");
+            selectQuery.Append(" SHU.PROD_DIM_D AS PP_PROD_DIM_D,");
+            selectQuery.Append(" SHU.PROD_DIM_W AS PROD_DIM_W_OTHER,");
+            selectQuery.Append(" SHU.PROD_DIM_OTHER AS PP_PROD_DIM_OTHER,");
+            selectQuery.Append(" SHU.PROD_SHAPE AS PP_PROD_SHAPE,");
+            selectQuery.Append(" SHU.PRODUCT_LENGTH,");
+            selectQuery.Append(" SHU.UNIT,");
+            selectQuery.Append(" SHU.CHARGE,");
+            selectQuery.Append(" SHU.NO_OF_UNITS,");
+            selectQuery.Append(" SHU.QUANTITY AS ACT_ALLOC_QTY,");
+            selectQuery.Append(" SHU.RATE,");
+            selectQuery.Append(" CUS.CUSTOMER_NAME AS PP_CUSTOMER_NAME, ");
+            selectQuery.Append(" PROD.PRODUCT_NAME_CUST AS PP_PROD_NAME_CUST ");
+            selectQuery.Append(" FROM TRN_SHUKKA_INSTRUCTION SHU ");
+            selectQuery.Append(" LEFT JOIN MST_PRODUCT PROD ON PROD.PRODUCT_CD = SHU.PRODUCT_CD ");
+            selectQuery.Append(" LEFT JOIN MST_CUSTOMER CUS ON CUS.CUSTOMER_CD = SHU.CUSTOMER_CD ");
+            selectQuery.Append(" WHERE SHU.SHUKKA_INSTRUCTION_CD = " + shukkaCD);
+            result = ExecuteQueryMultiResult<ProductTensouDetails>(selectQuery.ToString());
+            return result;
+        }
+
     }
 }

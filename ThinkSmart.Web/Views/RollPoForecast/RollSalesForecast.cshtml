@@ -120,13 +120,21 @@
                        @* <input type="text" class="_functionButtons" TabIndex="1" />
                         <input type="button" value="✓" ID="" class="_functionButtons" TabIndex="1" style="width:25px" />*@
                       @*  <select style="width: 120px;height: 25px;" class="_functionButtons"></select>*@
-                        <input type="text" ID="txtIncharge" runat="server" class="form-control TextFieldsClass" TabIndex="8" style="font-family:'MS Gothic';Width:43px; Height:22px" ;
+                       @*  <input type="text" ID="txtIncharge" runat="server" class="form-control TextFieldsClass" TabIndex="8" style="font-family:'MS Gothic';Width:43px; Height:22px" ;
                                BorderStyle="Inset" MaxLength="6" />
                         <input type="button" value="-" id="btnInchargeSearch" TabIndex="9" style="Width:20px;Height:20px;text-align:center" />
-                        <select ID="ddlInchargeName" runat="server" type="DropDown" class=" Mandatory MandatoryDropdown  DropdownListClass dropListClass" TabIndex="10" style="border-style:inset; padding-bottom:2px;font-family:'MS Gothic'; Height:22px; Width:148px"
+                        <select ID="ddlInchargeName" runat="server" type="DropDown" class="  MandatoryDropdown  DropdownListClass dropListClass" TabIndex="10" style="border-style:inset; padding-bottom:2px;font-family:'MS Gothic'; Height:22px; Width:148px"
                                 ErrorLabel="@LocalizationServices.GetLocalizedHtmlString("valMsg_COM_SalesInchargeRequired")">
                         
-                        </select>
+                        </select> *@
+                        <div id="divIncharge">
+
+                            @{
+                                var dataIncharge = Tuple.Create("txtIncharge", "btnInchargeSearch", "ddlInchargeName", "valMsg_PPCustomerRequired", 13);
+                                @Html.Partial("~/Views/SearchComboEmployee/SearchComboEmployee.cshtml", dataIncharge)
+
+                            }
+                        </div>
                     </td>
                     <td>
                         <label ID="Label3" class="labelClass">@LocalizationServices.GetLocalizedHtmlString("lbl_CustomerName")</label>

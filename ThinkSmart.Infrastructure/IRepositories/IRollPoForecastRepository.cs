@@ -17,7 +17,7 @@ namespace TSWebApplication.Infrastructure.IRepositories
 
         List<GridSearchFields> GetMaterialMasterDataList(List<SearchField> searchFields, string sortCriteria);
         RollSalesForecastDetails GetMaterialDetailsByMaterialCD(long MATERIAL_CD);
-        List<RollSalesForecastDetails>  GetSpecInput1Details(int cust_CD,int incharge_Cd, int? current_R, int? current_YYYY,decimal? history_Month1,decimal? history_Month2,decimal? history_Month3);
+        List<RollSalesForecastDetails>  GetSpecInput1Details(int cust_CD,int incharge_Cd, int current_R, int current_YYYY,int m_dispatchMonth1, int m_dispatchMonth2, int m_dispatchMonth3,int m_dispatchYear1, int m_dispatchYear2,int m_dispatchYear3);
         List<RollSalesForecastDetails> GetSpecInput2Details(int cust_CD, int incharge_Cd, int? current_R, int? current_YYYY);
         int IsForecastDataPresentCustomerWise(int CustCD,int last_R, int last_YYYY);
         List<RollSalesForecastDetails> GetSpecInput1MaterailaDetails(int cust_CD, int incharge_Cd, int? current_R, int? current_YYYY);

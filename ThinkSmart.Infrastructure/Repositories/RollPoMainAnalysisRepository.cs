@@ -440,7 +440,7 @@ namespace TSWebApplication.Infrastructure.Repositories
             UpdateRollMatlSummaryWithExtStockQty();
             UpdateRollMatlSummaryWithNyukaQty(details.ROLL_YEAR, details.ROLL_R);//commented for batch testing
 
-            StringBuilder updateYrQuery = new StringBuilder();
+                StringBuilder updateYrQuery = new StringBuilder();
                 updateYrQuery.Append(" UPDATE MST_CONFIGURATION ");
                 updateYrQuery.Append(" SET ");
                 updateYrQuery.Append(" VALUE = '" + details.ROLL_YEAR + "' ");
@@ -734,7 +734,7 @@ namespace TSWebApplication.Infrastructure.Repositories
         /// used screens: RollPoMainAnalysis
         /// </summary>
         /// <returns>
-        /// 1. Get appropriate data of mukesaki and rate from this query to insert record in TEMP_ROLL_MATL_SUMMARY.
+        /// 1. Get material of latest rate of each mukesaki from this query to insert record in TEMP_ROLL_MATL_SUMMARY.
         /// </returns>
         /// 
         public List<RollPoMainAnalysisDetails> GetMukesakiAndRateData(int matlNameMakerCd, decimal dimD, string matlKubunWhereCondition,int matlKubun)

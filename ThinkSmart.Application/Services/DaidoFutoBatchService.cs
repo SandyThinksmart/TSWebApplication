@@ -68,14 +68,14 @@ namespace TSWebApplication.Application.Services
                         checkDataExist = true;
 
                     }
-                    //bool isTwoKoubanExist = _daidoFutoBatchRepository.IsKoubanMaterialNameMakDimDExists(request.ORDER_KOUBAN, request.STEEL_GRADE, request.DIMD_DECOMPOSITION_SIZE);// STEEL_GRADE=matlNameMaker
-                    //if (isTwoKoubanExist == true)
-                    //{
-                    //    request.ERROR = _localization.GetLocalizedHtmlString("valMsg_koubanAlreadyExists");
+                    bool isTwoKoubanExist = _daidoFutoBatchRepository.IsKoubanMaterialNameMakDimDExists(request.ORDER_KOUBAN, request.STEEL_GRADE, request.DIMD_DECOMPOSITION_SIZE);// STEEL_GRADE=matlNameMaker
+                    if (isTwoKoubanExist == true)
+                    {
+                        request.ERROR = _localization.GetLocalizedHtmlString("valMsg_koubanAlreadyExists");
 
-                    //    request.EXECUTE_RESULT = 2;
-                    //    checkDataExist = true;
-                    //}
+                        request.EXECUTE_RESULT = 2;
+                        checkDataExist = true;
+                    }
                     request.PROCESS_DATE_AND_TIME = dateTime;
                     _daidoFutoBatchRepository.DaidoNyukoEDIBatchDataInsert(request, cultureName, userID, inputLocationCd);
                     data.PROCESS_DATE_AND_TIME = dateTime;

@@ -3,10 +3,11 @@ var typeDropDown = "select-one";
 var $ActiveID;
 $(document).ready(function () {
     $("#ddlCustomerName").css('width', '200px');
+    $("#ddlInchargeName").css('width', '200px');
     document.getElementById("materialData").value = "";
     setRequestedDateTime();
     setRoll_R();
-    //disableButtons();
+    disableButtons();
     setDecimalFormatsOnProduct();
    
 });
@@ -30,6 +31,7 @@ $(document).on('keyup', '#tblProductGrid input', function () {
     // Find the result input dynamically in the same row
     $row.find('input.historyMonthResult').val(total);
 });
+
 $("#btnInitialize").click(function (event) {
     initialize();
     document.getElementById("materialData").value = "";
@@ -463,7 +465,7 @@ function setRequestedDateTime() {
             responseTime = new Date().getTime() - ajaxTime;
             var jsonResult = response.message;
             $("#txtRequestedDate").val($.format.date(new Date(jsonResult.starT_DATETIME_STRING), "yyyy/MM/dd")).mask("9999/99/99", { placeholder: "YYYY/MM/DD" });
-
+            $("#txtRequestedDate").attr("disabled", "disabled");
         })
         .fail(function (xhr, textStatus, errorThrown) {
             responseTime = new Date().getTime() - ajaxTime;
@@ -597,17 +599,44 @@ function setRoll_R() {
 }
 function disableButtons() {
     $("#btnRegister").attr("disabled", "disabled");
-    $("#btnDelete").attr("disabled", "disabled");
      $("#btnAddRowBelow").attr("disabled", "disabled");
     $("#btnAddRowAbove").attr("disabled", "disabled");
     $("#btnDeleteRow").attr("disabled", "disabled");
-    
-}
+    $("#btnSpecInput1").attr("disabled", "disabled");
+    $("#btnSpecInput2").attr("disabled", "disabled");
+    const table = document.getElementById("tblProductGrid");
+    const elements = table.querySelectorAll("input, button, select, textarea");
+    elements.forEach(el => el.disabled = true);
+    $("#TbSalesMaterialTab").addClass("disabled").css({
+            "pointer-events": "none",
+            "opacity": "0.5"
+        });
+}    
 function enableButtons() {
-    $("#btnRegister").removeAttr(disabled).removeClass(disabled);
-    $("#btnAddRowBelow").removeAttr(disabled).removeClass(disabled);
-    $("#btnAddRowAbove").removeAttr(disabled).removeClass(disabled);
-    $("#btnDeleteRow").removeAttr(disabled).removeClass(disabled);
+    $("#btnRegister").removeAttr("disabled");
+    $("#btnAddRowBelow").removeAttr("disabled");
+    $("#btnAddRowAbove").removeAttr("disabled");
+    $("#btnDeleteRow").removeAttr("disabled");
+    const table = document.getElementById("tblProductGrid");
+    const elements = table.querySelectorAll("input, button, select, textarea");
+    elements.forEach(el => el.disabled = false);
+    $("#TbSalesMaterialTab").removeClass("disabled").css({
+        "pointer-events": "",
+            "opacity": ""
+        });
+}
+
+$("#ddlCustomerName").change(function () {
+    $("#btnSpecInput1").removeAttr("disabled");
+    $("#btnSpecInput2").removeAttr("disabled");  
+});
+function disableSearchCriteria() {
+    $("#ddlCustomerName").attr("disabled", "disabled");
+    $("#txtIncharge").attr("disabled", "disabled");
+    $("#btnInchargeSearch").attr("disabled", "disabled");
+    $("#ddlInchargeName").attr("disabled", "disabled");
+    $("#btnSpecInput1").attr("disabled", "disabled");
+    $("#btnSpecInput2").attr("disabled", "disabled");
 }
 function CalculateAllGridMonthRoll() {
     
@@ -1189,10 +1218,6 @@ function saveProductMaterialData() {
   
 }
 
-
-
-
-
 function OnClickProductList($callFrom) {
     $callFrom.data('requestRunning', true);
     var ajaxTime = new Date().getTime();
@@ -1201,10 +1226,6 @@ function OnClickProductList($callFrom) {
 } 
 
 $("#btnSpecInput1").click(function (event) {
-    
-    let month1, month2, month3; 
-    let historyMonth1, historyMonth2, historyMonth3 ;
-    debugger;
     if (!IsMandatoryFieldsFilled()) {
         return false;
     }
@@ -1214,23 +1235,6 @@ $("#btnSpecInput1").click(function (event) {
         var incharge_Cd = $("#ddlInchargeName").val() ? $("#ddlInchargeName").val() : null;
         var current_R = $("#lblForecastR").text() ? $("#lblForecastR").text() : null;
         var current_YYYY = $("#hdcurrent_yyyy").text();
-        if ($("#hdfCultureName").val() == "ja-JP") {
-            month1 = $("#lblHistoryMonth3").text() ? $("#lblHistoryMonth3").text() : null;
-            historyMonth1 = month1.replace("月", "");
-            month2 = $("#lblHistoryMonth2").text() ? $("#lblHistoryMonth2").text() : null;
-            historyMonth2 = month2.replace("月", "");
-            month3 = $("#lblHistoryMonth1").text() ? $("#lblHistoryMonth1").text() : null;
-            historyMonth3 = month3.replace("月", "");
-        }
-        else {
-            month1 = $("#lblHistoryMonth3").text() ? $("#lblHistoryMonth3").text() : null;
-            historyMonth1 = month1.replace("M", "");
-            month2 = $("#lblHistoryMonth2").text() ? $("#lblHistoryMonth2").text() : null;
-            historyMonth2 = month2.replace("M", "");
-            month3 = $("#lblHistoryMonth1").text() ? $("#lblHistoryMonth1").text() : null;
-            historyMonth3 = month3.replace("M", "");
-        }
-        
         var settings = {
             async: true,
             crossDomain: true,
@@ -1240,7 +1244,7 @@ $("#btnSpecInput1").click(function (event) {
             method: "POST",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({
-                CUSTOMER_CD: cuct_Cd, EMPLOYEE_CD: incharge_Cd, CURRENT_R: current_R, CURRENT_YYYY: current_YYYY, HISTORY_MONTH1: historyMonth1, HISTORY_MONTH2: historyMonth2, HISTORY_MONTH3: historyMonth3
+                CUSTOMER_CD: cuct_Cd, EMPLOYEE_CD: incharge_Cd, CURRENT_R: current_R, CURRENT_YYYY: current_YYYY
             })
 
         }
@@ -1249,6 +1253,8 @@ $("#btnSpecInput1").click(function (event) {
                 responseTime = new Date().getTime() - ajaxTime;
                 debugger;
                 var result = response.message;
+                enableButtons();
+                disableSearchCriteria();
                 if(result.producT_LIST.length > 0)
                 {
                     ProductList = response.message;
@@ -1415,7 +1421,7 @@ $("#btnSpecInput2").click(function (event) {
         setStartSysDateTime();
     });
 function OnProductListBtnClick() {
-   
+    debugger;
     $("#ProductListPopupModal").modal('show');
     $("#ProductListPopupModal").addClass("show");
     var elements = document.getElementsByClassName('');

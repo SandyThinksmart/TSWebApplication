@@ -33,57 +33,15 @@
     .txtProdSpecNo {
         width: 45px;
     }
-</style>
-@* <div class="modal fade" id="ProductTensouPopupModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog-centered" role="document">
-        <div class="modal-content" style="width:1210px">
-            <div style="width:1029px;padding-top:16px;">
-                <div>
-                  <h1>Wel come </h1>
-                 
 
-                </div>
-            </div>
-            <div>
-                <h2>Welcome1 </h2>
-
-            </div>
-            <div>
-                <h2>Welcome3 </h2>
-            </div>
-        </div>
-    </div>
-</div> *@
-@*<div id="SortPopUpModalForProduct">
-    @{
-        @await Html.PartialAsync("~/Views/Shared/SortPopUp.cshtml")
-        ;
+    .right {
+        width: 45px;
     }
-</div>*@
+</style>
 
-@* <div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
-            </div>
-            <div class="modal-body">
-                <p>Some text in the modal.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-
-    </div>
-</div>
- *@
-<div class="modal fade" id="ProductListPopupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog-centered" role="document">
-        <div class="modal-content" style="width:1210px">
+  <div class="modal fade" id="ProductPopupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered right" role="document">
+        <div class="modal-content" style="width:1210px;">
             <div style="width:1029px;padding-top:16px;">
                 <div>
                     <table id="tblSearch" style="width: 1122px" cellpadding="0" cellspacing="0">
@@ -115,8 +73,7 @@
                         </tr>
                         <tr>
                             <td>
-                                @*<div id="pnlSearch" style="overflow-x: auto;overflow-y: hidden;width: 857px;">*@
-
+                               
                                 <table id="tblheaderSearch" cellpadding="4" cellspacing="4" border="0" class="searchTextBox ">
                                     <tr class="trTdH2">
                                         <th align="left" valign="middle" class="tdHeaderClass labelClass GridCenter">
@@ -160,10 +117,7 @@
                                         </th>*@
                                     </tr>
                                     <tr class="trTdSearchContent">
-                                        @* <td class="td tdSearchGrid">
-                                        <input type="text" ID="txtCustomerOnProd" MaxLength="20"
-                                        TabIndex="1" class="labelClass searchNameTxtBoxWidth"><span class="text-danger"></span>
-                                        </td>*@
+                                        
                                         <td class="td tdSearchGrid ">
                                             <input type="text" ID="txtCustomerOnProd" MaxLength="20"
                                                    TabIndex="17" class="labelClass searchNameTxtBoxWidth"><span class="text-danger"></span>
@@ -210,7 +164,7 @@
 
                                     </tr>
                                 </table>
-                                @* </div>*@
+                               
                             </td>
                         </tr>
 
@@ -225,7 +179,7 @@
 
                             <div id="divProductMasterListGrid" style="height:363px;width:1122px;overflow:auto;">
                                 @{
-                                    @await Html.PartialAsync("ProductList", Model)
+                                    @await Html.PartialAsync("ProductTensouPopupGrid", Model)
                                     ;
                                 }
                             </div>
@@ -233,7 +187,7 @@
                         </th>
                     </tr>
                 </table>
-            </div>
+            </div> 
             <div>
                 <table style="width:1122px;" cellpadding="0" cellspacing="0">
                     <tr>
@@ -272,9 +226,6 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                @*  <td align="center">
-                                                <input style="width: 95px;" type="button" value="@LocalizationServices.GetLocalizedHtmlString("lbl_OK")" ID="btnInitialize" class="_functionButtons" TabIndex="1" />
-                                                </td>*@
                                                 <td align="center">
                                                     <input type="button" style="width: 95px;" data-dismiss="modal" aria-hidden="true" value="@LocalizationServices.GetLocalizedHtmlString("btn_Cancel")" ID="btnCancelOnProduct" onclick="OnProductCancelBtnClick($(this))" class="_functionButtons" TabIndex="30" />
                                                 </td>
@@ -295,6 +246,6 @@
 
 @section Scripts {
 
-    <script src="~/static/js/ProductTensou.js"></script>
+    <script src="~/static/js/ProductTensou.js"></script> 
 
 }

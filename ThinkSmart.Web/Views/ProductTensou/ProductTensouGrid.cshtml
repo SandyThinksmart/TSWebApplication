@@ -71,10 +71,10 @@
             {
             foreach (var item in Model)
             {*@
-                <tr id="@("tr"+i)">
+                <tr id="@("tr"+i)" style="border:none;">
 
                     <td class="GridMandatoryTextBox" style="height: 20px;padding-left:0px !important" align="center">
-                        <input type="checkbox" ID="@("chkTensouAccepGrid"+i)" TabIndex="10" data-title="chkTensouAccepGrid" data-rowid="@i" />
+                        <input type="checkbox" ID="@("chkProdTensouGrid" + i)" TabIndex="10" data-title="chkProdTensouGrid" data-rowid="@i" />
                     </td>
 
                     <td class="labelClass MandatoryTD">
@@ -82,7 +82,7 @@
                         <input type="hidden" id="@("hdfUnitType"+ i)" value="" />
                         <input type="hidden" id="@("hdfNoOfUnits"+ i)" value="" />
                         <input type="hidden" id="@("hdfTransferNo"+ i)" value="" />
-                        <input type="hidden" id="@("hdProcessPlanCD"+ i)" value="" />
+                     @*    <input type="hidden" id="@("hdProcessPlanCD"+ i)" value="" /> *@
                     </td>
                
                   <td style="background-color:#E2E2E2 !important">
@@ -104,16 +104,48 @@
                     <td class="labelClass" id=@("lblDimD" + i) style="background-color:#E2E2E2 !important;width:30px"></td>
                     <td class="labelClass" id=@("lblShape" + i) style="background-color:#E2E2E2 !important"></td>
                     <td class="labelClass GridRight" id=@("lblLength" + i) style="background-color:#E2E2E2 !important"></td>
-                    <td class="labelClass GridRight" id=@("lblNoOfUnits" + i) style="background-color:#E2E2E2 !important">
+                   @*  <td class="labelClass GridRight" id=@("lblNoOfUnits" + i) style="background-color:#E2E2E2 !important"> </td> *@
+                    <td style="background-color:#E2E2E2 !important; padding:0;width:90px !important; min-width:90px; max-width:90px;">
+                        <input type="text" id="@("txtNoOfUnits" + i)"
+                               style="display:block;box-sizing:border-box; background-color:#E2E2E2 !important; border:none; outline:none; margin:0; padding:0;"
+                               disabled="disabled" />
                     </td>
-                    <td class="labelClass GridRight" id=@("lblWeightWithoutKG" + i) style="background-color:#E2E2E2 !important"></td>
-                    <td class="labelClass GridRight" id=@("lblRate" + i) style="background-color:#E2E2E2 !important"></td>
-                    <td class="labelClass GridRight" id=@("lblAmount" + i) style="background-color:#E2E2E2 !important"></td>
-                    <td class="labelClass" id=@("lblCharge" + i) style="background-color:#E2E2E2 !important"></td>
-                    <td class="labelClass" id=@("lblTabaNo" + i) style="background-color:#E2E2E2 !important;" align="center">
-                    </td>         
-                    <td class="labelClass GridRight" id=@("lblShukkaLocation" + i) style="background-color:#E2E2E2 !important"></td>
-                    
+                    <td style="background-color:#E2E2E2 !important; padding:0;width:90px !important; min-width:90px; max-width:90px;">
+                        <input type="text" id="@("txtWeightWithoutKG" + i)"
+                               style="display:block;box-sizing:border-box; background-color:#E2E2E2 !important; border:none; outline:none; margin:0; padding:0;"
+                               disabled="disabled" />
+                    </td>
+
+                    <td style="background-color:#E2E2E2 !important; padding:0;width:90px !important; min-width:90px; max-width:90px;">
+                        <input type="text" id="@("txtRate" + i)"
+                               style="display:block;box-sizing:border-box; background-color:#E2E2E2 !important; border:none; outline:none; margin:0; padding:0;"
+                               disabled="disabled" />
+                    </td>
+
+                    <td style="background-color:#E2E2E2 !important; padding:0;width:90px !important; min-width:90px; max-width:90px;">
+                        <input type="text" id="@("txtAmount" + i)"
+                               style="display:block;box-sizing:border-box; background-color:#E2E2E2 !important; border:none; outline:none; margin:0; padding:0;"
+                               disabled="disabled" />
+                    </td>
+
+                    <td style="background-color:#E2E2E2 !important; padding:0;width:90px !important; min-width:90px; max-width:90px;">
+                        <input type="text" id="@("txtCharge" + i)"
+                               style="display:block;box-sizing:border-box; background-color:#E2E2E2 !important; border:none; outline:none; margin:0; padding:0;"
+                               disabled="disabled" />
+                    </td>
+
+                    <td style="background-color:#E2E2E2 !important; padding:0;width:90px !important; min-width:90px; max-width:90px;">
+                        <input type="text" id="@("txtTabaNo" + i)"
+                               style="display:block;box-sizing:border-box; background-color:#E2E2E2 !important; border:none; outline:none; margin:0; padding:0;"
+                               disabled="disabled" />
+                    </td>
+
+                    <td style="background-color:#E2E2E2 !important; padding:0;width:170px !important; min-width:170px; max-width:170px;">
+                        <input type="text" id="@("txtShukkaLocation" + i)"
+                               style="display:block;box-sizing:border-box; background-color:#E2E2E2 !important; border:none; outline:none; margin:0; padding:0;"
+                               disabled="disabled" />
+                    </td>
+
                 </tr>
                
             }

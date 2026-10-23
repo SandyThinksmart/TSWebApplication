@@ -96,7 +96,7 @@ namespace TSWebApplication.API.Controllers
         public IActionResult GetSpecInput1Data([FromBody] RollSalesForecastDetails request)
         {
             RollSalesForecastDetails rollSalesForecastDetails = new RollSalesForecastDetails();
-            var productDetails = _rollPoForecastService.GetSpecInput1DetailsByCustInchrge_CD(request.CUSTOMER_CD, request.EMPLOYEE_CD,request.CURRENT_R,request.CURRENT_YYYY,request.HISTORY_MONTH1,request.HISTORY_MONTH2,request.HISTORY_MONTH3);
+            var productDetails = _rollPoForecastService.GetSpecInput1DetailsByCustInchrge_CD(request);
             var materialDetails = _rollPoForecastService.GetSpecInput1MaterialDetailsByCustInchrge_CD(request.CUSTOMER_CD, request.EMPLOYEE_CD, request.CURRENT_R, request.CURRENT_YYYY);
             rollSalesForecastDetails.PRODUCT_LIST = productDetails;
             rollSalesForecastDetails.MATERIAL_LIST = materialDetails;

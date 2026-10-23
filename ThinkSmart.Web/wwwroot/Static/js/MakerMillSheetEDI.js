@@ -43,7 +43,7 @@ $("#btnImport").click(function () {
         focusFieldID = $(':focus').attr("id");
         message = $.trim($("#lblErrorMessageE_Maker_MillSheet_003").text());
         /*message = " Select File "*/
-        showMessageDialog(message, focusFieldID, "error");
+        showMessageDialog(message, focusFieldID, "warning");
         isValid = false;
     }
 

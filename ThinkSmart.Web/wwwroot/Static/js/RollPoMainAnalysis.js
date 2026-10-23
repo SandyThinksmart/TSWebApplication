@@ -308,7 +308,7 @@ chkRollPOCompleteMonthly.addEventListener("change", function () {
 });
 
 $("#btnExecuteBatch").click(function (event) {
-   
+
     //if (Boolean($("#hdfExecuteBatch").val()) == true)
     //{
     //    ImportBatchDataFromHost();
@@ -319,10 +319,9 @@ $("#btnExecuteBatch").click(function (event) {
     ExecuteMaterialForecastBatch();
     setOperatorList("", "");
     GetEmployee();
-    
 
-})
-.ajaxStart(function () {
+
+}).ajaxStart(function () {
 
     $("#LoadingImage").show();
 }).ajaxStop(function () {
@@ -330,6 +329,23 @@ $("#btnExecuteBatch").click(function (event) {
 }).ajaxError(function () {
     $("#LoadingImage").hide();
 });
+
+$(function () {
+    $(document).ajaxStart(function () {
+
+        $("#LoadingImage").show();
+    });
+
+    $(document).ajaxStop(function () {
+        $("#LoadingImage").hide();
+    });
+
+    $(document).ajaxError(function () {
+        $("#LoadingImage").hide();
+    });
+
+});
+
 
 $("#btnMaterialForcastDataReport").click(function (event) { 
     debugger;
@@ -359,9 +375,9 @@ function ExecuteMaterialForecastBatch() {
     var year = $("#txtYear").val() ? $("#txtYear").val() : null;
     var userID = $("#hdfLoginId").val() ? $("#hdfLoginId").val() : null;
     var employeeCD = $("#ddlscAssembleVerifyBy").val() ? $("#ddlscAssembleVerifyBy").val() : null;
-   // $("#LoadingImage").show();
+   
     var settings = {
-        async: false,
+        async: true,
         crossDomain: true,
         cache: false,
         dataType: "json",
@@ -376,7 +392,7 @@ function ExecuteMaterialForecastBatch() {
         .done(function (response) {
 
             responseTime = new Date().getTime() - ajaxTime;
-           // $("#LoadingImage").hide();
+           
             //code comment for testing batch
 
             if (response.message == "Matl Not Found for one or more product") {
@@ -407,7 +423,7 @@ function ExecuteMaterialForecastBatch() {
         .fail(function (xhr, textStatus, errorThrown) {
             responseTime = new Date().getTime() - ajaxTime;
             var errorCode = $.parseJSON(xhr.responseText).Message;
-            $("#LoadingImage").hide();
+           
             focusFieldID = $(':focus').attr("id");
             message = $("#lblErrorMessageE_ROLL_PO_01").text().trim();
             showMessageDialog(message, focusFieldID, ERROR);
@@ -415,21 +431,7 @@ function ExecuteMaterialForecastBatch() {
         
 }
 
-$(function () {
-    $(document).ajaxStart(function () {
 
-        $("#LoadingImage").show();
-    });
-
-    $(document).ajaxStop(function () {
-        $("#LoadingImage").hide();
-    });
-
-    $(document).ajaxError(function () {
-        $("#LoadingImage").hide();
-    });
-
-});
 function IsPODone() {
     var ajaxTime = new Date().getDate();
     var R = $("#txtRoll").val() ? $("#txtRoll").val() : null;

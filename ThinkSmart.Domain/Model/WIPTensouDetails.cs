@@ -121,6 +121,7 @@ namespace TSWebApplication.Domain.Model
         public long? PROCESS_PLAN_CD { get; set; }
         public int LOCATION_CD_FROM { get; set; }
         public Int16 LOCATION_CD_TO { get; set; }
+        public Int16 TRANSIT_LOCATION_CD { get; set; }
         public Int16 VEHICLE { get; set; }
         public DateTime? TRANSFER_DATE { get; set; }
         public DateTime? WIP_TRANSFER_DATE { get; set; }
@@ -128,6 +129,7 @@ namespace TSWebApplication.Domain.Model
         public int? WIP_NEXT_PROSESS { get; set; }
         public string DATE { get; set; }
         public string TRANSFER_DATE_STRING { get; set; }
+        public string TRANSIT_PLANNED_DATE { get; set; }
         public string ACCEPTANCE_DATE_STRING { get; set; }
         public string ACCEPT_PLANNED_DATE { get; set; }
         public DateTime? PLANNED_DATE { get; set; }
@@ -163,7 +165,6 @@ namespace TSWebApplication.Domain.Model
         public string PP_MAIL_LENGTH { get; set; }
         public Int32 PP_MATL_LENGTH { get; set; }
         public long? LOCATION_CD { get; set; }
-        public long? TRANSIT_LOCATION_CD { get; set; }
         public string LOCATION { get; set; }
         public string DECISION_STRING { get; set; }
         public int DECISION { get; set; }

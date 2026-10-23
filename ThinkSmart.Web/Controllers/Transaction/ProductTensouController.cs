@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using TSWebApplication.Application.IServices;
+using TSWebApplication.Domain.Model;
 using TSWebApplication.Domain.Resources;
 using TSWebApplication.Domain.Utility;
 using TSWebApplication.Web.Models;
@@ -26,7 +27,7 @@ namespace TSWebApplication.Web.Controllers.Transaction
         public IActionResult ProductTensouListPage()
         {
             return View();
-
+                
         }
 
         public IActionResult ProductTensouPopup()
@@ -38,6 +39,12 @@ namespace TSWebApplication.Web.Controllers.Transaction
         public IActionResult ProductMasterListGrid([FromBody] List<GridSearchFields> details)
         {
             string view = _viewRenderService.RenderToString("ProductTensou/ProductTensouPopupGrid", details);
+            return Json(new { IsSuccess = true, message = view });
+        }
+
+        public IActionResult TensouDataSearchInGrid([FromBody] List<WIPTensouDetails> details)
+        {
+            string view = _viewRenderService.RenderToString("ProductTensou/ProductTensouListPageGrid", details);
             return Json(new { IsSuccess = true, message = view });
         }
 

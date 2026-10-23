@@ -19,7 +19,15 @@ namespace TSWebApplication.Domain.Model
         public int LAST_R { get; set; }
         public int LAST_YYYY { get; set; }
         public DateTime CURRENT_FORECAST_R { get; set; }
+        public int m_dispatchMonth1 { get; set; }
+        public int m_dispatchMonth2 { get; set; }
+        public int m_dispatchMonth3 { get; set; }
+        public int m_dispatchYear1 { get; set; }
 
-
+        public int m_dispatchYear2 { get; set; }
+        public int m_dispatchYear3 { get; set; }
+        public int resultMonth { get; set; }
+        public int resultYear { get; set; }
+        public int count { get; set; }
     }
 }

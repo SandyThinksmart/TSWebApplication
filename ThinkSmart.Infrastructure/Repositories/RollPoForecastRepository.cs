@@ -450,7 +450,7 @@ namespace TSWebApplication.Infrastructure.Repositories
             return result;
         }
 
-        public List<RollSalesForecastDetails> GetSpecInput1Details(int cust_Cd, int incharge_Cd, int? current_R, int? current_YYYY, decimal? history_Month1, decimal? history_Month2, decimal? history_Month3)
+        public List<RollSalesForecastDetails> GetSpecInput1Details(int cust_Cd, int incharge_Cd, int current_R, int current_YYYY, int m_dispatchMonth1, int m_dispatchMonth2, int m_dispatchMonth3, int m_dispatchYear1, int m_dispatchYear2, int m_dispatchYear3)
         {
 
             List<RollSalesForecastDetails> result = new List<RollSalesForecastDetails>();
@@ -488,42 +488,38 @@ namespace TSWebApplication.Infrastructure.Repositories
             selectQuery.Append(" FC.FC_QTY_R2,");
             selectQuery.Append(" FC.FC_QTY_R3,");
             selectQuery.Append(" FC.FC_QTY_R4,");
-            //selectQuery.Append(" FC.MSG_TO_SHIZAI,");
             selectQuery.Append(" ME.SHORT_NAME     INCHAGE_SHORT_NAME,");
             selectQuery.Append(" ROLL_FC_LOCK_DATE,");
             selectQuery.Append(" PROD_SPEC_NO,");
             selectQuery.Append(" FC.USER_ID,");
-            selectQuery.Append(" SUM(DECODE(B.DISPATCH_MONTH,'" + history_Month1 + "', B.DISPATCH_QTY, NULL)) AS DISPATCH_QTY1,");
-            selectQuery.Append(" SUM(DECODE(B.DISPATCH_MONTH, '" + history_Month2 + "', B.DISPATCH_QTY, NULL)) AS DISPATCH_QTY2,");
-            selectQuery.Append(" SUM(DECODE(B.DISPATCH_MONTH, '" + history_Month3 + "', B.DISPATCH_QTY, NULL)) AS DISPATCH_QTY3,");
-            selectQuery.Append(" to_char(");
-            selectQuery.Append(" SUM(DECODE(B.DISPATCH_MONTH,'" + history_Month1 + "', B.DISPATCH_QTY, NULL)) + ");
-            selectQuery.Append(" SUM(DECODE(B.DISPATCH_MONTH,'" + history_Month2 + "', B.DISPATCH_QTY, NULL)) + ");
-            selectQuery.Append(" SUM(DECODE(B.DISPATCH_MONTH,'" + history_Month2 + "', B.DISPATCH_QTY, NULL))");
-            selectQuery.Append(" / 3,'FM9990.00') AS AVG_DISPATCH_QTY ");
-            // selectQuery.Append(" SUM(bps.PROD_STOCK_QTY)/1000 AS PROD_STOCK_QTY,");
-            //selectQuery.Append(" SUM(CASE");
-            // selectQuery.Append(" WHEN ROUND(SYSDATE - bps.NYUKA_DATE) > 90 ");
-            // selectQuery.Append(" THEN bps.PROD_STOCK_QTY/1000 ");
-            // selectQuery.Append("  ELSE 0 ");
-            // selectQuery.Append("  END) AS PENDING_STOCK");
+            selectQuery.Append("SUM(CASE");
+            selectQuery.Append(" WHEN B.YEAR = " + m_dispatchYear1 + " AND B.MONTH = " + m_dispatchMonth1 + "");
+            selectQuery.Append(" THEN NVL(B.DISPATCH_QTY, 0) ELSE 0 END) AS DISPATCH_QTY1,");
+            selectQuery.Append(" SUM(CASE ");
+            selectQuery.Append(" WHEN B.YEAR = " + m_dispatchYear2 + " AND B.MONTH =" + m_dispatchMonth2 + " ");
+            selectQuery.Append(" THEN NVL(B.DISPATCH_QTY,0) ELSE 0 END) AS DISPATCH_QTY2,");
+            selectQuery.Append(" SUM(CASE ");
+            selectQuery.Append(" WHEN B.YEAR =" + m_dispatchYear3 + " AND B.MONTH = " + m_dispatchMonth3 + "");
+            selectQuery.Append(" THEN NVL(B.DISPATCH_QTY,0) ELSE 0 END) AS DISPATCH_QTY3,");
+            selectQuery.Append(" Round ( ");
+            selectQuery.Append(" (");
+            selectQuery.Append(" SUM(CASE WHEN B.YEAR = " + m_dispatchYear1 + " AND B.MONTH =  " + m_dispatchMonth1 + " THEN NVL(B.DISPATCH_QTY,0) ELSE 0 END) + ");
+            selectQuery.Append(" SUM(CASE WHEN B.YEAR = " + m_dispatchYear2 + " AND B.MONTH =  " + m_dispatchMonth2 + " THEN NVL(B.DISPATCH_QTY,0) ELSE 0 END) +");
+            selectQuery.Append(" SUM(CASE WHEN B.YEAR =  " + m_dispatchYear3 + " AND B.MONTH =  " + m_dispatchMonth3 + " THEN NVL(B.DISPATCH_QTY,0) ELSE 0 END)");
+            selectQuery.Append(") / 3 ");
+            selectQuery.Append(",2) AS AVG_DISPATCH_QTY");
             selectQuery.Append(" FROM");
             selectQuery.Append(" V_PRODUCT_DETAILS   PD");
             selectQuery.Append(" INNER JOIN TRN_SALES_FORECAST        FC ON FC.PRODUCT_CD = PD.PRODUCT_CD ");
-            selectQuery.Append("  INNER JOIN MST_CUSTOMER   MCI ON FC.CUST_CD = MCI.CUSTOMER_CD ");
-            selectQuery.Append("  INNER JOIN MST_EMPLOYEE  ME ON FC.EMP_CD = ME.EMPLOYEE_CD ");
-            selectQuery.Append("  LEFT JOIN (");
-            selectQuery.Append("  SELECT ");
-            selectQuery.Append("  MONTH AS DISPATCH_MONTH, ");
-            selectQuery.Append("  ROOT_VER_PRODUCT_KEY, ");
-            selectQuery.Append("  NVL(DISPATCH_QTY, 0) / 1000 AS DISPATCH_QTY");
-            selectQuery.Append(" FROM ");
-            selectQuery.Append(" BCH_MONTH_END_SHIPMENT");
-            selectQuery.Append("  WHERE ");
-            selectQuery.Append(" YEAR = '" + current_YYYY + "'");
-            selectQuery.Append(" AND MONTH IN( " + history_Month1 + "," + history_Month2 + ","  + history_Month3 + ")");
-            selectQuery.Append("   ) B ON PD.ROOT_VER_PRODUCT_KEY = B.ROOT_VER_PRODUCT_KEY");
-            //selectQuery.Append("  LEFT JOIN BCH_PROD_STOCK BPS ON BPS.PROD_SPEC_CD = PD.PROD_SPEC_NO");
+            selectQuery.Append(" INNER JOIN MST_CUSTOMER   MCI ON FC.CUST_CD = MCI.CUSTOMER_CD ");
+            selectQuery.Append(" INNER JOIN MST_EMPLOYEE  ME ON FC.EMP_CD = ME.EMPLOYEE_CD ");
+            selectQuery.Append(" LEFT JOIN ");
+            selectQuery.Append(" BCH_MONTH_END_SHIPMENT B");
+            selectQuery.Append(" ON PD.ROOT_VER_PRODUCT_KEY = B.ROOT_VER_PRODUCT_KEY");
+            selectQuery.Append(" AND (");
+            selectQuery.Append(" (B.YEAR = " + m_dispatchYear1 + " AND B.MONTH = " + m_dispatchMonth1 + " )");
+            selectQuery.Append(" OR(B.YEAR = " + m_dispatchYear2 + " AND B.MONTH = " + m_dispatchMonth2 + " )");
+            selectQuery.Append(" OR(B.YEAR = " + m_dispatchYear3 + " AND B.MONTH = " + m_dispatchMonth3 +" ) )");
             selectQuery.Append(" WHERE");
             selectQuery.Append(" PD.VERSION = (");
             selectQuery.Append(" SELECT");
